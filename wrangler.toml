@@ -2,7 +2,11 @@ name = "wedahub"
 compatibility_date = "2024-09-23"
 compatibility_flags = ["nodejs_compat"]
 
-main = "./dist/_worker.js/index.js"
+# Astro 7's Cloudflare adapter ships its own entrypoint and builds the Worker
+# through the Cloudflare Vite plugin. Pointing main at dist/_worker.js/index.js
+# now fails the build before it starts: the plugin validates main while
+# resolving config, which is before the file it names has been generated.
+main = "@astrojs/cloudflare/entrypoints/server"
 
 [assets]
 directory = "./dist"
