@@ -182,18 +182,15 @@ export async function submitProviderApplication(fields) {
 
 // ── Auth helpers ──────────────────────────────────────────────────────────────
 
-export async function signInWithOtp(email) {
-  const redirectTo = typeof window !== 'undefined'
-    ? `${window.location.origin}/auth/callback`
-    : '/auth/callback'
-  return supabase.auth.signInWithOtp({ email, options: { emailRedirectTo: redirectTo } })
-}
-
-export async function signInWithGoogle() {
-  const redirectTo = typeof window !== 'undefined'
-    ? `${window.location.origin}/auth/callback`
-    : 'https://wedahub.lk/auth/callback'
-  return supabase.auth.signInWithOAuth({ provider: 'google', options: { redirectTo } })
+// Sign-in is phone + OTP only (§1). The flow is server-side — see
+// src/pages/api/auth/otp/ — and the browser's only part is exchanging the
+// token that route returns for a session cookie, which is what this does.
+//
+// The Google and email helpers that used to live here are gone deliberately:
+// leaving a working OAuth entry point around means accounts keep arriving
+// without a verified number, and the whole identity model rests on the number.
+export async function signInWithVerifiedPhone(tokenHash) {
+  return supabase.auth.verifyOtp({ token_hash: tokenHash, type: 'magiclink' })
 }
 
 export async function getUser() {

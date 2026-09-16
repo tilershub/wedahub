@@ -110,11 +110,9 @@ export default function JoinForm({ initialUser = null }) {
     return () => subscription.unsubscribe()
   }, [])
 
-  async function signInGoogle() {
-    await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: { redirectTo: `${window.location.origin}/join-wedahub` },
-    })
+  // Sign-in is phone + OTP on /login (§1), not a second auth surface here.
+  function signInGoogle() {
+    window.location.href = '/login?next=%2Fjoin-wedahub'
   }
 
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }))

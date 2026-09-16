@@ -71,14 +71,13 @@ function ProviderGate({ previewProjects, bidCounts }) {
   const [loading, setLoading]   = useState(false)
   const [err, setErr]           = useState('')
 
-  async function send(e) {
-    e.preventDefault()
-    if (!email.trim() || !email.includes('@')) { setErr(t('gateBadMail')); return }
-    setLoading(true); setErr('')
-    const { error } = await supabase.auth.signInWithOtp({ email: email.trim(), options: { emailRedirectTo: window.location.href } })
-    setLoading(false)
-    if (error) { setErr(error.message); return }
-    setSent(true)
+  // Sign-in is phone + OTP on /login (§1). The email-link form this gate used
+  // to show is gone: an account with no verified number cannot be matched to a
+  // provider listing, which is the whole point of the identity model.
+  function send(e) {
+    e?.preventDefault()
+    const next = encodeURIComponent(window.location.pathname + window.location.search)
+    window.location.href = `/login?next=${next}`
   }
 
   return (
@@ -113,7 +112,7 @@ function ProviderGate({ previewProjects, bidCounts }) {
                 )))}
               </div>
               <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-                <button onClick={() => setShowAuth(true)} style={{ flex: 1, padding: '12px', background: '#8A6224', color: '#fff', border: 'none', borderRadius: 12, fontSize: 14, fontWeight: 700, cursor: 'pointer', minWidth: 140 }}>
+                <button onClick={send} style={{ flex: 1, padding: '12px', background: '#8A6224', color: '#fff', border: 'none', borderRadius: 12, fontSize: 14, fontWeight: 700, cursor: 'pointer', minWidth: 140 }}>
                   {sinhalaText(t(`gateSignIn`))} →
                 </button>
                 <a href="/join-wedahub" style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '12px', background: '#ECECEC', color: '#8A6224', border: '1.5px solid #EBE2D2', borderRadius: 12, fontSize: 13, fontWeight: 700, textDecoration: 'none', minWidth: 140 }}>

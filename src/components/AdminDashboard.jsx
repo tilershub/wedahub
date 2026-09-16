@@ -1,6 +1,6 @@
 import { si as sinhalaText } from '../lib/sinhala.js'
 import { useState, useEffect, useCallback, useRef } from 'react'
-import { supabase, signInWithOtp, DISTRICTS_EN } from '../lib/supabase.js'
+import { supabase, DISTRICTS_EN } from '../lib/supabase.js'
 import SocialHub from '../modules/social/SocialHub.jsx'
 import { SERVICES, HOME_GROUPS } from '../lib/services.js'
 import { CATEGORIES } from '../lib/categories.js'
@@ -461,14 +461,12 @@ function SignIn() {
   const [err, setErr]     = useState('')
   const [loading, setLoading] = useState(false)
 
-  async function send(e) {
+  // Admins sign in the same way everyone else does — phone + OTP on /login
+  // (§1). Whether the account that comes back is an admin is decided by the
+  // admin_users table, not by how they signed in.
+  function send(e) {
     e.preventDefault()
-    if (!email.includes('@')) { setErr('Enter a valid email'); return }
-    setLoading(true); setErr('')
-    const { error } = await supabase.auth.signInWithOtp({ email, options: { emailRedirectTo: window.location.href } })
-    setLoading(false)
-    if (error) { setErr(error.message); return }
-    setSent(true)
+    window.location.href = '/login?next=%2Fadmin'
   }
 
   return (

@@ -1,6 +1,6 @@
 import { si as sinhalaText } from '../lib/sinhala.js'
 import { useState, useEffect } from 'react'
-import { supabase, signInWithOtp, DISTRICTS_EN } from '../lib/supabase.js'
+import { supabase, DISTRICTS_EN } from '../lib/supabase.js'
 import { useLang } from '../lib/useLang.js'
 
 const DRAFT_KEY = 'tilershub_draft_token'
@@ -136,14 +136,13 @@ function MagicLinkForm({ label, hint, t }) {
   const [loading, setLoading] = useState(false)
   const [err, setErr] = useState('')
 
-  async function send(e) {
+  // Sign-in is phone + OTP on /login (§1). This gate used to take an email and
+  // send a magic link, which is the path that let accounts exist without a
+  // verified number.
+  function send(e) {
     e.preventDefault()
-    if (!email.trim() || !email.includes('@')) { setErr(t.emailInvalid); return }
-    setLoading(true); setErr('')
-    const { error } = await signInWithOtp(email.trim())
-    setLoading(false)
-    if (error) { setErr(error.message); return }
-    setSent(true)
+    const next = encodeURIComponent(window.location.pathname + window.location.search)
+    window.location.href = `/login?next=${next}`
   }
 
   if (sent) {

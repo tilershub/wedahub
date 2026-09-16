@@ -3,9 +3,17 @@ export const prerender = false
 import AdminDashboard from '../components/AdminDashboard.jsx'
 
 const user = Astro.locals.user
-if (!user || user.email !== 'tilershub@gmail.com') {
-  return Astro.redirect('/login')
-}
+if (!user) return Astro.redirect('/login?next=%2Fadmin')
+
+// Who counts as an admin lives in the admin_users table — the same table the
+// is_admin() RLS policies read — rather than a hardcoded address here. With
+// sign-in moving to phone + OTP (§1), an account's email is a synthetic
+// 94XXXXXXXXX@phone.wedahub.lk, so a literal address in the source would lock
+// the admin out the moment they sign in by phone. Adding a number is now a row,
+// not a deploy.
+const { data: admin } = await Astro.locals.supabase
+  .from('admin_users').select('email').eq('email', user.email).maybeSingle()
+if (!admin) return Astro.redirect('/')
 ---
 <!DOCTYPE html>
 <html lang="si" data-lang="si">

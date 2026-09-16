@@ -93,11 +93,12 @@ export default function BidForm({ jobId, bidCount = 0, projectType = '', city = 
 
   function set(k, v) { setForm(f => ({ ...f, [k]: v })) }
 
-  async function signIn() {
-    await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: { redirectTo: window.location.href },
-    })
+  // Sign-in is phone + OTP on /login (§1). Sending people there rather than
+  // opening a second auth surface here keeps one way into the app, and means
+  // the number they verify is the number the identity model records.
+  function signIn() {
+    const next = encodeURIComponent(window.location.pathname + window.location.search)
+    window.location.href = `/login?next=${next}`
   }
 
   async function submit(e) {
