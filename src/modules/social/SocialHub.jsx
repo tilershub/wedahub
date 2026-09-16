@@ -4,9 +4,9 @@ import ContentStudio   from './components/ContentStudio.jsx'
 import ContentCalendar from './components/ContentCalendar.jsx'
 import PostQueue       from './components/PostQueue.jsx'
 
-const NAVY   = '#14171A'
-const GOLD   = '#E8B341'
-const ORANGE = '#D96234'
+const NAVY   = '#0B0B0B'
+const GOLD   = '#D4A15E'
+const ORANGE = '#D4A15E'
 
 const SUBTABS = [
   { key: 'studio',   label: '✨ Studio',   desc: 'Generate AI posts' },
@@ -23,28 +23,28 @@ export default function SocialHub() {
       {/* Page header */}
       <div style={{ marginBottom: 24 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 6 }}>
-          <h2 style={{ fontSize: 22, fontWeight: 800, color: '#14171A', margin: 0 }}>📣 සමාජ මාධ්‍ය මධ්‍යස්ථානය</h2>
-          <span style={{ fontSize: 11, fontWeight: 700, background: GOLD, color: '#14171A', padding: '3px 10px', borderRadius: 20 }}>අලුත්</span>
+          <h2 style={{ fontSize: 22, fontWeight: 800, color: '#0B0B0B', margin: 0 }}>📣 සමාජ මාධ්‍ය මධ්‍යස්ථානය</h2>
+          <span style={{ fontSize: 11, fontWeight: 700, background: GOLD, color: '#0B0B0B', padding: '3px 10px', borderRadius: 20 }}>අලුත්</span>
         </div>
-        <p style={{ fontSize: 13, color: '#6B7076', margin: 0 }}>
+        <p style={{ fontSize: 13, color: '#6E6E6E', margin: 0 }}>
           ප්‍රචාරණ දෙකක් සඳහා සමාජ අන්තර්ගතය සාදා, සැලසුම් කර පෝලිමට එක් කරන්න —
-          <span style={{ color: '#C2542B', fontWeight: 600 }}> 🏠 නිවාස හිමියන් ආකර්ෂණය කරන්න</span> ව්‍යාපෘති පළ කිරීමට සහ
+          <span style={{ color: '#8A6224', fontWeight: 600 }}> 🏠 නිවාස හිමියන් ආකර්ෂණය කරන්න</span> ව්‍යාපෘති පළ කිරීමට සහ
           <span style={{ color: ORANGE, fontWeight: 600 }}> 🔨 ටයිල් කාර්මිකයන් ආකර්ෂණය කරන්න</span> එක්වී මිල ගණන් දීමට. Make.com මගින් <strong>සූදානම්</strong> පළ කිරීම් Facebook සහ Instagram වෙත ස්වයංක්‍රීයව යවයි.
         </p>
       </div>
 
       {/* Sub-tab nav */}
-      <div style={{ display: 'flex', gap: 4, marginBottom: 28, borderBottom: '2px solid #EFEBE4', paddingBottom: 0 }}>
+      <div style={{ display: 'flex', gap: 4, marginBottom: 28, borderBottom: '2px solid #ECECEC', paddingBottom: 0 }}>
         {sinhalaText(SUBTABS.map(t => (
           <button key={t.key} onClick={() => setSubtab(t.key)}
             style={{
               padding: '10px 20px', background: 'transparent', border: 'none',
               borderBottom: subtab === t.key ? `2.5px solid ${NAVY}` : '2.5px solid transparent',
               marginBottom: -2, fontSize: 13, fontWeight: 700, cursor: 'pointer',
-              color: subtab === t.key ? NAVY : '#8A8F95', transition: 'all 0.12s',
+              color: subtab === t.key ? NAVY : '#8C8C8C', transition: 'all 0.12s',
             }}>
             {sinhalaText(t.label)}
-            <span style={{ fontSize: 10, fontWeight: 400, color: '#8A8F95', display: 'block', marginTop: 1 }}>{sinhalaText(t.desc)}</span>
+            <span style={{ fontSize: 10, fontWeight: 400, color: '#8C8C8C', display: 'block', marginTop: 1 }}>{sinhalaText(t.desc)}</span>
           </button>
         )))}
       </div>

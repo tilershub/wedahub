@@ -88,13 +88,13 @@ export default function HomeProvider({ user, provider = null, initialJobs = [], 
             <span style={{ flex: 1 }} />
             <span style={{ font: '700 13px var(--th-display)', color: 'var(--th-forest)' }}>{sinhalaText(strength)}%</span>
           </div>
-          <div style={{ height: 6, borderRadius: 99, background: 'rgba(20,23,26,0.1)', overflow: 'hidden', marginBottom: 12 }}>
+          <div style={{ height: 6, borderRadius: 99, background: 'rgba(11,11,11,0.1)', overflow: 'hidden', marginBottom: 12 }}>
             <div style={{ height: '100%', width: `${strength}%`, borderRadius: 99, background: 'var(--terra)' }} />
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 7, marginBottom: 13 }}>
             {sinhalaText(todo.slice(0, 3).map(task => (
               <div key={task.key} style={{ display: 'flex', gap: 9, alignItems: 'center', fontSize: 12.5, color: 'var(--text-2)' }}>
-                <span aria-hidden="true" style={{ font: '700 12px var(--th-display)', color: '#B4B0A8' }}>○</span>
+                <span aria-hidden="true" style={{ font: '700 12px var(--th-display)', color: '#B0B0B0' }}>○</span>
                 {sinhalaText(lang === 'si' ? task.si : task.en)}
               </div>
             )))}

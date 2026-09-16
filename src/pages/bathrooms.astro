@@ -42,14 +42,14 @@ const BRAND_META = {
   'rocell':      { color: '#FFFFFF', bg: '#002B5B' },
   'lanka-tile':  { color: '#FFFFFF', bg: '#CC2229' },
   'macktiles':   { color: '#FFFFFF', bg: '#2F6B4F' },
-  'megatile':    { color: '#FFFFFF', bg: '#5D4037' },
+  'megatile':    { color: '#FFFFFF', bg: '#4A4A4A' },
   'swisstek':    { color: '#FFFFFF', bg: '#1565C0' },
   'tokyo-super': { color: '#FFFFFF', bg: '#C0392B' },
-  'dr-fixit':    { color: '#FFFFFF', bg: '#C2542B' },
+  'dr-fixit':    { color: '#FFFFFF', bg: '#8A6224' },
   'sika':        { color: '#FFFFFF', bg: '#B71C1C' },
   'finex':       { color: '#FFFFFF', bg: '#1A237E' },
 }
-function meta(brand) { return BRAND_META[brand.slug] || { color: '#fff', bg: '#C2542B' } }
+function meta(brand) { return BRAND_META[brand.slug] || { color: '#fff', bg: '#8A6224' } }
 function logoText(name) { return name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase() }
 
 const PRODUCT_CATEGORIES = [
@@ -71,11 +71,11 @@ import { brandHref, sponsorPage } from '../lib/sponsors.js'
 >
 
   <!-- Hero -->
-  <div style="background:linear-gradient(135deg,#14171A,#C2542B);padding:52px 20px 44px;text-align:center;position:relative;overflow:hidden;">
+  <div style="background:linear-gradient(135deg,#0B0B0B,#8A6224);padding:52px 20px 44px;text-align:center;position:relative;overflow:hidden;">
     <div style="position:absolute;inset:0;opacity:0.04;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,0.8) 39px,rgba(255,255,255,0.8) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(255,255,255,0.8) 39px,rgba(255,255,255,0.8) 40px);pointer-events:none;"></div>
     <div style="position:absolute;top:-100px;left:50%;transform:translateX(-50%);width:700px;height:400px;background:radial-gradient(ellipse,rgba(255,255,255,0.04) 0%,transparent 70%);pointer-events:none;"></div>
     <div style="position:relative;max-width:600px;margin:0 auto;">
-      <span style="font-size:9px;font-weight:700;color:rgba(194,84,43,0.7);letter-spacing:3px;text-transform:uppercase;display:block;margin-bottom:14px;">🚿 නාන කාමර</span>
+      <span style="font-size:9px;font-weight:700;color:rgba(212,161,94,0.7);letter-spacing:3px;text-transform:uppercase;display:block;margin-bottom:14px;">🚿 නාන කාමර</span>
       <h1 style="font-family: var(--th-display);font-size:clamp(26px,4vw,42px);font-weight:700;color:#fff;margin:0 0 12px;line-height:1.2;">
         නාන කාමරය <span style="color:var(--terra);">නිෂ්පාදන සහ සවිකිරීම්</span>
       </h1>
@@ -83,7 +83,7 @@ import { brandHref, sponsorPage } from '../lib/sponsors.js'
         ශ්‍රී ලංකාව පුරා නාන කාමර ප්‍රදර්ශනාගාර, සනීපාරක්ෂක සන්නාම, ජලරෝධන ද්‍රව්‍ය, කරාම සහ අලුත්වැඩියා කොන්ත්‍රාත්කරුවන් සොයන්න.
       </p>
       <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
-        <a href="/join-wedahub" style="display:inline-flex;align-items:center;gap:7px;background:#C2542B;color:#fff;border-radius:11px;padding:12px 22px;font-size:13px;font-weight:800;text-decoration:none;">
+        <a href="/join-wedahub" style="display:inline-flex;align-items:center;gap:7px;background:#8A6224;color:#fff;border-radius:11px;padding:12px 22px;font-size:13px;font-weight:800;text-decoration:none;">
           🚿 ඔබේ වෙළෙඳසැල ලැයිස්තුගත කරන්න
         </a>
         <a href="/post-project" style="display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.75);border:1px solid rgba(255,255,255,0.15);border-radius:11px;padding:12px 20px;font-size:13px;font-weight:600;text-decoration:none;">
@@ -104,7 +104,7 @@ import { brandHref, sponsorPage } from '../lib/sponsors.js'
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;">
         {PRODUCT_CATEGORIES.map(cat => (
           <div style="background:#fff;border-radius:14px;border:1px solid var(--border);padding:20px;display:flex;gap:14px;align-items:flex-start;">
-            <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#F7EFE9,#F3E7DF);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">{sinhalaText(cat.icon)}</div>
+            <div style="width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,#F5EEE2,#F2EADC);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">{sinhalaText(cat.icon)}</div>
             <div>
               <div style="font-size:14px;font-weight:700;color:var(--text);margin-bottom:4px;">{sinhalaText(cat.name)}</div>
               <div style="font-size:11px;color:var(--text-3);line-height:1.6;">{sinhalaText(cat.desc)}</div>
@@ -121,7 +121,7 @@ import { brandHref, sponsorPage } from '../lib/sponsors.js'
       <div style="max-width:1100px;margin:0 auto;padding:0 20px;">
         <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px;">
           <div style="display:flex;align-items:center;gap:12px;">
-            <div style="width:36px;height:36px;background:linear-gradient(135deg,#14171A,#C2542B);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;">🚿</div>
+            <div style="width:36px;height:36px;background:linear-gradient(135deg,#0B0B0B,#8A6224);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;">🚿</div>
             <div>
               <div style="font-size:18px;font-weight:700;color:var(--text);">නාන කාමර සන්නාම</div>
               <div style="font-size:12px;color:var(--text-4);">සනීපාරක්ෂක උපකරණ, කරාම, ෂවර්, නාන බේසම් සහ නානකාමර උපාංග</div>
@@ -138,14 +138,14 @@ import { brandHref, sponsorPage } from '../lib/sponsors.js'
                 const isFeaturedPage = !!sponsorPage(brand)
                 return (
                   <a href={href}
-                    style={`display:block;width:240px;flex-shrink:0;background:#fff;border-radius:16px;border:${isFeaturedPage ? '2px solid var(--gold)' : '1px solid #E4E0D9'};padding:20px;text-decoration:none;color:inherit;scroll-snap-align:start;position:relative;overflow:hidden;`}>
-                    {isFeaturedPage && <div style="position:absolute;top:0;right:0;background:var(--gold);color:#0d0b08;font-size:9px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-bottom-left-radius:10px;">අනුග්‍රාහක</div>}
+                    style={`display:block;width:240px;flex-shrink:0;background:#fff;border-radius:16px;border:${isFeaturedPage ? '2px solid var(--gold)' : '1px solid #E2E2E2'};padding:20px;text-decoration:none;color:inherit;scroll-snap-align:start;position:relative;overflow:hidden;`}>
+                    {isFeaturedPage && <div style="position:absolute;top:0;right:0;background:var(--gold);color:#0B0B0B;font-size:9px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-bottom-left-radius:10px;">අනුග්‍රාහක</div>}
                     <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
                       <div style={`width:52px;height:52px;border-radius:13px;background:${m.bg};display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:800;color:${m.color};letter-spacing:-0.5px;flex-shrink:0;font-family: var(--th-display);`}>{sinhalaText(logoText(brand.name))}</div>
                       <div>
                         <div style="font-size:15px;font-weight:700;color:var(--text);line-height:1.2;">{sinhalaText(brand.name)}</div>
                         {isFeaturedPage
-                          ? <span style="font-size:10px;color:#92762a;font-weight:700;">⭐ විශේෂාංගගත</span>
+                          ? <span style="font-size:10px;color:#8A6224;font-weight:700;">⭐ විශේෂාංගගත</span>
                           : brand.is_featured && <span style="font-size:10px;color:var(--navy);font-weight:700;">✓ සත්‍යාපිත</span>
                         }
                       </div>
@@ -153,7 +153,7 @@ import { brandHref, sponsorPage } from '../lib/sponsors.js'
                     <p style="font-size:11px;color:var(--text-3);line-height:1.6;margin:0 0 12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">{sinhalaText(brand.description)}</p>
                     <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px;">
                       {(brand.categories || []).slice(0, 2).map(c => (
-                        <span style="font-size:9px;padding:2px 8px;border-radius:20px;background:#F7EFE9;color:#C2542B;border:1px solid #E7D9CE;font-weight:600;">{sinhalaText(c)}</span>
+                        <span style="font-size:9px;padding:2px 8px;border-radius:20px;background:#F5EEE2;color:#8A6224;border:1px solid #E8DCC6;font-weight:600;">{sinhalaText(c)}</span>
                       ))}
                     </div>
                     <div style="font-size:11px;font-weight:700;color:var(--navy);">{sinhalaText(isFeaturedPage ? 'View Sponsor Page →' : 'View Brand →')}</div>
@@ -189,7 +189,7 @@ import { brandHref, sponsorPage } from '../lib/sponsors.js'
                 const m = meta(brand)
                 return (
                   <a href={`/brands/${brand.slug}`}
-                    style={`display:block;width:240px;flex-shrink:0;background:#fff;border-radius:16px;border:1px solid #E4E0D9;padding:20px;text-decoration:none;color:inherit;scroll-snap-align:start;position:relative;overflow:hidden;`}>
+                    style={`display:block;width:240px;flex-shrink:0;background:#fff;border-radius:16px;border:1px solid #E2E2E2;padding:20px;text-decoration:none;color:inherit;scroll-snap-align:start;position:relative;overflow:hidden;`}>
                     <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
                       <div style={`width:52px;height:52px;border-radius:13px;background:${m.bg};display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:800;color:${m.color};letter-spacing:-0.5px;flex-shrink:0;font-family: var(--th-display);`}>{sinhalaText(logoText(brand.name))}</div>
                       <div>
@@ -253,7 +253,7 @@ import { brandHref, sponsorPage } from '../lib/sponsors.js'
     <div style="max-width:1100px;margin:0 auto;">
       <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:28px;">
         <div style="display:flex;align-items:center;gap:12px;">
-          <div style="width:36px;height:36px;background:linear-gradient(135deg,#C2542B,#c44a1f);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;">🏗️</div>
+          <div style="width:36px;height:36px;background:linear-gradient(135deg,#8A6224,#8A6224);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;">🏗️</div>
           <div>
             <div style="font-size:18px;font-weight:700;color:var(--text);">නාන කාමර කොන්ත්‍රාත්කරුවන්</div>
             <div style="font-size:12px;color:var(--text-4);">සවිකිරීමේ, අලුත්වැඩියා සහ ඉදිකිරීම් විශේෂඥයන්</div>
@@ -266,13 +266,13 @@ import { brandHref, sponsorPage } from '../lib/sponsors.js'
 
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:18px;">
         {contractors.map(c => (
-          <div style="background:#fff;border-radius:18px;border:1px solid #E4E0D9;padding:20px;box-shadow:0 2px 12px rgba(0,0,0,0.05);">
+          <div style="background:#fff;border-radius:18px;border:1px solid #E2E2E2;padding:20px;box-shadow:0 2px 12px rgba(0,0,0,0.05);">
             <div style="display:flex;align-items:flex-start;gap:14px;margin-bottom:12px;">
-              <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#C2542B,#c44a1f);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">🏗️</div>
+              <div style="width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,#8A6224,#8A6224);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;">🏗️</div>
               <div>
                 <div style="font-size:15px;font-weight:800;color:var(--text);line-height:1.2;">{sinhalaText(c.name)}</div>
                 {(c.city || c.district) && <div style="font-size:12px;color:var(--text-3);margin-top:2px;">📍 {sinhalaText(c.city)}{sinhalaText(c.district ? `, ${c.district}` : '')}</div>}
-                <span style="font-size:10px;padding:2px 8px;border-radius:10px;background:#F3E7DF;color:#2A2F35;font-weight:700;display:inline-block;margin-top:4px;">🏗️ කොන්ත්‍රාත්කරු</span>
+                <span style="font-size:10px;padding:2px 8px;border-radius:10px;background:#F2EADC;color:#242424;font-weight:700;display:inline-block;margin-top:4px;">🏗️ කොන්ත්‍රාත්කරු</span>
               </div>
             </div>
             {c.description && (
@@ -281,7 +281,7 @@ import { brandHref, sponsorPage } from '../lib/sponsors.js'
             {(c.services || []).length > 0 && (
               <div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px;">
                 {(c.services || []).slice(0,4).map(sv => (
-                  <span style="font-size:10px;padding:2px 8px;border-radius:20px;background:#F3E7DF;color:#2A2F35;border:1px solid #E7D9CE;font-weight:600;">{sinhalaText(sv)}</span>
+                  <span style="font-size:10px;padding:2px 8px;border-radius:20px;background:#F2EADC;color:#242424;border:1px solid #E8DCC6;font-weight:600;">{sinhalaText(sv)}</span>
                 ))}
               </div>
             )}
@@ -326,5 +326,5 @@ import { brandHref, sponsorPage } from '../lib/sponsors.js'
 <style>
   .brands-scroll::-webkit-scrollbar { height: 4px; }
   .brands-scroll::-webkit-scrollbar-track { background: transparent; }
-  .brands-scroll::-webkit-scrollbar-thumb { background: #D6D0C6; border-radius: 4px; }
+  .brands-scroll::-webkit-scrollbar-thumb { background: #D0D0D0; border-radius: 4px; }
 </style>

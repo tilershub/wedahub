@@ -76,8 +76,8 @@ const heroCoverSrc = item.cover_image || item.profile_image || gallery[0] || nul
 
 // Verification
 function verBadge(vs: string | null) {
-  if (vs === 'th_master')         return { label: 'TH Master ★',      bg: '#2A2F35', color: '#F3E7DF' }
-  if (vs === 'th_certified_pro')  return { label: 'Certified Pro ✦',  bg: '#C2542B', color: '#E7D9CE' }
+  if (vs === 'th_master')         return { label: 'TH Master ★',      bg: '#242424', color: '#F2EADC' }
+  if (vs === 'th_certified_pro')  return { label: 'Certified Pro ✦',  bg: '#8A6224', color: '#E8DCC6' }
   if (vs === 'th_verified' || vs === 'verified') return { label: '✓ Verified', bg: 'rgba(22,163,74,0.92)', color: '#fff' }
   return null
 }
@@ -200,7 +200,7 @@ const shopVisitLink = phone ? waLink(phone, name, 'visit') : null
 function initials(n: string) {
   return n.split(' ').slice(0,2).map((w:string) => w[0]||'').join('').toUpperCase() || '?'
 }
-const AVATAR_COLORS = ['#C2542B','#C2542B','#8E3C1E','#C2542B','#2F6B4F','#C2542B','#285C43']
+const AVATAR_COLORS = ['#8A6224','#8A6224','#6B4A18','#8A6224','#2F6B4F','#8A6224','#285C43']
 function avatarColor(n: string) {
   let h = 0; for (const c of n) h = (h*31+c.charCodeAt(0))>>>0
   return AVATAR_COLORS[h % AVATAR_COLORS.length]
@@ -277,7 +277,7 @@ const breadcrumbSchema = JSON.stringify({
   {layoutType === 'professional' && (
     <div>
       <!-- Hero: 220px, personal feel -->
-      <div style="position:relative;height:220px;overflow:hidden;background:#14171A;">
+      <div style="position:relative;height:220px;overflow:hidden;background:#0B0B0B;">
         {heroCoverSrc
           ? <img src={heroCoverSrc} alt={sinhalaText(name)} style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" />
           : <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 29px,rgba(255,255,255,0.06) 29px,rgba(255,255,255,0.06) 30px),repeating-linear-gradient(90deg,transparent,transparent 29px,rgba(255,255,255,0.06) 29px,rgba(255,255,255,0.06) 30px);pointer-events:none;"></div>
@@ -311,7 +311,7 @@ const breadcrumbSchema = JSON.stringify({
 
       <!-- CTA: WhatsApp only -->
       {phone && (
-        <div style="background:#fff;padding:14px 16px;border-bottom:1px solid #E4E0D9;">
+        <div style="background:#fff;padding:14px 16px;border-bottom:1px solid #E2E2E2;">
           <a href={waLink(phone, name)} target="_blank" rel="noopener noreferrer"
             style="display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:#25D366;color:#fff;border-radius:14px;padding:14px;font-size:14px;font-weight:700;text-decoration:none;box-shadow:0 4px 12px rgba(37,211,102,0.3);">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -322,43 +322,43 @@ const breadcrumbSchema = JSON.stringify({
 
       <!-- Stats: experience | daily rate | rating -->
       {(expYears > 0 || item.daily_rate_min || avgRating > 0) && (
-        <div style="background:#FBFAF8;border-bottom:1px solid #E4E0D9;padding:14px 16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(72px,1fr));gap:4px;text-align:center;">
+        <div style="background:#F7F7F7;border-bottom:1px solid #E2E2E2;padding:14px 16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(72px,1fr));gap:4px;text-align:center;">
           {expYears > 0 && (
             <div style="padding:8px 4px;">
-              <div style="font-size:18px;font-weight:800;color:#14171A;font-family: var(--th-display);line-height:1;">{sinhalaText(expYears)}+</div>
-              <div style="font-size:9px;color:#6B7076;margin-top:3px;line-height:1.3;">වසර<br/>පළපුරුද්ද</div>
+              <div style="font-size:18px;font-weight:800;color:#0B0B0B;font-family: var(--th-display);line-height:1;">{sinhalaText(expYears)}+</div>
+              <div style="font-size:9px;color:#6E6E6E;margin-top:3px;line-height:1.3;">වසර<br/>පළපුරුද්ද</div>
             </div>
           )}
           {item.daily_rate_min && (
             <div style="padding:8px 4px;">
-              <div style="font-size:13px;font-weight:800;color:#14171A;font-family: var(--th-display);line-height:1;">රු.{sinhalaText(item.daily_rate_min)}{sinhalaText(item.daily_rate_max ? `–${item.daily_rate_max}` : '+')}</div>
-              <div style="font-size:9px;color:#6B7076;margin-top:3px;line-height:1.3;">එකකට<br/>වර්ග අඩි</div>
+              <div style="font-size:13px;font-weight:800;color:#0B0B0B;font-family: var(--th-display);line-height:1;">රු.{sinhalaText(item.daily_rate_min)}{sinhalaText(item.daily_rate_max ? `–${item.daily_rate_max}` : '+')}</div>
+              <div style="font-size:9px;color:#6E6E6E;margin-top:3px;line-height:1.3;">එකකට<br/>වර්ග අඩි</div>
             </div>
           )}
           {avgRating > 0 && (
             <div style="padding:8px 4px;">
-              <div style="font-size:18px;font-weight:800;color:#14171A;font-family: var(--th-display);line-height:1;">{sinhalaText(avgRating.toFixed(1))}</div>
-              <div style="font-size:9px;color:#6B7076;margin-top:3px;line-height:1.3;">ඇගයීම<br/>{sinhalaText(reviewCount > 0 ? `සමාලෝචන ${reviewCount}` : '')}</div>
+              <div style="font-size:18px;font-weight:800;color:#0B0B0B;font-family: var(--th-display);line-height:1;">{sinhalaText(avgRating.toFixed(1))}</div>
+              <div style="font-size:9px;color:#6E6E6E;margin-top:3px;line-height:1.3;">ඇගයීම<br/>{sinhalaText(reviewCount > 0 ? `සමාලෝචන ${reviewCount}` : '')}</div>
             </div>
           )}
         </div>
       )}
 
       {isUnverified && (
-        <div style="background:#fef9f0;border-bottom:1px solid #E7D9CE;padding:12px 16px;font-size:12px;color:#78716c;line-height:1.7;">
+        <div style="background:#F7F7F7;border-bottom:1px solid #E8DCC6;padding:12px 16px;font-size:12px;color:#6E6E6E;line-height:1.7;">
           ℹ️ මෙම ගොනුව ප්‍රජාව ඉදිරිපත් කළ තොරතුරු ආශ්‍රිතව වැඩHUB විසින් තවම සත්‍යාපනය කර නොමැත.
         </div>
       )}
 
       <!-- Services -->
       {services.length > 0 && (
-        <section style="background:#FBFAF8;padding:20px 16px 24px;border-bottom:1px solid #EFEBE4;">
-          <h2 style="font-size:15px;font-weight:700;color:#14171A;margin:0 0 14px;">ශිල්ප සේවාවන්</h2>
+        <section style="background:#F7F7F7;padding:20px 16px 24px;border-bottom:1px solid #ECECEC;">
+          <h2 style="font-size:15px;font-weight:700;color:#0B0B0B;margin:0 0 14px;">ශිල්ප සේවාවන්</h2>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
             {services.map((s: string) => (
-              <div style="display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #E4E0D9;border-radius:12px;padding:11px 12px;">
+              <div style="display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #E2E2E2;border-radius:12px;padding:11px 12px;">
                 <span style="font-size:20px;flex-shrink:0;">{sinhalaText(SERVICE_ICONS[s] || '🔧')}</span>
-                <span style="font-size:11px;font-weight:600;color:#3A4046;line-height:1.3;">{sinhalaText(s)}</span>
+                <span style="font-size:11px;font-weight:600;color:#4A4A4A;line-height:1.3;">{sinhalaText(s)}</span>
               </div>
             ))}
           </div>
@@ -367,18 +367,18 @@ const breadcrumbSchema = JSON.stringify({
 
       <!-- Bio -->
       {item.description && (
-        <section style="background:#fff;padding:20px 16px 24px;border-bottom:1px solid #EFEBE4;">
-          <h2 style="font-size:15px;font-weight:700;color:#14171A;margin:0 0 10px;">ගැන {sinhalaText(name)}</h2>
-          <p style="font-size:13px;color:#6B7076;line-height:1.8;margin:0;">{sinhalaText(item.description)}</p>
+        <section style="background:#fff;padding:20px 16px 24px;border-bottom:1px solid #ECECEC;">
+          <h2 style="font-size:15px;font-weight:700;color:#0B0B0B;margin:0 0 10px;">ගැන {sinhalaText(name)}</h2>
+          <p style="font-size:13px;color:#6E6E6E;line-height:1.8;margin:0;">{sinhalaText(item.description)}</p>
         </section>
       )}
 
       <!-- Portfolio: "My Work" gallery -->
       {gallery.length > 0 && (
-        <section id="gallery-section" style="background:#fff;padding:20px 0 24px;border-bottom:1px solid #EFEBE4;">
+        <section id="gallery-section" style="background:#fff;padding:20px 0 24px;border-bottom:1px solid #ECECEC;">
           <div style="display:flex;align-items:center;justify-content:space-between;padding:0 16px 12px;">
-            <span style="font-size:15px;font-weight:700;color:#14171A;">📸 මගේ වැඩ</span>
-            <button id="all-photos-btn" style="font-size:12px;font-weight:600;color:#C2542B;background:none;border:none;cursor:pointer;padding:0;">සියල්ල බලන්න →</button>
+            <span style="font-size:15px;font-weight:700;color:#0B0B0B;">📸 මගේ වැඩ</span>
+            <button id="all-photos-btn" style="font-size:12px;font-weight:600;color:#8A6224;background:none;border:none;cursor:pointer;padding:0;">සියල්ල බලන්න →</button>
           </div>
           <div style="display:flex;gap:12px;overflow-x:auto;padding:0 16px 4px;scrollbar-width:none;-webkit-overflow-scrolling:touch;">
             {gallery.map((img: string, i: number) => (
@@ -394,19 +394,19 @@ const breadcrumbSchema = JSON.stringify({
 
       <!-- Experience stats -->
       {(item.total_jobs > 0 || item.daily_rate_min) && (
-        <section style="background:#fff;padding:20px 16px 24px;border-bottom:1px solid #EFEBE4;">
-          <h2 style="font-size:15px;font-weight:700;color:#14171A;margin:0 0 12px;">අත්දැකීම</h2>
+        <section style="background:#fff;padding:20px 16px 24px;border-bottom:1px solid #ECECEC;">
+          <h2 style="font-size:15px;font-weight:700;color:#0B0B0B;margin:0 0 12px;">අත්දැකීම</h2>
           <div style="display:flex;gap:10px;flex-wrap:wrap;">
             {item.total_jobs > 0 && (
-              <div style="flex:1;min-width:80px;padding:14px;background:#FBFAF8;border:1px solid #E4E0D9;border-radius:14px;text-align:center;">
-                <div style="font-size:22px;font-weight:800;color:#14171A;font-family: var(--th-display);">{sinhalaText(item.total_jobs)}</div>
-                <div style="font-size:10px;color:#6B7076;margin-top:3px;">සේවා ගණන</div>
+              <div style="flex:1;min-width:80px;padding:14px;background:#F7F7F7;border:1px solid #E2E2E2;border-radius:14px;text-align:center;">
+                <div style="font-size:22px;font-weight:800;color:#0B0B0B;font-family: var(--th-display);">{sinhalaText(item.total_jobs)}</div>
+                <div style="font-size:10px;color:#6E6E6E;margin-top:3px;">සේවා ගණන</div>
               </div>
             )}
             {item.daily_rate_min && (
-              <div style="flex:1;min-width:80px;padding:14px;background:#FBFAF8;border:1px solid #E4E0D9;border-radius:14px;text-align:center;">
-                <div style="font-size:14px;font-weight:800;color:#14171A;font-family: var(--th-display);">රු.{sinhalaText(item.daily_rate_min)}–{sinhalaText(item.daily_rate_max)}/වර්ග අඩි</div>
-                <div style="font-size:10px;color:#6B7076;margin-top:3px;">ගාස්තු (sq.ft ට)</div>
+              <div style="flex:1;min-width:80px;padding:14px;background:#F7F7F7;border:1px solid #E2E2E2;border-radius:14px;text-align:center;">
+                <div style="font-size:14px;font-weight:800;color:#0B0B0B;font-family: var(--th-display);">රු.{sinhalaText(item.daily_rate_min)}–{sinhalaText(item.daily_rate_max)}/වර්ග අඩි</div>
+                <div style="font-size:10px;color:#6E6E6E;margin-top:3px;">ගාස්තු (sq.ft ට)</div>
               </div>
             )}
           </div>
@@ -420,14 +420,14 @@ const breadcrumbSchema = JSON.stringify({
 
       <!-- Bottom CTA -->
       {phone && (
-        <section style="background:#FBFAF8;border-top:1px solid #E4E0D9;padding:16px;display:flex;gap:8px;flex-wrap:wrap;">
+        <section style="background:#F7F7F7;border-top:1px solid #E2E2E2;padding:16px;display:flex;gap:8px;flex-wrap:wrap;">
           <a href={waLink(phone, name)} target="_blank" rel="noopener noreferrer"
             style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:#25D366;color:#fff;border-radius:12px;padding:12px 10px;font-size:12px;font-weight:700;text-decoration:none;">
             💬 WhatsApp
           </a>
           {gallery.length > 0 && (
             <a href="#gallery-section"
-              style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:#14171A;color:#fff;border-radius:12px;padding:12px 10px;font-size:12px;font-weight:700;text-decoration:none;">
+              style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:#0B0B0B;color:#fff;border-radius:12px;padding:12px 10px;font-size:12px;font-weight:700;text-decoration:none;">
               📷 කළ වැඩ බලන්න
             </a>
           )}
@@ -442,13 +442,13 @@ const breadcrumbSchema = JSON.stringify({
   {layoutType === 'contractor' && (
     <div>
       <!-- Hero: 300px full-bleed -->
-      <div style="position:relative;height:300px;overflow:hidden;background:#14171A;">
+      <div style="position:relative;height:300px;overflow:hidden;background:#0B0B0B;">
         {heroCoverSrc
           ? <img src={heroCoverSrc} alt={sinhalaText(name)} style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" />
           : <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 29px,rgba(255,255,255,0.06) 29px,rgba(255,255,255,0.06) 30px),repeating-linear-gradient(90deg,transparent,transparent 29px,rgba(255,255,255,0.06) 29px,rgba(255,255,255,0.06) 30px);pointer-events:none;"></div>
         }
         <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.92) 0%,rgba(0,0,0,0.5) 50%,rgba(0,0,0,0.15) 100%);"></div>
-        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#E08A5F,#f0c94d);"></div>
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#D4A15E,#f0c94d);"></div>
         <div style="position:absolute;top:16px;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:0 16px;">
           <a href="/providers" style="display:inline-flex;align-items:center;gap:5px;font-size:11px;color:rgba(255,255,255,0.75);font-weight:600;text-decoration:none;background:rgba(0,0,0,0.3);padding:5px 10px;border-radius:20px;backdrop-filter:blur(6px);">← සියලු සේවා සපයන්නන්</a>
           {gallery.length > 0 && (
@@ -480,14 +480,14 @@ const breadcrumbSchema = JSON.stringify({
 
       <!-- CTA: WhatsApp + Book a Site Visit -->
       {phone && (
-        <div style="background:#fff;padding:14px 16px;display:flex;gap:10px;border-bottom:1px solid #E4E0D9;">
+        <div style="background:#fff;padding:14px 16px;display:flex;gap:10px;border-bottom:1px solid #E2E2E2;">
           <a href={waLink(phone, name)} target="_blank" rel="noopener noreferrer"
             style="flex:1;display:flex;align-items:center;justify-content:center;gap:7px;background:#25D366;color:#fff;border-radius:14px;padding:13px 10px;font-size:13px;font-weight:700;text-decoration:none;box-shadow:0 4px 12px rgba(37,211,102,0.3);">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
             WhatsApp {sinhalaText(firstName)}
           </a>
           <a href={waLink(phone, name, 'visit')} target="_blank" rel="noopener noreferrer"
-            style="flex:1;display:flex;align-items:center;justify-content:center;gap:7px;background:#14171A;color:#fff;border-radius:14px;padding:13px 10px;font-size:13px;font-weight:700;text-decoration:none;">
+            style="flex:1;display:flex;align-items:center;justify-content:center;gap:7px;background:#0B0B0B;color:#fff;border-radius:14px;padding:13px 10px;font-size:13px;font-weight:700;text-decoration:none;">
             📅 ස්ථාන පරීක්ෂාවක් වෙන්කරගන්න
           </a>
         </div>
@@ -495,17 +495,17 @@ const breadcrumbSchema = JSON.stringify({
 
       <!-- Stats bar -->
       {(expYears > 0 || avgRating > 0 || reviewCount > 0 || badge) && (
-        <div style="background:#FBFAF8;border-bottom:1px solid #E4E0D9;padding:14px 16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(72px,1fr));gap:4px;text-align:center;">
+        <div style="background:#F7F7F7;border-bottom:1px solid #E2E2E2;padding:14px 16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(72px,1fr));gap:4px;text-align:center;">
           {expYears > 0 && (
             <div style="padding:8px 4px;">
-              <div style="font-size:18px;font-weight:800;color:#14171A;font-family: var(--th-display);line-height:1;">{sinhalaText(expYears)}+</div>
-              <div style="font-size:9px;color:#6B7076;margin-top:3px;line-height:1.3;">වසර<br/>පළපුරුද්ද</div>
+              <div style="font-size:18px;font-weight:800;color:#0B0B0B;font-family: var(--th-display);line-height:1;">{sinhalaText(expYears)}+</div>
+              <div style="font-size:9px;color:#6E6E6E;margin-top:3px;line-height:1.3;">වසර<br/>පළපුරුද්ද</div>
             </div>
           )}
           {avgRating > 0 && (
             <div style="padding:8px 4px;">
-              <div style="font-size:18px;font-weight:800;color:#14171A;font-family: var(--th-display);line-height:1;">{sinhalaText(avgRating.toFixed(1))}</div>
-              <div style="font-size:9px;color:#6B7076;margin-top:3px;line-height:1.3;">ඇගයීම<br/>{sinhalaText(reviewCount > 0 ? `සමාලෝචන ${reviewCount}` : '')}</div>
+              <div style="font-size:18px;font-weight:800;color:#0B0B0B;font-family: var(--th-display);line-height:1;">{sinhalaText(avgRating.toFixed(1))}</div>
+              <div style="font-size:9px;color:#6E6E6E;margin-top:3px;line-height:1.3;">ඇගයීම<br/>{sinhalaText(reviewCount > 0 ? `සමාලෝචන ${reviewCount}` : '')}</div>
             </div>
           )}
           {badge && (
@@ -519,10 +519,10 @@ const breadcrumbSchema = JSON.stringify({
 
       <!-- Gallery: Featured Projects -->
       {gallery.length > 0 && (
-        <section id="gallery-section" style="background:#fff;padding:20px 0 24px;border-bottom:1px solid #EFEBE4;">
+        <section id="gallery-section" style="background:#fff;padding:20px 0 24px;border-bottom:1px solid #ECECEC;">
           <div style="display:flex;align-items:center;justify-content:space-between;padding:0 16px 12px;">
-            <span style="font-size:15px;font-weight:700;color:#14171A;">විශේෂ ව්‍යාපෘති</span>
-            <button id="all-photos-btn" style="font-size:12px;font-weight:600;color:#C2542B;background:none;border:none;cursor:pointer;padding:0;">සියල්ල බලන්න →</button>
+            <span style="font-size:15px;font-weight:700;color:#0B0B0B;">විශේෂ ව්‍යාපෘති</span>
+            <button id="all-photos-btn" style="font-size:12px;font-weight:600;color:#8A6224;background:none;border:none;cursor:pointer;padding:0;">සියල්ල බලන්න →</button>
           </div>
           <div style="display:flex;gap:12px;overflow-x:auto;padding:0 16px 4px;scrollbar-width:none;-webkit-overflow-scrolling:touch;">
             {gallery.map((img: string, i: number) => (
@@ -538,13 +538,13 @@ const breadcrumbSchema = JSON.stringify({
 
       <!-- Services -->
       {services.length > 0 && (
-        <section style="background:#FBFAF8;padding:20px 16px 24px;border-bottom:1px solid #EFEBE4;">
-          <h2 style="font-size:15px;font-weight:700;color:#14171A;margin:0 0 14px;">අපගේ සේවා</h2>
+        <section style="background:#F7F7F7;padding:20px 16px 24px;border-bottom:1px solid #ECECEC;">
+          <h2 style="font-size:15px;font-weight:700;color:#0B0B0B;margin:0 0 14px;">අපගේ සේවා</h2>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
             {services.map((s: string) => (
-              <div style="display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #E4E0D9;border-radius:12px;padding:11px 12px;">
+              <div style="display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #E2E2E2;border-radius:12px;padding:11px 12px;">
                 <span style="font-size:20px;flex-shrink:0;">{sinhalaText(SERVICE_ICONS[s] || '🔧')}</span>
-                <span style="font-size:11px;font-weight:600;color:#3A4046;line-height:1.3;">{sinhalaText(s)}</span>
+                <span style="font-size:11px;font-weight:600;color:#4A4A4A;line-height:1.3;">{sinhalaText(s)}</span>
               </div>
             ))}
           </div>
@@ -553,13 +553,13 @@ const breadcrumbSchema = JSON.stringify({
 
       <!-- Why Choose -->
       {whyBullets.length > 0 && (
-        <section style="background:#FBFAF8;padding:20px 16px 24px;border-bottom:1px solid #EFEBE4;">
-          <h2 style="font-size:15px;font-weight:700;color:#14171A;margin:0 0 14px;">නිවාස හිමියන් තෝරාගැනීමට හේතු — {sinhalaText(firstName)}</h2>
+        <section style="background:#F7F7F7;padding:20px 16px 24px;border-bottom:1px solid #ECECEC;">
+          <h2 style="font-size:15px;font-weight:700;color:#0B0B0B;margin:0 0 14px;">නිවාස හිමියන් තෝරාගැනීමට හේතු — {sinhalaText(firstName)}</h2>
           <div style="display:flex;flex-direction:column;gap:10px;">
             {whyBullets.map((b: string) => (
-              <div style="display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #E4E0D9;border-radius:12px;padding:12px 14px;">
+              <div style="display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #E2E2E2;border-radius:12px;padding:12px 14px;">
                 <span style="width:22px;height:22px;border-radius:50%;background:#E9F1EC;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;">✅</span>
-                <span style="font-size:13px;color:#3A4046;font-weight:500;">{sinhalaText(b)}</span>
+                <span style="font-size:13px;color:#4A4A4A;font-weight:500;">{sinhalaText(b)}</span>
               </div>
             ))}
           </div>
@@ -568,18 +568,18 @@ const breadcrumbSchema = JSON.stringify({
 
       <!-- About -->
       {item.description && (
-        <section style="background:#fff;padding:20px 16px 24px;border-bottom:1px solid #EFEBE4;">
-          <h2 style="font-size:15px;font-weight:700;color:#14171A;margin:0 0 10px;">පිළිබඳව — {sinhalaText(name)}</h2>
-          <p style="font-size:13px;color:#6B7076;line-height:1.8;margin:0 0 12px;">{sinhalaText(item.description)}</p>
+        <section style="background:#fff;padding:20px 16px 24px;border-bottom:1px solid #ECECEC;">
+          <h2 style="font-size:15px;font-weight:700;color:#0B0B0B;margin:0 0 10px;">පිළිබඳව — {sinhalaText(name)}</h2>
+          <p style="font-size:13px;color:#6E6E6E;line-height:1.8;margin:0 0 12px;">{sinhalaText(item.description)}</p>
           {serviceAreas.length > 0 && (
             <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;">
               {serviceAreas.map((area: string) => (
-                <span style="font-size:11px;padding:3px 9px;border-radius:20px;background:#EFEBE4;color:#3A4046;font-weight:600;border:1px solid #E4E0D9;">📍 {sinhalaText(area)}</span>
+                <span style="font-size:11px;padding:3px 9px;border-radius:20px;background:#ECECEC;color:#4A4A4A;font-weight:600;border:1px solid #E2E2E2;">📍 {sinhalaText(area)}</span>
               ))}
             </div>
           )}
           {item.website_url && (
-            <a href={item.website_url} target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:#14171A;margin-top:12px;text-decoration:none;">🌐 {sinhalaText(item.website_url.replace(/^https?:\/\//, ''))} →</a>
+            <a href={item.website_url} target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:#0B0B0B;margin-top:12px;text-decoration:none;">🌐 {sinhalaText(item.website_url.replace(/^https?:\/\//, ''))} →</a>
           )}
         </section>
       )}
@@ -591,14 +591,14 @@ const breadcrumbSchema = JSON.stringify({
 
       <!-- Bottom CTA -->
       {phone && (
-        <section style="background:#FBFAF8;border-top:1px solid #E4E0D9;padding:16px;display:flex;gap:8px;flex-wrap:wrap;">
+        <section style="background:#F7F7F7;border-top:1px solid #E2E2E2;padding:16px;display:flex;gap:8px;flex-wrap:wrap;">
           <a href={waLink(phone, name)} target="_blank" rel="noopener noreferrer"
             style="flex:1;min-width:120px;display:flex;align-items:center;justify-content:center;gap:6px;background:#25D366;color:#fff;border-radius:12px;padding:12px 10px;font-size:12px;font-weight:700;text-decoration:none;">💬 WhatsApp</a>
           <a href={waLink(phone, name, 'visit')} target="_blank" rel="noopener noreferrer"
-            style="flex:1;min-width:120px;display:flex;align-items:center;justify-content:center;gap:6px;background:#C2542B;color:#fff;border-radius:12px;padding:12px 10px;font-size:12px;font-weight:700;text-decoration:none;">📅 ස්ථාන පරීක්ෂාවක් වෙන්කරගන්න</a>
+            style="flex:1;min-width:120px;display:flex;align-items:center;justify-content:center;gap:6px;background:#8A6224;color:#fff;border-radius:12px;padding:12px 10px;font-size:12px;font-weight:700;text-decoration:none;">📅 ස්ථාන පරීක්ෂාවක් වෙන්කරගන්න</a>
           {gallery.length > 0 && (
             <a href="#gallery-section"
-              style="flex:1;min-width:100px;display:flex;align-items:center;justify-content:center;gap:6px;background:#14171A;color:#fff;border-radius:12px;padding:12px 10px;font-size:12px;font-weight:700;text-decoration:none;">📷 කළ වැඩ බලන්න</a>
+              style="flex:1;min-width:100px;display:flex;align-items:center;justify-content:center;gap:6px;background:#0B0B0B;color:#fff;border-radius:12px;padding:12px 10px;font-size:12px;font-weight:700;text-decoration:none;">📷 කළ වැඩ බලන්න</a>
           )}
         </section>
       )}
@@ -611,13 +611,13 @@ const breadcrumbSchema = JSON.stringify({
   {layoutType === 'shop' && (
     <div>
       <!-- Hero: 260px, storefront image -->
-      <div style="position:relative;height:260px;overflow:hidden;background:#14171A;">
+      <div style="position:relative;height:260px;overflow:hidden;background:#0B0B0B;">
         {heroCoverSrc
           ? <img src={heroCoverSrc} alt={sinhalaText(name)} style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;" />
           : <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(0deg,transparent,transparent 29px,rgba(255,255,255,0.06) 29px,rgba(255,255,255,0.06) 30px),repeating-linear-gradient(90deg,transparent,transparent 29px,rgba(255,255,255,0.06) 29px,rgba(255,255,255,0.06) 30px);pointer-events:none;"></div>
         }
         <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.92) 0%,rgba(0,0,0,0.45) 55%,rgba(0,0,0,0.1) 100%);"></div>
-        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#14171A,#2A2F35);"></div>
+        <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#0B0B0B,#242424);"></div>
         <div style="position:absolute;top:16px;left:0;right:0;display:flex;align-items:center;justify-content:space-between;padding:0 16px;">
           <a href="/providers" style="display:inline-flex;align-items:center;gap:5px;font-size:11px;color:rgba(255,255,255,0.75);font-weight:600;text-decoration:none;background:rgba(0,0,0,0.3);padding:5px 10px;border-radius:20px;backdrop-filter:blur(6px);">← සියලු සේවා සපයන්නන්</a>
           {gallery.length > 0 && (
@@ -646,14 +646,14 @@ const breadcrumbSchema = JSON.stringify({
 
       <!-- CTA: WhatsApp + Visit Showroom -->
       {phone && (
-        <div style="background:#fff;padding:14px 16px;display:flex;gap:10px;border-bottom:1px solid #E4E0D9;">
+        <div style="background:#fff;padding:14px 16px;display:flex;gap:10px;border-bottom:1px solid #E2E2E2;">
           <a href={waLink(phone, name)} target="_blank" rel="noopener noreferrer"
             style="flex:1;display:flex;align-items:center;justify-content:center;gap:7px;background:#25D366;color:#fff;border-radius:14px;padding:13px 10px;font-size:13px;font-weight:700;text-decoration:none;box-shadow:0 4px 12px rgba(37,211,102,0.3);">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
             WhatsApp {sinhalaText(firstName)}
           </a>
           <a href={shopVisitLink || '#'} target="_blank" rel="noopener noreferrer"
-            style="flex:1;display:flex;align-items:center;justify-content:center;gap:7px;background:#14171A;color:#fff;border-radius:14px;padding:13px 10px;font-size:13px;font-weight:700;text-decoration:none;">
+            style="flex:1;display:flex;align-items:center;justify-content:center;gap:7px;background:#0B0B0B;color:#fff;border-radius:14px;padding:13px 10px;font-size:13px;font-weight:700;text-decoration:none;">
             🗺️ ප්‍රදර්ශනාගාරයට යන්න
           </a>
         </div>
@@ -661,11 +661,11 @@ const breadcrumbSchema = JSON.stringify({
 
       <!-- Feature icons strip -->
       {shopFeatures.length > 0 && (
-        <div style="background:#FBFAF8;border-bottom:1px solid #E4E0D9;padding:14px 16px;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;text-align:center;">
+        <div style="background:#F7F7F7;border-bottom:1px solid #E2E2E2;padding:14px 16px;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;text-align:center;">
           {shopFeatures.map((f: {icon:string,label:string}) => (
-            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 4px;background:#fff;border:1px solid #E4E0D9;border-radius:12px;">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 4px;background:#fff;border:1px solid #E2E2E2;border-radius:12px;">
               <span style="font-size:20px;">{sinhalaText(f.icon)}</span>
-              <span style="font-size:9px;font-weight:700;color:#3A4046;line-height:1.2;">{sinhalaText(f.label)}</span>
+              <span style="font-size:9px;font-weight:700;color:#4A4A4A;line-height:1.2;">{sinhalaText(f.label)}</span>
             </div>
           ))}
         </div>
@@ -673,11 +673,11 @@ const breadcrumbSchema = JSON.stringify({
 
       <!-- Stats: rating | reviews | verified -->
       {(avgRating > 0 || badge) && (
-        <div style="background:#FBFAF8;border-bottom:1px solid #E4E0D9;padding:14px 16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(72px,1fr));gap:4px;text-align:center;">
+        <div style="background:#F7F7F7;border-bottom:1px solid #E2E2E2;padding:14px 16px;display:grid;grid-template-columns:repeat(auto-fit,minmax(72px,1fr));gap:4px;text-align:center;">
           {avgRating > 0 && (
             <div style="padding:8px 4px;">
-              <div style="font-size:18px;font-weight:800;color:#14171A;font-family: var(--th-display);line-height:1;">{sinhalaText(avgRating.toFixed(1))}</div>
-              <div style="font-size:9px;color:#6B7076;margin-top:3px;line-height:1.3;">ඇගයීම<br/>{sinhalaText(reviewCount > 0 ? `සමාලෝචන ${reviewCount}` : '')}</div>
+              <div style="font-size:18px;font-weight:800;color:#0B0B0B;font-family: var(--th-display);line-height:1;">{sinhalaText(avgRating.toFixed(1))}</div>
+              <div style="font-size:9px;color:#6E6E6E;margin-top:3px;line-height:1.3;">ඇගයීම<br/>{sinhalaText(reviewCount > 0 ? `සමාලෝචන ${reviewCount}` : '')}</div>
             </div>
           )}
           {badge && (
@@ -691,13 +691,13 @@ const breadcrumbSchema = JSON.stringify({
 
       <!-- What We Offer (services) -->
       {services.length > 0 && (
-        <section style="background:#FBFAF8;padding:20px 16px 24px;border-bottom:1px solid #EFEBE4;">
-          <h2 style="font-size:15px;font-weight:700;color:#14171A;margin:0 0 14px;">අප සපයන දේ</h2>
+        <section style="background:#F7F7F7;padding:20px 16px 24px;border-bottom:1px solid #ECECEC;">
+          <h2 style="font-size:15px;font-weight:700;color:#0B0B0B;margin:0 0 14px;">අප සපයන දේ</h2>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
             {services.map((s: string) => (
-              <div style="display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #E4E0D9;border-radius:12px;padding:11px 12px;">
+              <div style="display:flex;align-items:center;gap:10px;background:#fff;border:1px solid #E2E2E2;border-radius:12px;padding:11px 12px;">
                 <span style="font-size:20px;flex-shrink:0;">{sinhalaText(SERVICE_ICONS[s] || '🏪')}</span>
-                <span style="font-size:11px;font-weight:600;color:#3A4046;line-height:1.3;">{sinhalaText(s)}</span>
+                <span style="font-size:11px;font-weight:600;color:#4A4A4A;line-height:1.3;">{sinhalaText(s)}</span>
               </div>
             ))}
           </div>
@@ -706,21 +706,21 @@ const breadcrumbSchema = JSON.stringify({
 
       <!-- About -->
       {item.description && (
-        <section style="background:#fff;padding:20px 16px 24px;border-bottom:1px solid #EFEBE4;">
-          <h2 style="font-size:15px;font-weight:700;color:#14171A;margin:0 0 10px;">පිළිබඳව — {sinhalaText(name)}</h2>
-          <p style="font-size:13px;color:#6B7076;line-height:1.8;margin:0 0 12px;">{sinhalaText(item.description)}</p>
+        <section style="background:#fff;padding:20px 16px 24px;border-bottom:1px solid #ECECEC;">
+          <h2 style="font-size:15px;font-weight:700;color:#0B0B0B;margin:0 0 10px;">පිළිබඳව — {sinhalaText(name)}</h2>
+          <p style="font-size:13px;color:#6E6E6E;line-height:1.8;margin:0 0 12px;">{sinhalaText(item.description)}</p>
           {item.website_url && (
-            <a href={item.website_url} target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:#14171A;margin-top:4px;text-decoration:none;">🌐 {sinhalaText(item.website_url.replace(/^https?:\/\//, ''))} →</a>
+            <a href={item.website_url} target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:700;color:#0B0B0B;margin-top:4px;text-decoration:none;">🌐 {sinhalaText(item.website_url.replace(/^https?:\/\//, ''))} →</a>
           )}
         </section>
       )}
 
       <!-- Gallery: Showroom & Products -->
       {gallery.length > 0 && (
-        <section id="gallery-section" style="background:#fff;padding:20px 0 24px;border-bottom:1px solid #EFEBE4;">
+        <section id="gallery-section" style="background:#fff;padding:20px 0 24px;border-bottom:1px solid #ECECEC;">
           <div style="display:flex;align-items:center;justify-content:space-between;padding:0 16px 12px;">
-            <span style="font-size:15px;font-weight:700;color:#14171A;">🏪 ප්‍රදර්ශනාගාරය සහ නිෂ්පාදන</span>
-            <button id="all-photos-btn" style="font-size:12px;font-weight:600;color:#C2542B;background:none;border:none;cursor:pointer;padding:0;">සියල්ල බලන්න →</button>
+            <span style="font-size:15px;font-weight:700;color:#0B0B0B;">🏪 ප්‍රදර්ශනාගාරය සහ නිෂ්පාදන</span>
+            <button id="all-photos-btn" style="font-size:12px;font-weight:600;color:#8A6224;background:none;border:none;cursor:pointer;padding:0;">සියල්ල බලන්න →</button>
           </div>
           <div style="display:flex;gap:12px;overflow-x:auto;padding:0 16px 4px;scrollbar-width:none;-webkit-overflow-scrolling:touch;">
             {gallery.map((img: string, i: number) => (
@@ -736,16 +736,16 @@ const breadcrumbSchema = JSON.stringify({
 
       <!-- Location & service areas -->
       {(serviceAreas.length > 0 || city) && (
-        <section style="background:#fff;padding:20px 16px 24px;border-bottom:1px solid #EFEBE4;">
-          <h2 style="font-size:15px;font-weight:700;color:#14171A;margin:0 0 12px;">📍 ස්ථානය සහ සේවා ප්‍රදේශ</h2>
-          <div style="background:#FBFAF8;border:1px solid #E4E0D9;border-radius:14px;padding:14px 16px;margin-bottom:10px;">
-            <div style="font-size:13px;font-weight:600;color:#14171A;margin-bottom:4px;">{sinhalaText(name)}</div>
-            <div style="font-size:12px;color:#6B7076;">{sinhalaText(city)}{sinhalaText(item.district && item.district !== item.city ? `, ${item.district} District` : '')}, ශ්‍රී ලංකාව</div>
+        <section style="background:#fff;padding:20px 16px 24px;border-bottom:1px solid #ECECEC;">
+          <h2 style="font-size:15px;font-weight:700;color:#0B0B0B;margin:0 0 12px;">📍 ස්ථානය සහ සේවා ප්‍රදේශ</h2>
+          <div style="background:#F7F7F7;border:1px solid #E2E2E2;border-radius:14px;padding:14px 16px;margin-bottom:10px;">
+            <div style="font-size:13px;font-weight:600;color:#0B0B0B;margin-bottom:4px;">{sinhalaText(name)}</div>
+            <div style="font-size:12px;color:#6E6E6E;">{sinhalaText(city)}{sinhalaText(item.district && item.district !== item.city ? `, ${item.district} District` : '')}, ශ්‍රී ලංකාව</div>
           </div>
           {serviceAreas.length > 0 && (
             <div style="display:flex;flex-wrap:wrap;gap:6px;">
               {serviceAreas.map((area: string) => (
-                <span style="font-size:11px;padding:3px 9px;border-radius:20px;background:#EFEBE4;color:#3A4046;font-weight:600;border:1px solid #E4E0D9;">📍 {sinhalaText(area)}</span>
+                <span style="font-size:11px;padding:3px 9px;border-radius:20px;background:#ECECEC;color:#4A4A4A;font-weight:600;border:1px solid #E2E2E2;">📍 {sinhalaText(area)}</span>
               ))}
             </div>
           )}
@@ -759,14 +759,14 @@ const breadcrumbSchema = JSON.stringify({
 
       <!-- Bottom CTA -->
       {phone && (
-        <section style="background:#FBFAF8;border-top:1px solid #E4E0D9;padding:16px;display:flex;gap:8px;flex-wrap:wrap;">
+        <section style="background:#F7F7F7;border-top:1px solid #E2E2E2;padding:16px;display:flex;gap:8px;flex-wrap:wrap;">
           <a href={waLink(phone, name)} target="_blank" rel="noopener noreferrer"
             style="flex:1;min-width:120px;display:flex;align-items:center;justify-content:center;gap:6px;background:#25D366;color:#fff;border-radius:12px;padding:12px 10px;font-size:12px;font-weight:700;text-decoration:none;">💬 WhatsApp</a>
           <a href={shopVisitLink || '#'} target="_blank" rel="noopener noreferrer"
-            style="flex:1;min-width:120px;display:flex;align-items:center;justify-content:center;gap:6px;background:#14171A;color:#fff;border-radius:12px;padding:12px 10px;font-size:12px;font-weight:700;text-decoration:none;">🗺️ ප්‍රදර්ශනාගාරයට යන්න</a>
+            style="flex:1;min-width:120px;display:flex;align-items:center;justify-content:center;gap:6px;background:#0B0B0B;color:#fff;border-radius:12px;padding:12px 10px;font-size:12px;font-weight:700;text-decoration:none;">🗺️ ප්‍රදර්ශනාගාරයට යන්න</a>
           {gallery.length > 0 && (
             <a href="#gallery-section"
-              style="flex:1;min-width:100px;display:flex;align-items:center;justify-content:center;gap:6px;background:#14171A;color:#fff;border-radius:12px;padding:12px 10px;font-size:12px;font-weight:700;text-decoration:none;">📷 ප්‍රදර්ශනාගාරය බලන්න</a>
+              style="flex:1;min-width:100px;display:flex;align-items:center;justify-content:center;gap:6px;background:#0B0B0B;color:#fff;border-radius:12px;padding:12px 10px;font-size:12px;font-weight:700;text-decoration:none;">📷 ප්‍රදර්ශනාගාරය බලන්න</a>
           )}
         </section>
       )}
@@ -776,11 +776,11 @@ const breadcrumbSchema = JSON.stringify({
   <!-- ════ SHARED: Admin / Utility ════ -->
   <div style="padding:12px 16px 32px;display:flex;gap:8px;flex-wrap:wrap;justify-content:center;">
     <button id="share-profile-btn"
-      style="display:flex;align-items:center;gap:5px;background:#EFEBE4;color:#3A4046;border:1px solid #E4E0D9;border-radius:10px;padding:9px 14px;font-size:11px;font-weight:700;cursor:pointer;">
+      style="display:flex;align-items:center;gap:5px;background:#ECECEC;color:#4A4A4A;border:1px solid #E2E2E2;border-radius:10px;padding:9px 14px;font-size:11px;font-weight:700;cursor:pointer;">
       🔗 පැතිකඩ බෙදාගන්න
     </button>
     <button id="hero-review-btn"
-      style="display:flex;align-items:center;gap:5px;background:#EFEBE4;color:#3A4046;border:1px solid #E4E0D9;border-radius:10px;padding:9px 14px;font-size:11px;font-weight:700;cursor:pointer;">
+      style="display:flex;align-items:center;gap:5px;background:#ECECEC;color:#4A4A4A;border:1px solid #E2E2E2;border-radius:10px;padding:9px 14px;font-size:11px;font-weight:700;cursor:pointer;">
       ⭐ ඇගයීමක් සහ සමාලෝචනයක් දෙන්න
     </button>
     <EditProfileButton

@@ -4,9 +4,9 @@ import { planWeek, ANGLES } from '../lib/claudeApi.js'
 import { getQueue, saveToLocalQueue } from '../lib/contentQueue.js'
 import { useSupabaseStats } from '../hooks/useSupabaseStats.js'
 
-const NAVY   = '#14171A'
-const GOLD   = '#E8B341'
-const ORANGE = '#D96234'
+const NAVY   = '#0B0B0B'
+const GOLD   = '#D4A15E'
+const ORANGE = '#D4A15E'
 
 const DAY_LABELS = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
 
@@ -29,7 +29,7 @@ function CampaignDot({ campaign }) {
   return (
     <span style={{
       display: 'inline-block', width: 8, height: 8, borderRadius: '50%',
-      background: campaign === 'user' ? '#C2542B' : ORANGE, flexShrink: 0,
+      background: campaign === 'user' ? '#8A6224' : ORANGE, flexShrink: 0,
     }} />
   )
 }
@@ -39,24 +39,24 @@ function PostSlot({ post }) {
   return (
     <div style={{
       padding: '6px 8px', borderRadius: 8, marginBottom: 4, fontSize: 11,
-      background: iUser ? '#F7EFE9' : '#F7EFE9',
-      border: `1px solid ${iUser ? '#E7D9CE' : '#F0E7DF'}`,
+      background: iUser ? '#F5EEE2' : '#F5EEE2',
+      border: `1px solid ${iUser ? '#E8DCC6' : '#F0EADF'}`,
     }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginBottom: 2 }}>
         <CampaignDot campaign={post.campaign} />
-        <span style={{ fontWeight: 700, color: iUser ? '#7A3218' : '#C2542B' }}>
+        <span style={{ fontWeight: 700, color: iUser ? '#5E3F14' : '#8A6224' }}>
           {sinhalaText(post.suggested_time || post.time || '—')}
         </span>
-        <span style={{ color: '#8A8F95', marginLeft: 'auto' }}>{sinhalaText(post.platform || '')}</span>
+        <span style={{ color: '#8C8C8C', marginLeft: 'auto' }}>{sinhalaText(post.platform || '')}</span>
       </div>
-      <div style={{ color: '#3A4046', lineHeight: 1.4, overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>
+      <div style={{ color: '#4A4A4A', lineHeight: 1.4, overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>
         {sinhalaText(post.note || post.caption?.slice(0, 60) || '—')}
       </div>
       <div style={{ marginTop: 3 }}>
         <span style={{
           fontSize: 10, fontWeight: 700, padding: '1px 6px', borderRadius: 20,
-          background: post.status === 'POSTED' ? '#E9F1EC' : post.status === 'READY' ? '#F3E7DF' : '#F4F1EC',
-          color: post.status === 'POSTED' ? '#22513B' : post.status === 'READY' ? '#7A3218' : '#6B7076',
+          background: post.status === 'POSTED' ? '#E9F1EC' : post.status === 'READY' ? '#F2EADC' : '#F2F2F2',
+          color: post.status === 'POSTED' ? '#22513B' : post.status === 'READY' ? '#5E3F14' : '#6E6E6E',
         }}>{sinhalaText(post.status || 'PLAN')}</span>
       </div>
     </div>
@@ -76,27 +76,27 @@ function AddSlotModal({ date, onAdd, onClose }) {
     onClose()
   }
 
-  const sel = v => ({ padding: '7px 10px', border: '1.5px solid #E4E0D9', borderRadius: 8, fontSize: 12, fontFamily: 'inherit', width: '100%', background: '#fff', boxSizing: 'border-box' })
+  const sel = v => ({ padding: '7px 10px', border: '1.5px solid #E2E2E2', borderRadius: 8, fontSize: 12, fontFamily: 'inherit', width: '100%', background: '#fff', boxSizing: 'border-box' })
 
   return (
     <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.4)', zIndex: 50, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
       onClick={e => e.target === e.currentTarget && onClose()}>
       <div style={{ background: '#fff', borderRadius: 16, padding: 24, width: 360, boxShadow: '0 20px 60px rgba(0,0,0,0.2)' }}>
-        <div style={{ fontSize: 15, fontWeight: 700, color: '#14171A', marginBottom: 16 }}>වේලාවක් එක් කරන්න — {sinhalaText(formatDate(date))}</div>
+        <div style={{ fontSize: 15, fontWeight: 700, color: '#0B0B0B', marginBottom: 16 }}>වේලාවක් එක් කරන්න — {sinhalaText(formatDate(date))}</div>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, marginBottom: 10 }}>
           <div>
-            <div style={{ fontSize: 10, fontWeight: 700, color: '#3A4046', textTransform: 'uppercase', marginBottom: 5 }}>ප්‍රචාරණය</div>
+            <div style={{ fontSize: 10, fontWeight: 700, color: '#4A4A4A', textTransform: 'uppercase', marginBottom: 5 }}>ප්‍රචාරණය</div>
             <select value={campaign} onChange={e => { setCampaign(e.target.value); setAngle(ANGLES[e.target.value][0].value) }} style={sel()}>
               <option value="user">🏠 පරිශීලක</option>
               <option value="provider">🔨 සේවා සපයන්නා</option>
             </select>
           </div>
           <div>
-            <div style={{ fontSize: 10, fontWeight: 700, color: '#3A4046', textTransform: 'uppercase', marginBottom: 5 }}>වේලාව</div>
+            <div style={{ fontSize: 10, fontWeight: 700, color: '#4A4A4A', textTransform: 'uppercase', marginBottom: 5 }}>වේලාව</div>
             <input type="time" value={time} onChange={e => setTime(e.target.value)} style={sel()} />
           </div>
           <div>
-            <div style={{ fontSize: 10, fontWeight: 700, color: '#3A4046', textTransform: 'uppercase', marginBottom: 5 }}>ආකෘතිය</div>
+            <div style={{ fontSize: 10, fontWeight: 700, color: '#4A4A4A', textTransform: 'uppercase', marginBottom: 5 }}>ආකෘතිය</div>
             <select value={format} onChange={e => setFormat(e.target.value)} style={sel()}>
               <option value="single">🖼 තනි රූපය</option>
               <option value="carousel">🎴 රූප පෙළ</option>
@@ -104,7 +104,7 @@ function AddSlotModal({ date, onAdd, onClose }) {
             </select>
           </div>
           <div>
-            <div style={{ fontSize: 10, fontWeight: 700, color: '#3A4046', textTransform: 'uppercase', marginBottom: 5 }}>වේදිකාව</div>
+            <div style={{ fontSize: 10, fontWeight: 700, color: '#4A4A4A', textTransform: 'uppercase', marginBottom: 5 }}>වේදිකාව</div>
             <select value={platform} onChange={e => setPlatform(e.target.value)} style={sel()}>
               <option value="FB+IG">📱 FB + IG</option>
               <option value="Facebook">📘 Facebook</option>
@@ -113,15 +113,15 @@ function AddSlotModal({ date, onAdd, onClose }) {
           </div>
         </div>
         <div style={{ marginBottom: 10 }}>
-          <div style={{ fontSize: 10, fontWeight: 700, color: '#3A4046', textTransform: 'uppercase', marginBottom: 5 }}>ප්‍රවේශය</div>
+          <div style={{ fontSize: 10, fontWeight: 700, color: '#4A4A4A', textTransform: 'uppercase', marginBottom: 5 }}>ප්‍රවේශය</div>
           <select value={angle} onChange={e => setAngle(e.target.value)} style={sel()}>
             {sinhalaText(ANGLES[campaign].map(a => <option key={a.value} value={a.value}>{sinhalaText(a.label)}</option>))}
           </select>
         </div>
         <div style={{ marginBottom: 16 }}>
-          <div style={{ fontSize: 10, fontWeight: 700, color: '#3A4046', textTransform: 'uppercase', marginBottom: 5 }}>සටහන (අත්‍යවශ්‍ය නොවේ)</div>
+          <div style={{ fontSize: 10, fontWeight: 700, color: '#4A4A4A', textTransform: 'uppercase', marginBottom: 5 }}>සටහන (අත්‍යවශ්‍ය නොවේ)</div>
           <input value={note} onChange={e => setNote(e.target.value)} placeholder="කෙටි අන්තර්ගත අදහසක්…"
-            style={{ width: '100%', padding: '8px 10px', border: '1.5px solid #E4E0D9', borderRadius: 8, fontSize: 12, fontFamily: 'inherit', boxSizing: 'border-box' }} />
+            style={{ width: '100%', padding: '8px 10px', border: '1.5px solid #E2E2E2', borderRadius: 8, fontSize: 12, fontFamily: 'inherit', boxSizing: 'border-box' }} />
         </div>
         <div style={{ display: 'flex', gap: 10 }}>
           <button onClick={handleAdd}
@@ -129,7 +129,7 @@ function AddSlotModal({ date, onAdd, onClose }) {
             දිනදර්ශනයට එක් කරන්න
           </button>
           <button onClick={onClose}
-            style={{ padding: '10px 16px', background: '#EFEBE4', color: '#3A4046', border: 'none', borderRadius: 10, fontSize: 13, fontWeight: 700, cursor: 'pointer' }}>
+            style={{ padding: '10px 16px', background: '#ECECEC', color: '#4A4A4A', border: 'none', borderRadius: 10, fontSize: 13, fontWeight: 700, cursor: 'pointer' }}>
             අවලංගු කරන්න
           </button>
         </div>
@@ -197,41 +197,41 @@ export default function ContentCalendar() {
       <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 20, flexWrap: 'wrap' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <button onClick={prevWeek}
-            style={{ padding: '7px 12px', background: '#EFEBE4', border: 'none', borderRadius: 8, cursor: 'pointer', fontSize: 13, fontWeight: 700, color: '#3A4046' }}>←</button>
-          <span style={{ fontSize: 14, fontWeight: 700, color: '#14171A', minWidth: 180, textAlign: 'center' }}>
+            style={{ padding: '7px 12px', background: '#ECECEC', border: 'none', borderRadius: 8, cursor: 'pointer', fontSize: 13, fontWeight: 700, color: '#4A4A4A' }}>←</button>
+          <span style={{ fontSize: 14, fontWeight: 700, color: '#0B0B0B', minWidth: 180, textAlign: 'center' }}>
             {sinhalaText(formatDate(weekDates[0]))} – {sinhalaText(formatDate(weekDates[6]))}
           </span>
           <button onClick={nextWeek}
-            style={{ padding: '7px 12px', background: '#EFEBE4', border: 'none', borderRadius: 8, cursor: 'pointer', fontSize: 13, fontWeight: 700, color: '#3A4046' }}>→</button>
+            style={{ padding: '7px 12px', background: '#ECECEC', border: 'none', borderRadius: 8, cursor: 'pointer', fontSize: 13, fontWeight: 700, color: '#4A4A4A' }}>→</button>
           <button onClick={() => setWeekDates(getWeekDates())}
-            style={{ padding: '7px 12px', background: '#EFEBE4', border: 'none', borderRadius: 8, cursor: 'pointer', fontSize: 11, color: '#6B7076' }}>මෙම සතිය</button>
+            style={{ padding: '7px 12px', background: '#ECECEC', border: 'none', borderRadius: 8, cursor: 'pointer', fontSize: 11, color: '#6E6E6E' }}>මෙම සතිය</button>
         </div>
 
         <div style={{ marginLeft: 'auto', display: 'flex', gap: 10, alignItems: 'center' }}>
           <select value={planCampaign} onChange={e => setPlanCampaign(e.target.value)}
-            style={{ padding: '7px 10px', border: '1.5px solid #E4E0D9', borderRadius: 8, fontSize: 12, fontFamily: 'inherit', background: '#fff' }}>
+            style={{ padding: '7px 10px', border: '1.5px solid #E2E2E2', borderRadius: 8, fontSize: 12, fontFamily: 'inherit', background: '#fff' }}>
             <option value="user">🏠 පරිශීලක ප්‍රචාරණය</option>
             <option value="provider">🔨 සේවා සපයන්නන්ගේ ප්‍රචාරණය</option>
           </select>
           <button onClick={handleAutoPlan} disabled={planning}
-            style={{ padding: '8px 16px', background: planning ? '#8A8F95' : GOLD, color: '#14171A', border: 'none', borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: planning ? 'not-allowed' : 'pointer' }}>
+            style={{ padding: '8px 16px', background: planning ? '#8C8C8C' : GOLD, color: '#0B0B0B', border: 'none', borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: planning ? 'not-allowed' : 'pointer' }}>
             {sinhalaText(planning ? '⏳ Planning…' : '🤖 Auto-plan Week')}
           </button>
         </div>
       </div>
 
       {sinhalaText(planError && (
-        <div style={{ background: '#FBEDEB', border: '1px solid #F2C9C3', borderRadius: 10, padding: '10px 14px', marginBottom: 16, fontSize: 13, color: '#8E2A1F' }}>
+        <div style={{ background: '#FBEDEB', border: '1px solid #F2C9C3', borderRadius: 10, padding: '10px 14px', marginBottom: 16, fontSize: 13, color: '#5E3F14' }}>
           ⚠️ {sinhalaText(planError)}
         </div>
       ))}
 
       {/* Legend */}
-      <div style={{ display: 'flex', gap: 16, marginBottom: 14, fontSize: 11, color: '#6B7076' }}>
+      <div style={{ display: 'flex', gap: 16, marginBottom: 14, fontSize: 11, color: '#6E6E6E' }}>
         <span style={{ display: 'flex', alignItems: 'center', gap: 5 }}><CampaignDot campaign="user" /> පරිශීලක ප්‍රචාරණය</span>
         <span style={{ display: 'flex', alignItems: 'center', gap: 5 }}><CampaignDot campaign="provider" /> සේවා සපයන්නන්ගේ ප්‍රචාරණය</span>
         <span style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
-          <span style={{ width: 8, height: 8, borderRadius: 2, background: '#E8B341', display: 'inline-block' }} /> AI යෝජනාව
+          <span style={{ width: 8, height: 8, borderRadius: 2, background: '#D4A15E', display: 'inline-block' }} /> AI යෝජනාව
         </span>
       </div>
 
@@ -242,15 +242,15 @@ export default function ContentCalendar() {
           const isToday = date === today
           return (
             <div key={date} style={{
-              background: '#fff', border: `1px solid ${isToday ? NAVY : '#E7E2D9'}`,
+              background: '#fff', border: `1px solid ${isToday ? NAVY : '#E4E4E4'}`,
               borderRadius: 12, padding: '10px 8px', minHeight: 180,
             }}>
               {/* Day header */}
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
                 <div>
-                  <div style={{ fontSize: 10, fontWeight: 700, color: isToday ? NAVY : '#8A8F95', textTransform: 'uppercase' }}>{sinhalaText(DAY_LABELS[i])}</div>
-                  <div style={{ fontSize: 16, fontWeight: 800, color: isToday ? NAVY : '#14171A', lineHeight: 1 }}>{sinhalaText(formatDate(date).split(' ')[0])}</div>
-                  <div style={{ fontSize: 10, color: '#8A8F95' }}>{sinhalaText(formatDate(date).split(' ')[1])}</div>
+                  <div style={{ fontSize: 10, fontWeight: 700, color: isToday ? NAVY : '#8C8C8C', textTransform: 'uppercase' }}>{sinhalaText(DAY_LABELS[i])}</div>
+                  <div style={{ fontSize: 16, fontWeight: 800, color: isToday ? NAVY : '#0B0B0B', lineHeight: 1 }}>{sinhalaText(formatDate(date).split(' ')[0])}</div>
+                  <div style={{ fontSize: 10, color: '#8C8C8C' }}>{sinhalaText(formatDate(date).split(' ')[1])}</div>
                 </div>
                 {sinhalaText(isToday && <span style={{ fontSize: 9, fontWeight: 700, background: NAVY, color: '#fff', padding: '2px 7px', borderRadius: 20 }}>අද</span>)}
               </div>
@@ -262,15 +262,15 @@ export default function ContentCalendar() {
               {sinhalaText(planned.map((p, j) => (
                 <div key={j} style={{
                   padding: '6px 8px', borderRadius: 8, marginBottom: 4, fontSize: 11,
-                  background: '#F7EFE9', border: `1px dashed ${GOLD}`,
+                  background: '#F5EEE2', border: `1px dashed ${GOLD}`,
                 }}>
                   <div style={{ display: 'flex', alignItems: 'center', gap: 5, marginBottom: 2 }}>
                     <span style={{ fontSize: 10 }}>🤖</span>
-                    <span style={{ fontWeight: 700, color: '#14171A' }}>{sinhalaText(p.time)}</span>
+                    <span style={{ fontWeight: 700, color: '#0B0B0B' }}>{sinhalaText(p.time)}</span>
                   </div>
-                  <div style={{ color: '#2A2F35', lineHeight: 1.4, marginBottom: 5 }}>{sinhalaText(p.note)}</div>
+                  <div style={{ color: '#242424', lineHeight: 1.4, marginBottom: 5 }}>{sinhalaText(p.note)}</div>
                   <button onClick={() => acceptPlanSlot(p)}
-                    style={{ fontSize: 10, fontWeight: 700, padding: '2px 8px', background: GOLD, color: '#14171A', border: 'none', borderRadius: 6, cursor: 'pointer' }}>
+                    style={{ fontSize: 10, fontWeight: 700, padding: '2px 8px', background: GOLD, color: '#0B0B0B', border: 'none', borderRadius: 6, cursor: 'pointer' }}>
                     + එක් කරන්න
                   </button>
                 </div>
@@ -278,7 +278,7 @@ export default function ContentCalendar() {
 
               {/* Add slot button */}
               <button onClick={() => setAddSlotDay(date)}
-                style={{ width: '100%', padding: '5px', background: 'transparent', border: '1px dashed #E4E0D9', borderRadius: 8, fontSize: 11, color: '#8A8F95', cursor: 'pointer', marginTop: 4 }}>
+                style={{ width: '100%', padding: '5px', background: 'transparent', border: '1px dashed #E2E2E2', borderRadius: 8, fontSize: 11, color: '#8C8C8C', cursor: 'pointer', marginTop: 4 }}>
                 + වේලාවක් එක් කරන්න
               </button>
             </div>

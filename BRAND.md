@@ -99,5 +99,32 @@ new screen is born in the right brand and the work happens once.
 
 ## Status
 
-Not implemented. Recorded here so the spec is in the repo rather than in a
-chat log.
+**Applied.** The palette, tokens, wordmark colours and every rendered asset are
+on the new brand.
+
+- 1,457 colour literals and 44 `rgba()` values replaced across 52 files. The
+  `rgba()` pass was separate because the hex pass could not see them — the
+  terracotta glow behind the home hero was one of them.
+- `src/index.css` `:root` carries the brand tokens and documents the two-gold
+  split.
+- `.th-card--ink .th-btn--primary` puts the brand gold, with ink text, on dark
+  surfaces — the treatment the app icon uses. Elsewhere the accent stays
+  `--terra`, so no replacement needed a paired text change to stay legible.
+- `icon-192`, `icon-512`, `favicon.png`, `og.png` and the seven
+  `apple-splash-*` files were re-rendered from the lockup in headless Chromium
+  with Archivo 800 and Noto Sans Sinhala 700 embedded, so they are the real
+  typefaces rather than an approximation. The script is not committed; it is
+  reproducible from this file's spec.
+- `favicon.svg` stays geometric rather than the `ඩ` of `favicon.png`: an SVG
+  `<text>` glyph needs a Sinhala font wherever it renders, and this file is also
+  the Organization logo in the page's structured data.
+- `theme_color` is now `#F7F7F7`, matching the app bar. It used to be the
+  accent, which never matched the white bar it sits above.
+- `scripts/contrast.test.mjs` asserts all ten brand pairs against WCAG AA and
+  runs in CI, so a later "use the brand gold on this white card" fails the build
+  instead of shipping.
+
+Still open: the nine-tile mark beside the wordmark is recoloured to a gold/ink
+ramp, but the sheet shows the wordmark standing alone with no accompanying
+mark. Removing it is a design call, so it is left in place — say if it should
+go.

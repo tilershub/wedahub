@@ -10,7 +10,7 @@ const CUBICLES = [
     icon: '🚿',
     desc: 'Corner-fitting L-shaped glass enclosure with a swing-open door. Ideal for bathrooms with ample clearance space. Clean lines, full seal.',
     features: ['Corner installation', 'Outward swing door', 'Full waterproof seal', 'Custom sizing'],
-    color: '#C2542B',
+    color: '#8A6224',
   },
   {
     id: 'l-shape-sliding',
@@ -19,7 +19,7 @@ const CUBICLES = [
     icon: '🚿',
     desc: 'Corner-fitting L-shaped glass enclosure with a space-saving sliding door. Perfect for smaller bathrooms where swing clearance is limited.',
     features: ['Corner installation', 'Space-saving slider', 'Smooth glide system', 'Custom sizing'],
-    color: '#C2542B',
+    color: '#8A6224',
   },
   {
     id: 'panel-swing',
@@ -28,7 +28,7 @@ const CUBICLES = [
     icon: '🪟',
     desc: 'Straight glass panel enclosure with a hinged swing door. A versatile solution for alcove or inline shower spaces.',
     features: ['Alcove / inline fit', 'Hinged swing door', 'Minimal frame design', 'Custom sizing'],
-    color: '#7A3218',
+    color: '#5E3F14',
   },
   {
     id: 'panel-sliding',
@@ -37,7 +37,7 @@ const CUBICLES = [
     icon: '🪟',
     desc: 'Straight glass panel enclosure with a sliding door — smooth, quiet and space-efficient for everyday use.',
     features: ['Alcove / inline fit', 'Sliding bypass door', 'Anti-splash seal', 'Custom sizing'],
-    color: '#C2542B',
+    color: '#8A6224',
   },
   {
     id: 'panel-only',
@@ -60,7 +60,7 @@ const waMsg = (product) => encodeURIComponent(`Hi YL Construction, I'm intereste
 >
 
   <!-- ═══ HERO ═══ -->
-  <div style="background:linear-gradient(135deg,#0a1628 0%,#14171A 50%,#0a1628 100%);padding:60px 20px 52px;text-align:center;position:relative;overflow:hidden;">
+  <div style="background:linear-gradient(135deg,#0a1628 0%,#0B0B0B 50%,#0a1628 100%);padding:60px 20px 52px;text-align:center;position:relative;overflow:hidden;">
     <!-- Glass shimmer background -->
     <div style="position:absolute;inset:0;pointer-events:none;overflow:hidden;">
       <div style="position:absolute;top:-60px;left:10%;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(148,210,255,0.06) 0%,transparent 70%);"></div>
@@ -98,17 +98,17 @@ const waMsg = (product) => encodeURIComponent(`Hi YL Construction, I'm intereste
   </div>
 
   <!-- ═══ CUBICLE PRODUCTS ═══ -->
-  <section style="background:#FBFAF8;padding:56px 20px;">
+  <section style="background:#F7F7F7;padding:56px 20px;">
     <div style="max-width:1060px;margin:0 auto;">
       <div style="text-align:center;margin-bottom:40px;">
-        <div style="font-size:10px;font-weight:700;color:#C2542B;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;">අපගේ නිෂ්පාදන</div>
-        <h2 style="font-family: var(--th-display);font-size:clamp(22px,3vw,34px);font-weight:700;color:#14171A;margin:0 0 10px;">නාන කුටිය <span style="color:#C2542B;">විකල්ප</span></h2>
-        <p style="font-size:14px;color:#6B7076;max-width:480px;margin:0 auto;">සියලු නාන කුටි සඳහා ශක්තිමත් කළ ටෙම්පර්ඩ් වීදුරු භාවිත කරයි. ඔබට අවශ්‍ය මානවලින් ලබාගත හැකිය. අපි ස්ථානයට පැමිණ මැන සවිකරමු.</p>
+        <div style="font-size:10px;font-weight:700;color:#8A6224;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;">අපගේ නිෂ්පාදන</div>
+        <h2 style="font-family: var(--th-display);font-size:clamp(22px,3vw,34px);font-weight:700;color:#0B0B0B;margin:0 0 10px;">නාන කුටිය <span style="color:#8A6224;">විකල්ප</span></h2>
+        <p style="font-size:14px;color:#6E6E6E;max-width:480px;margin:0 auto;">සියලු නාන කුටි සඳහා ශක්තිමත් කළ ටෙම්පර්ඩ් වීදුරු භාවිත කරයි. ඔබට අවශ්‍ය මානවලින් ලබාගත හැකිය. අපි ස්ථානයට පැමිණ මැන සවිකරමු.</p>
       </div>
 
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px;">
         {CUBICLES.map(c => (
-          <div style={`background:#fff;border-radius:18px;border:1px solid #E4E0D9;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 2px 8px rgba(0,0,0,0.04);`}>
+          <div style={`background:#fff;border-radius:18px;border:1px solid #E2E2E2;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 2px 8px rgba(0,0,0,0.04);`}>
             <!-- Card top accent -->
             <div style={`height:6px;background:${c.color};`}></div>
 
@@ -117,18 +117,18 @@ const waMsg = (product) => encodeURIComponent(`Hi YL Construction, I'm intereste
               <div style="display:flex;align-items:flex-start;gap:14px;">
                 <div style={`width:52px;height:52px;border-radius:14px;background:${c.color}12;border:1.5px solid ${c.color}22;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;`}>{sinhalaText(c.icon)}</div>
                 <div>
-                  <div style="font-size:16px;font-weight:800;color:#14171A;line-height:1.2;">{sinhalaText(c.name)}</div>
+                  <div style="font-size:16px;font-weight:800;color:#0B0B0B;line-height:1.2;">{sinhalaText(c.name)}</div>
                   <div style={`font-size:11px;font-weight:700;color:${c.color};text-transform:uppercase;letter-spacing:0.5px;margin-top:3px;`}>{sinhalaText(c.variant)}</div>
                 </div>
               </div>
 
               <!-- Description -->
-              <p style="font-size:13px;color:#3A4046;line-height:1.7;margin:0;">{sinhalaText(c.desc)}</p>
+              <p style="font-size:13px;color:#4A4A4A;line-height:1.7;margin:0;">{sinhalaText(c.desc)}</p>
 
               <!-- Feature list -->
               <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;">
                 {c.features.map(f => (
-                  <li style="font-size:12px;color:#3A4046;display:flex;align-items:center;gap:8px;">
+                  <li style="font-size:12px;color:#4A4A4A;display:flex;align-items:center;gap:8px;">
                     <span style={`color:${c.color};font-size:14px;`}>✓</span> {sinhalaText(f)}
                   </li>
                 ))}
@@ -136,7 +136,7 @@ const waMsg = (product) => encodeURIComponent(`Hi YL Construction, I'm intereste
             </div>
 
             <!-- CTA -->
-            <div style="padding:16px 24px;border-top:1px solid #EFEBE4;">
+            <div style="padding:16px 24px;border-top:1px solid #ECECEC;">
               <a
                 href={`https://wa.me/${WA_NUMBER}?text=${waMsg(`${c.name} — ${c.variant}`)}`}
                 target="_blank" rel="noopener noreferrer"
@@ -152,30 +152,30 @@ const waMsg = (product) => encodeURIComponent(`Hi YL Construction, I'm intereste
   </section>
 
   <!-- ═══ HAND RAILINGS SECTION ═══ -->
-  <section style="background:#fff;padding:52px 20px;border-top:1px solid #E4E0D9;">
+  <section style="background:#fff;padding:52px 20px;border-top:1px solid #E2E2E2;">
     <div style="max-width:900px;margin:0 auto;display:flex;align-items:center;gap:40px;flex-wrap:wrap;">
       <div style="flex:1;min-width:260px;">
-        <div style="font-size:10px;font-weight:700;color:#C2542B;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;">තවත් ලබාගත හැකි දේ</div>
-        <h2 style="font-family: var(--th-display);font-size:clamp(22px,3vw,32px);font-weight:700;color:#14171A;margin:0 0 14px;line-height:1.2;">වීදුරු <span style="color:#C2542B;">අත්වැට</span></h2>
-        <p style="font-size:14px;color:#6B7076;line-height:1.8;margin:0 0 20px;">පඩිපෙළ, බැල්කනි, අතරමැදි මහල් සහ ටෙරස් සඳහා ටෙම්පර්ඩ් වීදුරු අත්වැට. පිරිසිදු නවීන පෙනුමක් සඳහා රාමු රහිත සහ අර්ධ රාමු නිර්මාණ.</p>
+        <div style="font-size:10px;font-weight:700;color:#8A6224;letter-spacing:3px;text-transform:uppercase;margin-bottom:10px;">තවත් ලබාගත හැකි දේ</div>
+        <h2 style="font-family: var(--th-display);font-size:clamp(22px,3vw,32px);font-weight:700;color:#0B0B0B;margin:0 0 14px;line-height:1.2;">වීදුරු <span style="color:#8A6224;">අත්වැට</span></h2>
+        <p style="font-size:14px;color:#6E6E6E;line-height:1.8;margin:0 0 20px;">පඩිපෙළ, බැල්කනි, අතරමැදි මහල් සහ ටෙරස් සඳහා ටෙම්පර්ඩ් වීදුරු අත්වැට. පිරිසිදු නවීන පෙනුමක් සඳහා රාමු රහිත සහ අර්ධ රාමු නිර්මාණ.</p>
         <ul style="margin:0 0 28px;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px;">
           {['Staircase balustrades','Balcony & terrace railings','Indoor mezzanine guards','Frameless & semi-framed','Custom height & length'].map(f => (
-            <li style="font-size:13px;color:#3A4046;display:flex;align-items:center;gap:10px;">
-              <span style="color:#C2542B;font-size:15px;font-weight:700;">✓</span> {sinhalaText(f)}
+            <li style="font-size:13px;color:#4A4A4A;display:flex;align-items:center;gap:10px;">
+              <span style="color:#8A6224;font-size:15px;font-weight:700;">✓</span> {sinhalaText(f)}
             </li>
           ))}
         </ul>
         <a
           href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent('Hi YL Construction, I\'m interested in glass hand railings from වැඩHUB. Can you advise?')}`}
           target="_blank" rel="noopener noreferrer"
-          style="display:inline-flex;align-items:center;gap:8px;background:#C2542B;color:#fff;border-radius:12px;padding:12px 24px;font-size:14px;font-weight:700;text-decoration:none;"
+          style="display:inline-flex;align-items:center;gap:8px;background:#8A6224;color:#fff;border-radius:12px;padding:12px 24px;font-size:14px;font-weight:700;text-decoration:none;"
         >
           💬 අත්වැටකට මිල ගණනක් ගන්න
         </a>
       </div>
 
       <!-- Visual block -->
-      <div style="flex-shrink:0;width:240px;height:240px;border-radius:20px;background:linear-gradient(135deg,#14171A,#C2542B);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;">
+      <div style="flex-shrink:0;width:240px;height:240px;border-radius:20px;background:linear-gradient(135deg,#0B0B0B,#8A6224);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;">
         <div style="position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 29px,rgba(148,210,255,0.06) 29px,rgba(148,210,255,0.06) 30px),repeating-linear-gradient(90deg,transparent,transparent 29px,rgba(148,210,255,0.06) 29px,rgba(148,210,255,0.06) 30px);"></div>
         <div style="position:relative;text-align:center;">
           <div style="font-size:72px;line-height:1;">🔩</div>
@@ -186,10 +186,10 @@ const waMsg = (product) => encodeURIComponent(`Hi YL Construction, I'm intereste
   </section>
 
   <!-- ═══ WHY YL CONSTRUCTION ═══ -->
-  <section style="background:#FBFAF8;padding:52px 20px;border-top:1px solid #E4E0D9;">
+  <section style="background:#F7F7F7;padding:52px 20px;border-top:1px solid #E2E2E2;">
     <div style="max-width:900px;margin:0 auto;">
       <div style="text-align:center;margin-bottom:36px;">
-        <h2 style="font-family: var(--th-display);font-size:clamp(20px,3vw,30px);font-weight:700;color:#14171A;margin:0;">තෝරාගත යුත්තේ ඇයි? <span style="color:#C2542B;">YL Construction</span></h2>
+        <h2 style="font-family: var(--th-display);font-size:clamp(20px,3vw,30px);font-weight:700;color:#0B0B0B;margin:0;">තෝරාගත යුත්තේ ඇයි? <span style="color:#8A6224;">YL Construction</span></h2>
       </div>
       <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:18px;">
         {[
@@ -198,10 +198,10 @@ const waMsg = (product) => encodeURIComponent(`Hi YL Construction, I'm intereste
           { icon: '🏠', title: 'Site Visit', desc: 'We visit your site to measure, advise and confirm the right solution.' },
           { icon: '🔧', title: 'Full Installation', desc: 'Supply and install service — no need to find a separate fitter.' },
         ].map(f => (
-          <div style="background:#fff;border-radius:14px;border:1px solid #E4E0D9;padding:22px 20px;text-align:center;">
+          <div style="background:#fff;border-radius:14px;border:1px solid #E2E2E2;padding:22px 20px;text-align:center;">
             <div style="font-size:32px;margin-bottom:10px;">{sinhalaText(f.icon)}</div>
-            <div style="font-size:13px;font-weight:700;color:#14171A;margin-bottom:6px;">{sinhalaText(f.title)}</div>
-            <div style="font-size:12px;color:#6B7076;line-height:1.6;">{sinhalaText(f.desc)}</div>
+            <div style="font-size:13px;font-weight:700;color:#0B0B0B;margin-bottom:6px;">{sinhalaText(f.title)}</div>
+            <div style="font-size:12px;color:#6E6E6E;line-height:1.6;">{sinhalaText(f.desc)}</div>
           </div>
         ))}
       </div>
@@ -209,7 +209,7 @@ const waMsg = (product) => encodeURIComponent(`Hi YL Construction, I'm intereste
   </section>
 
   <!-- ═══ BOTTOM CTA ═══ -->
-  <section style="background:linear-gradient(135deg,#0a1628,#14171A);padding:48px 20px;text-align:center;">
+  <section style="background:linear-gradient(135deg,#0a1628,#0B0B0B);padding:48px 20px;text-align:center;">
     <div style="max-width:520px;margin:0 auto;">
       <div style="font-size:36px;margin-bottom:16px;">💬</div>
       <h2 style="font-family: var(--th-display);font-size:clamp(20px,3vw,28px);font-weight:700;color:#fff;margin:0 0 12px;">ආරම්භ කිරීමට සූදානම්ද?</h2>

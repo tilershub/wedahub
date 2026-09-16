@@ -9,37 +9,37 @@ import { CATEGORIES } from '../lib/categories.js'
 // Ink for chrome and structure, terracotta for actions. The palette sweep
 // collapsed both of these onto the action colour, which left the whole panel
 // one hue with nothing to rank by.
-const NAVY  = '#14171A'
-const TERRA = '#C2542B'
+const NAVY  = '#0B0B0B'
+const TERRA = '#8A6224'
 const S = {
   page:    { display: 'flex', minHeight: 'var(--th-fill)' },
   sidebar: { width: 220, background: NAVY, color: '#fff', flexShrink: 0, display: 'flex', flexDirection: 'column', position: 'sticky', top: 0, height: 'var(--th-fill)', overflowY: 'auto' },
   main:    { flex: 1, padding: '28px 32px', overflowX: 'auto' },
-  card:    { background: '#fff', border: '1px solid #E4E0D9', borderRadius: 14, padding: 20 },
-  h2:      { fontSize: 20, fontWeight: 700, color: '#14171A', marginBottom: 18, marginTop: 0 },
+  card:    { background: '#fff', border: '1px solid #E2E2E2', borderRadius: 14, padding: 20 },
+  h2:      { fontSize: 20, fontWeight: 700, color: '#0B0B0B', marginBottom: 18, marginTop: 0 },
   badge:   (bg, color) => ({ display: 'inline-block', padding: '2px 10px', borderRadius: 20, fontSize: 11, fontWeight: 700, background: bg, color }),
   btn:     (bg, color='#fff') => ({ padding: '6px 14px', background: bg, color, border: 'none', borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: 'pointer', whiteSpace: 'nowrap' }),
-  th:      { fontSize: 11, fontWeight: 700, color: '#6B7076', textTransform: 'uppercase', letterSpacing: '0.5px', padding: '8px 12px', textAlign: 'left', borderBottom: '2px solid #EFEBE4', whiteSpace: 'nowrap' },
-  td:      { padding: '10px 12px', fontSize: 13, color: '#3A4046', borderBottom: '1px solid #FBFAF8', verticalAlign: 'top' },
+  th:      { fontSize: 11, fontWeight: 700, color: '#6E6E6E', textTransform: 'uppercase', letterSpacing: '0.5px', padding: '8px 12px', textAlign: 'left', borderBottom: '2px solid #ECECEC', whiteSpace: 'nowrap' },
+  td:      { padding: '10px 12px', fontSize: 13, color: '#4A4A4A', borderBottom: '1px solid #F7F7F7', verticalAlign: 'top' },
 }
 
 const STATUS_BADGE = {
-  pending_review: ['#F3E7DF','#2A2F35'],
+  pending_review: ['#F2EADC','#242424'],
   approved:       ['#E9F1EC','#22513B'],
-  listed:         ['#F3E7DF','#7A3218'],
-  rejected:       ['#FBEDEB','#8E2A1F'],
+  listed:         ['#F2EADC','#5E3F14'],
+  rejected:       ['#FBEDEB','#5E3F14'],
   active:         ['#E9F1EC','#22513B'],
-  matched:        ['#EDE9FE','#8E3C1E'],
-  completed:      ['#F4F1EC','#3A4046'],
-  pending_code:   ['#F3E7DF','#2A2F35'],
+  matched:        ['#EDE9FE','#6B4A18'],
+  completed:      ['#F2F2F2','#4A4A4A'],
+  pending_code:   ['#F2EADC','#242424'],
   verified:       ['#E9F1EC','#22513B'],
-  featured:       ['#EDE9FE','#8E3C1E'],
-  none:           ['#F4F1EC','#6B7076'],
-  new:            ['#F3E7DF','#2A2F35'],
-  seen:           ['#F4F1EC','#3A4046'],
-  draft:          ['#F4F1EC','#3A4046'],
+  featured:       ['#EDE9FE','#6B4A18'],
+  none:           ['#F2F2F2','#6E6E6E'],
+  new:            ['#F2EADC','#242424'],
+  seen:           ['#F2F2F2','#4A4A4A'],
+  draft:          ['#F2F2F2','#4A4A4A'],
   published:      ['#E9F1EC','#22513B'],
-  archived:       ['#FBEDEB','#8E2A1F'],
+  archived:       ['#FBEDEB','#5E3F14'],
 }
 
 const ALL_SERVICES = [
@@ -55,7 +55,7 @@ const ALL_SERVICES = [
 ]
 
 function StatusBadge({ status }) {
-  const [bg, color] = STATUS_BADGE[status] || ['#EFEBE4','#6B7076']
+  const [bg, color] = STATUS_BADGE[status] || ['#ECECEC','#6E6E6E']
   return <span style={S.badge(bg, color)}>{sinhalaText(status?.replace(/_/g,' '))}</span>
 }
 
@@ -72,7 +72,7 @@ function Table({ heads, children, empty }) {
         <thead><tr>{sinhalaText(heads.map(h => <th key={h} style={S.th}>{sinhalaText(h)}</th>))}</tr></thead>
         <tbody>{sinhalaText(children)}</tbody>
       </table>
-      {sinhalaText(empty && <div style={{ textAlign: 'center', padding: '36px 0', color: '#8A8F95', fontSize: 13 }}>{sinhalaText(empty)}</div>)}
+      {sinhalaText(empty && <div style={{ textAlign: 'center', padding: '36px 0', color: '#8C8C8C', fontSize: 13 }}>{sinhalaText(empty)}</div>)}
     </div>
   )
 }
@@ -82,23 +82,23 @@ function Pagination({ page, setPage, count, perPage }) {
   if (total <= 1) return null
   return (
     <div style={{ display: 'flex', gap: 8, justifyContent: 'flex-end', marginTop: 14, alignItems: 'center' }}>
-      <span style={{ fontSize: 12, color: '#6B7076' }}>පිටුව {sinhalaText(page + 1)} of {sinhalaText(total)}</span>
-      <button onClick={() => setPage(p => Math.max(0, p - 1))} disabled={page === 0} style={S.btn('#EFEBE4','#3A4046')}>← පෙර</button>
-      <button onClick={() => setPage(p => Math.min(total - 1, p + 1))} disabled={page >= total - 1} style={S.btn('#EFEBE4','#3A4046')}>ඊළඟ →</button>
+      <span style={{ fontSize: 12, color: '#6E6E6E' }}>පිටුව {sinhalaText(page + 1)} of {sinhalaText(total)}</span>
+      <button onClick={() => setPage(p => Math.max(0, p - 1))} disabled={page === 0} style={S.btn('#ECECEC','#4A4A4A')}>← පෙර</button>
+      <button onClick={() => setPage(p => Math.min(total - 1, p + 1))} disabled={page >= total - 1} style={S.btn('#ECECEC','#4A4A4A')}>ඊළඟ →</button>
     </div>
   )
 }
 
 // ─── Shared form helpers ──────────────────────────────────────────────────────
 function lbl() {
-  return { display: 'block', fontSize: 11, fontWeight: 700, color: '#3A4046', textTransform: 'uppercase', letterSpacing: '0.6px', marginBottom: 7 }
+  return { display: 'block', fontSize: 11, fontWeight: 700, color: '#4A4A4A', textTransform: 'uppercase', letterSpacing: '0.6px', marginBottom: 7 }
 }
 function inp(hasError) {
-  return { width: '100%', padding: '10px 13px', border: `1.5px solid ${hasError ? '#E3A199' : '#E4E0D9'}`, borderRadius: 10, fontSize: 13, outline: 'none', fontFamily: 'inherit', background: hasError ? '#FBEDEB' : '#fff', boxSizing: 'border-box' }
+  return { width: '100%', padding: '10px 13px', border: `1.5px solid ${hasError ? '#DCC9A4' : '#E2E2E2'}`, borderRadius: 10, fontSize: 13, outline: 'none', fontFamily: 'inherit', background: hasError ? '#FBEDEB' : '#fff', boxSizing: 'border-box' }
 }
 function Chip({ label, checked, onClick }) {
   return (
-    <button type="button" onClick={onClick} style={{ padding: '5px 12px', borderRadius: 20, fontSize: 12, fontWeight: 600, cursor: 'pointer', border: `1.5px solid ${checked ? NAVY : '#E4E0D9'}`, background: checked ? '#F7EFE9' : '#fff', color: checked ? NAVY : '#6B7076' }}>
+    <button type="button" onClick={onClick} style={{ padding: '5px 12px', borderRadius: 20, fontSize: 12, fontWeight: 600, cursor: 'pointer', border: `1.5px solid ${checked ? NAVY : '#E2E2E2'}`, background: checked ? '#F5EEE2' : '#fff', color: checked ? NAVY : '#6E6E6E' }}>
       {sinhalaText(checked ? '✓ ' : '')}{sinhalaText(label)}
     </button>
   )
@@ -135,20 +135,20 @@ function ImageUploadBox({ label, hint, value, onChange, aspect }) {
         onDragOver={e => { e.preventDefault(); setDragging(true) }}
         onDragLeave={() => setDragging(false)}
         onDrop={e => { e.preventDefault(); setDragging(false); handle(e.dataTransfer.files[0]) }}
-        style={{ position: 'relative', height, borderRadius: 10, border: `2px dashed ${dragging ? NAVY : '#D6D0C6'}`, background: dragging ? '#F7EFE9' : preview ? '#000' : '#FBFAF8', cursor: 'pointer', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        style={{ position: 'relative', height, borderRadius: 10, border: `2px dashed ${dragging ? NAVY : '#D0D0D0'}`, background: dragging ? '#F5EEE2' : preview ? '#000' : '#F7F7F7', cursor: 'pointer', overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         {sinhalaText(preview ? (
           <>
             <img src={preview} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: 0.85 }} />
             <div style={{ position: 'relative', zIndex: 1, background: 'rgba(0,0,0,0.55)', color: '#fff', borderRadius: 8, padding: '3px 10px', fontSize: 11, fontWeight: 600 }}>වෙනස් කිරීමට ඔබන්න</div>
           </>
         ) : (
-          <div style={{ textAlign: 'center', color: '#8A8F95', fontSize: 11, pointerEvents: 'none' }}>
+          <div style={{ textAlign: 'center', color: '#8C8C8C', fontSize: 11, pointerEvents: 'none' }}>
             <div style={{ fontSize: 18, marginBottom: 3 }}>{sinhalaText(aspect === 'cover' ? '🖼️' : '👤')}</div>
             උඩුගත කිරීමට ඔබන්න හෝ මෙතැනට ඇද දමන්න
           </div>
         ))}
       </div>
-      {sinhalaText(hint && <p style={{ fontSize: 11, color: '#8A8F95', marginTop: 3 }}>{sinhalaText(hint)}</p>)}
+      {sinhalaText(hint && <p style={{ fontSize: 11, color: '#8C8C8C', marginTop: 3 }}>{sinhalaText(hint)}</p>)}
       <input ref={ref} type="file" accept="image/*" onChange={e => handle(e.target.files[0])} style={{ display: 'none' }} />
     </div>
   )
@@ -163,10 +163,10 @@ function GalleryEditor({ existing, newFiles, onNewFiles, onRemoveExisting }) {
   }
   return (
     <div style={{ marginBottom: 16 }}>
-      <div style={lbl()}>ඡායාරූප / කළ වැඩ <span style={{ fontSize: 10, color: '#8A8F95', textTransform: 'none', fontWeight: 400 }}>(උපරිම {sinhalaText(MAX)})</span></div>
+      <div style={lbl()}>ඡායාරූප / කළ වැඩ <span style={{ fontSize: 10, color: '#8C8C8C', textTransform: 'none', fontWeight: 400 }}>(උපරිම {sinhalaText(MAX)})</span></div>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(80px,1fr))', gap: 6, marginBottom: 6 }}>
         {sinhalaText(existing.map((url, i) => (
-          <div key={url} style={{ position: 'relative', aspectRatio: '1', borderRadius: 8, overflow: 'hidden', border: '1px solid #E4E0D9' }}>
+          <div key={url} style={{ position: 'relative', aspectRatio: '1', borderRadius: 8, overflow: 'hidden', border: '1px solid #E2E2E2' }}>
             <img src={url} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             <button type="button" onClick={() => onRemoveExisting(i)} style={{ position: 'absolute', top: 2, right: 2, background: 'rgba(0,0,0,0.65)', color: '#fff', border: 'none', borderRadius: '50%', width: 18, height: 18, cursor: 'pointer', fontSize: 10, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>✕</button>
           </div>
@@ -178,8 +178,8 @@ function GalleryEditor({ existing, newFiles, onNewFiles, onRemoveExisting }) {
           </div>
         )))}
         {sinhalaText((existing.length + newFiles.length) < MAX && (
-          <div onClick={() => ref.current?.click()} style={{ aspectRatio: '1', borderRadius: 8, border: '2px dashed #D6D0C6', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', background: '#FBFAF8' }}>
-            <span style={{ fontSize: 18, color: '#8A8F95' }}>+</span>
+          <div onClick={() => ref.current?.click()} style={{ aspectRatio: '1', borderRadius: 8, border: '2px dashed #D0D0D0', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', cursor: 'pointer', background: '#F7F7F7' }}>
+            <span style={{ fontSize: 18, color: '#8C8C8C' }}>+</span>
           </div>
         ))}
       </div>
@@ -271,19 +271,19 @@ function ProfileModal({ profile, profileType, adminUserId, onClose, onSaved }) {
   return (
     <div style={{ position: 'fixed', inset: 0, zIndex: 1000, display: 'flex' }}
       onClick={e => { if (e.target === e.currentTarget) onClose() }}>
-      <div style={{ flex: 1, background: 'rgba(20,23,26,0.5)' }} onClick={onClose} />
+      <div style={{ flex: 1, background: 'rgba(11,11,11,0.5)' }} onClick={onClose} />
       <div style={{ width: isNarrow ? '100vw' : 520, maxWidth: '100vw', background: '#fff', overflowY: 'auto', boxShadow: '-4px 0 30px rgba(0,0,0,0.15)', display: 'flex', flexDirection: 'column', borderRadius: isNarrow ? 0 : undefined }}>
         {/* Drawer header */}
-        <div style={{ padding: '20px 24px', borderBottom: '1px solid #EFEBE4', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexShrink: 0, background: '#fff', position: 'sticky', top: 0, zIndex: 1 }}>
+        <div style={{ padding: '20px 24px', borderBottom: '1px solid #ECECEC', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexShrink: 0, background: '#fff', position: 'sticky', top: 0, zIndex: 1 }}>
           <div>
-            <div style={{ fontSize: 16, fontWeight: 700, color: '#14171A' }}>
+            <div style={{ fontSize: 16, fontWeight: 700, color: '#0B0B0B' }}>
               {sinhalaText(isCreate ? 'Create Provider' : 'Edit Provider')}
             </div>
             {sinhalaText(!isCreate && profile?.slug && (
-              <div style={{ fontSize: 11, color: '#8A8F95', marginTop: 2 }}>/{sinhalaText(profile.slug)}</div>
+              <div style={{ fontSize: 11, color: '#8C8C8C', marginTop: 2 }}>/{sinhalaText(profile.slug)}</div>
             ))}
           </div>
-          <button onClick={onClose} style={{ background: 'none', border: 'none', fontSize: 20, cursor: 'pointer', color: '#8A8F95', padding: 4 }}>✕</button>
+          <button onClick={onClose} style={{ background: 'none', border: 'none', fontSize: 20, cursor: 'pointer', color: '#8C8C8C', padding: 4 }}>✕</button>
         </div>
 
         {/* Drawer body */}
@@ -398,8 +398,8 @@ function ProfileModal({ profile, profileType, adminUserId, onClose, onSaved }) {
               <input value={customSvc} onChange={e => setCustomSvc(e.target.value)}
                 onKeyDown={e => { if (e.key==='Enter'){e.preventDefault();addCustomSvc()} }}
                 placeholder="වෙනත් සේවාවක් එක් කරන්න…"
-                style={{ flex:1, padding:'7px 12px', border:'1.5px solid #E4E0D9', borderRadius:10, fontSize:12, outline:'none', fontFamily:'inherit' }} />
-              <button type="button" onClick={addCustomSvc} style={{ padding:'7px 12px', background:'#F7EFE9', color:NAVY, border:`1.5px solid #EDDFD5`, borderRadius:10, fontSize:12, fontWeight:700, cursor:'pointer' }}>+ එක් කරන්න</button>
+                style={{ flex:1, padding:'7px 12px', border:'1.5px solid #E2E2E2', borderRadius:10, fontSize:12, outline:'none', fontFamily:'inherit' }} />
+              <button type="button" onClick={addCustomSvc} style={{ padding:'7px 12px', background:'#F5EEE2', color:NAVY, border:`1.5px solid #EBE2D2`, borderRadius:10, fontSize:12, fontWeight:700, cursor:'pointer' }}>+ එක් කරන්න</button>
             </div>
             {sinhalaText(services.filter(s => !ALL_SERVICES.includes(s)).length > 0 && (
               <div style={{ display:'flex', flexWrap:'wrap', gap:6, marginTop:6 }}>
@@ -439,13 +439,13 @@ function ProfileModal({ profile, profileType, adminUserId, onClose, onSaved }) {
         </div>
 
         {/* Sticky footer */}
-        <div style={{ padding:'16px 24px', borderTop:'1px solid #EFEBE4', display:'flex', gap:10, background:'#fff', flexShrink:0, position:'sticky', bottom:0 }}>
+        <div style={{ padding:'16px 24px', borderTop:'1px solid #ECECEC', display:'flex', gap:10, background:'#fff', flexShrink:0, position:'sticky', bottom:0 }}>
           <button onClick={save} disabled={saving}
-            style={{ flex:1, padding:'12px', background: saving ? '#8A8F95' : NAVY, color:'#fff', border:'none', borderRadius:10, fontSize:14, fontWeight:700, cursor: saving ? 'not-allowed' : 'pointer' }}>
+            style={{ flex:1, padding:'12px', background: saving ? '#8C8C8C' : NAVY, color:'#fff', border:'none', borderRadius:10, fontSize:14, fontWeight:700, cursor: saving ? 'not-allowed' : 'pointer' }}>
             {sinhalaText(saving ? '⏳ Saving…' : isCreate ? '✓ Create Profile' : '💾 Save Changes')}
           </button>
           <button onClick={onClose} disabled={saving}
-            style={{ padding:'12px 18px', background:'#EFEBE4', color:'#3A4046', border:'1px solid #E4E0D9', borderRadius:10, fontSize:14, fontWeight:600, cursor:'pointer' }}>
+            style={{ padding:'12px 18px', background:'#ECECEC', color:'#4A4A4A', border:'1px solid #E2E2E2', borderRadius:10, fontSize:14, fontWeight:600, cursor:'pointer' }}>
             අවලංගු කරන්න
           </button>
         </div>
@@ -472,20 +472,20 @@ function SignIn() {
   }
 
   return (
-    <div style={{ minHeight: 'var(--th-fill)', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#EFEBE4' }}>
+    <div style={{ minHeight: 'var(--th-fill)', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#ECECEC' }}>
       <div style={{ ...S.card, maxWidth: 380, width: '100%', textAlign: 'center', padding: 36 }}>
         <div style={{ fontSize: 36, marginBottom: 12 }}>🔐</div>
-        <h1 style={{ fontSize: 20, fontWeight: 700, color: '#14171A', marginBottom: 6 }}>වැඩHUB පරිපාලනය</h1>
+        <h1 style={{ fontSize: 20, fontWeight: 700, color: '#0B0B0B', marginBottom: 6 }}>වැඩHUB පරිපාලනය</h1>
         {sinhalaText(sent ? (
-          <p style={{ fontSize: 14, color: '#6B7076', lineHeight: 1.7 }}>පිවිසුම් සබැඳිය යවන ලදී: <strong>{sinhalaText(email)}</strong>. පිවිසීමට එය ක්ලික් කරන්න.</p>
+          <p style={{ fontSize: 14, color: '#6E6E6E', lineHeight: 1.7 }}>පිවිසුම් සබැඳිය යවන ලදී: <strong>{sinhalaText(email)}</strong>. පිවිසීමට එය ක්ලික් කරන්න.</p>
         ) : (
           <form onSubmit={send}>
             <input type="email" value={email} onChange={e => { setEmail(e.target.value); setErr('') }}
               placeholder="admin@email.com" autoFocus
-              style={{ width: '100%', padding: '10px 13px', border: `1.5px solid ${err ? '#E3A199' : '#E4E0D9'}`, borderRadius: 10, fontSize: 13, outline: 'none', fontFamily: 'inherit', marginBottom: 10 }} />
+              style={{ width: '100%', padding: '10px 13px', border: `1.5px solid ${err ? '#DCC9A4' : '#E2E2E2'}`, borderRadius: 10, fontSize: 13, outline: 'none', fontFamily: 'inherit', marginBottom: 10 }} />
             {sinhalaText(err && <p style={{ fontSize: 12, color: '#C0392B', marginBottom: 8 }}>⚠ {sinhalaText(err)}</p>)}
             <button type="submit" disabled={loading}
-              style={{ ...S.btn(loading ? '#8A8F95' : NAVY), width: '100%', padding: '11px' }}>
+              style={{ ...S.btn(loading ? '#8C8C8C' : NAVY), width: '100%', padding: '11px' }}>
               {sinhalaText(loading ? 'Sending…' : 'Send Magic Link →')}
             </button>
           </form>
@@ -520,24 +520,24 @@ function OverviewTab() {
   }, [])
 
   const cards = stats ? [
-    { label: 'Pending Submissions', value: stats.pendingSubmissions, color: stats.pendingSubmissions > 0 ? TERRA : '#6B7076', emoji: '📝' },
+    { label: 'Pending Submissions', value: stats.pendingSubmissions, color: stats.pendingSubmissions > 0 ? TERRA : '#6E6E6E', emoji: '📝' },
     { label: 'Active Projects',     value: stats.activeProjects,     color: '#2F6B4F', emoji: '📋' },
-    { label: 'New Bids',            value: stats.newBids,            color: stats.newBids > 0 ? TERRA : '#6B7076', emoji: '💬' },
+    { label: 'New Bids',            value: stats.newBids,            color: stats.newBids > 0 ? TERRA : '#6E6E6E', emoji: '💬' },
     { label: 'Total Providers',      value: stats.totalProviders,     color: NAVY, emoji: '👷' },
-    { label: 'Total Projects',      value: stats.totalProjects,      color: '#6B7076', emoji: '📊' },
-    { label: 'Total Submissions',   value: stats.totalSubmissions,   color: '#6B7076', emoji: '👥' },
+    { label: 'Total Projects',      value: stats.totalProjects,      color: '#6E6E6E', emoji: '📊' },
+    { label: 'Total Submissions',   value: stats.totalSubmissions,   color: '#6E6E6E', emoji: '👥' },
   ] : []
 
   return (
     <div>
       <h2 style={S.h2}>දළ විශ්ලේෂණය</h2>
-      {sinhalaText(!stats ? <p style={{ color: '#8A8F95' }}>පූරණය…</p> : (
+      {sinhalaText(!stats ? <p style={{ color: '#8C8C8C' }}>පූරණය…</p> : (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(160px,1fr))', gap: 14 }}>
           {sinhalaText(cards.map(c => (
             <div key={c.label} style={{ ...S.card, textAlign: 'center' }}>
               <div style={{ fontSize: 26, marginBottom: 8 }}>{sinhalaText(c.emoji)}</div>
               <div style={{ fontSize: 32, fontWeight: 800, color: c.color }}>{sinhalaText(c.value)}</div>
-              <div style={{ fontSize: 12, color: '#6B7076', marginTop: 4 }}>{sinhalaText(c.label)}</div>
+              <div style={{ fontSize: 12, color: '#6E6E6E', marginTop: 4 }}>{sinhalaText(c.label)}</div>
             </div>
           )))}
         </div>
@@ -607,7 +607,7 @@ function SubmissionsTab() {
         <div style={{ display: 'flex', gap: 6, marginLeft: 'auto', flexWrap: 'wrap' }}>
           {sinhalaText(FILTERS.map(f => (
             <button key={f} onClick={() => setFilter(f)}
-              style={{ ...S.btn(filter === f ? NAVY : '#EFEBE4', filter === f ? '#fff' : '#3A4046') }}>
+              style={{ ...S.btn(filter === f ? NAVY : '#ECECEC', filter === f ? '#fff' : '#4A4A4A') }}>
               {sinhalaText(f === 'all' ? 'All' : f.replace(/_/g,' '))}
             </button>
           )))}
@@ -618,7 +618,7 @@ function SubmissionsTab() {
           ⚠ {sinhalaText(approveError)}
         </p>
       ))}
-      {sinhalaText(loading ? <p style={{ color: '#8A8F95' }}>පූරණය…</p> : (
+      {sinhalaText(loading ? <p style={{ color: '#8C8C8C' }}>පූරණය…</p> : (
         <>
           <div style={S.card}>
             <Table
@@ -630,8 +630,8 @@ function SubmissionsTab() {
                   <td style={S.td}><strong>{sinhalaText(r.name)}</strong></td>
                   <td style={S.td}>{sinhalaText(r.city)}{sinhalaText(r.district ? `, ${r.district}` : '')}</td>
                   <td style={S.td}><div style={{ display: 'flex', flexWrap: 'wrap', gap: 4 }}>
-                    {sinhalaText((r.services || []).slice(0,3).map(s => <span key={s} style={{ fontSize: 10, padding: '2px 7px', background: '#F7EFE9', color: NAVY, borderRadius: 10, fontWeight: 600 }}>{sinhalaText(s)}</span>))}
-                    {sinhalaText((r.services || []).length > 3 && <span style={{ fontSize: 10, color: '#8A8F95' }}>+{sinhalaText(r.services.length - 3)}</span>)}
+                    {sinhalaText((r.services || []).slice(0,3).map(s => <span key={s} style={{ fontSize: 10, padding: '2px 7px', background: '#F5EEE2', color: NAVY, borderRadius: 10, fontWeight: 600 }}>{sinhalaText(s)}</span>))}
+                    {sinhalaText((r.services || []).length > 3 && <span style={{ fontSize: 10, color: '#8C8C8C' }}>+{sinhalaText(r.services.length - 3)}</span>)}
                   </div></td>
                   <td style={S.td}><a href={`https://wa.me/${r.whatsapp?.replace(/\D/g,'')}`} target="_blank" rel="noopener" style={{ color: '#2F6B4F', fontWeight: 600, textDecoration: 'none', fontSize: 12 }}>{sinhalaText(r.whatsapp)}</a></td>
                   <td style={S.td}><StatusBadge status={r.status} /></td>
@@ -640,10 +640,10 @@ function SubmissionsTab() {
                     <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap' }}>
                       {sinhalaText(r.status !== 'approved'  && <button onClick={() => listProvider(r)}                      style={S.btn('#2F6B4F')}>✓ අනුමත කරන්න</button>)}
                       {sinhalaText(r.status !== 'rejected'  && <button onClick={() => update(r.id, { status: 'rejected' })}  style={S.btn('#C0392B')}>ප්‍රතික්ෂේප කරන්න</button>)}
-                      {sinhalaText(r.status !== 'pending_review' && <button onClick={() => update(r.id, { status: 'pending_review' })} style={S.btn('#8A8F95')}>යළි සකසන්න</button>)}
+                      {sinhalaText(r.status !== 'pending_review' && <button onClick={() => update(r.id, { status: 'pending_review' })} style={S.btn('#8C8C8C')}>යළි සකසන්න</button>)}
                     </div>
                     {sinhalaText(r.description && (
-                      <p style={{ fontSize: 11, color: '#6B7076', marginTop: 6, maxWidth: 260, lineHeight: 1.5 }}>{sinhalaText(r.description.slice(0, 120))}{sinhalaText(r.description.length > 120 ? '…' : '')}</p>
+                      <p style={{ fontSize: 11, color: '#6E6E6E', marginTop: 6, maxWidth: 260, lineHeight: 1.5 }}>{sinhalaText(r.description.slice(0, 120))}{sinhalaText(r.description.length > 120 ? '…' : '')}</p>
                     ))}
                   </td>
                 </tr>
@@ -710,13 +710,13 @@ function ProjectsTab() {
         <div style={{ display: 'flex', gap: 6, marginLeft: 'auto', flexWrap: 'wrap' }}>
           {sinhalaText(STATUSES.map(f => (
             <button key={f} onClick={() => setFilter(f)}
-              style={S.btn(filter === f ? NAVY : '#EFEBE4', filter === f ? '#fff' : '#3A4046')}>
+              style={S.btn(filter === f ? NAVY : '#ECECEC', filter === f ? '#fff' : '#4A4A4A')}>
               {sinhalaText(f === 'all' ? 'All' : f.replace(/_/g,' '))}
             </button>
           )))}
         </div>
       </div>
-      {sinhalaText(loading ? <p style={{ color: '#8A8F95' }}>පූරණය…</p> : (
+      {sinhalaText(loading ? <p style={{ color: '#8C8C8C' }}>පූරණය…</p> : (
         <>
           <div style={S.card}>
             <Table
@@ -736,7 +736,7 @@ function ProjectsTab() {
                   <td style={S.td}>
                     <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap' }}>
                       <select onChange={e => e.target.value && setStatus(r.id, e.target.value)} defaultValue=""
-                        style={{ padding: '5px 8px', borderRadius: 7, border: '1px solid #E4E0D9', fontSize: 12, cursor: 'pointer' }}>
+                        style={{ padding: '5px 8px', borderRadius: 7, border: '1px solid #E2E2E2', fontSize: 12, cursor: 'pointer' }}>
                         <option value="" disabled>තත්ත්වය සකසන්න…</option>
                         {sinhalaText(['pending_review','active','matched','completed'].map(s =>
                           <option key={s} value={s}>{sinhalaText(s.replace(/_/g,' '))}</option>
@@ -798,7 +798,7 @@ function BidsTab() {
   return (
     <div>
       <h2 style={S.h2}>මිල ගණන්</h2>
-      {sinhalaText(loading ? <p style={{ color: '#8A8F95' }}>පූරණය…</p> : (
+      {sinhalaText(loading ? <p style={{ color: '#8C8C8C' }}>පූරණය…</p> : (
         <>
           <div style={S.card}>
             <Table
@@ -809,9 +809,9 @@ function BidsTab() {
                 const proj = projects[r.job_id]
                 return (
                   <tr key={r.id}>
-                    <td style={S.td}>{sinhalaText(proj ? <span>{sinhalaText(proj.project_type)}<br /><span style={{ fontSize: 11, color: '#8A8F95' }}>{sinhalaText(proj.city)}</span></span> : '—')}</td>
+                    <td style={S.td}>{sinhalaText(proj ? <span>{sinhalaText(proj.project_type)}<br /><span style={{ fontSize: 11, color: '#8C8C8C' }}>{sinhalaText(proj.city)}</span></span> : '—')}</td>
                     <td style={S.td}><strong>{sinhalaText(r.bidder_name)}</strong></td>
-                    <td style={S.td}><span style={{ fontSize: 11, padding: '2px 7px', background: '#EFEBE4', borderRadius: 8 }}>{sinhalaText(r.bidder_type)}</span></td>
+                    <td style={S.td}><span style={{ fontSize: 11, padding: '2px 7px', background: '#ECECEC', borderRadius: 8 }}>{sinhalaText(r.bidder_type)}</span></td>
                     <td style={S.td}><a href={`https://wa.me/${(r.bidder_whatsapp||'').replace(/\D/g,'')}`} target="_blank" rel="noopener" style={{ color: '#2F6B4F', fontWeight: 600, textDecoration: 'none', fontSize: 12 }}>{sinhalaText(r.bidder_whatsapp)}</a></td>
                     <td style={S.td}>{sinhalaText(r.quote_amount ? `Rs. ${r.quote_amount.toLocaleString()}` : '—')}</td>
                     <td style={S.td}>{sinhalaText(r.timeline || '—')}</td>
@@ -821,7 +821,7 @@ function BidsTab() {
                     <td style={S.td}>
                       <div style={{ display: 'flex', gap: 5, alignItems: 'center' }}>
                         <select onChange={e => e.target.value && setStatus(r.id, e.target.value)} defaultValue=""
-                          style={{ fontSize: 11, padding: '4px 6px', borderRadius: 8, border: '1px solid #E4E0D9', cursor: 'pointer', fontFamily: 'inherit' }}>
+                          style={{ fontSize: 11, padding: '4px 6px', borderRadius: 8, border: '1px solid #E2E2E2', cursor: 'pointer', fontFamily: 'inherit' }}>
                           <option value="" disabled>සකසන්න…</option>
                           <option value="new">නව</option>
                           <option value="accepted">පිළිගත්</option>
@@ -907,7 +907,7 @@ function ReviewsTab() {
   return (
     <div>
       <h2 style={S.h2}>සමාලෝචන</h2>
-      {sinhalaText(loading ? <p style={{ color: '#8A8F95' }}>පූරණය…</p> : (
+      {sinhalaText(loading ? <p style={{ color: '#8C8C8C' }}>පූරණය…</p> : (
         <>
           {sinhalaText(loadError && <p style={{ color: '#C0392B', fontSize: 13, marginBottom: 12 }}>සමාලෝචන ලබාගැනීමේ දෝෂයක්: {sinhalaText(loadError)}</p>)}
           {sinhalaText(deleteError && <p style={{ color: '#C0392B', fontSize: 13, marginBottom: 12, padding: '8px 12px', background: '#FBEDEB', borderRadius: 8, border: '1px solid #F2C9C3' }}>{sinhalaText(deleteError)}</p>)}
@@ -923,12 +923,12 @@ function ReviewsTab() {
                   <td style={S.td}>{sinhalaText(r.job_type || '—')}</td>
                   <td style={{ ...S.td, maxWidth: 260 }}>{sinhalaText(r.comment?.slice(0, 120))}{sinhalaText(r.comment?.length > 120 ? '…' : '')}</td>
                   <td style={S.td}>
-                    {sinhalaText(r.tiler_id && <span style={{ fontSize: 11, color: '#6B7076' }}>වෘත්තිකයා</span>)}
-                    {sinhalaText(r.provider_id && <span style={{ fontSize: 11, color: '#6B7076' }}>සේවා සපයන්නා</span>)}
+                    {sinhalaText(r.tiler_id && <span style={{ fontSize: 11, color: '#6E6E6E' }}>වෘත්තිකයා</span>)}
+                    {sinhalaText(r.provider_id && <span style={{ fontSize: 11, color: '#6E6E6E' }}>සේවා සපයන්නා</span>)}
                   </td>
                   <td style={S.td}>{sinhalaText(timeAgo(r.created_at))}</td>
                   <td style={S.td}>
-                    <span style={{ fontSize: 11, fontWeight: 700, padding: '2px 8px', borderRadius: 20, background: r.status === 'hidden' ? '#EFEBE4' : '#E9F1EC', color: r.status === 'hidden' ? '#6B7076' : '#22513B' }}>
+                    <span style={{ fontSize: 11, fontWeight: 700, padding: '2px 8px', borderRadius: 20, background: r.status === 'hidden' ? '#ECECEC' : '#E9F1EC', color: r.status === 'hidden' ? '#6E6E6E' : '#22513B' }}>
                       {sinhalaText(r.status === 'hidden' ? 'Hidden' : 'Published')}
                     </span>
                   </td>
@@ -936,7 +936,7 @@ function ReviewsTab() {
                     <div style={{ display: 'flex', gap: 5 }}>
                       {sinhalaText(r.status === 'hidden'
                         ? <button onClick={() => setStatus(r.id, 'published')} style={S.btn('#E9F1EC','#22513B')}>පළ කරන්න</button>
-                        : <button onClick={() => setStatus(r.id, 'hidden')} style={S.btn('#F7EFE9','#C2542B')}>සඟවන්න</button>)}
+                        : <button onClick={() => setStatus(r.id, 'hidden')} style={S.btn('#F5EEE2','#8A6224')}>සඟවන්න</button>)}
                       <button onClick={() => del(r.id)} style={S.btn('#FBEDEB','#C0392B')}>🗑</button>
                     </div>
                   </td>
@@ -996,14 +996,14 @@ function ProfilesTab({ adminUserId }) {
         <h2 style={{ ...S.h2, marginBottom: 0 }}>පැතිකඩ</h2>
         <input value={search} onChange={e => setSearch(e.target.value)}
           placeholder="නමින් සොයන්න…"
-          style={{ padding: '7px 12px', border: '1.5px solid #E4E0D9', borderRadius: 10, fontSize: 13, outline: 'none', fontFamily: 'inherit', minWidth: 180 }} />
+          style={{ padding: '7px 12px', border: '1.5px solid #E2E2E2', borderRadius: 10, fontSize: 13, outline: 'none', fontFamily: 'inherit', minWidth: 180 }} />
         <button onClick={() => setCreating(true)} style={{ ...S.btn('#2F6B4F'), marginLeft: 'auto' }}>
           + නව සේවා සපයන්නෙක්
         </button>
       </div>
 
       {sinhalaText(loadError && <p style={{ color: '#C0392B', fontSize: 13, marginBottom: 12 }}>පැතිකඩ ලබාගැනීමේ දෝෂයක්: {sinhalaText(loadError)}</p>)}
-      {sinhalaText(loading ? <p style={{ color: '#8A8F95' }}>පූරණය…</p> : (
+      {sinhalaText(loading ? <p style={{ color: '#8C8C8C' }}>පූරණය…</p> : (
         <>
           <div style={S.card}>
             <Table
@@ -1014,10 +1014,10 @@ function ProfilesTab({ adminUserId }) {
                 <tr key={r.id}>
                   <td style={S.td}>
                     <strong>{sinhalaText(r.name)}</strong>
-                    {sinhalaText(r.slug && <div style={{ fontSize: 10, color: '#8A8F95' }}>/{sinhalaText(r.slug)}</div>)}
+                    {sinhalaText(r.slug && <div style={{ fontSize: 10, color: '#8C8C8C' }}>/{sinhalaText(r.slug)}</div>)}
                   </td>
                   <td style={S.td}>
-                    <span style={{ fontSize: 10, padding: '2px 8px', background: '#F7EFE9', color: NAVY, borderRadius: 20, fontWeight: 700 }}>
+                    <span style={{ fontSize: 10, padding: '2px 8px', background: '#F5EEE2', color: NAVY, borderRadius: 20, fontWeight: 700 }}>
                       {sinhalaText((r.provider_type || '').replace(/_/g,' '))}
                     </span>
                   </td>
@@ -1031,9 +1031,9 @@ function ProfilesTab({ adminUserId }) {
                   <td style={S.td}>
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 3 }}>
                       {sinhalaText((r.services||[]).slice(0,2).map(s => (
-                        <span key={s} style={{ fontSize: 10, padding: '2px 6px', background: '#F7EFE9', color: NAVY, borderRadius: 8, fontWeight: 600 }}>{sinhalaText(s)}</span>
+                        <span key={s} style={{ fontSize: 10, padding: '2px 6px', background: '#F5EEE2', color: NAVY, borderRadius: 8, fontWeight: 600 }}>{sinhalaText(s)}</span>
                       )))}
-                      {sinhalaText((r.services||[]).length > 2 && <span style={{ fontSize: 10, color: '#8A8F95' }}>+{sinhalaText(r.services.length-2)}</span>)}
+                      {sinhalaText((r.services||[]).length > 2 && <span style={{ fontSize: 10, color: '#8C8C8C' }}>+{sinhalaText(r.services.length-2)}</span>)}
                     </div>
                   </td>
                   <td style={S.td}><StatusBadge status={r.verification_status || 'listed'} /></td>
@@ -1044,7 +1044,7 @@ function ProfilesTab({ adminUserId }) {
                         style={S.btn(NAVY)}>✏️ සංස්කරණය</button>
                       {sinhalaText(r.slug && (
                         <a href={`/providers/${r.slug}`} target="_blank" rel="noopener"
-                          style={{ ...S.btn('#EFEBE4','#3A4046'), textDecoration: 'none', display: 'inline-flex', alignItems: 'center' }}>🔗</a>
+                          style={{ ...S.btn('#ECECEC','#4A4A4A'), textDecoration: 'none', display: 'inline-flex', alignItems: 'center' }}>🔗</a>
                       ))}
                       <button onClick={() => del(r.id)} style={S.btn('#FBEDEB','#C0392B')}>🗑</button>
                     </div>
@@ -1118,7 +1118,7 @@ function BlogsTab() {
         <div style={{ display: 'flex', gap: 6 }}>
           {sinhalaText(['all', 'draft', 'published', 'archived'].map(f => (
             <button key={f} onClick={() => setFilter(f)}
-              style={S.btn(filter === f ? NAVY : '#EFEBE4', filter === f ? '#fff' : '#3A4046')}>
+              style={S.btn(filter === f ? NAVY : '#ECECEC', filter === f ? '#fff' : '#4A4A4A')}>
               {sinhalaText(f.charAt(0).toUpperCase() + f.slice(1))}
             </button>
           )))}
@@ -1129,7 +1129,7 @@ function BlogsTab() {
         </a>
       </div>
 
-      {sinhalaText(loading ? <p style={{ color: '#8A8F95' }}>පූරණය…</p> : (
+      {sinhalaText(loading ? <p style={{ color: '#8C8C8C' }}>පූරණය…</p> : (
         <>
           <div style={S.card}>
             <Table
@@ -1139,7 +1139,7 @@ function BlogsTab() {
               {sinhalaText(rows.map(r => (
                 <tr key={r.id}>
                   <td style={{ ...S.td, maxWidth: 260 }}><strong>{sinhalaText(r.title)}</strong></td>
-                  <td style={{ ...S.td, fontSize: 11, color: '#6B7076' }}>/blog/{sinhalaText(r.slug)}</td>
+                  <td style={{ ...S.td, fontSize: 11, color: '#6E6E6E' }}>/blog/{sinhalaText(r.slug)}</td>
                   <td style={S.td}><StatusBadge status={r.status} /></td>
                   <td style={S.td}>{sinhalaText(timeAgo(r.created_at))}</td>
                   <td style={S.td}>
@@ -1150,7 +1150,7 @@ function BlogsTab() {
                       </a>
                       {sinhalaText(r.status === 'published' && (
                         <a href={`https://tilershub.lk/blog/${r.slug}`} target="_blank" rel="noopener"
-                          style={{ ...S.btn('#EFEBE4', '#3A4046'), textDecoration: 'none', display: 'inline-flex', alignItems: 'center' }}>
+                          style={{ ...S.btn('#ECECEC', '#4A4A4A'), textDecoration: 'none', display: 'inline-flex', alignItems: 'center' }}>
                           🔗
                         </a>
                       ))}
@@ -1178,7 +1178,7 @@ function ServicesTab() {
           <tr key={s.slug}>
             <td style={S.td}>{sinhalaText(s.icon)}</td>
             <td style={S.td}>{sinhalaText(s.label)}</td>
-            <td style={{ ...S.td, fontFamily: 'monospace', fontSize: 11, color: '#6B7076' }}>{sinhalaText(s.slug)}</td>
+            <td style={{ ...S.td, fontFamily: 'monospace', fontSize: 11, color: '#6E6E6E' }}>{sinhalaText(s.slug)}</td>
             <td style={S.td}>
               <a href={`/services/${s.slug}`} target="_blank" rel="noopener" style={{ color: TERRA, fontSize: 12, fontWeight: 600 }}>/services/{sinhalaText(s.slug)} ›</a>
             </td>
@@ -1199,8 +1199,8 @@ function CategoriesTab() {
           <tr key={c.slug}>
             <td style={S.td}>{sinhalaText(c.icon)}</td>
             <td style={S.td}>{sinhalaText(c.label)}</td>
-            <td style={{ ...S.td, fontFamily: 'monospace', fontSize: 11, color: '#6B7076' }}>{sinhalaText(c.slug)}</td>
-            <td style={{ ...S.td, maxWidth: 200, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: '#6B7076' }}>{sinhalaText(c.description || '—')}</td>
+            <td style={{ ...S.td, fontFamily: 'monospace', fontSize: 11, color: '#6E6E6E' }}>{sinhalaText(c.slug)}</td>
+            <td style={{ ...S.td, maxWidth: 200, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', color: '#6E6E6E' }}>{sinhalaText(c.description || '—')}</td>
             <td style={S.td}>
               <a href={`/categories/${c.slug}`} target="_blank" rel="noopener" style={{ color: TERRA, fontSize: 12, fontWeight: 600 }}>/categories/{sinhalaText(c.slug)} ›</a>
             </td>
@@ -1244,7 +1244,7 @@ function UsersTab() {
     <div>
       <h2 style={S.h2}>සේවා සපයන්නන් හා සම්බන්ධ පරිශීලකයන් ({sinhalaText(count)})</h2>
       {sinhalaText(loadError && <p style={{ color: '#C0392B', fontSize: 13, marginBottom: 12 }}>දෝෂය: {sinhalaText(loadError)}</p>)}
-      {sinhalaText(loading ? <p style={{ color: '#8A8F95' }}>පූරණය…</p> : (
+      {sinhalaText(loading ? <p style={{ color: '#8C8C8C' }}>පූරණය…</p> : (
         <>
           <Table
             heads={['Name', 'Type', 'Status', 'WhatsApp', 'Joined']}
@@ -1256,7 +1256,7 @@ function UsersTab() {
                 <td style={S.td}><StatusBadge status={r.provider_type} /></td>
                 <td style={S.td}><StatusBadge status={r.status} /></td>
                 <td style={{ ...S.td, fontFamily: 'monospace', fontSize: 11 }}>{sinhalaText(r.whatsapp || '—')}</td>
-                <td style={{ ...S.td, color: '#8A8F95' }}>{sinhalaText(timeAgo(r.created_at))}</td>
+                <td style={{ ...S.td, color: '#8C8C8C' }}>{sinhalaText(timeAgo(r.created_at))}</td>
               </tr>
             )))}
           </Table>
@@ -1298,8 +1298,8 @@ function AnalyticsTab() {
   const cards = stats ? [
     { label: 'Active Providers', value: stats.activeProviders, emoji: '👷', color: NAVY },
     { label: 'Total Projects',   value: stats.totalProjects,   emoji: '📋', color: '#2F6B4F' },
-    { label: 'Total Bids',       value: stats.totalBids,       emoji: '💬', color: '#8E3C1E' },
-    { label: 'Pending Review',   value: stats.pendingReview,   emoji: '📝', color: stats?.pendingReview > 0 ? TERRA : '#6B7076' },
+    { label: 'Total Bids',       value: stats.totalBids,       emoji: '💬', color: '#6B4A18' },
+    { label: 'Pending Review',   value: stats.pendingReview,   emoji: '📝', color: stats?.pendingReview > 0 ? TERRA : '#6E6E6E' },
   ] : []
 
   const maxCount = typeBreakdown[0]?.[1] || 1
@@ -1307,14 +1307,14 @@ function AnalyticsTab() {
   return (
     <div>
       <h2 style={S.h2}>විශ්ලේෂණ</h2>
-      {sinhalaText(!stats ? <p style={{ color: '#8A8F95' }}>පූරණය…</p> : (
+      {sinhalaText(!stats ? <p style={{ color: '#8C8C8C' }}>පූරණය…</p> : (
         <>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(160px,1fr))', gap: 14, marginBottom: 28 }}>
             {sinhalaText(cards.map(c => (
               <div key={c.label} style={{ ...S.card, textAlign: 'center' }}>
                 <div style={{ fontSize: 26, marginBottom: 8 }}>{sinhalaText(c.emoji)}</div>
                 <div style={{ fontSize: 32, fontWeight: 800, color: c.color }}>{sinhalaText(c.value)}</div>
-                <div style={{ fontSize: 12, color: '#6B7076', marginTop: 4 }}>{sinhalaText(c.label)}</div>
+                <div style={{ fontSize: 12, color: '#6E6E6E', marginTop: 4 }}>{sinhalaText(c.label)}</div>
               </div>
             )))}
           </div>
@@ -1324,11 +1324,11 @@ function AnalyticsTab() {
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
                 {sinhalaText(typeBreakdown.map(([type, cnt]) => (
                   <div key={type} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                    <div style={{ width: 140, fontSize: 12, color: '#3A4046', flexShrink: 0 }}>{sinhalaText(type.replace(/_/g, ' '))}</div>
-                    <div style={{ flex: 1, background: '#EFEBE4', borderRadius: 4, height: 14, overflow: 'hidden' }}>
+                    <div style={{ width: 140, fontSize: 12, color: '#4A4A4A', flexShrink: 0 }}>{sinhalaText(type.replace(/_/g, ' '))}</div>
+                    <div style={{ flex: 1, background: '#ECECEC', borderRadius: 4, height: 14, overflow: 'hidden' }}>
                       <div style={{ height: '100%', background: NAVY, borderRadius: 4, width: `${(cnt / maxCount) * 100}%` }} />
                     </div>
-                    <div style={{ width: 30, fontSize: 12, fontWeight: 700, color: '#3A4046', textAlign: 'right', flexShrink: 0 }}>{sinhalaText(cnt)}</div>
+                    <div style={{ width: 30, fontSize: 12, fontWeight: 700, color: '#4A4A4A', textAlign: 'right', flexShrink: 0 }}>{sinhalaText(cnt)}</div>
                   </div>
                 )))}
               </div>
@@ -1356,7 +1356,7 @@ const TABS = [
   { key: 'analytics',    label: '📈 Analytics' },
 ]
 
-const GOLD = '#E8B341'
+const GOLD = '#D4A15E'
 const ADMIN_EMAILS = ['tilershub@gmail.com']
 
 export default function AdminDashboard({ initialUser }) {
@@ -1391,7 +1391,7 @@ export default function AdminDashboard({ initialUser }) {
   if (loading) {
     return (
       <div style={{ minHeight: 'var(--th-fill)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <div style={{ textAlign: 'center', color: '#6B7076' }}>
+        <div style={{ textAlign: 'center', color: '#6E6E6E' }}>
           <div style={{ fontSize: 32, marginBottom: 10 }}>⏳</div>
           <p>ප්‍රවේශය පරීක්ෂා කරමින්…</p>
         </div>
@@ -1406,12 +1406,12 @@ export default function AdminDashboard({ initialUser }) {
       <div style={{ minHeight: 'var(--th-fill)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <div style={{ textAlign: 'center', maxWidth: 340 }}>
           <div style={{ fontSize: 48, marginBottom: 12 }}>🚫</div>
-          <h2 style={{ fontSize: 20, fontWeight: 700, color: '#14171A', marginBottom: 8 }}>ප්‍රවේශය අවසර නැත</h2>
-          <p style={{ color: '#6B7076', fontSize: 14, lineHeight: 1.7, marginBottom: 20 }}>
+          <h2 style={{ fontSize: 20, fontWeight: 700, color: '#0B0B0B', marginBottom: 8 }}>ප්‍රවේශය අවසර නැත</h2>
+          <p style={{ color: '#6E6E6E', fontSize: 14, lineHeight: 1.7, marginBottom: 20 }}>
             <strong>{sinhalaText(user.email)}</strong> පරිපාලක ගිණුමක් නොවේ.
           </p>
           <button onClick={() => supabase.auth.signOut().then(() => window.location.reload())}
-            style={S.btn('#EFEBE4','#3A4046')}>ඉවත් වන්න</button>
+            style={S.btn('#ECECEC','#4A4A4A')}>ඉවත් වන්න</button>
         </div>
       </div>
     )
@@ -1441,7 +1441,7 @@ export default function AdminDashboard({ initialUser }) {
                 }}>
                 <span>{sinhalaText(t.label)}</span>
                 {sinhalaText(t.badge && (
-                  <span style={{ fontSize: 9, fontWeight: 800, background: GOLD, color: '#14171A', padding: '2px 7px', borderRadius: 20, flexShrink: 0 }}>
+                  <span style={{ fontSize: 9, fontWeight: 800, background: GOLD, color: '#0B0B0B', padding: '2px 7px', borderRadius: 20, flexShrink: 0 }}>
                     {sinhalaText(t.badge)}
                   </span>
                 ))}

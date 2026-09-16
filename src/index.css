@@ -1,28 +1,43 @@
 /* ═══ DESIGN TOKENS ═══
-   Terracotta on cream. Two background tones, one action colour; everything
-   else is ink and warm grey. The --navy-* names are historical — they carry
-   ink values now, and are kept so the 24 components reading them don't need
-   touching. */
-:root {
-  /* Ink — headings, dark UI, hero/footer. Colour is for actions, not chrome. */
-  --navy: #14171A;        /* ink */
-  --navy-light: #2A2F35;  /* ink-soft — gradient partner */
-  --navy-dark: #14171A;   /* ink — hero / footer */
-  --navy-50: #EFEBE4;     /* cream */
-  --navy-100: #E4E0D9;
+   Gold on ink. See BRAND.md for the sheet these come from.
 
-  /* Star ratings only — the one place gold still means something */
+   The brand gold #D4A15E only works on dark: 8.5:1 on ink, but 2.2:1 as text
+   on paper and 2.3:1 under white text, both far below the 4.5:1 floor. So the
+   accent exists twice. --brand-gold is for dark surfaces, rules and icons;
+   --terra is the same hue darkened to 5.1:1 on paper and 5.4:1 behind white,
+   and is what every light-surface accent uses. Reaching for the brand gold on
+   a white card is the mistake this pair exists to prevent.
+
+   The --navy-*, --terra-* and --cream names are historical. They carry brand
+   values now and are kept so the components reading them need no edit. */
+:root {
+  /* Brand — straight off the sheet */
+  --brand-ink: #0B0B0B;
+  --brand-gold: #D4A15E;   /* dark surfaces only — see above */
+  --brand-paper: #F7F7F7;
+  --brand-grey: #4A4A4A;
+
+  /* Ink — headings, dark UI, hero/footer. Colour is for actions, not chrome. */
+  --navy: #0B0B0B;        /* ink */
+  --navy-light: #242424;  /* ink-soft — gradient partner */
+  --navy-dark: #0B0B0B;   /* ink — hero / footer */
+  --navy-50: #ECECEC;
+  --navy-100: #E2E2E2;
+
+  /* Star ratings. Deliberately amber, not brand gold — ratings and accents
+     have to stay tellable apart. */
   --gold: #F59E0B;
   --gold-light: #FCD34D;
   --gold-dark: #D97706;
   --gold-50: #FFFBEB;
   --gold-100: #FEF3C7;
 
-  /* Action — terracotta. White text on --terra is 4.7:1 ✓ */
-  --terra: #C2542B;
-  --terra-light: #8E3C1E; /* deep — hover */
-  --terra-lift: #D96234;  /* lift — on dark backgrounds */
-  --terra-50: #F7EFE9;    /* tint */
+  /* Action — gold darkened for light surfaces. White on --terra is 5.4:1 ✓,
+     --terra as text on --surface-2 is 5.1:1 ✓ */
+  --terra: #8A6224;
+  --terra-light: #6B4A18; /* deep — hover */
+  --terra-lift: #D4A15E;  /* the brand gold — on dark backgrounds only */
+  --terra-50: #F5EEE2;    /* tint */
 
   /* Type — Archivo for display, Instrument Sans for body. Sinhala overrides
      both below: Archivo has no Sinhala coverage and would fall back mid-word. */
@@ -30,7 +45,7 @@
   --th-body: 'Instrument Sans', 'Noto Sans Sinhala', system-ui, sans-serif;
   --th-saffron: #F7C948;
   --th-forest: #2F6B4F;
-  --th-cream-2: #E6E0D7;
+  --th-cream-2: #E4E4E4;
   --th-tabbar-h: 68px;
   --th-gutter: 20px;
   /* Height of the app bar + tab bar, and what's left for a screen. */
@@ -39,16 +54,16 @@
 
   /* Neutrals */
   --surface: #ffffff;
-  --surface-2: #FBFAF8;
-  --surface-3: #EFEBE4;
-  --border: #E4E0D9;
-  --border-dark: #D6D0C6;
+  --surface-2: #F7F7F7;
+  --surface-3: #ECECEC;
+  --border: #E2E2E2;
+  --border-dark: #D0D0D0;
 
   /* Text */
-  --text: #14171A;
-  --text-2: #3A4046;
-  --text-3: #6B7076;
-  --text-4: #8A8F95;
+  --text: #0B0B0B;
+  --text-2: #4A4A4A;
+  --text-3: #6E6E6E;
+  --text-4: #8C8C8C;
 
   /* Semantic */
   --green: #2F6B4F;
@@ -65,20 +80,20 @@
   --shadow-lg: 0 10px 40px rgba(0,0,0,0.1), 0 4px 12px rgba(0,0,0,0.06);
 
   /* Legacy compat */
-  --charcoal: #14171A;
-  --charcoal-soft: #2A2F35;
-  --terracotta: #C2542B;
-  --terracotta-light: #D96234;
-  --terracotta-muted: #E3B9A5;
-  --cream: #EFEBE4;
-  --cream-dark: #E6E0D7;
+  --charcoal: #0B0B0B;
+  --charcoal-soft: #242424;
+  --terracotta: #8A6224;
+  --terracotta-light: #D4A15E;
+  --terracotta-muted: #DCC9A4;
+  --cream: #ECECEC;
+  --cream-dark: #E4E4E4;
   --sage: #2F6B4F;
-  --clay: #a0826d;
+  --clay: #C8B48A;
   --gold-legacy: #F7C948;
   --white: #FFFFFF;
-  --text-dark: #14171A;
-  --text-mid: #3A4046;
-  --text-light: #6B7076;
+  --text-dark: #0B0B0B;
+  --text-mid: #4A4A4A;
+  --text-light: #6E6E6E;
   --success: #2F6B4F;
 }
 
@@ -120,15 +135,15 @@ img { max-width: 100%; display: block; }
   height: 20px;
 }
 .site-logo-tile { border-radius: 2px; }
-.site-logo-grid .site-logo-tile:nth-child(1) { background: #C4956A; }
-.site-logo-grid .site-logo-tile:nth-child(2) { background: #8B5C3A; }
-.site-logo-grid .site-logo-tile:nth-child(3) { background: #3C200E; }
-.site-logo-grid .site-logo-tile:nth-child(4) { background: #7A4828; }
-.site-logo-grid .site-logo-tile:nth-child(5) { background: #CB9462; }
-.site-logo-grid .site-logo-tile:nth-child(6) { background: #593018; }
-.site-logo-grid .site-logo-tile:nth-child(7) { background: #C4956A; opacity: 0.4; }
-.site-logo-grid .site-logo-tile:nth-child(8) { background: #8B5C3A; opacity: 0.3; }
-.site-logo-grid .site-logo-tile:nth-child(9) { background: #3C200E; opacity: 0.2; }
+.site-logo-grid .site-logo-tile:nth-child(1) { background: #D4A15E; }
+.site-logo-grid .site-logo-tile:nth-child(2) { background: #8A6224; }
+.site-logo-grid .site-logo-tile:nth-child(3) { background: #0B0B0B; }
+.site-logo-grid .site-logo-tile:nth-child(4) { background: #8A6224; }
+.site-logo-grid .site-logo-tile:nth-child(5) { background: #D4A15E; }
+.site-logo-grid .site-logo-tile:nth-child(6) { background: #242424; }
+.site-logo-grid .site-logo-tile:nth-child(7) { background: #D4A15E; opacity: 0.4; }
+.site-logo-grid .site-logo-tile:nth-child(8) { background: #8A6224; opacity: 0.3; }
+.site-logo-grid .site-logo-tile:nth-child(9) { background: #0B0B0B; opacity: 0.2; }
 .signin-icon { display: none; }
 
 /* The bar must never overflow. Below 480px "Nuwara Eliya" truncates rather
@@ -210,7 +225,7 @@ img { max-width: 100%; display: block; }
   text-decoration: none;
 }
 .drawer-link:hover, .drawer-link.active { background: rgba(255,255,255,0.07); color: #fff; }
-.drawer-link.highlight { background: rgba(194,84,43,0.18); color: #E3B9A5; margin-top: 6px; }
+.drawer-link.highlight { background: rgba(212,161,94,0.18); color: #DCC9A4; margin-top: 6px; }
 .drawer-divider { height: 1px; background: rgba(255,255,255,0.07); margin: 8px 0; }
 
 /* ═══ LAYOUT ═══ */
@@ -250,7 +265,7 @@ img { max-width: 100%; display: block; }
 .search-box input:focus {
   border-color: var(--navy);
   background: #fff;
-  box-shadow: 0 0 0 4px rgba(20,23,26,0.08);
+  box-shadow: 0 0 0 4px rgba(11,11,11,0.08);
 }
 .search-box input::placeholder { color: var(--text-4); }
 .search-icon {
@@ -446,8 +461,8 @@ img { max-width: 100%; display: block; }
   color: #2F6B4F;
   border: 1px solid #C6DDCF;
 }
-.badge-master { background: #F7EFE9; color: #8E3C1E; border-color: #E7D9CE; }
-.badge-pro { background: #F7EFE9; color: #8E3C1E; border-color: #E7D9CE; }
+.badge-master { background: #F5EEE2; color: #6B4A18; border-color: #E8DCC6; }
+.badge-pro { background: #F5EEE2; color: #6B4A18; border-color: #E8DCC6; }
 .rating {
   display: flex;
   align-items: center;
@@ -601,11 +616,11 @@ img { max-width: 100%; display: block; }
   line-height: 1;
 }
 .btn:active { transform: scale(0.97); }
-.btn-navy { background: var(--navy); color: #fff; box-shadow: 0 2px 10px rgba(20,23,26,0.2); }
+.btn-navy { background: var(--navy); color: #fff; box-shadow: 0 2px 10px rgba(11,11,11,0.2); }
 .btn-navy:hover { background: var(--navy-light); transform: translateY(-1px); }
 .btn-gold { background: var(--gold); color: #111; box-shadow: 0 2px 10px rgba(245,158,11,0.3); }
 .btn-gold:hover { background: var(--gold-light); transform: translateY(-1px); }
-.btn-terra { background: var(--terra); color: #fff; box-shadow: 0 2px 10px rgba(194,84,43,0.25); }
+.btn-terra { background: var(--terra); color: #fff; box-shadow: 0 2px 10px rgba(212,161,94,0.25); }
 .btn-terra:hover { background: var(--terra-light); transform: translateY(-1px); }
 .btn-outline { background: transparent; color: var(--navy); border: 1.5px solid var(--navy); }
 .btn-outline:hover { background: var(--navy-50); }
@@ -622,7 +637,7 @@ img { max-width: 100%; display: block; }
 .chip { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; font-weight: 500; padding: 4px 10px; border-radius: 20px; }
 .chip-navy { background: var(--navy-50); color: var(--navy); border: 1px solid var(--navy-100); }
 .chip-gold { background: var(--gold-50); color: var(--gold-dark); border: 1px solid var(--gold-100); }
-.chip-terra { background: var(--terra-50); color: var(--terra); border: 1px solid rgba(194,84,43,0.2); }
+.chip-terra { background: var(--terra-50); color: var(--terra); border: 1px solid rgba(212,161,94,0.2); }
 .chip-green { background: var(--green-bg); color: var(--green); border: 1px solid var(--green-border); }
 .chip-gray { background: var(--surface-3); color: var(--text-3); border: 1px solid var(--border); }
 
@@ -639,7 +654,7 @@ img { max-width: 100%; display: block; }
 input[type="text"], input[type="email"], input[type="tel"], input[type="number"], input[type="search"], select, textarea {
   font-size: 16px;
 }
-.form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--navy); box-shadow: 0 0 0 3px rgba(20,23,26,0.08); }
+.form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--navy); box-shadow: 0 0 0 3px rgba(11,11,11,0.08); }
 .form-textarea { resize: vertical; min-height: 100px; }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .form-error { font-size: 11px; color: var(--error); margin-top: 4px; }
@@ -730,7 +745,7 @@ footer.legacy-footer { background: var(--charcoal); color: rgba(245,240,232,0.35
 .footer-col-head { font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.22); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 14px; }
 .footer-links { display: flex; flex-direction: column; gap: 10px; }
 .footer-links a { font-size: 13px; color: rgba(255,255,255,0.45); transition: color 0.15s; }
-.footer-links a:hover { color: #E3B9A5; }
+.footer-links a:hover { color: #DCC9A4; }
 .footer-bottom { max-width: 1140px; margin: 0 auto; padding: 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 11px; }
 .site-footer strong { color: var(--gold); }
 

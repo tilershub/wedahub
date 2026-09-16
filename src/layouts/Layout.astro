@@ -91,7 +91,7 @@ const orgSchema = JSON.stringify({
   <title>{sinhalaText(title)}</title>
   <meta name="description" content={sinhalaText(description)} />
   <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
-  <meta name="theme-color" content="#C2542B" />
+  <meta name="theme-color" content="#F7F7F7" />
   <link rel="canonical" href={canonicalUrl} />
   <link rel="sitemap" href="/sitemap.xml" />
   <!-- Open Graph -->
@@ -197,15 +197,15 @@ const orgSchema = JSON.stringify({
       #pwa-splash { display: flex; }
     }
   </style>
-  <div id="pwa-splash" style="position:fixed;inset:0;z-index:99999;background:#14171A;flex-direction:column;align-items:center;justify-content:center;gap:20px;transition:opacity 0.45s ease;pointer-events:none;">
+  <div id="pwa-splash" style="position:fixed;inset:0;z-index:99999;background:#0B0B0B;flex-direction:column;align-items:center;justify-content:center;gap:20px;transition:opacity 0.45s ease;pointer-events:none;">
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px;width:78px;height:78px;">
       {[0,1,2,3,4,5,6,7,8].map((i) => (
         <div style={`border-radius:3px;background:${[1,3,4,5,7].includes(i)?'#8B5E3C':'#5E4130'};opacity:${[0,2,6,8].includes(i)?'0.55':'1'};`}></div>
       ))}
     </div>
-    <div style="font-family:var(--th-display);font-size:20px;font-weight:700;color:rgba(255,255,255,0.9);letter-spacing:1.5px;">වැඩ<span style="color:#C2542B;">HUB</span></div>
+    <div style="font-family:var(--th-display);font-size:20px;font-weight:700;color:rgba(255,255,255,0.9);letter-spacing:1.5px;">වැඩ<span style="color:#8A6224;">HUB</span></div>
     <div style="width:32px;height:3px;border-radius:2px;background:rgba(255,255,255,0.15);overflow:hidden;margin-top:4px;">
-      <div id="pwa-splash-bar" style="height:100%;width:0;background:#C2542B;border-radius:2px;transition:width 1.2s ease;"></div>
+      <div id="pwa-splash-bar" style="height:100%;width:0;background:#8A6224;border-radius:2px;transition:width 1.2s ease;"></div>
     </div>
   </div>
   <script is:inline>
@@ -237,7 +237,7 @@ const orgSchema = JSON.stringify({
   <div class="mobile-drawer-overlay" id="drawer-overlay"></div>
   <div class="mobile-drawer" id="mobile-drawer">
     <div class="drawer-header">
-      <span style="font-family: var(--th-display);font-size:16px;font-weight:700;color:#fff;">වැඩ<span style="color:#C2542B;">HUB</span></span>
+      <span style="font-family: var(--th-display);font-size:16px;font-weight:700;color:#fff;">වැඩ<span style="color:#8A6224;">HUB</span></span>
       <button id="close-drawer" style="background:transparent;border:none;color:rgba(255,255,255,0.5);font-size:22px;cursor:pointer;padding:4px;">✕</button>
     </div>
     <a href="/" class={`drawer-link${path==='/'?' active':''}`}>🏠 මුල් පිටුව</a>
@@ -287,7 +287,7 @@ const orgSchema = JSON.stringify({
         <p class="footer-brand-text">ශ්‍රී ලංකාවේ ටයිල් ක්ෂේත්‍රයේ එකමුතුව — නිවාස හිමියන් නොමිලේ ව්‍යාපෘති පළ කරයි, කාර්මිකයන් වැඩ ලබාගනී, වෙළෙඳසැල් සහ සැපයුම්කරුවන් දිවයින පුරා පාරිභෝගිකයන් වෙත ළඟාවේ.</p>
         <div style="display:flex;gap:10px;margin-top:16px;">
           <a href="https://chat.whatsapp.com/IR9ZWyFj7ZN15KeOHqwG3Z" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:#25D366;text-decoration:none;">💬 WhatsApp</a>
-          <a href="https://www.facebook.com/share/g/1Dsc63BvXS/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:#E08A5F;text-decoration:none;">👥 Facebook</a>
+          <a href="https://www.facebook.com/share/g/1Dsc63BvXS/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:#D4A15E;text-decoration:none;">👥 Facebook</a>
         </div>
       </div>
       <!-- Discover -->
@@ -338,7 +338,7 @@ const orgSchema = JSON.stringify({
     </div>
     <div class="footer-bottom">
       <span>© {new Date().getFullYear()} <strong>වැඩHUB</strong> · wedahub.lk · 🇱🇰 ශ්‍රී ලංකාව</span>
-      <span style="color:rgba(194,84,43,0.5);font-weight:600;">♥ ශ්‍රී ලංකාවේ නිර්මාණයකි</span>
+      <span style="color:rgba(212,161,94,0.5);font-weight:600;">♥ ශ්‍රී ලංකාවේ නිර්මාණයකි</span>
     </div>
   </footer>
 

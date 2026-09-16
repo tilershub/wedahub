@@ -47,13 +47,13 @@ export default function Notifications() {
         setItems((projects || []).map(proj => ({
           id: proj.id,
           icon: TYPE_ICONS[proj.project_type] || '🏗️',
-          iconBg: '#F7EFE9',
+          iconBg: '#F5EEE2',
           title: `New project: ${proj.project_type}`,
           subtitle: `${proj.city}${proj.district && proj.district !== proj.city ? `, ${proj.district}` : ''}${proj.budget_range ? ` · ${proj.budget_range}` : ''}`,
           time: proj.created_at,
           href: jobPath(proj),
           cta: 'Bid →',
-          ctaBg: '#C2542B',
+          ctaBg: '#8A6224',
         })))
       } else {
         // Homeowner: show bids received on their projects
@@ -86,7 +86,7 @@ export default function Notifications() {
               time: b.created_at,
               href: '/dashboard',
               cta: 'View',
-              ctaBg: '#C2542B',
+              ctaBg: '#8A6224',
             }
           }))
         }
@@ -103,11 +103,11 @@ export default function Notifications() {
     return (
       <div style={{ maxWidth:480, margin:'48px auto', padding:'0 20px', textAlign:'center' }}>
         <div style={{ fontSize:48, marginBottom:16 }}>🔔</div>
-        <h2 style={{ fontFamily:"var(--th-display)", fontSize:22, fontWeight:700, color:'#14171A', marginBottom:8 }}>දැනුම්දීම්</h2>
-        <p style={{ fontSize:14, color:'#6B7076', marginBottom:24, lineHeight:1.7 }}>
+        <h2 style={{ fontFamily:"var(--th-display)", fontSize:22, fontWeight:700, color:'#0B0B0B', marginBottom:8 }}>දැනුම්දීම්</h2>
+        <p style={{ fontSize:14, color:'#6E6E6E', marginBottom:24, lineHeight:1.7 }}>
           මිල ගණන්, ව්‍යාපෘති යාවත්කාලීන සහ අනෙකුත් දැනුම්දීම් බැලීමට පිවිසෙන්න.
         </p>
-        <a href="/login" style={{ display:'inline-flex', alignItems:'center', gap:8, background:'#C2542B', color:'#fff', borderRadius:12, padding:'12px 28px', fontSize:14, fontWeight:700, textDecoration:'none', boxShadow:'0 4px 16px rgba(194,84,43,0.35)' }}>
+        <a href="/login" style={{ display:'inline-flex', alignItems:'center', gap:8, background:'#8A6224', color:'#fff', borderRadius:12, padding:'12px 28px', fontSize:14, fontWeight:700, textDecoration:'none', boxShadow:'0 4px 16px rgba(212,161,94,0.35)' }}>
           පිවිසෙන්න →
         </a>
       </div>
@@ -119,13 +119,13 @@ export default function Notifications() {
   if (state === 'loading') {
     return (
       <div style={{ maxWidth:560, margin:'0 auto', padding:'24px 16px' }}>
-        <div style={{ height:24, background:'#EFEBE4', borderRadius:8, width:'40%', marginBottom:20 }} />
+        <div style={{ height:24, background:'#ECECEC', borderRadius:8, width:'40%', marginBottom:20 }} />
         {sinhalaText(Array.from({ length: 5 }).map((_, i) => (
-          <div key={i} style={{ display:'flex', gap:12, alignItems:'center', padding:'14px 0', borderBottom:'1px solid #EFEBE4' }}>
-            <div style={{ width:40, height:40, borderRadius:12, background:'#EFEBE4', flexShrink:0 }} />
+          <div key={i} style={{ display:'flex', gap:12, alignItems:'center', padding:'14px 0', borderBottom:'1px solid #ECECEC' }}>
+            <div style={{ width:40, height:40, borderRadius:12, background:'#ECECEC', flexShrink:0 }} />
             <div style={{ flex:1 }}>
-              <div style={{ height:12, background:'#EFEBE4', borderRadius:6, width:'60%', marginBottom:6 }} />
-              <div style={{ height:10, background:'#EFEBE4', borderRadius:6, width:'80%' }} />
+              <div style={{ height:12, background:'#ECECEC', borderRadius:6, width:'60%', marginBottom:6 }} />
+              <div style={{ height:10, background:'#ECECEC', borderRadius:6, width:'80%' }} />
             </div>
           </div>
         )))}
@@ -148,13 +148,13 @@ export default function Notifications() {
       {/* Header */}
       <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:20 }}>
         <div>
-          <h1 style={{ fontFamily:"var(--th-display)", fontSize:22, fontWeight:700, color:'#14171A', margin:'0 0 2px' }}>දැනුම්දීම්</h1>
-          <p style={{ fontSize:12, color:'#8A8F95', margin:0 }}>
+          <h1 style={{ fontFamily:"var(--th-display)", fontSize:22, fontWeight:700, color:'#0B0B0B', margin:'0 0 2px' }}>දැනුම්දීම්</h1>
+          <p style={{ fontSize:12, color:'#8C8C8C', margin:0 }}>
             {sinhalaText(role === 'provider' ? 'Open projects you can bid on' : 'Bids on your projects')}
           </p>
         </div>
         {sinhalaText(items.length > 0 && (
-          <span style={{ fontSize:11, fontWeight:700, color:'#C2542B', background:'#F7EFE9', border:'1px solid #E7D9CE', borderRadius:20, padding:'3px 10px' }}>
+          <span style={{ fontSize:11, fontWeight:700, color:'#8A6224', background:'#F5EEE2', border:'1px solid #E8DCC6', borderRadius:20, padding:'3px 10px' }}>
             {sinhalaText(items.length)} අලුත්
           </span>
         ))}
@@ -164,8 +164,8 @@ export default function Notifications() {
       {sinhalaText(items.length === 0 && (
         <div style={{ textAlign:'center', padding:'48px 20px' }}>
           <div style={{ fontSize:40, marginBottom:12 }}>🔔</div>
-          <p style={{ fontSize:14, color:'#8A8F95', marginBottom:20 }}>{sinhalaText(emptyMsg)}</p>
-          <a href={emptyCta.href} style={{ display:'inline-flex', alignItems:'center', gap:6, background:'#C2542B', color:'#fff', borderRadius:10, padding:'10px 22px', fontSize:13, fontWeight:700, textDecoration:'none' }}>
+          <p style={{ fontSize:14, color:'#8C8C8C', marginBottom:20 }}>{sinhalaText(emptyMsg)}</p>
+          <a href={emptyCta.href} style={{ display:'inline-flex', alignItems:'center', gap:6, background:'#8A6224', color:'#fff', borderRadius:10, padding:'10px 22px', fontSize:13, fontWeight:700, textDecoration:'none' }}>
             {sinhalaText(emptyCta.label)} →
           </a>
         </div>
@@ -174,7 +174,7 @@ export default function Notifications() {
       {/* Items */}
       {sinhalaText(items.map(item => (
         <a key={item.id} href={item.href}
-          style={{ display:'flex', alignItems:'center', gap:12, padding:'14px 0', borderBottom:'1px solid #EFEBE4', textDecoration:'none', color:'inherit', transition:'opacity 0.15s' }}
+          style={{ display:'flex', alignItems:'center', gap:12, padding:'14px 0', borderBottom:'1px solid #ECECEC', textDecoration:'none', color:'inherit', transition:'opacity 0.15s' }}
           onMouseOver={e => e.currentTarget.style.opacity='0.75'}
           onMouseOut={e  => e.currentTarget.style.opacity='1'}
         >
@@ -185,13 +185,13 @@ export default function Notifications() {
 
           {/* text */}
           <div style={{ flex:1, minWidth:0 }}>
-            <div style={{ fontSize:13, fontWeight:700, color:'#14171A', marginBottom:2, overflow:'hidden', whiteSpace:'nowrap', textOverflow:'ellipsis' }}>{sinhalaText(item.title)}</div>
-            <div style={{ fontSize:11, color:'#6B7076', overflow:'hidden', whiteSpace:'nowrap', textOverflow:'ellipsis' }}>{sinhalaText(item.subtitle)}</div>
+            <div style={{ fontSize:13, fontWeight:700, color:'#0B0B0B', marginBottom:2, overflow:'hidden', whiteSpace:'nowrap', textOverflow:'ellipsis' }}>{sinhalaText(item.title)}</div>
+            <div style={{ fontSize:11, color:'#6E6E6E', overflow:'hidden', whiteSpace:'nowrap', textOverflow:'ellipsis' }}>{sinhalaText(item.subtitle)}</div>
           </div>
 
           {/* time + cta */}
           <div style={{ flexShrink:0, display:'flex', flexDirection:'column', alignItems:'flex-end', gap:5 }}>
-            <span style={{ fontSize:10, color:'#8A8F95' }}>{sinhalaText(timeAgo(item.time))}</span>
+            <span style={{ fontSize:10, color:'#8C8C8C' }}>{sinhalaText(timeAgo(item.time))}</span>
             <span style={{ fontSize:10, fontWeight:700, color:'#fff', background:item.ctaBg, borderRadius:6, padding:'3px 8px' }}>{sinhalaText(item.cta)}</span>
           </div>
         </a>

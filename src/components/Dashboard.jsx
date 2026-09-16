@@ -100,8 +100,8 @@ export default function Dashboard({ initialUser, initialProjects, initialProvide
       <div style={{ textAlign: 'center', maxWidth: 400 }}>
         <div style={{ fontSize: 40, marginBottom: 12 }}>⚠️</div>
         <h3 style={{ fontSize: 16, fontWeight: 700, color: '#C0392B', marginBottom: 8 }}>ඔබේ පාලන පුවරුව පූරණය කළ නොහැකි විය</h3>
-        <p style={{ fontSize: 13, color: '#6B7076', marginBottom: 20 }}>{sinhalaText(loadError)}</p>
-        <button onClick={() => window.location.reload()} style={{ padding: '10px 24px', background: '#C2542B', color: '#fff', border: 'none', borderRadius: 10, fontSize: 14, fontWeight: 600, cursor: 'pointer' }}>
+        <p style={{ fontSize: 13, color: '#6E6E6E', marginBottom: 20 }}>{sinhalaText(loadError)}</p>
+        <button onClick={() => window.location.reload()} style={{ padding: '10px 24px', background: '#8A6224', color: '#fff', border: 'none', borderRadius: 10, fontSize: 14, fontWeight: 600, cursor: 'pointer' }}>
           නැවත උත්සාහ කරන්න
         </button>
       </div>
@@ -245,11 +245,11 @@ function ProviderDashboard({ user, claimedProfile, submission, showClaimedBanner
   const profileHref = claimedProfile?.slug ? `/providers/${claimedProfile.slug}` : null
 
   return (
-    <div style={{ minHeight:'var(--th-fill)', background:'#FBFAF8' }}>
+    <div style={{ minHeight:'var(--th-fill)', background:'#F7F7F7' }}>
       <style>{sinhalaText(MOBILE_STYLES)}</style>
 
       {/* ── Provider header ── */}
-      <div style={{ background:'linear-gradient(135deg,#14171A 0%,#14171A 100%)', paddingBottom:0 }}>
+      <div style={{ background:'linear-gradient(135deg,#0B0B0B 0%,#0B0B0B 100%)', paddingBottom:0 }}>
         <div className="db-header-pad" style={{ maxWidth:860, margin:'0 auto', padding:'20px 16px 0' }}>
 
           {sinhalaText(showClaimedBanner && (
@@ -268,7 +268,7 @@ function ProviderDashboard({ user, claimedProfile, submission, showClaimedBanner
           {/* Identity row */}
           <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:16, flexWrap:'wrap', gap:10 }}>
             <div style={{ display:'flex', alignItems:'center', gap:12 }}>
-              <div className="db-avatar" style={{ width:52, height:52, borderRadius:14, background:'rgba(96,165,250,0.14)', border:'2px solid rgba(96,165,250,0.3)', color:'#E08A5F', display:'flex', alignItems:'center', justifyContent:'center', fontSize:18, fontWeight:700, flexShrink:0 }}>
+              <div className="db-avatar" style={{ width:52, height:52, borderRadius:14, background:'rgba(96,165,250,0.14)', border:'2px solid rgba(96,165,250,0.3)', color:'#D4A15E', display:'flex', alignItems:'center', justifyContent:'center', fontSize:18, fontWeight:700, flexShrink:0 }}>
                 {sinhalaText(initials)}
               </div>
               <div>
@@ -277,7 +277,7 @@ function ProviderDashboard({ user, claimedProfile, submission, showClaimedBanner
                 {sinhalaText(claimedProfile && (
                   <div style={{ fontSize:11, color:'rgba(255,255,255,0.38)', marginTop:1 }}>
                     {sinhalaText(claimedProfile.city || claimedProfile.district || '')}
-                    {sinhalaText(claimedProfile.verification_status === 'th_master' && <span style={{ marginLeft:6, color:'#E08A5F' }}>· 🛡️ TH ප්‍රවීණ</span>)}
+                    {sinhalaText(claimedProfile.verification_status === 'th_master' && <span style={{ marginLeft:6, color:'#D4A15E' }}>· 🛡️ TH ප්‍රවීණ</span>)}
                     {sinhalaText(claimedProfile.is_verified && claimedProfile.verification_status !== 'th_master' && <span style={{ marginLeft:6, color:'#4ade80' }}>· ✓ සත්‍යාපිත</span>)}
                   </div>
                 ))}
@@ -304,7 +304,7 @@ function ProviderDashboard({ user, claimedProfile, submission, showClaimedBanner
                 padding:'10px 14px', fontSize:13, fontWeight:600, border:'none', cursor:'pointer',
                 background:'transparent', flexShrink:0,
                 color: tab === t.key ? '#fff' : 'rgba(255,255,255,0.4)',
-                borderBottom: tab === t.key ? '2.5px solid #E08A5F' : '2.5px solid transparent',
+                borderBottom: tab === t.key ? '2.5px solid #D4A15E' : '2.5px solid transparent',
                 transition:'all 0.15s', whiteSpace:'nowrap',
               }}>{sinhalaText(t.label)}</button>
             )))}
@@ -415,7 +415,7 @@ function ExploreTab({ projects, user, lang }) {
                   <button
                     onClick={e => toggleSave(e, p.id)}
                     disabled={saving === p.id}
-                    style={{ display:'inline-flex', alignItems:'center', gap:5, background: isSaved ? '#F7EFE9' : '#FBFAF8', color: isSaved ? '#C2542B' : 'var(--text-3)', border:`1px solid ${isSaved ? '#EDDFD5' : 'var(--border)'}`, borderRadius:8, padding:'7px 12px', fontSize:12, fontWeight:600, cursor:'pointer' }}>
+                    style={{ display:'inline-flex', alignItems:'center', gap:5, background: isSaved ? '#F5EEE2' : '#F7F7F7', color: isSaved ? '#8A6224' : 'var(--text-3)', border:`1px solid ${isSaved ? '#EBE2D2' : 'var(--border)'}`, borderRadius:8, padding:'7px 12px', fontSize:12, fontWeight:600, cursor:'pointer' }}>
                     {sinhalaText(isSaved ? T.saved : T.save)}
                   </button>
                 </div>
@@ -447,7 +447,7 @@ function MyQuotesTab({ submittedBids, lang }) {
         const isNew = bid.status === 'new'
         const statusLabel = bid.status === 'accepted' ? '✓ Accepted' : bid.status === 'rejected' ? '✗ Rejected' : 'New'
         return (
-          <div key={bid.id} style={{ padding:'16px 18px', background:'#fff', borderRadius:14, border:`1.5px solid ${isNew ? '#E7D9CE' : 'var(--border)'}`, borderLeft:`4px solid ${isNew ? '#f59e0b' : '#E4E0D9'}`, boxShadow:'var(--shadow-sm)' }}>
+          <div key={bid.id} style={{ padding:'16px 18px', background:'#fff', borderRadius:14, border:`1.5px solid ${isNew ? '#E8DCC6' : 'var(--border)'}`, borderLeft:`4px solid ${isNew ? '#f59e0b' : '#E2E2E2'}`, boxShadow:'var(--shadow-sm)' }}>
             <div style={{ fontSize:10, fontWeight:700, color:'var(--text-4)', textTransform:'uppercase', letterSpacing:1, marginBottom:6 }}>
               {sinhalaText(TYPE_ICON[bid.project?.project_type] || '🏠')} {sinhalaText(bid.project?.project_type || '—')} · 📍 {sinhalaText(bid.project?.city || bid.project?.district || '—')}
             </div>
@@ -457,9 +457,9 @@ function MyQuotesTab({ submittedBids, lang }) {
                 {sinhalaText(bid.timeline && <span style={{ fontSize:12, color:'var(--text-3)', marginLeft:10 }}>· {sinhalaText(bid.timeline)}</span>)}
                 <span style={{ fontSize:11, color:'var(--text-4)', marginLeft:8 }}>· {sinhalaText(timeAgo(bid.created_at))}</span>
               </div>
-              <span style={{ fontSize:10, fontWeight:700, padding:'2px 8px', borderRadius:20, background: isNew ? '#F3E7DF' : '#EFEBE4', color: isNew ? '#2A2F35' : '#6B7076', whiteSpace:'nowrap', flexShrink:0 }}>{sinhalaText(statusLabel)}</span>
+              <span style={{ fontSize:10, fontWeight:700, padding:'2px 8px', borderRadius:20, background: isNew ? '#F2EADC' : '#ECECEC', color: isNew ? '#242424' : '#6E6E6E', whiteSpace:'nowrap', flexShrink:0 }}>{sinhalaText(statusLabel)}</span>
             </div>
-            {sinhalaText(bid.message && <p style={{ fontSize:13, color:'#3A4046', lineHeight:1.6, margin:0 }}>{sinhalaText(bid.message.length > 200 ? bid.message.slice(0,200)+'…' : bid.message)}</p>)}
+            {sinhalaText(bid.message && <p style={{ fontSize:13, color:'#4A4A4A', lineHeight:1.6, margin:0 }}>{sinhalaText(bid.message.length > 200 ? bid.message.slice(0,200)+'…' : bid.message)}</p>)}
             {sinhalaText(bid.project && (
               <div style={{ marginTop:12, paddingTop:10, borderTop:'1px solid var(--border)' }}>
                 <a href={jobPath({ ...bid.project, id: bid.job_id })}
@@ -645,7 +645,7 @@ function SavedProvidersTab({ userId }) {
         const rating = p.avg_rating
         return (
           <div key={item.id} style={{ background:'#fff', borderRadius:14, border:'1px solid var(--border)', padding:'14px 16px', display:'flex', alignItems:'center', gap:14 }}>
-            <div style={{ width:48, height:48, borderRadius:12, background:'#C2542B', flexShrink:0, overflow:'hidden', display:'flex', alignItems:'center', justifyContent:'center', fontSize:18, fontWeight:700, color:'#fff' }}>
+            <div style={{ width:48, height:48, borderRadius:12, background:'#8A6224', flexShrink:0, overflow:'hidden', display:'flex', alignItems:'center', justifyContent:'center', fontSize:18, fontWeight:700, color:'#fff' }}>
               {sinhalaText(p.profile_image
                 ? <img src={p.profile_image} alt={sinhalaText(p.name)} style={{ width:'100%', height:'100%', objectFit:'cover' }} />
                 : (p.name || '?')[0].toUpperCase())
@@ -655,15 +655,15 @@ function SavedProvidersTab({ userId }) {
               <div style={{ fontSize:14, fontWeight:700, color:'var(--text)', overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap' }}>{sinhalaText(p.name)}</div>
               <div style={{ fontSize:11, color:'var(--text-3)', marginTop:2, display:'flex', flexWrap:'wrap', gap:'0 8px' }}>
                 {sinhalaText(rating > 0
-                  ? <span style={{ color:'#C2542B' }}>⭐ {sinhalaText(Number(rating).toFixed(1))} ({sinhalaText(p.review_count || 0)})</span>
-                  : <span style={{ color:'#8A8F95' }}>⭐ අලුත් · තවම සමාලෝචන නැත</span>)
+                  ? <span style={{ color:'#8A6224' }}>⭐ {sinhalaText(Number(rating).toFixed(1))} ({sinhalaText(p.review_count || 0)})</span>
+                  : <span style={{ color:'#8C8C8C' }}>⭐ අලුත් · තවම සමාලෝචන නැත</span>)
                 }
                 {sinhalaText(p.city && <span>📍 {sinhalaText(p.city)}</span>)}
               </div>
             </div>
             <div style={{ display:'flex', gap:8, flexShrink:0 }}>
               {sinhalaText(p.slug && (
-                <a href={`/providers/${p.slug}`} style={{ fontSize:12, fontWeight:700, color:'var(--navy)', background:'#F7EFE9', borderRadius:8, padding:'6px 12px', textDecoration:'none', whiteSpace:'nowrap' }}>
+                <a href={`/providers/${p.slug}`} style={{ fontSize:12, fontWeight:700, color:'var(--navy)', background:'#F5EEE2', borderRadius:8, padding:'6px 12px', textDecoration:'none', whiteSpace:'nowrap' }}>
                   බලන්න →
                 </a>
               ))}
@@ -692,7 +692,7 @@ function ConsumerDashboard({ user, projects, bids, submission, dataLoading, show
   ]
 
   return (
-    <div style={{ minHeight:'var(--th-fill)', background:'#FBFAF8' }}>
+    <div style={{ minHeight:'var(--th-fill)', background:'#F7F7F7' }}>
       <style>{sinhalaText(MOBILE_STYLES)}</style>
 
       {/* ── Consumer header ── */}
@@ -708,7 +708,7 @@ function ConsumerDashboard({ user, projects, bids, submission, dataLoading, show
           {/* Identity row */}
           <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:16, flexWrap:'wrap', gap:10 }}>
             <div style={{ display:'flex', alignItems:'center', gap:12 }}>
-              <div className="db-avatar" style={{ width:52, height:52, borderRadius:14, background:'var(--terra-50)', border:'2px solid rgba(194,84,43,0.2)', color:'var(--terra)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:18, fontWeight:700, flexShrink:0 }}>
+              <div className="db-avatar" style={{ width:52, height:52, borderRadius:14, background:'var(--terra-50)', border:'2px solid rgba(212,161,94,0.2)', color:'var(--terra)', display:'flex', alignItems:'center', justifyContent:'center', fontSize:18, fontWeight:700, flexShrink:0 }}>
                 {sinhalaText(initials)}
               </div>
               <div>
@@ -773,7 +773,7 @@ function Spinner({ full }) {
   return (
     <div style={{ ...(full ? { minHeight:'var(--th-fill)' } : { padding:40 }), display:'flex', alignItems:'center', justifyContent:'center' }}>
       <div style={{ textAlign:'center' }}>
-        <div className="spinner" style={{ margin:'0 auto 10px', borderColor:'rgba(20,23,26,0.15)', borderTopColor:'var(--navy)' }} />
+        <div className="spinner" style={{ margin:'0 auto 10px', borderColor:'rgba(11,11,11,0.15)', borderTopColor:'var(--navy)' }} />
         <p style={{ fontSize:13, color:'var(--text-3)' }}>පූරණය…</p>
       </div>
     </div>
@@ -818,7 +818,7 @@ function BidsPanel({ projectBids }) {
   }, [open])
 
   if (!projectBids?.length) return (
-    <div style={{ marginTop:12, padding:'12px 14px', background:'#FBFAF8', borderRadius:10, fontSize:12, color:'#8A8F95' }}>
+    <div style={{ marginTop:12, padding:'12px 14px', background:'#F7F7F7', borderRadius:10, fontSize:12, color:'#8C8C8C' }}>
       💬 තවම මිල ගණන් නැත. ඔබේ ව්‍යාපෘතිය පළ කර ඇති අතර සියලු සේවා සපයන්නන්ට පෙනේ.
     </div>
   )
@@ -827,13 +827,13 @@ function BidsPanel({ projectBids }) {
 
   return (
     <div style={{ marginTop:12 }}>
-      <button onClick={() => setOpen(o => !o)} style={{ display:'flex', alignItems:'center', gap:8, background:'none', border:'none', cursor:'pointer', padding:0, fontSize:13, fontWeight:700, color:'#C2542B' }}>
-        <span style={{ display:'inline-flex', alignItems:'center', justifyContent:'center', background: newCount > 0 ? '#f59e0b' : '#E4E0D9', color: newCount > 0 ? '#fff' : '#6B7076', borderRadius:20, padding:'2px 8px', fontSize:11, fontWeight:700 }}>
+      <button onClick={() => setOpen(o => !o)} style={{ display:'flex', alignItems:'center', gap:8, background:'none', border:'none', cursor:'pointer', padding:0, fontSize:13, fontWeight:700, color:'#8A6224' }}>
+        <span style={{ display:'inline-flex', alignItems:'center', justifyContent:'center', background: newCount > 0 ? '#f59e0b' : '#E2E2E2', color: newCount > 0 ? '#fff' : '#6E6E6E', borderRadius:20, padding:'2px 8px', fontSize:11, fontWeight:700 }}>
           {sinhalaText(projectBids.length)}
         </span>
         {sinhalaText(projectBids.length)} ලංසුව{sinhalaText(projectBids.length !== 1 ? 's' : '')} ලැබී ඇත
         {sinhalaText(newCount > 0 && <span style={{ fontSize:11, color:'#f59e0b', fontWeight:700 }}>· {sinhalaText(newCount)} අලුත්</span>)}
-        <span style={{ fontSize:14, color:'#8A8F95' }}>{sinhalaText(open ? '▲' : '▼')}</span>
+        <span style={{ fontSize:14, color:'#8C8C8C' }}>{sinhalaText(open ? '▲' : '▼')}</span>
       </button>
 
       {sinhalaText(open && (
@@ -849,10 +849,10 @@ function BidsPanel({ projectBids }) {
 
 function ProjectsTab({ projects, bids, isProvider }) {
   const STATUS_COLOR = {
-    pending_review: { bg:'#F3E7DF', color:'#2A2F35', label:'Under Review' },
+    pending_review: { bg:'#F2EADC', color:'#242424', label:'Under Review' },
     active:         { bg:'#E9F1EC', color:'#22513B', label:'Active'        },
-    matched:        { bg:'#F7EFE9', color:'#7A3218', label:'Matched'       },
-    completed:      { bg:'#F4F1EC', color:'#3A4046', label:'Completed'     },
+    matched:        { bg:'#F5EEE2', color:'#5E3F14', label:'Matched'       },
+    completed:      { bg:'#F2F2F2', color:'#4A4A4A', label:'Completed'     },
   }
 
   if (projects.length === 0) return (
@@ -899,10 +899,10 @@ function ProjectsTab({ projects, bids, isProvider }) {
 
 function ListingTab({ submission }) {
   const STATUS = {
-    pending_review: { bg:'#F3E7DF', color:'#2A2F35', label:'Under Review', desc:"Your application is being reviewed. We'll contact you via WhatsApp within 1-2 business days." },
+    pending_review: { bg:'#F2EADC', color:'#242424', label:'Under Review', desc:"Your application is being reviewed. We'll contact you via WhatsApp within 1-2 business days." },
     approved:       { bg:'#E9F1EC', color:'#22513B', label:'Approved',      desc:'Your application has been approved. Your listing is being set up.'                            },
-    listed:         { bg:'#F7EFE9', color:'#7A3218', label:'Listed',        desc:"You're live on වැඩHUB! Customers can find and contact you."                               },
-    rejected:       { bg:'#FBEDEB', color:'#8E2A1F', label:'Not Approved',  desc:'Your application was not approved. Contact us for details.'                                  },
+    listed:         { bg:'#F5EEE2', color:'#5E3F14', label:'Listed',        desc:"You're live on වැඩHUB! Customers can find and contact you."                               },
+    rejected:       { bg:'#FBEDEB', color:'#5E3F14', label:'Not Approved',  desc:'Your application was not approved. Contact us for details.'                                  },
   }
 
   if (!submission) return (

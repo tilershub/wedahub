@@ -17,10 +17,10 @@ export default function EditProfileButton({ ownerId, profileType, profileSlug })
       href="/provider?tab=profile"
       style={{
         display: 'inline-flex', alignItems: 'center', gap: 6,
-        background: '#C2542B', color: '#fff', borderRadius: 12,
+        background: '#8A6224', color: '#fff', borderRadius: 12,
         padding: '10px 18px', fontSize: 13, fontWeight: 700,
         textDecoration: 'none', marginTop: 12,
-        boxShadow: '0 2px 10px rgba(194,84,43,0.25)',
+        boxShadow: '0 2px 10px rgba(212,161,94,0.25)',
       }}
     >
       ✏️ මගේ පැතිකඩ සංස්කරණය කරන්න

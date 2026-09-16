@@ -60,7 +60,7 @@ const year = new Date().getFullYear()
 const districtLabel = district.nameSi || sinhalaText(district.name)
 const townLabels = district.towns.map(sinhalaText)
 
-const AVATAR_COLORS = ['#C2542B','#C2542B','#8E3C1E','#C2542B','#2F6B4F','#C2542B','#285C43','#C2542B']
+const AVATAR_COLORS = ['#8A6224','#8A6224','#6B4A18','#8A6224','#2F6B4F','#8A6224','#285C43','#8A6224']
 function avatarColor(name) {
   let h = 0
   for (const c of name) h = (h * 31 + c.charCodeAt(0)) >>> 0
@@ -110,7 +110,7 @@ Astro.response.headers.set('Cache-Control', 'public, max-age=0, s-maxage=600')
   <script slot="head" type="application/ld+json" set:html={serviceSchema} />
 
   <!-- Hero -->
-  <div style="background:linear-gradient(135deg,#14171A 0%,#14171A 100%);padding:30px 20px 28px;position:relative;overflow:hidden;">
+  <div style="background:linear-gradient(135deg,#0B0B0B 0%,#0B0B0B 100%);padding:30px 20px 28px;position:relative;overflow:hidden;">
     <div style="position:relative;max-width:960px;margin:0 auto;">
       <Breadcrumbs items={[{ name: service.label, href: `/services/${service.slug}` }, { name: district.name }]} light />
       <div style="font-size:40px;margin-bottom:8px;">{sinhalaText(service.icon)}</div>
@@ -121,27 +121,27 @@ Astro.response.headers.set('Cache-Control', 'public, max-age=0, s-maxage=600')
         සත්‍යාපිත {serviceLabel} වෘත්තිකයන් සේවය සපයන ප්‍රදේශ: {sinhalaText(townLabels.slice(0, 4).join(', '))} සහ මුළු {sinhalaText(district.name)} දිස්ත්‍රික්කය. ශ්‍රම ගාස්තුව රු. {sinhalaText(LABOUR.min)}/වර්ග අඩි සිට · WhatsApp මිල ගණන් නොමිලේ.
       </p>
       <a href={`/post-project?type=${encodeURIComponent(service.label)}&district=${encodeURIComponent(district.name)}`}
-        style="display:inline-flex;align-items:center;gap:8px;background:#C2542B;color:#fff;border-radius:24px;padding:12px 26px;font-size:14px;font-weight:700;text-decoration:none;box-shadow:0 4px 20px rgba(194,84,43,0.4);">
+        style="display:inline-flex;align-items:center;gap:8px;background:#8A6224;color:#fff;border-radius:24px;padding:12px 26px;font-size:14px;font-weight:700;text-decoration:none;box-shadow:0 4px 20px rgba(212,161,94,0.4);">
         📋 {sinhalaText(service.label)} ව්‍යාපෘතියක් පළ කරන්න
       </a>
     </div>
   </div>
 
   <!-- Providers -->
-  <div style="background:#FBFAF8;padding:24px 16px 36px;">
+  <div style="background:#F7F7F7;padding:24px 16px 36px;">
     <div style="max-width:960px;margin:0 auto;">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
-        <h2 style="font-size:15px;font-weight:800;color:#14171A;margin:0;">{sinhalaText(total > 0 ? `${districtLabel} හි ${serviceLabel} වෘත්තිකයන් ${total}` : `${districtLabel} අසල ${serviceLabel} වෘත්තිකයන්`)}</h2>
-        <a href={`/services/${service.slug}`} style="font-size:12px;color:#C2542B;font-weight:600;text-decoration:none;">සියල්ල {sinhalaText(service.label)} ›</a>
+        <h2 style="font-size:15px;font-weight:800;color:#0B0B0B;margin:0;">{sinhalaText(total > 0 ? `${districtLabel} හි ${serviceLabel} වෘත්තිකයන් ${total}` : `${districtLabel} අසල ${serviceLabel} වෘත්තිකයන්`)}</h2>
+        <a href={`/services/${service.slug}`} style="font-size:12px;color:#8A6224;font-weight:600;text-decoration:none;">සියල්ල {sinhalaText(service.label)} ›</a>
       </div>
 
       {total === 0 ? (
-        <div style="text-align:center;padding:32px 20px;background:#fff;border-radius:16px;border:1px solid #E4E0D9;">
+        <div style="text-align:center;padding:32px 20px;background:#fff;border-radius:16px;border:1px solid #E2E2E2;">
           <div style="font-size:36px;margin-bottom:10px;">{sinhalaText(service.icon)}</div>
-          <p style="font-size:13px;color:#6B7076;margin:0 0 16px;line-height:1.7;">
+          <p style="font-size:13px;color:#6E6E6E;margin:0 0 16px;line-height:1.7;">
             No {serviceLabel} වෘත්තිකයන් ලැයිස්තුගත වී නැති ප්‍රදේශය: {sinhalaText(district.name)} — ඔබේ ව්‍යාපෘතිය පළ කරන්න. අසල වෘත්තිකයන් ලංසු එවනු ඇත.
           </p>
-          <a href={`/post-project?type=${encodeURIComponent(service.label)}`} style="display:inline-flex;background:#C2542B;color:#fff;border-radius:12px;padding:10px 20px;font-size:13px;font-weight:700;text-decoration:none;">📋 ව්‍යාපෘතියක් පළ කරන්න</a>
+          <a href={`/post-project?type=${encodeURIComponent(service.label)}`} style="display:inline-flex;background:#8A6224;color:#fff;border-radius:12px;padding:10px 20px;font-size:13px;font-weight:700;text-decoration:none;">📋 ව්‍යාපෘතියක් පළ කරන්න</a>
         </div>
       ) : (
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;">
@@ -166,16 +166,16 @@ Astro.response.headers.set('Cache-Control', 'public, max-age=0, s-maxage=600')
                   )}
                 </div>
                 <div style="padding:14px 16px;display:flex;flex-direction:column;flex:1;">
-                  <span style="font-size:15px;font-weight:700;color:#14171A;line-height:1.25;margin-bottom:5px;">{sinhalaText(p.name)}</span>
+                  <span style="font-size:15px;font-weight:700;color:#0B0B0B;line-height:1.25;margin-bottom:5px;">{sinhalaText(p.name)}</span>
                   <div style="font-size:12px;margin-bottom:8px;">
                     {p.avg_rating > 0
                       ? <span style="color:#f59e0b;">⭐ {sinhalaText(Number(p.avg_rating).toFixed(1))}{sinhalaText(p.review_count ? ` (${p.review_count})` : '')}</span>
-                      : <span style="color:#8A8F95;">අලුත් · තවම සමාලෝචන නැත</span>
+                      : <span style="color:#8C8C8C;">අලුත් · තවම සමාලෝචන නැත</span>
                     }
                   </div>
-                  <div style="border-top:1px solid #EFEBE4;margin-top:auto;padding-top:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                  <div style="border-top:1px solid #ECECEC;margin-top:auto;padding-top:10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
                     {p.experience_years > 0 && <span style="font-size:11px;font-weight:600;color:#2F6B4F;">🛡 {sinhalaText(p.experience_years)}+ වසර</span>}
-                    <span style="font-size:11px;color:#6B7076;">📍 {sinhalaText(p.city || p.district)}</span>
+                    <span style="font-size:11px;color:#6E6E6E;">📍 {sinhalaText(p.city || p.district)}</span>
                     <div style="margin-left:auto;display:flex;gap:6px;">
                       {phone && (
                         <a href={waLink(phone)} target="_blank" rel="noopener noreferrer" onclick="event.stopPropagation()"
@@ -183,7 +183,7 @@ Astro.response.headers.set('Cache-Control', 'public, max-age=0, s-maxage=600')
                       )}
                       {cardHref && (
                         <a href={cardHref} onclick="event.stopPropagation()"
-                          style="display:inline-flex;background:#C2542B;color:#fff;border-radius:10px;padding:7px 12px;font-size:11px;font-weight:700;text-decoration:none;">බලන්න ›</a>
+                          style="display:inline-flex;background:#8A6224;color:#fff;border-radius:10px;padding:7px 12px;font-size:11px;font-weight:700;text-decoration:none;">බලන්න ›</a>
                       )}
                     </div>
                   </div>
@@ -198,17 +198,17 @@ Astro.response.headers.set('Cache-Control', 'public, max-age=0, s-maxage=600')
 
   <!-- Recent matching jobs -->
   {jobs.length > 0 && (
-    <div style="background:#fff;padding:24px 16px;border-top:1px solid #EFEBE4;">
+    <div style="background:#fff;padding:24px 16px;border-top:1px solid #ECECEC;">
       <div style="max-width:720px;margin:0 auto;">
-        <h2 style="font-size:15px;font-weight:800;color:#14171A;margin:0 0 12px;">මෑත {serviceLabel} ව්‍යාපෘති — {sinhalaText(district.name)}</h2>
+        <h2 style="font-size:15px;font-weight:800;color:#0B0B0B;margin:0 0 12px;">මෑත {serviceLabel} ව්‍යාපෘති — {sinhalaText(district.name)}</h2>
         <div style="display:flex;flex-direction:column;gap:10px;">
           {jobs.map(j => (
-            <a href={jobPath(j)} style="display:block;background:#FBFAF8;border:1px solid #E4E0D9;border-radius:14px;padding:14px 16px;text-decoration:none;color:inherit;">
+            <a href={jobPath(j)} style="display:block;background:#F7F7F7;border:1px solid #E2E2E2;border-radius:14px;padding:14px 16px;text-decoration:none;color:inherit;">
               <div style="display:flex;justify-content:space-between;gap:8px;margin-bottom:4px;">
-                <span style="font-size:13px;font-weight:700;color:#14171A;">{sinhalaText(j.project_type)}</span>
-                <span style="font-size:10px;color:#8A8F95;white-space:nowrap;">{sinhalaText(timeAgo(j.created_at))}</span>
+                <span style="font-size:13px;font-weight:700;color:#0B0B0B;">{sinhalaText(j.project_type)}</span>
+                <span style="font-size:10px;color:#8C8C8C;white-space:nowrap;">{sinhalaText(timeAgo(j.created_at))}</span>
               </div>
-              {j.description && <p style="font-size:12px;color:#6B7076;margin:0;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">{sinhalaText(j.description)}</p>}
+              {j.description && <p style="font-size:12px;color:#6E6E6E;margin:0;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">{sinhalaText(j.description)}</p>}
             </a>
           ))}
         </div>
@@ -217,37 +217,37 @@ Astro.response.headers.set('Cache-Control', 'public, max-age=0, s-maxage=600')
   )}
 
   <!-- Cost + FAQ + cross links -->
-  <div style="background:#FBFAF8;padding:28px 16px 40px;border-top:1px solid #EFEBE4;">
+  <div style="background:#F7F7F7;padding:28px 16px 40px;border-top:1px solid #ECECEC;">
     <div style="max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:22px;">
 
       <div>
-        <h2 style="font-size:15px;font-weight:800;color:#14171A;margin:0 0 8px;">{sinhalaText(service.label)} ගාස්තු — {sinhalaText(district.name)} ({sinhalaText(year)})</h2>
-        <p style="font-size:13px;color:#3A4046;line-height:1.9;margin:0 0 12px;">
+        <h2 style="font-size:15px;font-weight:800;color:#0B0B0B;margin:0 0 8px;">{sinhalaText(service.label)} ගාස්තු — {sinhalaText(district.name)} ({sinhalaText(year)})</h2>
+        <p style="font-size:13px;color:#4A4A4A;line-height:1.9;margin:0 0 12px;">
           ශ්‍රම ගාස්තුව <strong>රු. {sinhalaText(LABOUR.min)}–{sinhalaText(LABOUR.max)}/වර්ග අඩි</strong>; ඇලවුම් ද්‍රව්‍ය, ග්‍රවුට් සහ ක්ලිප් සමඟ ආසන්න වශයෙන්
           <strong> රු. {sinhalaText(cost.low)}–{sinhalaText(cost.high)}/වර්ග අඩි</strong> ද්‍රව්‍යවලට පෙර. නොමිලේ ගණකයෙන් විස්තරාත්මක ඇස්තමේන්තුවක් ගන්න.
         </p>
-        <a href="https://tilershub.lk/estimator" style="display:inline-flex;align-items:center;gap:7px;background:#C2542B;color:#fff;border-radius:12px;padding:10px 20px;font-size:13px;font-weight:700;text-decoration:none;">📐 ටයිල් වියදම් ගණකය →</a>
+        <a href="https://tilershub.lk/estimator" style="display:inline-flex;align-items:center;gap:7px;background:#8A6224;color:#fff;border-radius:12px;padding:10px 20px;font-size:13px;font-weight:700;text-decoration:none;">📐 ටයිල් වියදම් ගණකය →</a>
       </div>
 
       <div>
-        <h2 style="font-size:15px;font-weight:800;color:#14171A;margin:0 0 12px;">නිතර අසන ප්‍රශ්න</h2>
+        <h2 style="font-size:15px;font-weight:800;color:#0B0B0B;margin:0 0 12px;">නිතර අසන ප්‍රශ්න</h2>
         <div style="display:flex;flex-direction:column;gap:10px;">
           {FAQS.map(f => (
-            <details style="background:#fff;border:1px solid #E4E0D9;border-radius:12px;padding:14px 16px;">
-              <summary style="font-size:13px;font-weight:700;color:#14171A;cursor:pointer;">{sinhalaText(f.q)}</summary>
-              <p style="font-size:13px;color:#3A4046;line-height:1.8;margin:10px 0 0;">{sinhalaText(f.a)}</p>
+            <details style="background:#fff;border:1px solid #E2E2E2;border-radius:12px;padding:14px 16px;">
+              <summary style="font-size:13px;font-weight:700;color:#0B0B0B;cursor:pointer;">{sinhalaText(f.q)}</summary>
+              <p style="font-size:13px;color:#4A4A4A;line-height:1.8;margin:10px 0 0;">{sinhalaText(f.a)}</p>
             </details>
           ))}
         </div>
       </div>
 
       <div>
-        <h2 style="font-size:14px;font-weight:800;color:#14171A;margin:0 0 10px;">{sinhalaText(service.label)} — අසල දිස්ත්‍රික්කවල</h2>
+        <h2 style="font-size:14px;font-weight:800;color:#0B0B0B;margin:0 0 10px;">{sinhalaText(service.label)} — අසල දිස්ත්‍රික්කවල</h2>
         <div style="display:flex;flex-wrap:wrap;gap:8px;">
           {neighbors.map(n => (
-            <a href={serviceDistrictPath(service.slug, n)} style="font-size:12px;font-weight:700;color:#3A4046;background:#fff;border:1px solid #E4E0D9;border-radius:20px;padding:7px 14px;text-decoration:none;">{sinhalaText(service.label)} in {sinhalaText(n.name)}</a>
+            <a href={serviceDistrictPath(service.slug, n)} style="font-size:12px;font-weight:700;color:#4A4A4A;background:#fff;border:1px solid #E2E2E2;border-radius:20px;padding:7px 14px;text-decoration:none;">{sinhalaText(service.label)} in {sinhalaText(n.name)}</a>
           ))}
-          <a href={districtPath(district)} style="font-size:12px;font-weight:700;color:#C2542B;background:#F7EFE9;border:1px solid #E7D9CE;border-radius:20px;padding:7px 14px;text-decoration:none;">{sinhalaText(district.name)} හි සියලු ටයිල් කාර්මිකයන්</a>
+          <a href={districtPath(district)} style="font-size:12px;font-weight:700;color:#8A6224;background:#F5EEE2;border:1px solid #E8DCC6;border-radius:20px;padding:7px 14px;text-decoration:none;">{sinhalaText(district.name)} හි සියලු ටයිල් කාර්මිකයන්</a>
         </div>
       </div>
 

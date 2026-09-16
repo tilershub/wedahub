@@ -12,9 +12,9 @@ const BIDDER_TYPES = [
 
 function inp(extra = {}) {
   return {
-    width: '100%', padding: '12px 14px', border: '1.5px solid #E4E0D9', borderRadius: 10,
+    width: '100%', padding: '12px 14px', border: '1.5px solid #E2E2E2', borderRadius: 10,
     fontSize: 13, fontFamily: 'inherit', outline: 'none', background: '#fff',
-    boxSizing: 'border-box', color: '#14171A', transition: 'border-color 0.15s',
+    boxSizing: 'border-box', color: '#0B0B0B', transition: 'border-color 0.15s',
     ...extra,
   }
 }
@@ -26,14 +26,14 @@ function BidSuccess({ projectType, city, updated }) {
       <h3 style={{ fontSize: 20, fontWeight: 700, color: '#22513B', marginBottom: 8 }}>
         {sinhalaText(updated ? 'Quote Updated!' : 'Quote Sent!')}
       </h3>
-      <p style={{ fontSize: 14, color: '#3A4046', lineHeight: 1.75, maxWidth: 380, margin: '0 auto 24px' }}>
+      <p style={{ fontSize: 14, color: '#4A4A4A', lineHeight: 1.75, maxWidth: 380, margin: '0 auto 24px' }}>
         ඔබේ මිල ගණන: <strong>{sinhalaText(projectType)}</strong> in <strong>{sinhalaText(city)}</strong> දැන් {sinhalaText(updated ? 'updated' : 'received')}. නිවාස හිමියා ඔබව තෝරාගතහොත් WhatsApp හරහා සෘජුවම සම්බන්ධ වනු ඇත.
       </p>
       <div style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap' }}>
-        <a href="/jobs" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 700, color: '#C2542B', textDecoration: 'none', background: '#F7EFE9', border: '1.5px solid #C2542B22', borderRadius: 10, padding: '11px 20px' }}>
+        <a href="/jobs" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 700, color: '#8A6224', textDecoration: 'none', background: '#F5EEE2', border: '1.5px solid #C2542B22', borderRadius: 10, padding: '11px 20px' }}>
           ← තවත් ව්‍යාපෘති බලන්න
         </a>
-        <a href="/providers?type=tiler" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 700, color: '#fff', textDecoration: 'none', background: '#C2542B', borderRadius: 10, padding: '11px 20px' }}>
+        <a href="/providers?type=tiler" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 700, color: '#fff', textDecoration: 'none', background: '#8A6224', borderRadius: 10, padding: '11px 20px' }}>
           ✅ ඔබේ පැතිකඩ සාදන්න
         </a>
       </div>
@@ -135,36 +135,36 @@ export default function BidForm({ jobId, bidCount = 0, projectType = '', city = 
   if (submitted) return <BidSuccess projectType={projectType} city={city} updated={!!existingId} />
 
   if (!ready) return (
-    <div style={{ padding: '32px 24px', textAlign: 'center', color: '#6B7076', fontSize: 13 }}>පූරණය…</div>
+    <div style={{ padding: '32px 24px', textAlign: 'center', color: '#6E6E6E', fontSize: 13 }}>පූරණය…</div>
   )
 
   // Quoting requires an account: it is what ties a quote to a provider so it
   // can be edited later and shown under "My Quotes".
   if (!user) return (
-    <div style={{ textAlign: 'center', padding: '32px 24px', background: '#FBFAF8', border: '1.5px solid #E4E0D9', borderRadius: 14 }}>
+    <div style={{ textAlign: 'center', padding: '32px 24px', background: '#F7F7F7', border: '1.5px solid #E2E2E2', borderRadius: 14 }}>
       <div style={{ fontSize: 40, marginBottom: 12 }}>💬</div>
-      <h3 style={{ fontSize: 17, fontWeight: 800, color: '#14171A', marginBottom: 8 }}>ඔබේ මිල ගණන යැවීමට පිවිසෙන්න</h3>
-      <p style={{ fontSize: 13, color: '#6B7076', lineHeight: 1.7, maxWidth: 340, margin: '0 auto 20px' }}>
+      <h3 style={{ fontSize: 17, fontWeight: 800, color: '#0B0B0B', marginBottom: 8 }}>ඔබේ මිල ගණන යැවීමට පිවිසෙන්න</h3>
+      <p style={{ fontSize: 13, color: '#6E6E6E', lineHeight: 1.7, maxWidth: 340, margin: '0 auto 20px' }}>
         පිවිසීමෙන් ඔබේ මිල ගණන ඔබේ ගිණුමට සම්බන්ධ වේ. ඕනෑම වේලාවක එය සංස්කරණය කිරීමටත් මගේ මිල ගණන් යටතේ බැලීමටත් හැකිය.
       </p>
       <button onClick={signIn}
-        style={{ display: 'inline-flex', alignItems: 'center', gap: 10, background: '#fff', color: '#14171A', border: '1.5px solid #E4E0D9', borderRadius: 12, padding: '13px 22px', fontSize: 15, fontWeight: 700, cursor: 'pointer', minHeight: 48 }}>
+        style={{ display: 'inline-flex', alignItems: 'center', gap: 10, background: '#fff', color: '#0B0B0B', border: '1.5px solid #E2E2E2', borderRadius: 12, padding: '13px 22px', fontSize: 15, fontWeight: 700, cursor: 'pointer', minHeight: 48 }}>
         <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.84 14.1a6.6 6.6 0 0 1 0-4.2V7.06H2.18a11 11 0 0 0 0 9.88l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84C6.71 7.31 9.14 5.38 12 5.38z"/></svg>
         Google සමඟ ඉදිරියට යන්න
       </button>
     </div>
   )
 
-  const labelStyle = { display: 'block', fontSize: 11, fontWeight: 700, color: '#6B7076', textTransform: 'uppercase', letterSpacing: 0.8, marginBottom: 6 }
+  const labelStyle = { display: 'block', fontSize: 11, fontWeight: 700, color: '#6E6E6E', textTransform: 'uppercase', letterSpacing: 0.8, marginBottom: 6 }
   const msgLen = form.message.length
 
   return (
     <form onSubmit={submit} style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
 
       {sinhalaText(existingId && (
-        <div style={{ background: '#F7EFE9', border: '1px solid #E7D9CE', borderRadius: 10, padding: '10px 14px', display: 'flex', alignItems: 'center', gap: 8 }}>
+        <div style={{ background: '#F5EEE2', border: '1px solid #E8DCC6', borderRadius: 10, padding: '10px 14px', display: 'flex', alignItems: 'center', gap: 8 }}>
           <span style={{ fontSize: 16 }}>✏️</span>
-          <span style={{ fontSize: 12, color: '#2A2F35', fontWeight: 600 }}>
+          <span style={{ fontSize: 12, color: '#242424', fontWeight: 600 }}>
             මෙම වැඩයට ඔබ දැනටමත් මිල ගණනක් දී ඇත. පවතින මිල ගණන සංස්කරණය කරමින් සිටී.
           </span>
         </div>
@@ -172,9 +172,9 @@ export default function BidForm({ jobId, bidCount = 0, projectType = '', city = 
 
       {/* Competition notice */}
       {sinhalaText(!existingId && bidCount > 0 && (
-        <div style={{ background: '#F7EFE9', border: '1px solid #E7D9CE', borderRadius: 10, padding: '10px 14px', display: 'flex', alignItems: 'center', gap: 8 }}>
+        <div style={{ background: '#F5EEE2', border: '1px solid #E8DCC6', borderRadius: 10, padding: '10px 14px', display: 'flex', alignItems: 'center', gap: 8 }}>
           <span style={{ fontSize: 16 }}>⚡</span>
-          <span style={{ fontSize: 12, color: '#2A2F35', fontWeight: 600 }}>
+          <span style={{ fontSize: 12, color: '#242424', fontWeight: 600 }}>
             {sinhalaText(bidCount)} සේවා සපයන්නා{sinhalaText(bidCount !== 1 ? 's' : '')} දැනටමත් ඉදිරිපත් කර ඇත {sinhalaText(bidCount !== 1 ? 'bids' : 'a bid')} — පැහැදිලි යෝජනාවකින් ඔබේ විශේෂත්වය පෙන්වන්න!
           </span>
         </div>
@@ -199,13 +199,13 @@ export default function BidForm({ jobId, bidCount = 0, projectType = '', city = 
           {sinhalaText(BIDDER_TYPES.map(t => (
             <button key={t.value} type="button" onClick={() => set('bidder_type', t.value)}
               style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, padding: '10px 4px', borderRadius: 12, cursor: 'pointer', border: '1.5px solid', transition: 'all 0.15s',
-                background: form.bidder_type === t.value ? '#C2542B' : '#FBFAF8',
-                borderColor: form.bidder_type === t.value ? '#C2542B' : '#E4E0D9',
+                background: form.bidder_type === t.value ? '#8A6224' : '#F7F7F7',
+                borderColor: form.bidder_type === t.value ? '#8A6224' : '#E2E2E2',
               }}
             >
               <span style={{ fontSize: 18 }}>{sinhalaText(t.icon)}</span>
-              <span style={{ fontSize: 10, fontWeight: 700, color: form.bidder_type === t.value ? '#fff' : '#3A4046' }}>{sinhalaText(t.label)}</span>
-              <span style={{ fontSize: 9, color: form.bidder_type === t.value ? 'rgba(255,255,255,0.6)' : '#8A8F95', textAlign: 'center', lineHeight: 1.2 }}>{sinhalaText(t.desc)}</span>
+              <span style={{ fontSize: 10, fontWeight: 700, color: form.bidder_type === t.value ? '#fff' : '#4A4A4A' }}>{sinhalaText(t.label)}</span>
+              <span style={{ fontSize: 9, color: form.bidder_type === t.value ? 'rgba(255,255,255,0.6)' : '#8C8C8C', textAlign: 'center', lineHeight: 1.2 }}>{sinhalaText(t.desc)}</span>
             </button>
           )))}
         </div>
@@ -214,14 +214,14 @@ export default function BidForm({ jobId, bidCount = 0, projectType = '', city = 
       {/* Quote + Timeline */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
         <div>
-          <label style={labelStyle}>ඔබේ මිල ගණන <span style={{ color: '#8A8F95', fontWeight: 400, textTransform: 'none' }}>(අත්‍යවශ්‍ය නොවේ)</span></label>
+          <label style={labelStyle}>ඔබේ මිල ගණන <span style={{ color: '#8C8C8C', fontWeight: 400, textTransform: 'none' }}>(අත්‍යවශ්‍ය නොවේ)</span></label>
           <div style={{ position: 'relative' }}>
-            <span style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', fontSize: 12, fontWeight: 600, color: '#6B7076' }}>රු.</span>
+            <span style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', fontSize: 12, fontWeight: 600, color: '#6E6E6E' }}>රු.</span>
             <input type="number" value={form.quote_amount} onChange={e => set('quote_amount', e.target.value)} placeholder="e.g. 85000" style={inp({ paddingLeft: 38 })} />
           </div>
         </div>
         <div>
-          <label style={labelStyle}>කාලසීමාව <span style={{ color: '#8A8F95', fontWeight: 400, textTransform: 'none' }}>(අත්‍යවශ්‍ය නොවේ)</span></label>
+          <label style={labelStyle}>කාලසීමාව <span style={{ color: '#8C8C8C', fontWeight: 400, textTransform: 'none' }}>(අත්‍යවශ්‍ය නොවේ)</span></label>
           <input value={form.timeline} onChange={e => set('timeline', e.target.value)} placeholder="උදා: දින 3–5" style={inp()} />
         </div>
       </div>
@@ -230,7 +230,7 @@ export default function BidForm({ jobId, bidCount = 0, projectType = '', city = 
       <div>
         <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 6 }}>
           <label style={labelStyle}>ඔබේ යෝජනාව *</label>
-          <span style={{ fontSize: 10, color: msgLen > MAX_MSG * 0.9 ? '#C0392B' : '#8A8F95' }}>{sinhalaText(msgLen)}/{sinhalaText(MAX_MSG)}</span>
+          <span style={{ fontSize: 10, color: msgLen > MAX_MSG * 0.9 ? '#C0392B' : '#8C8C8C' }}>{sinhalaText(msgLen)}/{sinhalaText(MAX_MSG)}</span>
         </div>
         <textarea
           value={form.message}
@@ -239,7 +239,7 @@ export default function BidForm({ jobId, bidCount = 0, projectType = '', city = 
           rows={5}
           style={{ ...inp(), resize: 'vertical', lineHeight: 1.7 }}
         />
-        <p style={{ fontSize: 11, color: '#8A8F95', margin: '5px 0 0' }}>උපදෙස: ඔබේ පළපුරුද්ද, මීට සමාන පෙර වැඩ සහ ජලරෝධක කිරීමේ ක්‍රමය සඳහන් කරන්න.</p>
+        <p style={{ fontSize: 11, color: '#8C8C8C', margin: '5px 0 0' }}>උපදෙස: ඔබේ පළපුරුද්ද, මීට සමාන පෙර වැඩ සහ ජලරෝධක කිරීමේ ක්‍රමය සඳහන් කරන්න.</p>
       </div>
 
       {sinhalaText(error && (
@@ -249,14 +249,14 @@ export default function BidForm({ jobId, bidCount = 0, projectType = '', city = 
       ))}
 
       <button type="submit" disabled={loading}
-        style={{ padding: '15px', background: loading ? '#8A8F95' : 'linear-gradient(135deg,#C2542B,#2A2F35)', color: '#fff', border: 'none', borderRadius: 12, fontSize: 15, fontWeight: 700, cursor: loading ? 'not-allowed' : 'pointer', boxShadow: loading ? 'none' : '0 4px 14px rgba(194,84,43,0.3)', transition: 'all 0.2s' }}>
+        style={{ padding: '15px', background: loading ? '#8C8C8C' : 'linear-gradient(135deg,#8A6224,#242424)', color: '#fff', border: 'none', borderRadius: 12, fontSize: 15, fontWeight: 700, cursor: loading ? 'not-allowed' : 'pointer', boxShadow: loading ? 'none' : '0 4px 14px rgba(212,161,94,0.3)', transition: 'all 0.2s' }}>
         {sinhalaText(loading ? (existingId ? '⏳ Updating…' : '⏳ Sending…') : (existingId ? '💾 Update My Quote' : '📨 Send My Quote'))}
       </button>
 
       {/* Trust strip */}
       <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
         {sinhalaText(['✏️ Editable any time', '💬 Homeowner contacts you via WhatsApp', '🚫 No commission'].map(t => (
-          <span key={t} style={{ fontSize: 11, color: '#6B7076', fontWeight: 500 }}>{sinhalaText(t)}</span>
+          <span key={t} style={{ fontSize: 11, color: '#6E6E6E', fontWeight: 500 }}>{sinhalaText(t)}</span>
         )))}
       </div>
     </form>

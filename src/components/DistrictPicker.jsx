@@ -32,7 +32,7 @@ export default function DistrictPicker({ tone = 'light' }) {
       {sinhalaText(open && (
         <div
           onClick={() => setOpen(false)}
-          style={{ position: 'fixed', inset: 0, background: 'rgba(20,23,26,0.5)', zIndex: 400, display: 'flex', alignItems: 'flex-end' }}
+          style={{ position: 'fixed', inset: 0, background: 'rgba(11,11,11,0.5)', zIndex: 400, display: 'flex', alignItems: 'flex-end' }}
         >
           <div
             onClick={e => e.stopPropagation()}

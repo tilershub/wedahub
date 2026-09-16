@@ -11,6 +11,7 @@ jobs:
           cache: npm
       - run: npm ci
       - run: node --test scripts/migration.test.mjs
+      - run: node --test scripts/contrast.test.mjs
       - run: npm run build
       # Boots the built Worker and asserts that an unmatched path returns 404
       # and the migration redirects return 301. `npm run build` alone cannot

@@ -23,7 +23,7 @@ const T = {
 
 const SHOP_TYPES = ['tile_shop', 'bathroom_shop', 'supplier', 'brand_dealer', 'tool_supplier', 'workshop']
 
-const AVATAR_COLORS = ['#C2542B', '#2F6B4F', '#8E3C1E', '#285C43', '#C2542B', '#2F6B4F']
+const AVATAR_COLORS = ['#8A6224', '#2F6B4F', '#6B4A18', '#285C43', '#8A6224', '#2F6B4F']
 function avatarColor(name) {
   let h = 0
   for (const c of name || '') h = (h * 31 + c.charCodeAt(0)) >>> 0

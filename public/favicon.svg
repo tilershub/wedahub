@@ -1,15 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" rx="6" fill="#0D0D0D"/>
-  <!-- Row 1 -->
-  <rect x="4" y="4" width="7" height="7" rx="1.5" fill="#C4956A"/>
-  <rect x="13" y="4" width="7" height="7" rx="1.5" fill="#8B5C3A"/>
-  <rect x="22" y="4" width="6" height="7" rx="1.5" fill="#3C200E"/>
-  <!-- Row 2 -->
-  <rect x="4" y="13" width="7" height="7" rx="1.5" fill="#7A4828"/>
-  <rect x="13" y="13" width="7" height="7" rx="1.5" fill="#CB9462"/>
-  <rect x="22" y="13" width="6" height="7" rx="1.5" fill="#593018"/>
-  <!-- Row 3 — reflection -->
-  <rect x="4" y="22" width="7" height="6" rx="1.5" fill="#C4956A" opacity="0.4"/>
-  <rect x="13" y="22" width="7" height="6" rx="1.5" fill="#8B5C3A" opacity="0.3"/>
-  <rect x="22" y="22" width="6" height="6" rx="1.5" fill="#3C200E" opacity="0.2"/>
+  <!-- Geometric rather than the ඩ of favicon.png: an SVG <text> glyph depends
+       on a Sinhala font being installed wherever this renders, and this file is
+       also the Organization logo in the page's structured data. -->
+  <rect width="32" height="32" rx="6" fill="#0B0B0B"/>
+  <rect x="5" y="6"  width="22" height="4" rx="1" fill="#D4A15E"/>
+  <rect x="5" y="14" width="14" height="4" rx="1" fill="#F7F7F7"/>
+  <rect x="5" y="22" width="18" height="4" rx="1" fill="#D4A15E" opacity="0.55"/>
 </svg>

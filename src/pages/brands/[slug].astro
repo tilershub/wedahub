@@ -20,11 +20,11 @@ if (dedicated) return Astro.redirect(dedicated, 301)
 >
 
   <!-- Hero -->
-  <div style="background:linear-gradient(135deg,#14171A,#C2542B);padding:56px 20px 48px;position:relative;overflow:hidden;text-align:center;">
+  <div style="background:linear-gradient(135deg,#0B0B0B,#8A6224);padding:56px 20px 48px;position:relative;overflow:hidden;text-align:center;">
     <div style="position:absolute;inset:0;opacity:0.04;background-image:repeating-linear-gradient(45deg,transparent,transparent 20px,rgba(255,255,255,0.8) 20px,rgba(255,255,255,0.8) 21px);pointer-events:none;"></div>
     <div style="position:relative;max-width:680px;margin:0 auto;">
       <a href="/brands" style="display:inline-flex;align-items:center;gap:5px;font-size:11px;color:rgba(255,255,255,0.4);letter-spacing:1px;font-weight:600;margin-bottom:24px;text-decoration:none;">← සියලු සන්නාම</a>
-      <div style="font-size:9px;font-weight:700;color:rgba(194,84,43,0.7);letter-spacing:3px;text-transform:uppercase;margin-bottom:16px;">සන්නාම පැතිකඩ</div>
+      <div style="font-size:9px;font-weight:700;color:rgba(212,161,94,0.7);letter-spacing:3px;text-transform:uppercase;margin-bottom:16px;">සන්නාම පැතිකඩ</div>
       <div style="width:72px;height:72px;border-radius:18px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.15);display:flex;align-items:center;justify-content:center;font-size:36px;margin:0 auto 20px;">🏷️</div>
       <h1 style="font-family: var(--th-display);font-size:clamp(28px,5vw,48px);font-weight:700;color:#fff;margin-bottom:12px;">{sinhalaText(brand.name)}</h1>
       {brand.description && <p style="font-size:15px;color:rgba(255,255,255,0.6);max-width:520px;margin:0 auto 28px;line-height:1.8;">{sinhalaText(brand.description)}</p>}
@@ -35,7 +35,7 @@ if (dedicated) return Astro.redirect(dedicated, 301)
       </div>
       <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
         {brand.website_url && (
-          <a href={brand.website_url} target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:8px;background:var(--terra);color:#fff;border-radius:12px;padding:12px 24px;font-size:13px;font-weight:700;text-decoration:none;box-shadow:0 4px 16px rgba(194,84,43,0.4);">
+          <a href={brand.website_url} target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:8px;background:var(--terra);color:#fff;border-radius:12px;padding:12px 24px;font-size:13px;font-weight:700;text-decoration:none;box-shadow:0 4px 16px rgba(212,161,94,0.4);">
             🌐 නිල වෙබ් අඩවියට යන්න
           </a>
         )}

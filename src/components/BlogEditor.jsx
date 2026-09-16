@@ -44,14 +44,14 @@ const S = {
   card: {
     background: '#fff',
     borderRadius: 14,
-    border: '1px solid #E4E0D9',
+    border: '1px solid #E2E2E2',
     padding: '20px 22px',
   },
   label: {
     display: 'block',
     fontSize: 11,
     fontWeight: 700,
-    color: '#3A4046',
+    color: '#4A4A4A',
     textTransform: 'uppercase',
     letterSpacing: '0.6px',
     marginBottom: 7,
@@ -59,18 +59,18 @@ const S = {
   input: {
     width: '100%',
     padding: '11px 14px',
-    border: '1.5px solid #E4E0D9',
+    border: '1.5px solid #E2E2E2',
     borderRadius: 10,
     fontSize: 13,
     outline: 'none',
     fontFamily: 'inherit',
     background: '#fff',
-    color: '#14171A',
+    color: '#0B0B0B',
     boxSizing: 'border-box',
     transition: 'border-color 0.15s',
   },
   inputError: {
-    borderColor: '#E3A199',
+    borderColor: '#DCC9A4',
     background: '#FBEDEB',
   },
   field: {
@@ -88,13 +88,13 @@ function Field({ label, hint, error, charLimit, value = '', children }) {
       <label style={S.label}>
         {sinhalaText(label)}
         {sinhalaText(charLimit != null && (
-          <span style={{ fontSize: 10, fontWeight: 400, marginLeft: 8, color: value.length > charLimit ? '#C0392B' : '#8A8F95' }}>
+          <span style={{ fontSize: 10, fontWeight: 400, marginLeft: 8, color: value.length > charLimit ? '#C0392B' : '#8C8C8C' }}>
             {sinhalaText(value.length)}/{sinhalaText(charLimit)}
           </span>
         ))}
       </label>
       {sinhalaText(children)}
-      {sinhalaText(hint && !error && <p style={{ fontSize: 11, color: '#8A8F95', margin: '5px 0 0' }}>{sinhalaText(hint)}</p>)}
+      {sinhalaText(hint && !error && <p style={{ fontSize: 11, color: '#8C8C8C', margin: '5px 0 0' }}>{sinhalaText(hint)}</p>)}
       {sinhalaText(error && <p style={{ fontSize: 11, color: '#C0392B', margin: '5px 0 0' }}>⚠ {sinhalaText(error)}</p>)}
     </div>
   )
@@ -104,7 +104,7 @@ function Banner({ type, children }) {
   const styles = {
     success: { background: '#E9F1EC', border: '1px solid #C6DDCF', color: '#285C43' },
     error:   { background: '#FBEDEB', border: '1px solid #F2C9C3', color: '#C0392B' },
-    info:    { background: '#F7EFE9', border: '1px solid #E7D9CE', color: '#8E3C1E' },
+    info:    { background: '#F5EEE2', border: '1px solid #E8DCC6', color: '#6B4A18' },
   }
   return (
     <div style={{ ...styles[type], borderRadius: 10, padding: '12px 16px', fontSize: 13, marginBottom: 18 }}>
@@ -305,9 +305,9 @@ export default function BlogEditor({ mode = 'create', blogId = null }) {
       <Centred>
         <div style={{ textAlign: 'center' }}>
           <div style={{ fontSize: 48, marginBottom: 12 }}>🔒</div>
-          <div style={{ fontSize: 16, fontWeight: 700, marginBottom: 8, color: '#14171A' }}>ප්‍රවේශයට අවසර නැත</div>
-          <div style={{ fontSize: 13, color: '#6B7076', marginBottom: 20 }}>පරිපාලක අවසර අවශ්‍යයි.</div>
-          <a href="/admin" style={{ color: '#C2542B', fontWeight: 600, fontSize: 13 }}>← පරිපාලනයට යන්න</a>
+          <div style={{ fontSize: 16, fontWeight: 700, marginBottom: 8, color: '#0B0B0B' }}>ප්‍රවේශයට අවසර නැත</div>
+          <div style={{ fontSize: 13, color: '#6E6E6E', marginBottom: 20 }}>පරිපාලක අවසර අවශ්‍යයි.</div>
+          <a href="/admin" style={{ color: '#8A6224', fontWeight: 600, fontSize: 13 }}>← පරිපාලනයට යන්න</a>
         </div>
       </Centred>
     )
@@ -319,17 +319,17 @@ export default function BlogEditor({ mode = 'create', blogId = null }) {
   const isCreate = mode === 'create'
 
   return (
-    <div style={{ minHeight: '100vh', background: '#EFEBE4', padding: '24px 16px 80px' }}>
+    <div style={{ minHeight: '100vh', background: '#ECECEC', padding: '24px 16px 80px' }}>
       <div style={{ maxWidth: 860, margin: '0 auto' }}>
 
         {/* ── Header ─────────────────────────────────────────────── */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 28 }}>
           <div>
-            <h1 style={{ margin: 0, fontSize: 22, fontWeight: 800, color: '#14171A' }}>
+            <h1 style={{ margin: 0, fontSize: 22, fontWeight: 800, color: '#0B0B0B' }}>
               {sinhalaText(isCreate ? '✍️ New Blog Post' : '✏️ Edit Blog Post')}
             </h1>
             {sinhalaText(!isCreate && (
-              <p style={{ margin: '4px 0 0', fontSize: 12, color: '#8A8F95', fontFamily: 'monospace' }}>
+              <p style={{ margin: '4px 0 0', fontSize: 12, color: '#8C8C8C', fontFamily: 'monospace' }}>
                 ID: {sinhalaText(blogId)}
               </p>
             ))}
@@ -340,18 +340,18 @@ export default function BlogEditor({ mode = 'create', blogId = null }) {
                 href={`https://tilershub.lk/blog/${slug}`}
                 target="_blank"
                 rel="noopener"
-                style={{ fontSize: 12, color: '#C2542B', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 4 }}
+                style={{ fontSize: 12, color: '#8A6224', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 4 }}
               >
                 👁 පෙරදසුන ↗
               </a>
             ))}
-            <a href="/admin" style={{ fontSize: 13, color: '#6B7076', textDecoration: 'none' }}>← පරිපාලනය</a>
+            <a href="/admin" style={{ fontSize: 13, color: '#6E6E6E', textDecoration: 'none' }}>← පරිපාලනය</a>
           </div>
         </div>
 
         {/* ── AI Optimizer banner ─────────────────────────────────── */}
         <div style={{
-          background: 'linear-gradient(135deg, #C2542B 0%, #14171A 100%)',
+          background: 'linear-gradient(135deg, #8A6224 0%, #0B0B0B 100%)',
           borderRadius: 14,
           padding: '18px 22px',
           marginBottom: 24,
@@ -375,7 +375,7 @@ export default function BlogEditor({ mode = 'create', blogId = null }) {
             disabled={aiLoading}
             style={{
               padding: '10px 22px',
-              background: aiLoading ? '#3A4046' : '#C2542B',
+              background: aiLoading ? '#4A4A4A' : '#8A6224',
               color: '#fff',
               border: 'none',
               borderRadius: 10,
@@ -416,8 +416,8 @@ export default function BlogEditor({ mode = 'create', blogId = null }) {
             label="URL Slug *"
             hint="Auto-generated from title. Edit only if needed."
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: 0, border: '1.5px solid #E4E0D9', borderRadius: 10, overflow: 'hidden', background: '#fff' }}>
-              <span style={{ padding: '11px 10px 11px 14px', fontSize: 11, color: '#8A8F95', whiteSpace: 'nowrap', flexShrink: 0 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 0, border: '1.5px solid #E2E2E2', borderRadius: 10, overflow: 'hidden', background: '#fff' }}>
+              <span style={{ padding: '11px 10px 11px 14px', fontSize: 11, color: '#8C8C8C', whiteSpace: 'nowrap', flexShrink: 0 }}>
                 /blog/
               </span>
               <input
@@ -453,9 +453,9 @@ export default function BlogEditor({ mode = 'create', blogId = null }) {
 
           {/* ── SEO Card ─────────────────────────────────────────── */}
           <div style={{ ...S.card, marginBottom: 20 }}>
-            <div style={{ fontSize: 13, fontWeight: 700, color: '#3A4046', marginBottom: 18, display: 'flex', alignItems: 'center', gap: 6 }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: '#4A4A4A', marginBottom: 18, display: 'flex', alignItems: 'center', gap: 6 }}>
               🎯 සෙවුම් විස්තර
-              <span style={{ fontSize: 11, color: '#8A8F95', fontWeight: 400 }}>— AI ප්‍රශස්තකරණයෙන් පුරවනු ලැබේ</span>
+              <span style={{ fontSize: 11, color: '#8C8C8C', fontWeight: 400 }}>— AI ප්‍රශස්තකරණයෙන් පුරවනු ලැබේ</span>
             </div>
 
             <Field label="Meta Title" charLimit={60} value={metaTitle}>
@@ -494,9 +494,9 @@ export default function BlogEditor({ mode = 'create', blogId = null }) {
 
           {/* ── Featured Image Card ───────────────────────────────── */}
           <div style={{ ...S.card, marginBottom: 20 }}>
-            <div style={{ fontSize: 13, fontWeight: 700, color: '#3A4046', marginBottom: 16 }}>
+            <div style={{ fontSize: 13, fontWeight: 700, color: '#4A4A4A', marginBottom: 16 }}>
               🖼️ ප්‍රධාන ඡායාරූපය
-              <span style={{ fontSize: 11, color: '#8A8F95', fontWeight: 400, marginLeft: 8 }}>
+              <span style={{ fontSize: 11, color: '#8C8C8C', fontWeight: 400, marginLeft: 8 }}>
                 — ස්වයංක්‍රීයව සම්පීඩනය කර WebP බවට පරිවර්තනය වේ
               </span>
             </div>
@@ -507,7 +507,7 @@ export default function BlogEditor({ mode = 'create', blogId = null }) {
               onDragOver={e => e.preventDefault()}
               onDrop={e => { e.preventDefault(); handleImageFile(e.dataTransfer.files[0]) }}
               style={{
-                border: '2px dashed #D6D0C6',
+                border: '2px dashed #D0D0D0',
                 borderRadius: 12,
                 minHeight: 130,
                 display: 'flex',
@@ -515,7 +515,7 @@ export default function BlogEditor({ mode = 'create', blogId = null }) {
                 alignItems: 'center',
                 justifyContent: 'center',
                 cursor: imgUploading ? 'wait' : 'pointer',
-                background: '#FBFAF8',
+                background: '#F7F7F7',
                 marginBottom: 14,
                 overflow: 'hidden',
                 position: 'relative',
@@ -541,9 +541,9 @@ export default function BlogEditor({ mode = 'create', blogId = null }) {
                   </div>
                 </>
               ) : (
-                <div style={{ textAlign: 'center', color: '#8A8F95', padding: 24 }}>
+                <div style={{ textAlign: 'center', color: '#8C8C8C', padding: 24 }}>
                   <div style={{ fontSize: 36, marginBottom: 8 }}>📸</div>
-                  <div style={{ fontSize: 13, fontWeight: 600, color: '#3A4046' }}>
+                  <div style={{ fontSize: 13, fontWeight: 600, color: '#4A4A4A' }}>
                     {sinhalaText(imgUploading ? '⏳ Compressing & uploading…' : 'Click or drag image here')}
                   </div>
                   <div style={{ fontSize: 11, marginTop: 4 }}>
@@ -562,7 +562,7 @@ export default function BlogEditor({ mode = 'create', blogId = null }) {
             />
 
             {sinhalaText(imageUrl && (
-              <div style={{ fontSize: 11, color: '#8A8F95', marginBottom: 10, wordBreak: 'break-all' }}>
+              <div style={{ fontSize: 11, color: '#8C8C8C', marginBottom: 10, wordBreak: 'break-all' }}>
                 URL: {sinhalaText(imageUrl)}
               </div>
             ))}
@@ -592,8 +592,8 @@ export default function BlogEditor({ mode = 'create', blogId = null }) {
             flexWrap: 'wrap',
           }}>
             <div>
-              <div style={{ fontSize: 13, fontWeight: 700, color: '#3A4046' }}>පළ කිරීමේ තත්ත්වය</div>
-              <div style={{ fontSize: 11, color: '#8A8F95', marginTop: 3 }}>
+              <div style={{ fontSize: 13, fontWeight: 700, color: '#4A4A4A' }}>පළ කිරීමේ තත්ත්වය</div>
+              <div style={{ fontSize: 11, color: '#8C8C8C', marginTop: 3 }}>
                 කෙටුම්පත් සාමාන්‍ය පාඨකයන්ට නොපෙනේ.
               </div>
             </div>
@@ -622,8 +622,8 @@ export default function BlogEditor({ mode = 'create', blogId = null }) {
               href="/admin"
               style={{
                 padding: '11px 22px',
-                background: '#EFEBE4',
-                color: '#3A4046',
+                background: '#ECECEC',
+                color: '#4A4A4A',
                 borderRadius: 10,
                 fontSize: 14,
                 fontWeight: 600,
@@ -643,7 +643,7 @@ export default function BlogEditor({ mode = 'create', blogId = null }) {
                 onClick={() => setStatus('draft')}
                 style={{
                   padding: '11px 22px',
-                  background: saving ? '#8A8F95' : '#3A4046',
+                  background: saving ? '#8C8C8C' : '#4A4A4A',
                   color: '#fff',
                   border: 'none',
                   borderRadius: 10,
@@ -661,7 +661,7 @@ export default function BlogEditor({ mode = 'create', blogId = null }) {
               disabled={saving}
               style={{
                 padding: '11px 28px',
-                background: saving ? '#8A8F95' : '#C2542B',
+                background: saving ? '#8C8C8C' : '#8A6224',
                 color: '#fff',
                 border: 'none',
                 borderRadius: 10,
@@ -691,7 +691,7 @@ function Centred({ children }) {
   return (
     <div style={{
       display: 'flex', alignItems: 'center', justifyContent: 'center',
-      height: '100vh', color: '#6B7076', fontSize: 14, flexDirection: 'column', gap: 12,
+      height: '100vh', color: '#6E6E6E', fontSize: 14, flexDirection: 'column', gap: 12,
     }}>
       {sinhalaText(children)}
     </div>

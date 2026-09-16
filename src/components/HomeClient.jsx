@@ -94,7 +94,7 @@ export default function HomeClient({ initialUser = null, providerCount = 0, init
          style={{ display: 'block', padding: 20, marginBottom: 22, position: 'relative', overflow: 'hidden' }}>
         <span aria-hidden="true" style={{
           position: 'absolute', right: -30, bottom: -46, width: 150, height: 150, borderRadius: 999,
-          background: 'rgba(194,84,43,0.45)', filter: 'blur(36px)',
+          background: 'rgba(212,161,94,0.45)', filter: 'blur(36px)',
         }} />
         <span style={{ position: 'relative', display: 'block' }}>
           <span style={{ display: 'block', font: '700 10.5px var(--th-body)', textTransform: 'uppercase', letterSpacing: '0.1em', color: 'var(--th-saffron)', marginBottom: 8 }}>

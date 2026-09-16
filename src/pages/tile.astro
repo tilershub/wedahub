@@ -76,14 +76,14 @@ const BRAND_META = {
   'rocell':      { color: '#FFFFFF', bg: '#002B5B' },
   'lanka-tile':  { color: '#FFFFFF', bg: '#CC2229' },
   'macktiles':   { color: '#FFFFFF', bg: '#2F6B4F' },
-  'megatile':    { color: '#FFFFFF', bg: '#5D4037' },
+  'megatile':    { color: '#FFFFFF', bg: '#4A4A4A' },
   'swisstek':    { color: '#FFFFFF', bg: '#1565C0' },
   'tokyo-super': { color: '#FFFFFF', bg: '#C0392B' },
-  'dr-fixit':    { color: '#FFFFFF', bg: '#C2542B' },
+  'dr-fixit':    { color: '#FFFFFF', bg: '#8A6224' },
   'sika':        { color: '#FFFFFF', bg: '#B71C1C' },
   'finex':       { color: '#FFFFFF', bg: '#1A237E' },
 }
-function meta(brand) { return BRAND_META[brand.slug] || { color: '#fff', bg: '#C2542B' } }
+function meta(brand) { return BRAND_META[brand.slug] || { color: '#fff', bg: '#8A6224' } }
 function logoText(name) { return name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase() }
 import { brandHref, sponsorPage } from '../lib/sponsors.js'
 ---
@@ -94,10 +94,10 @@ import { brandHref, sponsorPage } from '../lib/sponsors.js'
 >
 
   <!-- Hero -->
-  <div style="background:linear-gradient(135deg,#14171A,#1F2429,#2A2F35);padding:52px 20px 44px;text-align:center;position:relative;overflow:hidden;">
+  <div style="background:linear-gradient(135deg,#0B0B0B,#1F2429,#242424);padding:52px 20px 44px;text-align:center;position:relative;overflow:hidden;">
     <div style="position:absolute;inset:0;opacity:0.04;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,0.8) 39px,rgba(255,255,255,0.8) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(255,255,255,0.8) 39px,rgba(255,255,255,0.8) 40px);pointer-events:none;"></div>
     <div style="position:relative;max-width:600px;margin:0 auto;">
-      <span style="font-size:9px;font-weight:700;color:rgba(194,84,43,0.7);letter-spacing:3px;text-transform:uppercase;display:block;margin-bottom:14px;">🪨 ටයිල්</span>
+      <span style="font-size:9px;font-weight:700;color:rgba(212,161,94,0.7);letter-spacing:3px;text-transform:uppercase;display:block;margin-bottom:14px;">🪨 ටයිල්</span>
       <h1 style="font-family: var(--th-display);font-size:clamp(26px,4vw,42px);font-weight:700;color:#fff;margin:0 0 12px;line-height:1.2;">
         ටයිල් සහ වෙළෙඳසැල් <span style="color:var(--terra);">සහ සන්නාම</span>
       </h1>
@@ -105,7 +105,7 @@ import { brandHref, sponsorPage } from '../lib/sponsors.js'
         ශ්‍රී ලංකාවේ ටයිල් වෙළෙඳසැල්, ප්‍රමුඛ සන්නාම, ඇලවුම් ද්‍රව්‍ය සහ ග්‍රවුට් බලා විශේෂඥ කාර්මිකයන් සමඟ සම්බන්ධ වන්න.
       </p>
       <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
-        <a href="/join-wedahub" style="display:inline-flex;align-items:center;gap:7px;background:#C2542B;color:#fff;border-radius:11px;padding:12px 22px;font-size:13px;font-weight:800;text-decoration:none;">
+        <a href="/join-wedahub" style="display:inline-flex;align-items:center;gap:7px;background:#8A6224;color:#fff;border-radius:11px;padding:12px 22px;font-size:13px;font-weight:800;text-decoration:none;">
           🪨 ඔබේ ටයිල් වෙළෙඳසැල එක් කරන්න
         </a>
         <a href="/providers" style="display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.75);border:1px solid rgba(255,255,255,0.15);border-radius:11px;padding:12px 20px;font-size:13px;font-weight:600;text-decoration:none;">
@@ -123,7 +123,7 @@ import { brandHref, sponsorPage } from '../lib/sponsors.js'
         <div style="margin-bottom:56px;">
           <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px;">
             <div style="display:flex;align-items:center;gap:12px;">
-              <div style="width:36px;height:36px;background:linear-gradient(135deg,var(--navy),#2A2F35);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;">🪨</div>
+              <div style="width:36px;height:36px;background:linear-gradient(135deg,var(--navy),#242424);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;">🪨</div>
               <div>
                 <div style="font-size:18px;font-weight:700;color:var(--text);">සන්නාම</div>
                 <div style="font-size:12px;color:var(--text-4);">ටයිල්, ඇලවුම් ද්‍රව්‍ය, ග්‍රවුට්, ජලරෝධක ද්‍රව්‍ය සහ තවත් දේ</div>
@@ -141,14 +141,14 @@ import { brandHref, sponsorPage } from '../lib/sponsors.js'
                   const isFeaturedPage = !!sponsorPage(brand)
                   return (
                     <a href={href}
-                      style={`display:block;width:240px;flex-shrink:0;background:#fff;border-radius:16px;border:${isFeaturedPage ? '2px solid var(--gold)' : '1px solid #E4E0D9'};padding:20px;text-decoration:none;color:inherit;scroll-snap-align:start;position:relative;overflow:hidden;`}>
-                      {isFeaturedPage && <div style="position:absolute;top:0;right:0;background:var(--gold);color:#0d0b08;font-size:9px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-bottom-left-radius:10px;">අනුග්‍රාහක</div>}
+                      style={`display:block;width:240px;flex-shrink:0;background:#fff;border-radius:16px;border:${isFeaturedPage ? '2px solid var(--gold)' : '1px solid #E2E2E2'};padding:20px;text-decoration:none;color:inherit;scroll-snap-align:start;position:relative;overflow:hidden;`}>
+                      {isFeaturedPage && <div style="position:absolute;top:0;right:0;background:var(--gold);color:#0B0B0B;font-size:9px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-bottom-left-radius:10px;">අනුග්‍රාහක</div>}
                       <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
                         <div style={`width:52px;height:52px;border-radius:13px;background:${m.bg};display:flex;align-items:center;justify-content:center;font-size:17px;font-weight:800;color:${m.color};letter-spacing:-0.5px;flex-shrink:0;font-family: var(--th-display);`}>{sinhalaText(logoText(brand.name))}</div>
                         <div>
                           <div style="font-size:15px;font-weight:700;color:var(--text);line-height:1.2;">{sinhalaText(brand.name)}</div>
                           {isFeaturedPage
-                            ? <span style="font-size:10px;color:#92762a;font-weight:700;">⭐ විශේෂාංගගත</span>
+                            ? <span style="font-size:10px;color:#8A6224;font-weight:700;">⭐ විශේෂාංගගත</span>
                             : brand.is_featured && <span style="font-size:10px;color:var(--navy);font-weight:700;">✓ සත්‍යාපිත</span>
                           }
                         </div>
@@ -156,7 +156,7 @@ import { brandHref, sponsorPage } from '../lib/sponsors.js'
                       <p style="font-size:11px;color:var(--text-3);line-height:1.6;margin:0 0 12px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;">{sinhalaText(brand.description)}</p>
                       <div style="display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px;">
                         {(brand.categories || []).slice(0, 2).map(c => (
-                          <span style={`font-size:9px;padding:2px 8px;border-radius:20px;background:${m.bg}14;color:${m.bg === '#FFFFFF' ? '#C2542B' : m.bg};border:1px solid ${m.bg}28;font-weight:600;`}>{sinhalaText(c)}</span>
+                          <span style={`font-size:9px;padding:2px 8px;border-radius:20px;background:${m.bg}14;color:${m.bg === '#FFFFFF' ? '#8A6224' : m.bg};border:1px solid ${m.bg}28;font-weight:600;`}>{sinhalaText(c)}</span>
                         ))}
                       </div>
                       <div style="font-size:11px;font-weight:700;color:var(--navy);">{sinhalaText(isFeaturedPage ? 'View Sponsor Page →' : 'View Brand →')}</div>
@@ -192,7 +192,7 @@ import { brandHref, sponsorPage } from '../lib/sponsors.js'
           <div style="display:flex;flex-direction:column;gap:12px;max-width:740px;">
             {interleaved.map(item => item.type === 'tiler' ? (
               /* ── Verified Tiler interleave card ── */
-              <div style="background:linear-gradient(135deg,#F7EFE9,#F3E7DF);border-radius:18px;border:2px solid var(--navy);padding:16px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;position:relative;">
+              <div style="background:linear-gradient(135deg,#F5EEE2,#F2EADC);border-radius:18px;border:2px solid var(--navy);padding:16px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;position:relative;">
                 <div style="position:absolute;top:0;left:0;background:var(--navy);color:#fff;font-size:9px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;padding:4px 12px;border-bottom-right-radius:10px;border-top-left-radius:16px;">✓ දක්ෂතා සත්‍යාපිත ටයිල් කාර්මිකයා</div>
                 <div style="padding-top:18px;display:flex;align-items:center;gap:14px;flex:1;min-width:220px;flex-wrap:wrap;">
                   <div style="width:52px;height:52px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:#fff;flex-shrink:0;border:3px solid var(--gold);">
@@ -203,13 +203,13 @@ import { brandHref, sponsorPage } from '../lib/sponsors.js'
                     {(item.city || item.district) && (
                       <div style="font-size:12px;color:var(--text-3);">📍 {sinhalaText(item.city)}{sinhalaText(item.district ? `, ${item.district}` : '')}</div>
                     )}
-                    <div style="font-size:11px;color:#7A3218;font-weight:700;margin-top:2px;">
+                    <div style="font-size:11px;color:#5E3F14;font-weight:700;margin-top:2px;">
                       {sinhalaText(item.experience_years ? `වසර ${item.experience_years}+ ක පළපුරුද්ද` : 'Skilled Tiler')}
                     </div>
                     {(item.services || []).length > 0 && (
                       <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:6px;">
                         {(item.services || []).slice(0, 3).map(sv => (
-                          <span style="font-size:9px;padding:2px 7px;border-radius:20px;background:#F3E7DF;color:#7A3218;border:1px solid #E7D9CE;font-weight:600;">{sinhalaText(sv)}</span>
+                          <span style="font-size:9px;padding:2px 7px;border-radius:20px;background:#F2EADC;color:#5E3F14;border:1px solid #E8DCC6;font-weight:600;">{sinhalaText(sv)}</span>
                         ))}
                       </div>
                     )}
@@ -228,7 +228,7 @@ import { brandHref, sponsorPage } from '../lib/sponsors.js'
               </div>
             ) : (
               /* ── Tile Shop card ── */
-              <div style={`background:#fff;border-radius:16px;border:${item.isFeatured ? '2px solid var(--gold)' : '1px solid #E4E0D9'};padding:16px 20px;display:flex;align-items:flex-start;gap:14px;box-shadow:0 2px 8px rgba(0,0,0,0.04);`}>
+              <div style={`background:#fff;border-radius:16px;border:${item.isFeatured ? '2px solid var(--gold)' : '1px solid #E2E2E2'};padding:16px 20px;display:flex;align-items:flex-start;gap:14px;box-shadow:0 2px 8px rgba(0,0,0,0.04);`}>
                 <div style="width:44px;height:44px;border-radius:10px;background:linear-gradient(135deg,#2F6B4F,#1B5E20);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;">🏪</div>
                 <div style="flex:1;min-width:0;">
                   <div style="font-size:15px;font-weight:800;color:var(--text);line-height:1.2;">{sinhalaText(item.name)}</div>
@@ -303,5 +303,5 @@ import { brandHref, sponsorPage } from '../lib/sponsors.js'
 <style>
   .tile-brands-scroll::-webkit-scrollbar { height: 4px; }
   .tile-brands-scroll::-webkit-scrollbar-track { background: transparent; }
-  .tile-brands-scroll::-webkit-scrollbar-thumb { background: #D6D0C6; border-radius: 4px; }
+  .tile-brands-scroll::-webkit-scrollbar-thumb { background: #D0D0D0; border-radius: 4px; }
 </style>

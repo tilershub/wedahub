@@ -63,11 +63,11 @@ export default function PortfolioEditor({ profile, profileType, userId }) {
     <div>
       {/* Prompt when empty */}
       {sinhalaText(total === 0 && (
-        <div style={{ background:'linear-gradient(135deg,#F7EFE9,#F7EFE9)', border:'1px solid #F0E7DF', borderRadius:14, padding:'18px 20px', marginBottom:20, display:'flex', alignItems:'center', gap:14 }}>
+        <div style={{ background:'linear-gradient(135deg,#F5EEE2,#F5EEE2)', border:'1px solid #F0EADF', borderRadius:14, padding:'18px 20px', marginBottom:20, display:'flex', alignItems:'center', gap:14 }}>
           <div style={{ fontSize:36, flexShrink:0 }}>📸</div>
           <div>
-            <div style={{ fontSize:14, fontWeight:700, color:'#C2542B', marginBottom:4 }}>ව්‍යාපෘති ඡායාරූප එකතු කරන්න</div>
-            <div style={{ fontSize:12, color:'#14171A', lineHeight:1.6 }}>ගැලරිය ඇති ප්‍රවීණයන්ට 3× වැඩි විමසීම් ලැබේ. සේවාලාභීන් ආකර්ෂණය කිරීමට හොඳම කාර්ය ඉදිරිපත් කරන්න.</div>
+            <div style={{ fontSize:14, fontWeight:700, color:'#8A6224', marginBottom:4 }}>ව්‍යාපෘති ඡායාරූප එකතු කරන්න</div>
+            <div style={{ fontSize:12, color:'#0B0B0B', lineHeight:1.6 }}>ගැලරිය ඇති ප්‍රවීණයන්ට 3× වැඩි විමසීම් ලැබේ. සේවාලාභීන් ආකර්ෂණය කිරීමට හොඳම කාර්ය ඉදිරිපත් කරන්න.</div>
           </div>
         </div>
       ))}
@@ -75,11 +75,11 @@ export default function PortfolioEditor({ profile, profileType, userId }) {
       {/* Stats bar */}
       {sinhalaText(gallery.length > 0 && (
         <div style={{ display:'flex', alignItems:'center', justifyContent:'space-between', marginBottom:16 }}>
-          <span style={{ fontSize:13, fontWeight:700, color:'#3A4046' }}>
+          <span style={{ fontSize:13, fontWeight:700, color:'#4A4A4A' }}>
             📸 ඡායාරූප {sinhalaText(gallery.length)}ක්
           </span>
           {sinhalaText(profileHref && (
-            <a href={profileHref} target="_blank" rel="noopener" style={{ fontSize:12, fontWeight:600, color:'#C2542B', textDecoration:'none' }}>
+            <a href={profileHref} target="_blank" rel="noopener" style={{ fontSize:12, fontWeight:600, color:'#8A6224', textDecoration:'none' }}>
               පොදු පැතිකඩ →
             </a>
           ))}
@@ -89,7 +89,7 @@ export default function PortfolioEditor({ profile, profileType, userId }) {
       {/* Photo grid */}
       <div style={{ display:'grid', gridTemplateColumns:'repeat(auto-fill,minmax(100px,1fr))', gap:10, marginBottom:12 }}>
         {sinhalaText(gallery.map((url, i) => (
-          <div key={url} style={{ position:'relative', aspectRatio:'1', borderRadius:12, overflow:'hidden', border:'1px solid #E4E0D9' }}>
+          <div key={url} style={{ position:'relative', aspectRatio:'1', borderRadius:12, overflow:'hidden', border:'1px solid #E2E2E2' }}>
             <img src={url} alt="" style={{ width:'100%', height:'100%', objectFit:'cover' }} loading="lazy" />
             <button type="button" onClick={() => removePhoto(i)}
               style={{ position:'absolute', top:4, right:4, background:'rgba(0,0,0,0.7)', color:'#fff', border:'none', borderRadius:'50%', width:22, height:22, cursor:'pointer', fontSize:11, display:'flex', alignItems:'center', justifyContent:'center' }}>
@@ -109,18 +109,18 @@ export default function PortfolioEditor({ profile, profileType, userId }) {
         )))}
         {sinhalaText(total < MAX_GALLERY && (
           <div onClick={() => ref.current?.click()}
-            style={{ aspectRatio:'1', borderRadius:12, border:'2px dashed #D6D0C6', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', cursor:'pointer', background:'#FBFAF8', gap:6, transition:'border-color 0.15s,background 0.15s' }}
-            onMouseOver={e => { e.currentTarget.style.borderColor='#C2542B'; e.currentTarget.style.background='#F7EFE9' }}
-            onMouseOut={e  => { e.currentTarget.style.borderColor='#D6D0C6'; e.currentTarget.style.background='#FBFAF8' }}
+            style={{ aspectRatio:'1', borderRadius:12, border:'2px dashed #D0D0D0', display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', cursor:'pointer', background:'#F7F7F7', gap:6, transition:'border-color 0.15s,background 0.15s' }}
+            onMouseOver={e => { e.currentTarget.style.borderColor='#8A6224'; e.currentTarget.style.background='#F5EEE2' }}
+            onMouseOut={e  => { e.currentTarget.style.borderColor='#D0D0D0'; e.currentTarget.style.background='#F7F7F7' }}
           >
-            <span style={{ fontSize:24, color:'#8A8F95' }}>+</span>
-            <span style={{ fontSize:10, color:'#8A8F95', fontWeight:600 }}>ඡායාරූප</span>
+            <span style={{ fontSize:24, color:'#8C8C8C' }}>+</span>
+            <span style={{ fontSize:10, color:'#8C8C8C', fontWeight:600 }}>ඡායාරූප</span>
           </div>
         ))}
       </div>
 
       <input ref={ref} type="file" accept="image/*" multiple onChange={e => addFiles(e.target.files)} style={{ display:'none' }} />
-      <p style={{ fontSize:11, color:'#8A8F95', margin:'0 0 16px' }}>JPG / PNG / WebP · ඡායාරූප {sinhalaText(MAX_GALLERY)}ක් දක්වා · ඔබේ හොඳම නිමි කාර්ය</p>
+      <p style={{ fontSize:11, color:'#8C8C8C', margin:'0 0 16px' }}>JPG / PNG / WebP · ඡායාරූප {sinhalaText(MAX_GALLERY)}ක් දක්වා · ඔබේ හොඳම නිමි කාර්ය</p>
 
       {sinhalaText(error && (
         <div style={{ padding:'10px 14px', background:'#FBEDEB', border:'1px solid #F2C9C3', borderRadius:10, fontSize:13, color:'#C0392B', marginBottom:14 }}>
@@ -136,12 +136,12 @@ export default function PortfolioEditor({ profile, profileType, userId }) {
 
       {sinhalaText(hasNew ? (
         <button onClick={save} disabled={saving}
-          style={{ width:'100%', padding:'13px', background: saving ? '#8A8F95' : '#C2542B', color:'#fff', border:'none', borderRadius:12, fontSize:14, fontWeight:700, cursor: saving ? 'not-allowed' : 'pointer', transition:'background 0.2s' }}>
+          style={{ width:'100%', padding:'13px', background: saving ? '#8C8C8C' : '#8A6224', color:'#fff', border:'none', borderRadius:12, fontSize:14, fontWeight:700, cursor: saving ? 'not-allowed' : 'pointer', transition:'background 0.2s' }}>
           {sinhalaText(saving ? '⏳ සුරකිමින්…' : `💾 නව ඡායාරූප ${newFiles.length}ක් සුරකින්න`)}
         </button>
       ) : gallery.length > 0 && profileHref ? (
         <a href={profileHref} target="_blank" rel="noopener"
-          style={{ display:'block', textAlign:'center', padding:'12px', background:'#EFEBE4', color:'#C2542B', border:'1px solid #E4E0D9', borderRadius:12, fontSize:13, fontWeight:700, textDecoration:'none' }}>
+          style={{ display:'block', textAlign:'center', padding:'12px', background:'#ECECEC', color:'#8A6224', border:'1px solid #E2E2E2', borderRadius:12, fontSize:13, fontWeight:700, textDecoration:'none' }}>
           🔗 පොදු පැතිකඩ බලන්න →
         </a>
       ) : null)}

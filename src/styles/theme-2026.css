@@ -120,7 +120,7 @@ h1 { letter-spacing: -0.045em; }
   background: var(--terra);
   color: #fff;
   font: 300 27px/1 var(--th-body);
-  box-shadow: 0 4px 14px rgba(194, 84, 43, 0.4);
+  box-shadow: 0 4px 14px rgba(212,161,94, 0.4);
 }
 .th-tabbar__raised[aria-current='page'] { color: #fff; background: var(--terra-light); }
 
@@ -156,7 +156,16 @@ h1 { letter-spacing: -0.045em; }
 }
 .th-btn:active { transform: scale(0.985); }
 .th-btn--primary   { background: var(--terra); color: #fff; box-shadow: 0 2px 0 var(--terra-light); }
-.th-btn--primary:hover { background: #AB4924; }
+.th-btn--primary:hover { background: #6B4A18; }
+/* On ink the darkened accent goes muddy and there is no contrast problem to
+   solve, so the brand gold itself is used — with ink text, as the app icon
+   does. White on --terra-lift would be 2.3:1. */
+.th-card--ink .th-btn--primary,
+.th-on-ink .th-btn--primary {
+  background: var(--terra-lift); color: var(--navy); box-shadow: 0 2px 0 #A87C3C;
+}
+.th-card--ink .th-btn--primary:hover,
+.th-on-ink .th-btn--primary:hover { background: #E0B478; }
 .th-btn--ink       { background: var(--navy); color: #fff; }
 .th-btn--ink:hover { background: var(--navy-light); }
 .th-btn--ghost     { background: #fff; color: var(--navy); border: 1px solid var(--border-dark); font-family: var(--th-body); font-weight: 600; }
@@ -174,7 +183,7 @@ h1 { letter-spacing: -0.045em; }
 .th-card--tap    { cursor: pointer; transition: transform 0.15s ease, box-shadow 0.15s ease; }
 .th-card--tap:hover  { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
 .th-card--tap:active { transform: scale(0.985); }
-.th-card--pro    { border-color: rgba(20, 23, 26, 0.26); }
+.th-card--pro    { border-color: rgba(11,11,11, 0.26); }
 .th-card--ink    { background: var(--navy); color: #fff; border-color: transparent; }
 .th-card--ink h2, .th-card--ink h3 { color: #fff; }
 
@@ -188,10 +197,10 @@ h1 { letter-spacing: -0.045em; }
   border-radius: 5px;
   white-space: nowrap;
 }
-.th-pill--open   { background: #F0E7DF; color: var(--terra-light); }
+.th-pill--open   { background: #F0EADF; color: var(--terra-light); }
 .th-pill--good   { background: var(--green-bg); color: var(--th-forest); }
 .th-pill--booked { background: var(--navy); color: var(--th-saffron); }
-.th-pill--closed { background: #EEEDEB; color: var(--text-3); }
+.th-pill--closed { background: #ECECEC; color: var(--text-3); }
 .th-pill--pro    { background: var(--navy); color: var(--th-saffron); letter-spacing: 0.1em; font-family: var(--th-display); font-weight: 700; font-size: 9px; }
 
 /* horizontal chip rail (category filters) */
@@ -256,7 +265,7 @@ textarea.th-field { padding: 12px 13px; line-height: 1.5; resize: vertical; }
 
 /* image placeholder — diagonal tile hatch, no asset required */
 .th-slot {
-  background: repeating-linear-gradient(45deg, #E6E0D7 0 9px, #DED7CC 9px 18px);
+  background: repeating-linear-gradient(45deg, #E4E4E4 0 9px, #D0D0D0 9px 18px);
   border-radius: 10px;
   display: grid;
   place-items: center;
@@ -271,7 +280,7 @@ textarea.th-field { padding: 12px 13px; line-height: 1.5; resize: vertical; }
   position: fixed;
   inset: 0;
   z-index: 70;
-  background: rgba(20, 23, 26, 0.45);
+  background: rgba(11,11,11, 0.45);
   display: flex;
   align-items: flex-end;
 }
@@ -282,7 +291,7 @@ textarea.th-field { padding: 12px 13px; line-height: 1.5; resize: vertical; }
   padding: 24px var(--th-gutter) calc(34px + env(safe-area-inset-bottom));
   animation: th-sheet-up 0.28s cubic-bezier(0.2, 0.8, 0.2, 1) both;
 }
-.th-sheet__grip { width: 38px; height: 4px; border-radius: 99px; background: rgba(20,23,26,0.18); margin: 0 auto 18px; }
+.th-sheet__grip { width: 38px; height: 4px; border-radius: 99px; background: rgba(11,11,11,0.18); margin: 0 auto 18px; }
 
 .th-toast {
   position: fixed;
