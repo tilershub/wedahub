@@ -170,6 +170,45 @@ a ~40-line RFC-4180 parser in `src/lib/csv.js` unless you would rather I add
 
 ## 3. Structural decisions worth stating up front
 
+### 3.0 The completion code and the review gate — confirmed
+
+Settled in conversation, and the reason the review flow changes from what the
+app does today. The code has one job: it is the homeowner's proof that the work
+actually happened, and it is the only thing that unlocks a review.
+
+1. The owner accepts a final quote. That is the moment the job is finalised and
+   starts, and the server **generates the 4-digit code automatically** right
+   then — nobody types it, nobody picks it.
+2. The code sits in the **owner's area, against that one job**, from that moment
+   on. One code per job, not per provider and not per account.
+3. The provider never sees it, is never sent it, and it is never in an SMS
+   (§7) — the whole mechanism is worthless if the provider can obtain it
+   without the owner handing it over.
+4. Work happens. When it is finished, the owner **reads the code to the
+   provider**, who enters it on their own screen.
+5. A correct code closes the job (`completed`), and **only then** does the
+   review button appear for the owner.
+
+So the gate is not "the job looks old enough" or "the owner says so" — it is
+"the provider proved, with a code only the owner had, that the owner considers
+the work done". That is what §2.4 above is protecting: if a provider could read
+the code out of an API response, they could close their own jobs and farm
+reviews, and the gate would mean nothing.
+
+This replaces the current behaviour outright. Today `reviews` has
+`with_check: true` on insert, so **any anonymous visitor can post a review on
+any profile at any time** — no account, no job, no relationship. Migration 09
+removes that path (§5.3.6 of the brief).
+
+*One thing I inferred rather than heard cleanly:* you mentioned a start date. I
+have read that as "the code is generated when the job starts, and starting is
+the same event as accepting the quote", since there is no separate start-date
+concept in the schema. If you meant a distinct start milestone the provider
+confirms before the work begins, tell me — that is a second state and a second
+timestamp, not a rewording.
+
+### 3.1 Everything else
+
 - `normalizeLkPhone()` exists **twice on purpose** — once in JS
   (`src/lib/phone.js`) and once in SQL (`public.normalize_lk_phone`), with one
   shared test corpus asserting both agree. The SQL copy is what
