@@ -146,7 +146,7 @@ completion alone**, which is §3.
 
 ---
 
-## 3. The one open question your change creates
+## 3. Review unlock — decided
 
 Moving the code to the start fixes abandonment but opens the opposite hole: if
 the review unlocks the moment the provider enters the code, **it unlocks before
@@ -158,7 +158,7 @@ enter your own code, write yourself five stars. Two minutes, start to finish.
 With 10,000 imported profiles competing for the same jobs and no verification
 tier in v1, that is the attack that actually gets used.
 
-**My recommendation — split the two events:**
+**Decided: split the two events.**
 
 - Entering the code **confirms the engagement**. That is a valuable signal on
   its own: it is the first hard evidence a real hire happened.
@@ -176,11 +176,9 @@ I would also **label the review by how it unlocked** — a review on a job that
 was never completed reads differently from one left after finished work, and
 saying so is more useful to the next homeowner than a bare star count.
 
-**If you would rather it unlock immediately on code entry, say so and I will
-build that instead** — it is your call, and the abandonment protection you asked
-for is intact either way. I am flagging it because the cost lands later, as
-rating inflation across a directory you are about to grow 250×, and it is much
-cheaper to decide now than to clean up.
+Reviews are labelled by how they unlocked, so a review left on a job that was
+never completed reads differently from one left after finished work. Migration
+09 carries that as `reviews.unlocked_by`.
 
 One more thing I noticed but am *not* building: you said entering the code
 "verifies that this provider is doing this customer's job". That would also work
@@ -284,6 +282,9 @@ it because it is a judgement call, not something the brief states.
 ---
 
 ## 6. Sequencing
+
+**The rebrand landed first** (commit `af76333`) — see BRAND.md. v1 screens are
+now built in the new palette rather than made in terracotta and redone.
 
 This no longer fits one reviewable PR — 11 migrations and ~35 files, with a
 schema change under the live directory. §3.4 also requires the merge tool to
