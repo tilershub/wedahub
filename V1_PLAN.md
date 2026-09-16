@@ -1,8 +1,8 @@
 # වැඩHUB v1 — implementation plan
 
-Revision 2. Nothing has been built yet. §1 is the repo as it stands, §2 records
-the decisions you have now made, §3 is the one open question those decisions
-created, §4–6 are the build.
+Revision 3. The rebrand has landed (see BRAND.md); none of the v1 features have
+been built yet. §1 is the repo as it stands, §2–3 record the decisions made so
+far, §4–6 are the build.
 
 ---
 
