@@ -1,0 +1,66 @@
+{
+  "_comment": "Trilingual UI strings. Read through src/lib/i18n.js t(key, lang). Keys are identifiers, never English sentences. Entries marked _review: pending-native have Sinhala or Tamil written by a non-native speaker and need checking before launch — flagged rather than quietly shipped.",
+
+  "estimate":        { "si": "දළ මිල", "en": "Rough estimate", "ta": "தோராயமான விலை", "_review": "pending-native" },
+  "sendEstimate":    { "si": "දළ මිල යවන්න", "en": "Send estimate", "ta": "தோராயமான விலை அனுப்பு", "_review": "pending-native" },
+  "estimateNote":    { "si": "ඡායාරූප බලලා දළ මිලක්. නියම මිල බලන්න ආවට පස්සේ.", "en": "A range from the photos. The real price comes after seeing it.", "ta": "படங்களைப் பார்த்து தோராயமான விலை. உண்மையான விலை பார்த்த பிறகு.", "_review": "pending-native" },
+
+  "siteVisit":       { "si": "බිම බැලීම", "en": "Site visit", "ta": "தள பார்வை", "_review": "pending-native" },
+  "requestVisit":    { "si": "බිම බලන්න එන්න කියන්න", "en": "Request a site visit", "ta": "தளத்தைப் பார்க்க கேளுங்கள்", "_review": "pending-native" },
+  "visitFee":        { "si": "බැලීමේ ගාස්තුව", "en": "Visit fee", "ta": "பார்வைக் கட்டணம்", "_review": "pending-native" },
+  "freeVisit":       { "si": "නොමිලේ", "en": "Free visit", "ta": "இலவசம்", "_review": "pending-native" },
+  "waived":          { "si": "බඳවා ගත්තොත් අය නොකෙරේ", "en": "waived if hired", "ta": "பணியமர்த்தினால் கட்டணமில்லை", "_review": "pending-native" },
+  "pickSlot":        { "si": "වේලාවක් තෝරන්න", "en": "Pick a time", "ta": "நேரத்தைத் தேர்வு செய்யவும்", "_review": "pending-native" },
+  "confirmVisit":    { "si": "මේ වේලාව තහවුරු කරන්න", "en": "Confirm this time", "ta": "இந்த நேரத்தை உறுதி செய்", "_review": "pending-native" },
+  "markVisited":     { "si": "මම බිම බැලුවා", "en": "I've seen the site", "ta": "தளத்தைப் பார்த்துவிட்டேன்", "_review": "pending-native" },
+
+  "finalQuote":      { "si": "නියම මිල", "en": "Final quote", "ta": "இறுதி விலை", "_review": "pending-native" },
+  "needVisitFirst":  { "si": "නියම මිලක් දෙන්න කලින් බිම බලන්න.", "en": "See the site before quoting a final price.", "ta": "இறுதி விலை தருமுன் தளத்தைப் பாருங்கள்.", "_review": "pending-native" },
+
+  "code":            { "si": "අවසන් කිරීමේ කේතය", "en": "Completion code", "ta": "நிறைவுக் குறியீடு", "_review": "pending-native" },
+
+  "_note_codeOwner": "The brief's §8 wording was 'Read this code to them only when the work is finished.' That described the superseded flow. The code is now handed over when work STARTS, so that a provider who abandons the job can still be reviewed. Same for submitCode, which no longer closes anything.",
+  "codeOwner":       { "si": "වැඩ පටන් ගන්නකොට මේ කේතය ඔවුන්ට කියන්න.", "en": "Give them this code when they start the work.", "ta": "வேலை தொடங்கும்போது இந்தக் குறியீட்டைச் சொல்லுங்கள்.", "_review": "pending-native" },
+  "codePro":         { "si": "සේවාදායකයාගෙන් අංක 4 කේතය ඉල්ලන්න", "en": "Ask the client for the 4-digit code", "ta": "வாடிக்கையாளரிடம் 4 இலக்கக் குறியீட்டைக் கேளுங்கள்", "_review": "pending-native" },
+  "codeWrong":       { "si": "කේතය ගැළපෙන්නේ නැහැ", "en": "That code doesn't match", "ta": "குறியீடு பொருந்தவில்லை", "_review": "pending-native" },
+  "submitCode":      { "si": "වැඩේ තහවුරු කරන්න", "en": "Confirm the job", "ta": "வேலையை உறுதிப்படுத்து", "_review": "pending-native" },
+  "markComplete":    { "si": "වැඩේ ඉවරයි", "en": "Work is finished", "ta": "வேலை முடிந்தது", "_review": "pending-native" },
+
+  "unclaimed":       { "si": "තවම වැඩHUB එකේ නැහැ", "en": "Not yet on වැඩHUB", "ta": "இன்னும் වැඩHUB இல் இல்லை", "_review": "pending-native" },
+  "isThisYou":       { "si": "මේ ඔබද?", "en": "Is this you?", "ta": "இது நீங்கள்தானா?", "_review": "pending-native" },
+  "addNumber":       { "si": "තව අංකයක් එකතු කරන්න", "en": "Add another number", "ta": "மற்றொரு எண்ணைச் சேர்", "_review": "pending-native" },
+  "removeListing":   { "si": "මේ ලැයිස්තුව ඉවත් කරන්න", "en": "Remove this listing", "ta": "இந்தப் பட்டியலை நீக்கு", "_review": "pending-native" },
+
+  "signIn":          { "si": "පිවිසෙන්න", "en": "Sign in", "ta": "உள்நுழைக", "_review": "pending-native" },
+  "phoneNumber":     { "si": "ජංගම දුරකථන අංකය", "en": "Mobile number", "ta": "கைபேசி எண்", "_review": "pending-native" },
+  "phoneHint":       { "si": "කේතයක් SMS එකකින් එවනවා.", "en": "We'll text you a code.", "ta": "உங்களுக்கு ஒரு குறியீட்டை அனுப்புவோம்.", "_review": "pending-native" },
+  "sendCode":        { "si": "කේතය එවන්න", "en": "Send code", "ta": "குறியீட்டை அனுப்பு", "_review": "pending-native" },
+  "enterCode":       { "si": "කේතය ඇතුළු කරන්න", "en": "Enter the code", "ta": "குறியீட்டை உள்ளிடவும்", "_review": "pending-native" },
+  "codeSentTo":      { "si": "{phone} වෙත කේතයක් යැව්වා", "en": "Code sent to {phone}", "ta": "{phone} க்கு குறியீடு அனுப்பப்பட்டது", "_review": "pending-native" },
+  "resendCode":      { "si": "නැවත එවන්න", "en": "Send again", "ta": "மீண்டும் அனுப்பு", "_review": "pending-native" },
+  "changeNumber":    { "si": "අංකය වෙනස් කරන්න", "en": "Change number", "ta": "எண்ணை மாற்று", "_review": "pending-native" },
+  "verifying":       { "si": "බලනවා…", "en": "Checking…", "ta": "சரிபார்க்கிறது…", "_review": "pending-native" },
+  "sending":         { "si": "යවනවා…", "en": "Sending…", "ta": "அனுப்புகிறது…", "_review": "pending-native" },
+
+  "invalidNumber":   { "si": "වලංගු ජංගම අංකයක් දෙන්න", "en": "Enter a valid mobile number", "ta": "சரியான கைபேசி எண்ணைக் கொடுங்கள்", "_review": "pending-native" },
+  "notAMobile":      { "si": "SMS එවන්න පුළුවන් ජංගම අංකයක් ඕනේ", "en": "That needs to be a mobile number we can text", "ta": "SMS அனுப்பக்கூடிய கைபேசி எண் தேவை", "_review": "pending-native" },
+  "codeExpired":     { "si": "කේතය කල් ඉකුත් වෙලා. අලුතින් එකක් ගන්න.", "en": "That code has expired. Ask for a new one.", "ta": "குறியீடு காலாவதியானது. புதியது கேளுங்கள்.", "_review": "pending-native" },
+  "tooManyThisHour": { "si": "බොහෝ වාර ගණනක් උත්සාහ කළා. පැයකින් නැවත බලන්න.", "en": "Too many tries. Try again in an hour.", "ta": "பல முறை முயற்சித்தீர்கள். ஒரு மணி நேரத்தில் முயலுங்கள்.", "_review": "pending-native" },
+  "tooManyToday":    { "si": "අද දවසට උත්සාහ කළ ගණන ඉක්මවලා. හෙට බලන්න.", "en": "That's the limit for today. Try tomorrow.", "ta": "இன்றைய வரம்பு முடிந்தது. நாளை முயலுங்கள்.", "_review": "pending-native" },
+  "smsUnavailable":  { "si": "දැන් SMS එවන්න බැහැ. පස්සේ බලන්න.", "en": "We can't send codes right now. Try later.", "ta": "இப்போது குறியீடு அனுப்ப முடியாது. பின்னர் முயலுங்கள்.", "_review": "pending-native" },
+  "somethingWrong":  { "si": "මොකක්හරි වැරදුණා. නැවත බලන්න.", "en": "Something went wrong. Try again.", "ta": "ஏதோ தவறு. மீண்டும் முயலுங்கள்.", "_review": "pending-native" },
+
+  "yes":             { "si": "ඔව්", "en": "Yes", "ta": "ஆம்", "_review": "pending-native" },
+  "no":              { "si": "නැහැ", "en": "No", "ta": "இல்லை", "_review": "pending-native" },
+  "notMe":           { "si": "නැහැ, මම නෙවෙයි", "en": "No, that's not me", "ta": "இல்லை, அது நான் இல்லை", "_review": "pending-native" },
+  "cantReceiveCode": { "si": "ඒ අංකයට කේතය එන්නේ නැහැ", "en": "I can't receive a code on that number", "ta": "அந்த எண்ணுக்கு குறியீடு வரவில்லை", "_review": "pending-native" },
+  "weHaveListing":   { "si": "{name}, {trade}, {city} — අපිට මේ ලැයිස්තුව දැනටමත් තියෙනවා.", "en": "We already have a listing for {name}, {trade}, {city}.", "ta": "{name}, {trade}, {city} — இந்தப் பட்டியல் எங்களிடம் உள்ளது.", "_review": "pending-native" },
+  "claimPrefilled":  { "si": "ලැයිස්තුව ඔබට අයිතියි. දැන් ඡායාරූප එකතු කරන්න.", "en": "The listing is yours. Now add your photos.", "ta": "பட்டியல் உங்களுடையது. இப்போது படங்களைச் சேர்க்கவும்.", "_review": "pending-native" },
+  "verifyOtherNumber": { "si": "ඔබේ පරණ අංකයට කේතයක් එවනවා.", "en": "We'll send a code to your existing number.", "ta": "உங்கள் பழைய எண்ணுக்கு குறியீடு அனுப்புவோம்.", "_review": "pending-native" },
+  "numberAdded":     { "si": "අංකය එකතු කළා. දැන් ඕනෑම අංකයකින් පිවිසෙන්න පුළුවන්.", "en": "Number added. You can sign in with either one now.", "ta": "எண் சேர்க்கப்பட்டது. இரண்டிலும் உள்நுழையலாம்.", "_review": "pending-native" },
+  "supportRequested": { "si": "අපි ඔබව සම්බන්ධ කරගන්නම්.", "en": "We'll get in touch with you.", "ta": "நாங்கள் உங்களைத் தொடர்பு கொள்வோம்.", "_review": "pending-native" },
+
+  "language":        { "si": "භාෂාව", "en": "Language", "ta": "மொழி", "_review": "pending-native" },
+  "imAHomeowner":    { "si": "මට වැඩක් කරගන්න ඕනේ", "en": "I need work done", "ta": "எனக்கு வேலை செய்ய வேண்டும்", "_review": "pending-native" },
+  "imAProvider":     { "si": "මම වැඩ කරනවා", "en": "I do the work", "ta": "நான் வேலை செய்கிறேன்", "_review": "pending-native" }
+}

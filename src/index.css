@@ -97,15 +97,22 @@
   --success: #2F6B4F;
 }
 
-/* Sinhala leads both stacks and drops the tight display tracking. */
+/* Sinhala and Tamil lead both stacks and drop the tight display tracking:
+   Archivo and Instrument Sans have no coverage for either script and would
+   fall back mid-word. Both need the looser line-height too — the marks sit
+   above and below the baseline and collide at 1.5. */
 html[data-lang='si'] {
   --th-display: 'Noto Sans Sinhala', 'Archivo', system-ui, sans-serif;
   --th-body: 'Noto Sans Sinhala', 'Instrument Sans', system-ui, sans-serif;
 }
-html[data-lang='si'] body { line-height: 1.7; }
-html[data-lang='si'] h1,
-html[data-lang='si'] h2,
-html[data-lang='si'] h3 { letter-spacing: 0; }
+html[data-lang='ta'] {
+  --th-display: 'Noto Sans Tamil', 'Archivo', system-ui, sans-serif;
+  --th-body: 'Noto Sans Tamil', 'Instrument Sans', system-ui, sans-serif;
+}
+html[data-lang='si'] body,
+html[data-lang='ta'] body { line-height: 1.7; }
+html[data-lang='si'] :is(h1, h2, h3),
+html[data-lang='ta'] :is(h1, h2, h3) { letter-spacing: 0; }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }

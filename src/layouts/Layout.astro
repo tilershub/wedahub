@@ -30,9 +30,10 @@ const {
   ogType = 'website',
   noindex = false,
 } = Astro.props
+const lang = Astro.locals.lang || 'si'
 const path = Astro.url.pathname
 const SITE = 'https://wedahub.lk'
-const FONT_HREF = 'https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Instrument+Sans:wght@400;500;600&family=Noto+Sans+Sinhala:wght@400;500;600;700&display=swap'
+const FONT_HREF = 'https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=Instrument+Sans:wght@400;500;600&family=Noto+Sans+Sinhala:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&display=swap'
 const canonicalUrl = `${SITE}${path}`
 
 // Routes that must never carry ads: authentication, account areas, and the
@@ -84,7 +85,7 @@ const orgSchema = JSON.stringify({
 })
 ---
 <!DOCTYPE html>
-<html lang="si" data-lang="si">
+<html lang={lang} data-lang={lang}>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
@@ -132,8 +133,14 @@ const orgSchema = JSON.stringify({
   <noscript><link href={FONT_HREF} rel="stylesheet" /></noscript>
   <slot name="head" />
   <style is:global>
-    html:not([data-lang="si"]) .si-text { display: none; }
-    html[data-lang="si"] .en-text { display: none; }
+    /* Legacy si-text/en-text pairs, from before the trilingual layer. The
+       previous rule keyed off "not si", so a Tamil session revealed the
+       English span — the leak §9.13 forbids. English now shows only in an
+       English session; Tamil falls back to the Sinhala span, because these
+       old strings have no Tamil at all yet. New strings go through
+       src/lib/i18n.js and are properly trilingual. */
+    html[data-lang="en"] .si-text { display: none; }
+    html:not([data-lang="en"]) .en-text { display: none; }
   </style>
 
   <!-- Google Consent Mode v2 defaults, set before any tag can fire. Analytics
