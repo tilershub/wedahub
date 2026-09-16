@@ -15,6 +15,7 @@ jobs:
       - run: node --test scripts/phone.test.mjs
       - run: node --test scripts/sms.test.mjs
       - run: node --test scripts/i18n.test.mjs
+      - run: node --test scripts/names.test.mjs
       - run: npm run build
       # Boots the built Worker and asserts that an unmatched path returns 404
       # and the migration redirects return 301. `npm run build` alone cannot
