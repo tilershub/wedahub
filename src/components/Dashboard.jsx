@@ -240,7 +240,7 @@ function ProviderDashboard({ user, claimedProfile, submission, showClaimedBanner
     { key:'reviews',  label: T.reviews  },
   ]
 
-  const profileName = claimedProfile?.name || user.email.split('@')[0]
+  const profileName = claimedProfile?.name || (user.email?.split('@')[0] || user.phone || 'Member')
   const initials    = profileName.split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase()
   const profileHref = claimedProfile?.slug ? `/providers/${claimedProfile.slug}` : null
 
@@ -683,7 +683,7 @@ function SavedProvidersTab({ userId }) {
 }
 
 function ConsumerDashboard({ user, projects, bids, submission, dataLoading, showClaimedBanner }) {
-  const initials = (user.email || '?').split('@')[0].slice(0,2).toUpperCase()
+  const initials = (user.email || user.phone || '?').split('@')[0].slice(0,2).toUpperCase()
   const [consumerTab, setConsumerTab] = useState('projects')
 
   const CONSUMER_TABS = [
@@ -714,7 +714,7 @@ function ConsumerDashboard({ user, projects, bids, submission, dataLoading, show
               <div>
                 <div style={{ fontSize:10, fontWeight:700, color:'var(--text-4)', letterSpacing:2, textTransform:'uppercase', marginBottom:2 }}>මගේ පාලන පුවරුව</div>
                 <div className="db-profile-name" style={{ fontSize:16, fontWeight:700, color:'var(--text)', lineHeight:1.2 }}>නැවත සාදරයෙන් පිළිගනිමු</div>
-                <div style={{ fontSize:11, color:'var(--text-3)', marginTop:1, overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap', maxWidth:'180px' }}>{sinhalaText(user.email)}</div>
+                <div style={{ fontSize:11, color:'var(--text-3)', marginTop:1, overflow:'hidden', textOverflow:'ellipsis', whiteSpace:'nowrap', maxWidth:'180px' }}>{sinhalaText(user.email || user.phone || '')}</div>
               </div>
             </div>
 
