@@ -1,6 +1,7 @@
+import PhoneSignIn from './PhoneSignIn.jsx'
 import { si as sinhalaText } from '../lib/sinhala.js'
 import { useState, useEffect } from 'react'
-import { supabase, signInWithOtp, DISTRICTS_EN } from '../lib/supabase.js'
+import { supabase, DISTRICTS_EN } from '../lib/supabase.js'
 import { useLang } from '../lib/useLang.js'
 
 const DRAFT_KEY = 'tilershub_draft_token'
@@ -128,57 +129,6 @@ function inp(hasError) {
     background: hasError ? '#FBEDEB' : '#fff', transition: 'border-color 0.2s',
     boxSizing: 'border-box',
   }
-}
-
-function MagicLinkForm({ label, hint, t }) {
-  const [email, setEmail] = useState('')
-  const [sent, setSent] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const [err, setErr] = useState('')
-
-  async function send(e) {
-    e.preventDefault()
-    if (!email.trim() || !email.includes('@')) { setErr(t.emailInvalid); return }
-    setLoading(true); setErr('')
-    const { error } = await signInWithOtp(email.trim())
-    setLoading(false)
-    if (error) { setErr(error.message); return }
-    setSent(true)
-  }
-
-  if (sent) {
-    return (
-      <div style={{ textAlign: 'center', padding: '16px 0' }}>
-        <div style={{ fontSize: 32, marginBottom: 8 }}>📬</div>
-        <div style={{ fontSize: 14, fontWeight: 700, color: '#14171A', marginBottom: 6 }}>{sinhalaText(t.checkEmail)}</div>
-        <p style={{ fontSize: 12, color: '#6B7076', lineHeight: 1.7 }}>
-          <strong>{sinhalaText(email)}</strong> {sinhalaText(t.sentBody)}
-        </p>
-      </div>
-    )
-  }
-
-  return (
-    <form onSubmit={send} style={{ marginTop: 4 }}>
-      <div style={{ fontSize: 13, fontWeight: 600, color: '#3A4046', marginBottom: 10 }}>{sinhalaText(label)}</div>
-      {sinhalaText(hint && <p style={{ fontSize: 12, color: '#6B7076', marginBottom: 12, lineHeight: 1.6 }}>{sinhalaText(hint)}</p>)}
-      <div style={{ display: 'flex', gap: 8 }}>
-        <input
-          type="email"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-          placeholder="your@email.com"
-          autoFocus
-          style={{ flex: 1, padding: '10px 14px', border: `1.5px solid ${err ? '#E3A199' : '#E4E0D9'}`, borderRadius: 10, fontSize: 13, outline: 'none', fontFamily: 'inherit', background: err ? '#FBEDEB' : '#fff', boxSizing: 'border-box' }}
-        />
-        <button type="submit" disabled={loading} style={{ padding: '10px 18px', background: loading ? '#8A8F95' : '#C2542B', color: '#fff', border: 'none', borderRadius: 10, fontSize: 13, fontWeight: 700, cursor: loading ? 'not-allowed' : 'pointer', whiteSpace: 'nowrap' }}>
-          {sinhalaText(loading ? '⏳' : t.sendLink)}
-        </button>
-      </div>
-      {sinhalaText(err && <p style={{ fontSize: 11, color: '#C0392B', marginTop: 4 }}>⚠ {sinhalaText(err)}</p>)}
-      <p style={{ fontSize: 11, color: '#8A8F95', marginTop: 8 }}>{sinhalaText(t.noPassword)}</p>
-    </form>
-  )
 }
 
 export default function PostProjectForm() {
@@ -319,7 +269,7 @@ export default function PostProjectForm() {
               </div>
             </div>
             <div style={{ padding: '20px 24px' }}>
-              <MagicLinkForm label={t.emailLabel} hint={null} t={t} />
+              <PhoneSignIn />
               <div style={{ marginTop: 20, paddingTop: 16, borderTop: '1px solid #EFEBE4', display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap' }}>
                 <a href="/providers" style={{ fontSize: 13, color: '#6B7076', textDecoration: 'none', fontWeight: 600 }}>{sinhalaText(t.viewProviders)}</a>
                 <span style={{ color: '#E4E0D9' }}>·</span>

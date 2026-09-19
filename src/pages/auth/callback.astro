@@ -15,6 +15,10 @@ if (!user) {
   return Astro.redirect('/login')
 }
 
+if (Astro.url.searchParams.get('link_phone') === '1' && !user.phone_confirmed_at) {
+  return Astro.redirect('/login')
+}
+
 const joinReturn = Astro.url.searchParams.get('join_return')
 if (['/join-wedahub', '/join-tilershub'].includes(joinReturn ?? '')) {
   return Astro.redirect('/join-wedahub')
