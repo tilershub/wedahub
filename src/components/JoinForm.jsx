@@ -1,7 +1,7 @@
 import PhoneSignIn from './PhoneSignIn.jsx'
 import { si as sinhalaText } from '../lib/sinhala.js'
 import { useState, useEffect } from 'react'
-import { supabase, PROFESSIONS } from '../lib/supabase.js'
+import { supabase, PROFESSIONS, DISTRICTS_EN } from '../lib/supabase.js'
 import { useLang } from '../lib/useLang.js'
 
 const T = {
@@ -28,7 +28,7 @@ const T = {
     submitting: '⏳ ඉදිරිපත් කරමින්...',
     // Pending screen
     pendingTitle: 'අයදුම්පත ලැබුණි! 🎉',
-    pendingBody: 'ඔබේ ලියාපදිංචිය admin විසින් සමාලෝචනය කරයි. අනුමත වූ පසු ඔබ වැඩHUB හි ලැයිස්තුගත වේ — WhatsApp හරහා දැනුම් දෙන්නෙමු.',
+    pendingBody: 'ඔබේ ලියාපදිංචිය admin විසින් සමාලෝචනය කරයි. අනුමත වූ පසු ඔබ වැඩHUB හි ලැයිස්තුගත වේ — ඔබේ ගිණුමෙන් තත්ත්වය බලන්න.',
     goDashboard: 'මගේ Dashboard →',
     signedInAs: 'පිවිසී ඇත:',
   },
@@ -55,7 +55,7 @@ const T = {
     submitting: '⏳ Submitting...',
     // Pending screen
     pendingTitle: 'Application Received! 🎉',
-    pendingBody: "Your registration is being reviewed by our admin. Once approved you'll be listed on වැඩHUB — we'll notify you on WhatsApp.",
+    pendingBody: "Your registration is being reviewed by our admin. Once approved you'll be listed on වැඩHUB — check your account for updates.",
     goDashboard: 'Go to my Dashboard →',
     signedInAs: 'Signed in as:',
   },
@@ -65,7 +65,7 @@ function Field({ label, id, req, error, hint, children }) {
   return (
     <div style={{ marginBottom: 20 }}>
       <label htmlFor={id} style={{ display: 'block', fontSize: 11, fontWeight: 700, color: '#3A4046', textTransform: 'uppercase', letterSpacing: '0.6px', marginBottom: 7 }}>
-        {sinhalaText(label)}{sinhalaText(req && <span style={{ color: '#C2542B', marginLeft: 3 }}>*</span>)}
+        {sinhalaText(label)}{sinhalaText(req && <span style={{ color: '#0B2A4A', marginLeft: 3 }}>*</span>)}
       </label>
       {sinhalaText(children)}
       {sinhalaText(hint && !error && <p style={{ fontSize: 11, color: '#8A8F95', marginTop: 5, lineHeight: 1.5 }}>{sinhalaText(hint)}</p>)}
@@ -77,7 +77,7 @@ function Field({ label, id, req, error, hint, children }) {
 function inputStyle(hasError) {
   return {
     width: '100%', padding: '11px 14px',
-    border: `1.5px solid ${hasError ? '#E3A199' : '#E4E0D9'}`,
+    border: `1.5px solid ${hasError ? '#E3A199' : '#EAE4D7'}`,
     borderRadius: 10, fontSize: 13, outline: 'none', fontFamily: 'inherit',
     background: hasError ? '#FBEDEB' : '#fff', transition: 'border-color 0.2s', boxSizing: 'border-box',
   }
@@ -89,7 +89,7 @@ export default function JoinForm({ initialUser = null }) {
   const [user, setUser] = useState(initialUser)
   const [authReady, setAuthReady] = useState(!!initialUser)
   const [category, setCategory] = useState(null)
-  const [form, setForm] = useState({ name: '', city: '', whatsapp: '' })
+  const [form, setForm] = useState({ name: '', city: '', whatsapp: '', district: '', service: '' })
   const [errors, setErrors] = useState({})
   const [submitting, setSubmitting] = useState(false)
   const [success, setSuccess] = useState(false)
@@ -115,6 +115,8 @@ export default function JoinForm({ initialUser = null }) {
   function validate() {
     const e = {}
     if (!form.name.trim()) e.name = t.required
+    if (!form.service.trim()) e.service = t.required
+    if (!form.district) e.district = t.required
     if (!form.city.trim()) e.city = t.required
     if (!form.whatsapp.trim()) e.whatsapp = t.required
     else if (!/^\+?[0-9]{9,15}$/.test(form.whatsapp.replace(/\s/g, ''))) e.whatsapp = t.phoneInvalid
@@ -130,11 +132,12 @@ export default function JoinForm({ initialUser = null }) {
     try {
       const { error } = await supabase.from('provider_submissions').insert({
         name: form.name.trim(),
-        provider_type: category?.value || 'tiler',
+        provider_type: category?.value || 'other_service',
         city: form.city.trim(),
-        district: null,
+        district: form.district,
         whatsapp: form.whatsapp.replace(/\s/g, ''),
-        services: [category?.label || 'General Services'],
+        services: [category?.label || 'Other Service', form.service.trim()],
+        description: form.service.trim(),
         status: 'pending_review',
         user_id: user.id,
       })
@@ -150,11 +153,11 @@ export default function JoinForm({ initialUser = null }) {
   // ── Success / pending-approval screen ──────────────────────────────────────
   if (success) {
     return (
-      <div style={{ textAlign: 'center', padding: '48px 24px', background: '#fff', borderRadius: 20, border: '1px solid #E4E0D9', maxWidth: 520, margin: '0 auto' }}>
+      <div style={{ textAlign: 'center', padding: '48px 24px', background: '#fff', borderRadius: 20, border: '1px solid #EAE4D7', maxWidth: 520, margin: '0 auto' }}>
         <div style={{ fontSize: 56, marginBottom: 16 }}>🎉</div>
-        <h2 style={{ fontFamily: "var(--th-display)", fontSize: 24, fontWeight: 700, color: '#14171A', marginBottom: 12 }}>{sinhalaText(t.pendingTitle)}</h2>
+        <h2 style={{ fontFamily: "var(--th-display)", fontSize: 24, fontWeight: 700, color: '#071827', marginBottom: 12 }}>{sinhalaText(t.pendingTitle)}</h2>
         <p style={{ fontSize: 14, color: '#6B7076', lineHeight: 1.8, maxWidth: 400, margin: '0 auto 24px' }}>{sinhalaText(t.pendingBody)}</p>
-        <a href="/provider" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: '#C2542B', color: '#fff', borderRadius: 12, padding: '12px 24px', fontSize: 14, fontWeight: 700, textDecoration: 'none' }}>
+        <a href="/provider" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: '#0B2A4A', color: '#fff', borderRadius: 12, padding: '12px 24px', fontSize: 14, fontWeight: 700, textDecoration: 'none' }}>
           {sinhalaText(t.goDashboard)}
         </a>
       </div>
@@ -164,9 +167,9 @@ export default function JoinForm({ initialUser = null }) {
   // ── Step 1: Phone sign-in gate (shown until authenticated) ────────────────
   if (!user) {
     return (
-      <div style={{ maxWidth: 480, margin: '0 auto', background: '#fff', border: '1px solid #E4E0D9', borderRadius: 20, padding: '32px 28px', textAlign: 'center' }}>
+      <div style={{ maxWidth: 480, margin: '0 auto', background: '#fff', border: '1px solid #EAE4D7', borderRadius: 20, padding: '32px 28px', textAlign: 'center' }}>
         <div style={{ fontSize: 44, marginBottom: 14 }}>👷</div>
-        <h2 style={{ fontFamily: "var(--th-display)", fontSize: 22, fontWeight: 700, color: '#14171A', marginBottom: 8 }}>{sinhalaText(t.gateTitle)}</h2>
+        <h2 style={{ fontFamily: "var(--th-display)", fontSize: 22, fontWeight: 700, color: '#071827', marginBottom: 8 }}>{sinhalaText(t.gateTitle)}</h2>
         <p style={{ fontSize: 13, color: '#6B7076', lineHeight: 1.7, marginBottom: 22 }}>{sinhalaText(t.gateSub)}</p>
 
         {authReady && <PhoneSignIn />}
@@ -197,12 +200,12 @@ export default function JoinForm({ initialUser = null }) {
               key={prof.value}
               type="button"
               onClick={() => setCategory(prof)}
-              style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, padding: '18px 12px', borderRadius: 14, border: '2px solid #E4E0D9', background: '#fff', cursor: 'pointer', textAlign: 'center', transition: 'all 0.15s', boxShadow: '0 1px 4px rgba(0,0,0,0.04)' }}
-              onMouseOver={e => { e.currentTarget.style.borderColor = '#C2542B'; e.currentTarget.style.boxShadow = '0 4px 16px rgba(194,84,43,0.12)'; e.currentTarget.style.background = '#F7EFE9' }}
-              onMouseOut={e => { e.currentTarget.style.borderColor = '#E4E0D9'; e.currentTarget.style.boxShadow = '0 1px 4px rgba(0,0,0,0.04)'; e.currentTarget.style.background = '#fff' }}
+              style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, padding: '18px 12px', borderRadius: 14, border: '2px solid #EAE4D7', background: '#fff', cursor: 'pointer', textAlign: 'center', transition: 'all 0.15s', boxShadow: '0 1px 4px rgba(0,0,0,0.04)' }}
+              onMouseOver={e => { e.currentTarget.style.borderColor = '#0B2A4A'; e.currentTarget.style.boxShadow = '0 4px 16px rgba(11,42,74,0.12)'; e.currentTarget.style.background = '#F7F3E8' }}
+              onMouseOut={e => { e.currentTarget.style.borderColor = '#EAE4D7'; e.currentTarget.style.boxShadow = '0 1px 4px rgba(0,0,0,0.04)'; e.currentTarget.style.background = '#fff' }}
             >
               <span style={{ fontSize: 30 }}>{sinhalaText(prof.icon)}</span>
-              <div style={{ fontSize: 12, fontWeight: 700, color: '#14171A', lineHeight: 1.3 }}>{sinhalaText(prof.label)}</div>
+              <div style={{ fontSize: 12, fontWeight: 700, color: '#071827', lineHeight: 1.3 }}>{prof.si || prof.label}</div>
             </button>
           )))}
         </div>
@@ -218,7 +221,7 @@ export default function JoinForm({ initialUser = null }) {
         <button
           type="button"
           onClick={() => setCategory(null)}
-          style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: '#F7EFE9', border: '1.5px solid #E7D9CE', borderRadius: 10, padding: '7px 14px', cursor: 'pointer', fontSize: 12, fontWeight: 700, color: '#C2542B' }}
+          style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: '#F7F3E8', border: '1.5px solid #EAE4D7', borderRadius: 10, padding: '7px 14px', cursor: 'pointer', fontSize: 12, fontWeight: 700, color: '#0B2A4A' }}
         >
           {sinhalaText(category.icon)} {sinhalaText(category.label)} <span style={{ fontSize: 10, color: '#8A8F95', fontWeight: 400 }}>{sinhalaText(t.change)}</span>
         </button>
@@ -229,6 +232,12 @@ export default function JoinForm({ initialUser = null }) {
           placeholder={sinhalaText(t.namePh)} style={inputStyle(!!errors.name)} />
       </Field>
 
+      <Field label="ඔබ සපයන සේවාව / Your service" id="service" req error={errors.service}>
+        <input id="service" value={form.service} maxLength={160} onChange={e => set('service', e.target.value)} placeholder="උදා: ගණිත පන්ති, නිවාස පිරිසිදු කිරීම…" style={inputStyle(!!errors.service)} />
+      </Field>
+      <Field label="දිස්ත්‍රික්කය / District" id="district" req error={errors.district}>
+        <select id="district" value={form.district} onChange={e => set('district', e.target.value)} style={inputStyle(!!errors.district)}><option value="">තෝරන්න…</option>{DISTRICTS_EN.map(d => <option key={d} value={d}>{sinhalaText(d)}</option>)}</select>
+      </Field>
       <Field label={t.city} id="city" req error={errors.city}>
         <input id="city" value={form.city} onChange={e => set('city', e.target.value)}
           placeholder={sinhalaText(t.cityPh)} style={inputStyle(!!errors.city)} />
@@ -252,7 +261,7 @@ export default function JoinForm({ initialUser = null }) {
       <button
         type="submit"
         disabled={submitting}
-        style={{ width: '100%', padding: 14, background: submitting ? '#8A8F95' : '#C2542B', color: '#fff', border: 'none', borderRadius: 12, fontSize: 15, fontWeight: 700, cursor: submitting ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, transition: 'background 0.2s' }}
+        style={{ width: '100%', padding: 14, background: submitting ? '#8A8F95' : '#0B2A4A', color: '#fff', border: 'none', borderRadius: 12, fontSize: 15, fontWeight: 700, cursor: submitting ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, transition: 'background 0.2s' }}
       >
         {sinhalaText(submitting ? t.submitting : t.submit)}
       </button>

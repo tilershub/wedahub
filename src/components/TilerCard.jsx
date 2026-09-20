@@ -26,7 +26,7 @@ export function TilerCard({ tiler, onClick }) {
   return (
     <div className="card" style={{ cursor: 'pointer', borderTop: '3px solid var(--terracotta)' }} onClick={() => onClick(tiler)}>
       {/* Card header */}
-      <div style={{ background: 'linear-gradient(135deg, #2a2118 0%, #14171A 100%)', padding: '22px 22px 18px', position: 'relative' }}>
+      <div style={{ background: 'linear-gradient(135deg, #2a2118 0%, #071827 100%)', padding: '22px 22px 18px', position: 'relative' }}>
         <span style={{
           position: 'absolute', top: 14, right: 14,
           background: availColor.bg, border: `1px solid ${availColor.border}`,
@@ -112,7 +112,7 @@ export function TilerModal({ tiler, onClose }) {
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal" onClick={e => e.stopPropagation()}>
         {/* Modal header */}
-        <div style={{ background: 'linear-gradient(135deg, #14171A 0%, #2A2F35 100%)', padding: '28px 28px 24px', borderRadius: '20px 20px 0 0' }}>
+        <div style={{ background: 'linear-gradient(135deg, #071827 0%, #0B2A4A 100%)', padding: '28px 28px 24px', borderRadius: '20px 20px 0 0' }}>
           <div style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: 16 }}>
             <button className="modal-close" onClick={onClose} style={{ color: 'white' }}>✕</button>
           </div>

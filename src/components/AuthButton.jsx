@@ -92,7 +92,7 @@ function AuthModal({ onClose, link = false }) {
     finally { setBusy(false) }
   }
   return <div style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,.5)', zIndex: 500, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 16 }} onClick={e => e.target === e.currentTarget && onClose()}>
-    <div role="dialog" aria-modal="true" aria-label="වැඩHUB login" style={{ background: '#fff', color: '#14171A', borderRadius: 20, padding: 24, width: '100%', maxWidth: 400, maxHeight: '90dvh', overflowY: 'auto', whiteSpace: 'normal' }}>
+    <div role="dialog" aria-modal="true" aria-label="වැඩHUB login" style={{ background: '#fff', color: '#071827', borderRadius: 20, padding: 24, width: '100%', maxWidth: 400, maxHeight: '90dvh', overflowY: 'auto', whiteSpace: 'normal' }}>
       <button type="button" aria-label="Close" onClick={onClose} style={{ float: 'right' }}>✕</button>
       <h2 style={{ fontSize: 20 }}>වැඩHUB වෙත පිවිසෙන්න</h2>
       {existing && !link ? <>

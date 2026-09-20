@@ -1,4 +1,4 @@
-const CACHE = 'wedahub-v2'
+const CACHE = 'wedahub-navy-v3'
 
 // Static assets to pre-cache on install
 const PRECACHE = [
@@ -33,7 +33,7 @@ self.addEventListener('fetch', event => {
   if (req.method !== 'GET' || url.origin !== self.location.origin) return
 
   // Skip auth / API paths — always go to network
-  if (url.pathname.startsWith('/auth/') || url.pathname.startsWith('/api/') || ['/account', '/dashboard', '/admin', '/provider', '/login', '/notifications'].some(p => url.pathname === p || url.pathname.startsWith(p + '/'))) return
+  if (url.pathname.startsWith('/auth/') || url.pathname.startsWith('/api/') || ['/my-jobs', '/account', '/dashboard', '/admin', '/provider', '/login', '/notifications'].some(p => url.pathname === p || url.pathname.startsWith(p + '/'))) return
 
   // Static assets (_astro chunks, images, fonts) → cache-first
   if (

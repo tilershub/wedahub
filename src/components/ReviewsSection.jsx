@@ -3,9 +3,9 @@ import { useState, useEffect } from 'react'
 import { supabase } from '../lib/supabase.js'
 
 const RATING_LABELS = { 5: 'ඉතා හොඳ', 4: 'හොඳ', 3: 'සාධාරණ', 2: 'යෝග්‍ය', 1: 'දුර්වල' }
-const RATING_COLORS = { 5: '#2F6B4F', 4: '#2F6B4F', 3: '#C2542B', 2: '#ea580c', 1: '#C0392B' }
+const RATING_COLORS = { 5: '#2F6B4F', 4: '#2F6B4F', 3: '#0B2A4A', 2: '#ea580c', 1: '#C0392B' }
 
-const AVATAR_COLORS = ['#C2542B','#C2542B','#8E3C1E','#C2542B','#2F6B4F','#C2542B','#285C43','#C2542B']
+const AVATAR_COLORS = ['#0B2A4A','#0B2A4A','#071827','#0B2A4A','#2F6B4F','#0B2A4A','#285C43','#0B2A4A']
 function avatarColor(name) {
   let h = 0
   for (const c of (name || '')) h = (h * 31 + c.charCodeAt(0)) >>> 0
@@ -28,7 +28,7 @@ function Stars({ rating, size = 13 }) {
   return (
     <span style={{ display: 'inline-flex', gap: 1 }}>
       {sinhalaText([1,2,3,4,5].map(n => (
-        <span key={n} style={{ fontSize: size, color: n <= rating ? '#f59e0b' : '#E4E0D9', lineHeight: 1 }}>★</span>
+        <span key={n} style={{ fontSize: size, color: n <= rating ? '#f59e0b' : '#EAE4D7', lineHeight: 1 }}>★</span>
       )))}
     </span>
   )
@@ -36,9 +36,9 @@ function Stars({ rating, size = 13 }) {
 
 // ─── Review form ───────────────────────────────────────────────────────────────
 function ReviewForm() {
-  return <div style={{ padding: 20, background: '#FBFAF8', borderRadius: 12 }}>
+  return <div style={{ padding: 20, background: '#FAF8F2', borderRadius: 12 }}>
     <p>Reviews are linked to a job with this provider. Open your job to write or edit your review.</p>
-    <a href="/my-jobs" style={{ color: '#C2542B', fontWeight: 700 }}>My jobs &amp; reviews →</a>
+    <a href="/my-jobs" style={{ color: '#0B2A4A', fontWeight: 700 }}>My jobs &amp; reviews →</a>
   </div>
 }
 
@@ -48,17 +48,17 @@ function ReviewCard({ r }) {
   const inits = initials(r.reviewer_name)
   const ratingColor = RATING_COLORS[r.rating] || '#f59e0b'
   return (
-    <div style={{ padding: '16px 18px', background: '#fff', borderRadius: 14, border: '1px solid #E4E0D9', boxShadow: '0 1px 4px rgba(0,0,0,0.04)' }}>
+    <div style={{ padding: '16px 18px', background: '#fff', borderRadius: 14, border: '1px solid #EAE4D7', boxShadow: '0 1px 4px rgba(0,0,0,0.04)' }}>
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 10, marginBottom: 10 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <div style={{ width: 36, height: 36, borderRadius: '50%', background: color, color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, fontWeight: 700, flexShrink: 0 }}>
             {sinhalaText(inits)}
           </div>
           <div>
-            <div style={{ fontSize: 13, fontWeight: 700, color: '#14171A', lineHeight: 1.2 }}>{sinhalaText(r.reviewer_name)}</div>
+            <div style={{ fontSize: 13, fontWeight: 700, color: '#071827', lineHeight: 1.2 }}>{sinhalaText(r.reviewer_name)}</div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginTop: 3 }}>
               {sinhalaText(r.job_type && (
-                <span style={{ fontSize: 9, fontWeight: 700, color: '#C2542B', background: '#F7EFE9', border: '1px solid #EDDFD5', borderRadius: 20, padding: '1px 7px' }}>
+                <span style={{ fontSize: 9, fontWeight: 700, color: '#0B2A4A', background: '#F7F3E8', border: '1px solid #EAE4D7', borderRadius: 20, padding: '1px 7px' }}>
                   {sinhalaText(r.job_type)}
                 </span>
               ))}
@@ -74,9 +74,9 @@ function ReviewCard({ r }) {
         </div>
       </div>
       {r.confirmed_job && <p style={{ fontSize: 12, color: '#2F6B4F' }}>✓ Review from a confirmed job</p>}
-      {r.provider_reply && <blockquote style={{ fontSize: 13, borderLeft: '3px solid #C2542B', paddingLeft: 12 }}><strong>Provider reply</strong><p>{r.provider_reply}</p></blockquote>}
+      {r.provider_reply && <blockquote style={{ fontSize: 13, borderLeft: '3px solid #0B2A4A', paddingLeft: 12 }}><strong>Provider reply</strong><p>{r.provider_reply}</p></blockquote>}
       {sinhalaText(r.comment && (
-        <p style={{ fontSize: 13, color: '#3A4046', lineHeight: 1.7, margin: 0, paddingTop: 8, borderTop: '1px solid #EFEBE4' }}>
+        <p style={{ fontSize: 13, color: '#3A4046', lineHeight: 1.7, margin: 0, paddingTop: 8, borderTop: '1px solid #F7F3E8' }}>
           {sinhalaText(r.comment)}
         </p>
       ))}
@@ -91,9 +91,9 @@ function RatingSummary({ avg, reviews }) {
     pct: reviews.length > 0 ? Math.round((reviews.filter(r => r.rating === n).length / reviews.length) * 100) : 0,
   }))
   return (
-    <div style={{ display: 'flex', gap: 20, alignItems: 'center', flexWrap: 'wrap', background: '#FBFAF8', borderRadius: 14, padding: '18px 20px', border: '1px solid #E4E0D9', marginBottom: 20 }}>
+    <div style={{ display: 'flex', gap: 20, alignItems: 'center', flexWrap: 'wrap', background: '#FAF8F2', borderRadius: 14, padding: '18px 20px', border: '1px solid #EAE4D7', marginBottom: 20 }}>
       <div style={{ textAlign: 'center', minWidth: 72 }}>
-        <div style={{ fontSize: 42, fontWeight: 800, color: '#14171A', lineHeight: 1 }}>{sinhalaText(avg.toFixed(1))}</div>
+        <div style={{ fontSize: 42, fontWeight: 800, color: '#071827', lineHeight: 1 }}>{sinhalaText(avg.toFixed(1))}</div>
         <Stars rating={Math.round(avg)} size={16} />
         <div style={{ fontSize: 11, color: '#8A8F95', marginTop: 5 }}>
           සමාලෝචන {sinhalaText(reviews.length)}ක්
@@ -104,7 +104,7 @@ function RatingSummary({ avg, reviews }) {
           <div key={n} style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 5 }}>
             <span style={{ fontSize: 11, color: '#6B7076', width: 10, textAlign: 'right' }}>{sinhalaText(n)}</span>
             <span style={{ fontSize: 11, color: '#f59e0b', lineHeight: 1 }}>★</span>
-            <div style={{ flex: 1, height: 7, background: '#E4E0D9', borderRadius: 4, overflow: 'hidden' }}>
+            <div style={{ flex: 1, height: 7, background: '#EAE4D7', borderRadius: 4, overflow: 'hidden' }}>
               <div style={{ height: '100%', background: RATING_COLORS[n], borderRadius: 4, width: `${pct}%`, transition: 'width 0.4s' }} />
             </div>
             <span style={{ fontSize: 10, color: pct > 0 ? '#3A4046' : '#D6D0C6', width: 28, textAlign: 'right', fontWeight: pct > 0 ? 600 : 400 }}>{sinhalaText(pct > 0 ? `${pct}%` : '—')}</span>
@@ -155,17 +155,17 @@ export default function ReviewsSection({ tilerId, providerId }) {
   const avg = reviews.length > 0 ? reviews.reduce((s, r) => s + r.rating, 0) / reviews.length : 0
 
   return (
-    <div id="reviews-section" style={{ background: '#fff', border: '1px solid #E4E0D9', borderRadius: 16, padding: '24px 20px', marginBottom: 20 }}>
+    <div id="reviews-section" style={{ background: '#fff', border: '1px solid #EAE4D7', borderRadius: 16, padding: '24px 20px', marginBottom: 20 }}>
 
       {/* Section header */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 18 }}>
-        <h2 style={{ fontSize: 15, fontWeight: 700, color: '#14171A', margin: 0 }}>
+        <h2 style={{ fontSize: 15, fontWeight: 700, color: '#071827', margin: 0 }}>
           ⭐ සමාලෝචන {sinhalaText(reviews.length > 0 && <span style={{ fontSize: 12, color: '#8A8F95', fontWeight: 400 }}>({sinhalaText(reviews.length)})</span>)}
         </h2>
         {sinhalaText(!submitted && !showForm && (
           <button
             onClick={() => setShowForm(true)}
-            style={{ fontSize: 12, fontWeight: 700, color: '#C2542B', background: '#F7EFE9', border: '1.5px solid #EDDFD5', borderRadius: 8, padding: '7px 14px', cursor: 'pointer' }}
+            style={{ fontSize: 12, fontWeight: 700, color: '#0B2A4A', background: '#F7F3E8', border: '1.5px solid #EAE4D7', borderRadius: 8, padding: '7px 14px', cursor: 'pointer' }}
           >
             + සමාලෝචනයක් ලියන්න
           </button>
@@ -187,7 +187,7 @@ export default function ReviewsSection({ tilerId, providerId }) {
               <p style={{ fontSize: 12, color: '#8A8F95', marginBottom: 20 }}>ඔබේ අත්දැකීම පළමුව බෙදා ගන්න.</p>
               <button
                 onClick={() => setShowForm(true)}
-                style={{ fontSize: 13, fontWeight: 700, color: '#fff', background: '#C2542B', border: 'none', borderRadius: 10, padding: '10px 24px', cursor: 'pointer' }}
+                style={{ fontSize: 13, fontWeight: 700, color: '#fff', background: '#0B2A4A', border: 'none', borderRadius: 10, padding: '10px 24px', cursor: 'pointer' }}
               >
                 ⭐ සමාලෝචනයක් ලියන්න
               </button>
@@ -205,7 +205,7 @@ export default function ReviewsSection({ tilerId, providerId }) {
           {sinhalaText(reviews.length > visible && (
             <button
               onClick={() => setVisible(v => v + PAGE)}
-              style={{ width: '100%', padding: '10px', background: '#FBFAF8', color: '#3A4046', border: '1.5px solid #E4E0D9', borderRadius: 10, fontSize: 12, fontWeight: 600, cursor: 'pointer', marginBottom: 14 }}
+              style={{ width: '100%', padding: '10px', background: '#FAF8F2', color: '#3A4046', border: '1.5px solid #EAE4D7', borderRadius: 10, fontSize: 12, fontWeight: 600, cursor: 'pointer', marginBottom: 14 }}
             >
               තවත් බලන්න ({sinhalaText(reviews.length - visible)})
             </button>

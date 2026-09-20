@@ -23,7 +23,7 @@ const T = {
     nextTitle: 'ඊළඟට සිදුවන්නේ:',
     nextSteps: ['1️⃣ සත්‍යාපිත ශිල්පීන් ඔබේ ව්‍යාපෘතිය දකිති', '2️⃣ ඔවුන් WhatsApp හරහා ලංසු එවති', '3️⃣ සසඳා හොඳම තැනැත්තා තෝරන්න'],
     shareWhatsApp: '💬 WhatsApp හි බෙදාගන්න',
-    shareText: 'මම වැඩHUB හි ටයිලිං ව්‍යාපෘතියක් පලකළා — නොමිලේ ලංසු ලබාගන්න: https://wedahub.lk',
+    shareText: 'මම වැඩHUB හි වැඩයක් පලකළා — නොමිලේ ලංසු ලබාගන්න: https://wedahub.lk',
     viewDashboard: 'Dashboard බලන්න →',
     postAnother: 'තවත් ව්‍යාපෘතියක් පලකරන්න',
     oneMoreStep: 'තවත් පියවරක්',
@@ -32,19 +32,19 @@ const T = {
     emailLabel: 'නොමිලේ ගිණුමක් සාදීමට ඊමේල් ඇතුළු කරන්න',
     viewProviders: 'සේවා සපයන්නන් බලන්න →',
     projectName: 'ව්‍යාපෘති නාමය',
-    projectHint: 'උදා: නාන කාමර ටයිලිං, බිම ටයිලිං, නාන කාමර ප්‍රතිසංස්කරණය, ජල නිරෝධ…',
-    projectPh: 'උදා: නාන කාමර ටයිලිං සහ ප්‍රතිසංස්කරණය',
+    projectHint: 'උදා: පිරිසිදු කිරීම, පන්ති, පරිගණක අලුත්වැඩියා, ප්‍රවාහන…',
+    projectPh: 'උදා: සතිපතා නිවස පිරිසිදු කිරීමට කෙනෙකු අවශ්‍යයි',
     city: 'නගරය / ගම',
     cityPh: 'උදා: කොළඹ 03',
     district: 'දිස්ත්‍රික්කය',
     districtPh: 'දිස්ත්‍රික්කය තෝරන්න...',
     description: 'ව්‍යාපෘති විස්තරය',
-    descHint: 'ව්‍යාපෘතිය විස්තර කරන්න: ප්‍රදේශ ප්‍රමාණය, ටයිල් වර්ගය, කාලය, විශේෂ ඉල්ලීම්.',
-    descPh: 'උදා: නාන කාමර ප්‍රතිසංස්කරණය — sq.ft 80 ක් පමණ බිම සහ බිත්ති ටයිලිං. anti-slip ටයිල් සහ සුදු wall ටයිල් අවශ්‍ය. සති 2ක් ඇතුළත ආරම්භ කළ යුතුය...',
+    descHint: 'අවශ්‍ය සේවාව, කාලය, ස්ථානය සහ විශේෂ අවශ්‍යතා විස්තර කරන්න.',
+    descPh: 'උදා: කාමර තුනක නිවසක් සතියකට වරක් පිරිසිදු කිරීමට අවශ්‍යයි. සෙනසුරාදා උදෑසන වඩාත් සුදුසුයි…',
     budget: 'අයවැය පරාසය',
     budgetHint: 'අත්‍යවශ්‍ය නොවේ — උදා: රු. 50,000, රු. 150,000–250,000, සාකච්ඡා කළ හැකි',
     budgetPh: 'උදා: රු. 150,000 හෝ සාකච්ඡා කළ හැකි',
-    privacy: '🔒 ඔබේ සම්බන්ධතා විස්තර රහසිගතව තබා ගන්නෙමු, ගැළපෙන සේවා සපයන්නන්ට පමණක් ලබා දෙන්නෙමු.',
+    privacy: 'සම්බන්ධ විය හැකි අංකයක් භාවිත කරන්න. සංවේදී හෝ පුද්ගලික තොරතුරු විස්තරයට ඇතුළත් නොකරන්න.',
     yourName: 'ඔබේ නම',
     namePh: 'උදා: නුවන් පෙරේරා',
     whatsapp: 'WhatsApp අංකය',
@@ -69,7 +69,7 @@ const T = {
     nextTitle: 'What happens next:',
     nextSteps: ['1️⃣ Verified professionals see your project', '2️⃣ They send quotes via WhatsApp', '3️⃣ Compare and pick the best one'],
     shareWhatsApp: '💬 Share on WhatsApp',
-    shareText: 'I just posted a tiling project on වැඩHUB — get free quotes: https://wedahub.lk',
+    shareText: 'I just posted a job on වැඩHUB — get free quotes: https://wedahub.lk',
     viewDashboard: 'View Dashboard →',
     postAnother: 'Post another project',
     oneMoreStep: 'One more step',
@@ -78,19 +78,19 @@ const T = {
     emailLabel: 'Enter your email to create a free account',
     viewProviders: 'Browse providers →',
     projectName: 'Project title',
-    projectHint: 'E.g. bathroom tiling, floor tiling, bathroom renovation, waterproofing…',
-    projectPh: 'E.g. Bathroom tiling and renovation',
+    projectHint: 'e.g. Cleaning, tutoring, computer repair, transport…',
+    projectPh: 'e.g. Weekly house cleaning',
     city: 'City / Town',
     cityPh: 'E.g. Colombo 03',
     district: 'District',
     districtPh: 'Select district...',
     description: 'Project description',
-    descHint: 'Describe the project: area size, tile type, timeline, special requests.',
-    descPh: 'E.g. Bathroom renovation — around 80 sq.ft of floor and wall tiling. Need anti-slip floor tiles and white wall tiles. Must start within 2 weeks...',
+    descHint: 'Describe the service, timing, location and any special requirements.',
+    descPh: 'e.g. I need weekly cleaning for a three-bedroom home, preferably on Saturday mornings…',
     budget: 'Budget range',
     budgetHint: 'Optional — e.g. Rs. 50,000, Rs. 150,000–250,000, negotiable',
     budgetPh: 'E.g. Rs. 150,000 or negotiable',
-    privacy: '🔒 Your contact details are kept private and shared only with matching providers.',
+    privacy: 'Use a contact number you are comfortable sharing. Do not include sensitive information in your job description.',
     yourName: 'Your name',
     namePh: 'E.g. Nuwan Perera',
     whatsapp: 'WhatsApp number',
@@ -107,7 +107,7 @@ function Field({ label, id, req, error, hint, children }) {
   return (
     <div style={{ marginBottom: 18 }}>
       <label htmlFor={id} style={{ display: 'block', fontSize: 12, fontWeight: 700, color: '#3A4046', textTransform: 'uppercase', letterSpacing: '0.5px', marginBottom: 6 }}>
-        {sinhalaText(label)} {sinhalaText(req && <span style={{ color: '#C2542B' }}>*</span>)}
+        {sinhalaText(label)} {sinhalaText(req && <span style={{ color: '#0B2A4A' }}>*</span>)}
       </label>
       {sinhalaText(children)}
       {sinhalaText(hint && !error && <p style={{ fontSize: 11, color: '#8A8F95', marginTop: 4 }}>{sinhalaText(hint)}</p>)}
@@ -119,7 +119,7 @@ function Field({ label, id, req, error, hint, children }) {
 function inp(hasError) {
   return {
     width: '100%', padding: '11px 14px',
-    border: `1.5px solid ${hasError ? '#E3A199' : '#E4E0D9'}`,
+    border: `1.5px solid ${hasError ? '#E3A199' : '#EAE4D7'}`,
     borderRadius: 10, fontSize: 13, outline: 'none', fontFamily: 'inherit',
     background: hasError ? '#FBEDEB' : '#fff', transition: 'border-color 0.2s',
     boxSizing: 'border-box',
@@ -216,9 +216,9 @@ export default function PostProjectForm() {
     return (
       <div style={{ maxWidth: 520, margin: '0 auto' }}>
         {/* Success header */}
-        <div style={{ textAlign: 'center', padding: '32px 20px 24px', background: '#fff', borderRadius: '20px 20px 0 0', border: '1px solid #E4E0D9', borderBottom: 'none' }}>
+        <div style={{ textAlign: 'center', padding: '32px 20px 24px', background: '#fff', borderRadius: '20px 20px 0 0', border: '1px solid #EAE4D7', borderBottom: 'none' }}>
           <div style={{ fontSize: 52, marginBottom: 12 }}>🎉</div>
-          <h2 style={{ fontFamily: "var(--th-display)", fontSize: 24, fontWeight: 700, color: '#14171A', marginBottom: 8 }}>{sinhalaText(t.successTitle)}</h2>
+          <h2 style={{ fontFamily: "var(--th-display)", fontSize: 24, fontWeight: 700, color: '#071827', marginBottom: 8 }}>{sinhalaText(t.successTitle)}</h2>
           <p style={{ fontSize: 13, color: '#6B7076', lineHeight: 1.8, maxWidth: 340, margin: '0 auto 16px' }}>
             {userId ? sinhalaText(t.successBody) : 'Your project is saved privately. Sign in to publish it.'}
           </p>
@@ -227,10 +227,10 @@ export default function PostProjectForm() {
           </div>
           {!userId && <p><a href="/login">Sign in to publish this project and manage your jobs.</a></p>}
           {/* What happens next */}
-          <div style={{ textAlign: 'left', background: '#F7EFE9', border: '1px solid #E7D9CE', borderRadius: 12, padding: '14px 16px', margin: '0 auto', maxWidth: 360 }}>
-            <div style={{ fontSize: 12, fontWeight: 800, color: '#C2542B', marginBottom: 8 }}>{sinhalaText(t.nextTitle)}</div>
+          <div style={{ textAlign: 'left', background: '#F7F3E8', border: '1px solid #EAE4D7', borderRadius: 12, padding: '14px 16px', margin: '0 auto', maxWidth: 360 }}>
+            <div style={{ fontSize: 12, fontWeight: 800, color: '#0B2A4A', marginBottom: 8 }}>{sinhalaText(t.nextTitle)}</div>
             {sinhalaText(t.nextSteps.map(s => (
-              <div key={s} style={{ fontSize: 12, color: '#2A2F35', lineHeight: 1.9 }}>{sinhalaText(s)}</div>
+              <div key={s} style={{ fontSize: 12, color: '#0B2A4A', lineHeight: 1.9 }}>{sinhalaText(s)}</div>
             )))}
           </div>
           <a href={`https://wa.me/?text=${encodeURIComponent(t.shareText)}`} target="_blank" rel="noopener noreferrer"
@@ -241,20 +241,20 @@ export default function PostProjectForm() {
 
         {sinhalaText(userId ? (
           /* Signed-in user: simple success with manage link */
-          <div style={{ background: '#fff', border: '1px solid #E4E0D9', borderTop: '1px solid #EFEBE4', borderRadius: '0 0 20px 20px', padding: '20px 24px' }}>
+          <div style={{ background: '#fff', border: '1px solid #EAE4D7', borderTop: '1px solid #F7F3E8', borderRadius: '0 0 20px 20px', padding: '20px 24px' }}>
             <div style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap' }}>
-              <a href="/dashboard" style={{ padding: '11px 22px', background: '#C2542B', color: '#fff', borderRadius: 12, fontSize: 14, fontWeight: 600, textDecoration: 'none' }}>{sinhalaText(t.viewDashboard)}</a>
+              <a href="/dashboard" style={{ padding: '11px 22px', background: '#0B2A4A', color: '#fff', borderRadius: 12, fontSize: 14, fontWeight: 600, textDecoration: 'none' }}>{sinhalaText(t.viewDashboard)}</a>
               <button onClick={resetForm}
-                style={{ padding: '11px 22px', background: '#EFEBE4', color: '#3A4046', borderRadius: 12, fontSize: 14, fontWeight: 600, border: 'none', cursor: 'pointer' }}>
+                style={{ padding: '11px 22px', background: '#F7F3E8', color: '#3A4046', borderRadius: 12, fontSize: 14, fontWeight: 600, border: 'none', cursor: 'pointer' }}>
                 {sinhalaText(t.postAnother)}
               </button>
             </div>
           </div>
         ) : (
           /* Anonymous user: auth prompt to finalize */
-          <div style={{ background: '#fff', border: '1px solid #E4E0D9', borderTop: 'none', borderRadius: '0 0 20px 20px', overflow: 'hidden' }}>
-            <div style={{ background: 'linear-gradient(135deg, #C2542B, #14171A)', padding: '20px 24px' }}>
-              <div style={{ fontSize: 11, fontWeight: 700, color: 'rgba(194,84,43,0.8)', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 8 }}>
+          <div style={{ background: '#fff', border: '1px solid #EAE4D7', borderTop: 'none', borderRadius: '0 0 20px 20px', overflow: 'hidden' }}>
+            <div style={{ background: 'linear-gradient(135deg, #0B2A4A, #071827)', padding: '20px 24px' }}>
+              <div style={{ fontSize: 11, fontWeight: 700, color: 'rgba(11,42,74,0.8)', letterSpacing: 2, textTransform: 'uppercase', marginBottom: 8 }}>
                 {sinhalaText(t.oneMoreStep)}
               </div>
               <div style={{ fontSize: 16, fontWeight: 700, color: '#fff', marginBottom: 6 }}>{sinhalaText(t.createAccount)}</div>
@@ -266,9 +266,9 @@ export default function PostProjectForm() {
             </div>
             <div style={{ padding: '20px 24px' }}>
               <PhoneSignIn />
-              <div style={{ marginTop: 20, paddingTop: 16, borderTop: '1px solid #EFEBE4', display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap' }}>
+              <div style={{ marginTop: 20, paddingTop: 16, borderTop: '1px solid #F7F3E8', display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap' }}>
                 <a href="/providers" style={{ fontSize: 13, color: '#6B7076', textDecoration: 'none', fontWeight: 600 }}>{sinhalaText(t.viewProviders)}</a>
-                <span style={{ color: '#E4E0D9' }}>·</span>
+                <span style={{ color: '#EAE4D7' }}>·</span>
                 <button onClick={resetForm}
                   style={{ fontSize: 13, color: '#6B7076', background: 'none', border: 'none', cursor: 'pointer', fontWeight: 600, padding: 0 }}>
                   {sinhalaText(t.postAnother)}
@@ -328,7 +328,7 @@ export default function PostProjectForm() {
         />
       </Field>
 
-      <div style={{ height: 1, background: '#EFEBE4', margin: '8px 0 20px' }} />
+      <div style={{ height: 1, background: '#F7F3E8', margin: '8px 0 20px' }} />
       <p style={{ fontSize: 12, color: '#6B7076', marginBottom: 18, display: 'flex', alignItems: 'center', gap: 6 }}>
         {sinhalaText(t.privacy)}
       </p>
@@ -343,7 +343,7 @@ export default function PostProjectForm() {
       </div>
 
       <button type="submit" disabled={submitting}
-        style={{ width: '100%', padding: '13px', background: submitting ? '#8A8F95' : '#C2542B', color: '#fff', border: 'none', borderRadius: 12, fontSize: 15, fontWeight: 700, cursor: submitting ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, transition: 'background 0.2s' }}>
+        style={{ width: '100%', padding: '13px', background: submitting ? '#8A8F95' : '#0B2A4A', color: '#fff', border: 'none', borderRadius: 12, fontSize: 15, fontWeight: 700, cursor: submitting ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, transition: 'background 0.2s' }}>
         {sinhalaText(submitting ? t.submitting : t.submit)}
       </button>
 

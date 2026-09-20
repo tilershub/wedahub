@@ -2,6 +2,7 @@
 import { si as sinhalaText } from '../lib/sinhala.js'
 import '../index.css'
 import '../styles/theme-2026.css'
+import '../styles/brand-mobile.css'
 import AppShell from '../components/AppShell.jsx'
 import DraftLinker from '../components/DraftLinker.jsx'
 import { ADSENSE_CLIENT } from '../lib/adsense.js'
@@ -25,7 +26,7 @@ if (user) {
 
 const {
   title = "වැඩHUB · Sri Lanka's Services Marketplace",
-  description = "Find tilers, contractors, tile shops, brands and products for your tile and bathroom project across Sri Lanka. Free — no login required.",
+  description = "Find service providers across Sri Lanka. Offer your skills, find work, or connect with the right person for your job.",
   ogImage = 'https://wedahub.lk/og.png',
   ogType = 'website',
   noindex = false,
@@ -53,8 +54,7 @@ const AD_FREE_PREFIXES = [
   '/verify-claim',
   '/offline',
 ]
-const adsAllowed = Boolean(ADSENSE_CLIENT)
-  && !AD_FREE_PREFIXES.some((p) => path === p || path.startsWith(`${p}/`))
+const adsAllowed = false
 
 const orgSchema = JSON.stringify({
   '@context': 'https://schema.org',
@@ -64,7 +64,7 @@ const orgSchema = JSON.stringify({
       '@id': `${SITE}/#organization`,
       name: 'වැඩHUB',
       url: SITE,
-      logo: { '@type': 'ImageObject', url: `${SITE}/favicon.svg` },
+      logo: { '@type': 'ImageObject', url: `${SITE}/icon-512.png` },
       sameAs: [
         'https://chat.whatsapp.com/IR9ZWyFj7ZN15KeOHqwG3Z',
         'https://www.facebook.com/share/g/1Dsc63BvXS/',
@@ -76,7 +76,7 @@ const orgSchema = JSON.stringify({
       '@id': `${SITE}/#website`,
       url: SITE,
       name: 'වැඩHUB',
-      description: "Sri Lanka's services & home improvement marketplace",
+      description: "Sri Lanka's platform for people, skills and opportunities",
       publisher: { '@id': `${SITE}/#organization` },
       potentialAction: { '@type': 'SearchAction', target: `${SITE}/providers?q={search_term_string}`, 'query-input': 'required name=search_term_string' },
     },
@@ -91,7 +91,7 @@ const orgSchema = JSON.stringify({
   <title>{sinhalaText(title)}</title>
   <meta name="description" content={sinhalaText(description)} />
   <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
-  <meta name="theme-color" content="#C2542B" />
+  <meta name="theme-color" content="#0B2A4A" />
   <link rel="canonical" href={canonicalUrl} />
   <link rel="sitemap" href="/sitemap.xml" />
   <!-- Open Graph -->
@@ -113,13 +113,6 @@ const orgSchema = JSON.stringify({
   <link rel="apple-touch-icon" href="/icon-192.png" />
   <link rel="manifest" href="/manifest.webmanifest" />
   <!-- iOS PWA startup images (prevents white flash on launch) -->
-  <link rel="apple-touch-startup-image" href="/splash/apple-splash-1290x2796.png" media="screen and (device-width:430px) and (device-height:932px) and (-webkit-device-pixel-ratio:3) and (orientation:portrait)" />
-  <link rel="apple-touch-startup-image" href="/splash/apple-splash-1179x2556.png" media="screen and (device-width:393px) and (device-height:852px) and (-webkit-device-pixel-ratio:3) and (orientation:portrait)" />
-  <link rel="apple-touch-startup-image" href="/splash/apple-splash-1284x2778.png" media="screen and (device-width:428px) and (device-height:926px) and (-webkit-device-pixel-ratio:3) and (orientation:portrait)" />
-  <link rel="apple-touch-startup-image" href="/splash/apple-splash-1170x2532.png" media="screen and (device-width:390px) and (device-height:844px) and (-webkit-device-pixel-ratio:3) and (orientation:portrait)" />
-  <link rel="apple-touch-startup-image" href="/splash/apple-splash-1080x2340.png" media="screen and (device-width:360px) and (device-height:780px) and (-webkit-device-pixel-ratio:3) and (orientation:portrait)" />
-  <link rel="apple-touch-startup-image" href="/splash/apple-splash-750x1334.png"  media="screen and (device-width:375px) and (device-height:667px) and (-webkit-device-pixel-ratio:2) and (orientation:portrait)" />
-  <link rel="apple-touch-startup-image" href="/splash/apple-splash-640x1136.png"  media="screen and (device-width:320px) and (device-height:568px) and (-webkit-device-pixel-ratio:2) and (orientation:portrait)" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -197,150 +190,39 @@ const orgSchema = JSON.stringify({
       #pwa-splash { display: flex; }
     }
   </style>
-  <div id="pwa-splash" style="position:fixed;inset:0;z-index:99999;background:#14171A;flex-direction:column;align-items:center;justify-content:center;gap:20px;transition:opacity 0.45s ease;pointer-events:none;">
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px;width:78px;height:78px;">
-      {[0,1,2,3,4,5,6,7,8].map((i) => (
-        <div style={`border-radius:3px;background:${[1,3,4,5,7].includes(i)?'#8B5E3C':'#5E4130'};opacity:${[0,2,6,8].includes(i)?'0.55':'1'};`}></div>
-      ))}
-    </div>
-    <div style="font-family:var(--th-display);font-size:20px;font-weight:700;color:rgba(255,255,255,0.9);letter-spacing:1.5px;">වැඩ<span style="color:#C2542B;">HUB</span></div>
-    <div style="width:32px;height:3px;border-radius:2px;background:rgba(255,255,255,0.15);overflow:hidden;margin-top:4px;">
-      <div id="pwa-splash-bar" style="height:100%;width:0;background:#C2542B;border-radius:2px;transition:width 1.2s ease;"></div>
-    </div>
-  </div>
-  <script is:inline>
-    ;(function() {
-      var splash = document.getElementById('pwa-splash')
-      var bar    = document.getElementById('pwa-splash-bar')
-      if (!splash) return
-      // Start progress bar animation immediately
-      if (bar) requestAnimationFrame(function() { bar.style.width = '90%' })
-      function dismiss() {
-        if (!splash || splash._gone) return
-        splash._gone = true
-        if (bar) bar.style.width = '100%'
-        setTimeout(function() {
-          splash.style.opacity = '0'
-          setTimeout(function() { if (splash.parentNode) splash.parentNode.removeChild(splash) }, 450)
-        }, 120)
-      }
-      window.addEventListener('load', dismiss)
-      // Hard cap: always remove after 3 s even if load never fires
-      setTimeout(dismiss, 3000)
-    })()
-  </script>
-
-  <!-- ═══ THE ONE APP BAR + TAB BAR ═══ -->
   <AppShell client:load role={role} path={path} initialUser={user} />
 
   <!-- Mobile drawer overlay -->
   <div class="mobile-drawer-overlay" id="drawer-overlay"></div>
-  <div class="mobile-drawer" id="mobile-drawer">
+  <div class="mobile-drawer" id="mobile-drawer" role="dialog" aria-label="Navigation menu" aria-modal="true" inert>
     <div class="drawer-header">
-      <span style="font-family: var(--th-display);font-size:16px;font-weight:700;color:#fff;">වැඩ<span style="color:#C2542B;">HUB</span></span>
+      <span style="font-family: var(--th-display);font-size:16px;font-weight:700;color:#fff;">වැඩ<span style="color:#0B2A4A;">HUB</span></span>
       <button id="close-drawer" style="background:transparent;border:none;color:rgba(255,255,255,0.5);font-size:22px;cursor:pointer;padding:4px;">✕</button>
     </div>
-    <a href="/" class={`drawer-link${path==='/'?' active':''}`}>🏠 මුල් පිටුව</a>
-    <a href="/notifications" class={`drawer-link${path==='/notifications'?' active':''}`}>🔔 දැනුම්දීම්</a>
-    <a href="/providers?type=tiler" class={`drawer-link${path.startsWith('/providers')?' active':''}`}>👷 ටයිල් කාර්මිකයන් සොයන්න</a>
-    <a href="/jobs" class={`drawer-link${path==='/jobs'?' active':''}`}>💼 ව්‍යාපෘති බලන්න</a>
-    <a href="/tile" class={`drawer-link${path==='/tile'?' active':''}`}>🏪 ටයිල් වෙළෙඳසැල් සහ සන්නාම</a>
-    <a href="/bathrooms" class={`drawer-link${path==='/bathrooms'?' active':''}`} style="color:rgba(255,255,255,0.6);">🚿 නාන කාමර උපාංග</a>
-    <a href="/tools" class={`drawer-link${path==='/tools'?' active':''}`} style="color:rgba(255,255,255,0.6);">🛠️ මෙවලම් සහ උපකරණ</a>
-    <div class="drawer-divider"></div>
-    {/* One highlighted action, and it is the one for this role. */}
-    {role === 'provider'
-      ? <a href="/account?tab=quotes" class="drawer-link highlight">📋 මගේ මිල ගණන්</a>
-      : <a href="/post-project" class="drawer-link highlight">📋 ව්‍යාපෘතියක් පළ කර මිල ගණන් ලබාගන්න</a>}
-    {role !== 'provider' && (
-      <a href="/join-wedahub" class="drawer-link" style="color:rgba(255,255,255,0.6);">✅ සේවා සපයන්නෙකු ලෙස එක්වන්න</a>
-    )}
-    <div class="drawer-divider"></div>
-    <a href="https://tilershub.lk/estimator" class={`drawer-link${path==='https://tilershub.lk/estimator'?' active':''}`}>📐 වියදම් ගණකය</a>
-    <a href="https://tilershub.lk/guides" class={`drawer-link${path.startsWith('https://tilershub.lk/guides')?' active':''}`} style="color:rgba(255,255,255,0.6);">📖 මඟපෙන්වීම්</a>
-    <a href="https://tilershub.lk/blog" class={`drawer-link${path.startsWith('https://tilershub.lk/blog')?' active':''}`} style="color:rgba(255,255,255,0.6);">📰 ලිපි සහ උපදෙස්</a>
-    <div class="drawer-divider"></div>
-    <a href="/about" class={`drawer-link${path==='/about'?' active':''}`} style="color:rgba(255,255,255,0.5);font-size:13px;">ℹ️ වැඩHUB ගැන</a>
-    <a href="/contact" class={`drawer-link${path==='/contact'?' active':''}`} style="color:rgba(255,255,255,0.5);font-size:13px;">📬 අප අමතන්න</a>
-    <div class="drawer-divider"></div>
-    <!-- Language is a set-once preference, so it lives here rather than
-         taking a permanent slot in the app bar. -->
-
+    <nav aria-label="More options">
+      <a href="/providers" class="drawer-link">සේවා සොයන්න</a>
+      <a href="/jobs" class="drawer-link">වැඩ සොයන්න</a>
+      <a href="/post-project" class="drawer-link">වැඩයක් පළ කරන්න</a>
+      <a href="/my-jobs" class="drawer-link">මගේ වැඩ සහ සමාලෝචන</a>
+      <a href="/join-wedahub" class="drawer-link">සේවා සපයන්නෙකු වන්න</a>
+      <a href="/notifications" class="drawer-link">දැනුම්දීම්</a>
+      <div class="drawer-divider"></div>
+      <a href="/about" class="drawer-link">වැඩHUB ගැන</a>
+      <a href="/contact" class="drawer-link">උදව් සහ සහාය</a>
+      <a href="/account" class="drawer-link">මගේ ගිණුම</a>
+    </nav>
   </div>
 
   <!-- Links anonymous drafts/claims to account after sign-in -->
   <DraftLinker client:load />
 
-  <main class="page-wrap">
+  <a class="wh-skip" href="#main-content">Skip to content</a>
+  <main class="page-wrap" id="main-content">
     <slot />
   </main>
 
   <!-- ═══ FOOTER ═══ -->
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <!-- Brand -->
-      <div>
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
-          <div class="site-logo-grid">{[0,1,2,3,4,5,6,7,8].map(()=><div class="site-logo-tile"></div>)}</div>
-          <span style="font-family: var(--th-display);font-size:16px;font-weight:700;color:rgba(255,255,255,0.88);">වැඩ<strong>HUB</strong></span>
-        </div>
-        <p class="footer-brand-text">ශ්‍රී ලංකාවේ ටයිල් ක්ෂේත්‍රයේ එකමුතුව — නිවාස හිමියන් නොමිලේ ව්‍යාපෘති පළ කරයි, කාර්මිකයන් වැඩ ලබාගනී, වෙළෙඳසැල් සහ සැපයුම්කරුවන් දිවයින පුරා පාරිභෝගිකයන් වෙත ළඟාවේ.</p>
-        <div style="display:flex;gap:10px;margin-top:16px;">
-          <a href="https://chat.whatsapp.com/IR9ZWyFj7ZN15KeOHqwG3Z" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:#25D366;text-decoration:none;">💬 WhatsApp</a>
-          <a href="https://www.facebook.com/share/g/1Dsc63BvXS/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:#E08A5F;text-decoration:none;">👥 Facebook</a>
-        </div>
-      </div>
-      <!-- Discover -->
-      <div>
-        <div class="footer-col-head">ගවේෂණය කරන්න</div>
-        <nav class="footer-links">
-          <a href="/providers?type=tiler">ටයිල් කාර්මිකයන් සොයන්න</a>
-          <a href="/jobs">ව්‍යාපෘති බලන්න</a>
-          <a href="https://tilershub.lk/estimator">වියදම් ගණකය</a>
-          <a href="/tile">ටයිල් වෙළෙඳසැල් සහ සන්නාම</a>
-          <a href="/bathrooms">නාන කාමර උපාංග</a>
-          <a href="/tools">මෙවලම් සහ උපකරණ</a>
-          <a href="/services/floor-tiling">බිම ටයිල් ඇල්ලීම</a>
-        </nav>
-      </div>
-      <!-- Get Started -->
-      <div>
-        <div class="footer-col-head">ආරම්භ කරන්න</div>
-        <nav class="footer-links">
-          <a href="/post-project">ව්‍යාපෘතියක් පළ කරන්න</a>
-          <a href="/join-wedahub">සේවා සපයන්නෙකු ලෙස එකතු වන්න</a>
-          <a href="/account">මගේ ගිණුම</a>
-        </nav>
-      </div>
-      <!-- Popular Areas -->
-      <div>
-        <div class="footer-col-head">ජනප්‍රිය ප්‍රදේශ</div>
-        <nav class="footer-links">
-          <a href="/tilers/colombo">කොළඹ ටයිල් කාර්මිකයන්</a>
-          <a href="/tilers/gampaha">ගම්පහ ටයිල් කාර්මිකයන්</a>
-          <a href="/tilers/kandy">මහනුවර ටයිල් කාර්මිකයන්</a>
-          <a href="/tilers/galle">ගාල්ලේ ටයිල් කාර්මිකයන්</a>
-          <a href="/tilers/kurunegala">කුරුණෑගල ටයිල් කාර්මිකයන්</a>
-          <a href="/tilers/kalutara">කළුතර ටයිල් කාර්මිකයන්</a>
-        </nav>
-      </div>
-      <!-- Company -->
-      <div>
-        <div class="footer-col-head">ආයතනය</div>
-        <nav class="footer-links">
-          <a href="https://tilershub.lk/blog">ලිපි සහ උපදෙස්</a>
-          <a href="/about">වැඩHUB ගැන</a>
-          <a href="/contact">අප අමතන්න</a>
-          <a href="/privacy-policy">පෞද්ගලිකත්ව ප්‍රතිපත්තිය</a>
-          <a href="/terms">සේවා කොන්දේසි</a>
-        </nav>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>© {new Date().getFullYear()} <strong>වැඩHUB</strong> · wedahub.lk · 🇱🇰 ශ්‍රී ලංකාව</span>
-      <span style="color:rgba(194,84,43,0.5);font-weight:600;">♥ ශ්‍රී ලංකාවේ නිර්මාණයකි</span>
-    </div>
-  </footer>
+  <footer class="wh-footer"><span>වැඩHUB · People • Skills • Opportunities</span><nav aria-label="Legal and support"><a href="/contact">උදව්</a><a href="/privacy-policy">පෞද්ගලිකත්වය</a><a href="/terms">කොන්දේසි</a></nav><small>Operated by LUXEhome (Pvt) Ltd.</small></footer>
 
   <script>
     // The menu button lives in the AppShell island, so it asks for the drawer
@@ -350,17 +232,21 @@ const orgSchema = JSON.stringify({
     const closeBtn = document.getElementById('close-drawer')
 
     function openDrawer() {
+      drawer?.removeAttribute('inert')
       drawer?.classList.add('open')
+      closeBtn?.focus()
       overlay?.classList.add('open')
       document.body.style.overflow = 'hidden'
     }
     function closeDrawer() {
       drawer?.classList.remove('open')
+      drawer?.setAttribute('inert', '')
       overlay?.classList.remove('open')
       document.body.style.overflow = ''
     }
 
     window.addEventListener('th-drawer-open', openDrawer)
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer() })
     overlay?.addEventListener('click', closeDrawer)
     closeBtn?.addEventListener('click', closeDrawer)
   </script>

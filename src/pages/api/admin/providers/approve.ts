@@ -1,69 +1,15 @@
 export const prerender = false
-
 import type { APIRoute } from 'astro'
-
-function slugify(text: string) {
-  return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
-}
-
+const json = (data: unknown, status = 200) => new Response(JSON.stringify(data), { status, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } })
 export const POST: APIRoute = async ({ request, locals }) => {
-  const user = locals.user
-  if (!user || user.email !== 'tilershub@gmail.com') {
-    return json({ error: 'Forbidden' }, 403)
-  }
-
-  // Use the admin's own authenticated session.
-  // RLS policies grant tilershub@gmail.com full access via is_admin(),
-  // so no service-role key is needed.
-  const supabase = locals.supabase
-
-  let sub: Record<string, unknown>
-  try {
-    sub = await request.json()
-  } catch {
-    return json({ error: 'Invalid JSON' }, 400)
-  }
-
-  const { error: updateError } = await supabase
-    .from('provider_submissions')
-    .update({ status: 'approved' })
-    .eq('id', sub.id)
-
-  if (updateError) return json({ error: updateError.message }, 400)
-
-  // Duplicate check
-  let existing = null
-  if (sub.user_id) {
-    const { data } = await supabase.from('providers').select('id').eq('user_id', sub.user_id).maybeSingle()
-    existing = data
-  }
-  if (!existing && sub.whatsapp) {
-    const { data } = await supabase.from('providers').select('id')
-      .eq('whatsapp', sub.whatsapp).eq('name', sub.name).maybeSingle()
-    existing = data
-  }
-
-  if (!existing) {
-    const slug = slugify(String(sub.name || 'provider')) + '-' + Math.random().toString(36).slice(2, 6)
-    const { error: insertError } = await supabase.from('providers').insert({
-      name: sub.name, provider_type: sub.provider_type,
-      city: sub.city, district: sub.district,
-      whatsapp: sub.whatsapp, phone: sub.phone,
-      description: sub.description,
-      profile_image: sub.profile_image, cover_image: sub.cover_image,
-      gallery: sub.photo_urls || null,
-      service_areas: sub.service_areas, services: sub.services,
-      user_id: sub.user_id, slug, status: 'active', verification_status: 'listed',
-    })
-    if (insertError) return json({ error: insertError.message }, 400)
-  }
-
-  return json({ ok: true }, 200)
-}
-
-function json(data: unknown, status: number) {
-  return new Response(JSON.stringify(data), {
-    status,
-    headers: { 'Content-Type': 'application/json' },
-  })
+  if (!locals.user) return json({ error: 'Sign in required' }, 401)
+  if (request.headers.get('origin') !== new URL(request.url).origin) return json({ error: 'Invalid origin' }, 403)
+  const { data: admin, error: authError } = await locals.supabase.rpc('is_admin')
+  if (authError || admin !== true) return json({ error: 'Administrator access required' }, 403)
+  let body
+  try { body = await request.json() } catch { return json({ error: 'Invalid request' }, 400) }
+  if (typeof body?.id !== 'string' || !/^[0-9a-f-]{36}$/i.test(body.id)) return json({ error: 'Invalid submission' }, 400)
+  const { data, error } = await locals.supabase.rpc('approve_service_provider', { submission_id: body.id })
+  if (error) return json({ error: 'Unable to approve this submission. Check the account and service details.' }, 400)
+  return json({ ok: true, provider_id: data })
 }

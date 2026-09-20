@@ -4,9 +4,9 @@ import { generatePosts, ANGLES } from '../lib/claudeApi.js'
 import { saveToLocalQueue, copyRowToClipboard, copyAllToClipboard } from '../lib/contentQueue.js'
 import { useSupabaseStats } from '../hooks/useSupabaseStats.js'
 
-const NAVY  = '#14171A'
+const NAVY  = '#071827'
 const GOLD  = '#E8B341'
-const ORANGE = '#D96234'
+const ORANGE = '#D6BE84'
 
 // ─── Shared helpers ───────────────────────────────────────────────────────────
 
@@ -25,7 +25,7 @@ function ToggleGroup({ options, value, onChange }) {
         return (
           <button key={o.value} onClick={() => onChange(o.value)} style={{
             padding: '7px 16px', borderRadius: 20, fontSize: 12, fontWeight: 600, cursor: 'pointer', border: 'none',
-            background: active ? NAVY : '#EFEBE4', color: active ? '#fff' : '#3A4046', transition: 'all 0.12s',
+            background: active ? NAVY : '#F7F3E8', color: active ? '#fff' : '#3A4046', transition: 'all 0.12s',
           }}>{sinhalaText(o.label)}</button>
         )
       }))}
@@ -35,7 +35,7 @@ function ToggleGroup({ options, value, onChange }) {
 
 function StatPill({ label, value, loading }) {
   return (
-    <div style={{ textAlign: 'center', padding: '10px 18px', background: '#FBFAF8', borderRadius: 12, border: '1px solid #E4E0D9' }}>
+    <div style={{ textAlign: 'center', padding: '10px 18px', background: '#FAF8F2', borderRadius: 12, border: '1px solid #EAE4D7' }}>
       <div style={{ fontSize: 18, fontWeight: 800, color: NAVY, lineHeight: 1 }}>{sinhalaText(loading ? '…' : value)}</div>
       <div style={{ fontSize: 10, color: '#8A8F95', fontWeight: 600, marginTop: 3, textTransform: 'uppercase', letterSpacing: '0.5px' }}>{sinhalaText(label)}</div>
     </div>
@@ -51,7 +51,7 @@ function PostCard({ post, index, campaign, onSave, onDiscard, onRegenerate, save
   const [copied,  setCopied]    = useState(false)
 
   const iUser = campaign === 'user'
-  const campColor = iUser ? '#C2542B' : ORANGE
+  const campColor = iUser ? '#0B2A4A' : ORANGE
   const campLabel = iUser ? '🏠 User' : '🔨 Provider'
   const fmtLabel  = post.format === 'carousel' ? '🎴 Carousel' : post.format === 'reel' ? '🎬 Reel' : '🖼 Single'
 
@@ -65,13 +65,13 @@ function PostCard({ post, index, campaign, onSave, onDiscard, onRegenerate, save
       {/* Header badges */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 14 }}>
         <span style={{ fontSize: 11, fontWeight: 700, padding: '3px 10px', borderRadius: 20, background: campColor + '18', color: campColor }}>{sinhalaText(campLabel)}</span>
-        <span style={{ fontSize: 11, fontWeight: 600, padding: '3px 10px', borderRadius: 20, background: '#EFEBE4', color: '#6B7076' }}>{sinhalaText(fmtLabel)}</span>
+        <span style={{ fontSize: 11, fontWeight: 600, padding: '3px 10px', borderRadius: 20, background: '#F7F3E8', color: '#6B7076' }}>{sinhalaText(fmtLabel)}</span>
         <span style={{ fontSize: 11, color: '#8A8F95', marginLeft: 'auto' }}>#{sinhalaText(index + 1)}</span>
       </div>
 
       {/* Hook */}
       {sinhalaText(post.hook && (
-        <div style={{ fontSize: 12, fontWeight: 600, color: '#14171A', background: '#F7EFE9', borderRadius: 8, padding: '8px 12px', marginBottom: 10, borderLeft: `3px solid ${NAVY}` }}>
+        <div style={{ fontSize: 12, fontWeight: 600, color: '#071827', background: '#F7F3E8', borderRadius: 8, padding: '8px 12px', marginBottom: 10, borderLeft: `3px solid ${NAVY}` }}>
           🪝 {sinhalaText(post.hook)}
         </div>
       ))}
@@ -79,7 +79,7 @@ function PostCard({ post, index, campaign, onSave, onDiscard, onRegenerate, save
       {/* Caption — editable */}
       <div style={lbl({ marginBottom: 6 })}>සටහන</div>
       <textarea value={caption} onChange={e => setCaption(e.target.value)} rows={5}
-        style={{ width: '100%', padding: '10px 12px', border: '1.5px solid #E4E0D9', borderRadius: 10, fontSize: 13, resize: 'vertical', fontFamily: 'inherit', boxSizing: 'border-box', lineHeight: 1.6, marginBottom: 10 }} />
+        style={{ width: '100%', padding: '10px 12px', border: '1.5px solid #EAE4D7', borderRadius: 10, fontSize: 13, resize: 'vertical', fontFamily: 'inherit', boxSizing: 'border-box', lineHeight: 1.6, marginBottom: 10 }} />
 
       {/* CTA */}
       {sinhalaText(post.cta && (
@@ -90,7 +90,7 @@ function PostCard({ post, index, campaign, onSave, onDiscard, onRegenerate, save
 
       {/* Image brief */}
       {sinhalaText(post.image_description && (
-        <div style={{ fontSize: 12, color: '#6B7076', background: '#FBFAF8', borderRadius: 8, padding: '8px 12px', marginBottom: 10, lineHeight: 1.6 }}>
+        <div style={{ fontSize: 12, color: '#6B7076', background: '#FAF8F2', borderRadius: 8, padding: '8px 12px', marginBottom: 10, lineHeight: 1.6 }}>
           🖼 <strong>රූප විස්තරය:</strong> {sinhalaText(post.image_description)}
         </div>
       ))}
@@ -101,7 +101,7 @@ function PostCard({ post, index, campaign, onSave, onDiscard, onRegenerate, save
           <div style={lbl({ marginBottom: 8 })}>ස්ලයිඩ්</div>
           <div style={{ display: 'flex', gap: 8, overflowX: 'auto', paddingBottom: 4 }}>
             {sinhalaText(post.slides.map((s, i) => (
-              <div key={i} style={{ flex: '0 0 150px', border: '1px solid #E4E0D9', borderRadius: 10, padding: '10px 11px', fontSize: 11 }}>
+              <div key={i} style={{ flex: '0 0 150px', border: '1px solid #EAE4D7', borderRadius: 10, padding: '10px 11px', fontSize: 11 }}>
                 <div style={{ fontSize: 10, fontWeight: 700, color: '#8A8F95', textTransform: 'uppercase', marginBottom: 4 }}>ස්ලයිඩය {sinhalaText(i + 1)}</div>
                 <div style={{ fontWeight: 700, color: NAVY, marginBottom: 3, lineHeight: 1.3 }}>{sinhalaText(s.headline)}</div>
                 <div style={{ color: '#6B7076', lineHeight: 1.4, marginBottom: 4 }}>{sinhalaText(s.body)}</div>
@@ -114,7 +114,7 @@ function PostCard({ post, index, campaign, onSave, onDiscard, onRegenerate, save
 
       {/* Reel script */}
       {sinhalaText(post.script && (
-        <div style={{ fontSize: 12, color: '#3A4046', background: '#FBFAF8', borderRadius: 8, padding: '10px 12px', marginBottom: 10, whiteSpace: 'pre-wrap', lineHeight: 1.7 }}>
+        <div style={{ fontSize: 12, color: '#3A4046', background: '#FAF8F2', borderRadius: 8, padding: '10px 12px', marginBottom: 10, whiteSpace: 'pre-wrap', lineHeight: 1.7 }}>
           🎬 <strong>පිටපත:</strong><br />{sinhalaText(post.script)}
         </div>
       ))}
@@ -124,12 +124,12 @@ function PostCard({ post, index, campaign, onSave, onDiscard, onRegenerate, save
         <div style={{ flex: 1 }}>
           <div style={lbl({ marginBottom: 5 })}>දිනය</div>
           <input type="date" value={date} onChange={e => setDate(e.target.value)}
-            style={{ width: '100%', padding: '8px 10px', border: '1.5px solid #E4E0D9', borderRadius: 8, fontSize: 12, fontFamily: 'inherit', boxSizing: 'border-box' }} />
+            style={{ width: '100%', padding: '8px 10px', border: '1.5px solid #EAE4D7', borderRadius: 8, fontSize: 12, fontFamily: 'inherit', boxSizing: 'border-box' }} />
         </div>
         <div style={{ flex: 1 }}>
           <div style={lbl({ marginBottom: 5 })}>වේලාව</div>
           <input type="time" value={time} onChange={e => setTime(e.target.value)}
-            style={{ width: '100%', padding: '8px 10px', border: '1.5px solid #E4E0D9', borderRadius: 8, fontSize: 12, fontFamily: 'inherit', boxSizing: 'border-box' }} />
+            style={{ width: '100%', padding: '8px 10px', border: '1.5px solid #EAE4D7', borderRadius: 8, fontSize: 12, fontFamily: 'inherit', boxSizing: 'border-box' }} />
         </div>
       </div>
 
@@ -140,11 +140,11 @@ function PostCard({ post, index, campaign, onSave, onDiscard, onRegenerate, save
           {sinhalaText(saved ? '✓ Saved' : '💾 Save to Queue')}
         </button>
         <button onClick={handleCopy}
-          style={{ padding: '7px 14px', background: '#EFEBE4', color: '#3A4046', border: 'none', borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>
+          style={{ padding: '7px 14px', background: '#F7F3E8', color: '#3A4046', border: 'none', borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>
           {sinhalaText(copied ? '✓ Copied!' : '📋 Copy Row')}
         </button>
         <button onClick={() => onRegenerate(index)} disabled={regenerating}
-          style={{ padding: '7px 14px', background: '#EFEBE4', color: '#3A4046', border: 'none', borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: 'pointer', opacity: regenerating ? 0.6 : 1 }}>
+          style={{ padding: '7px 14px', background: '#F7F3E8', color: '#3A4046', border: 'none', borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: 'pointer', opacity: regenerating ? 0.6 : 1 }}>
           {sinhalaText(regenerating ? '⏳' : '🔄')} නැවත සාදන්න
         </button>
         <button onClick={() => onDiscard(index)}
@@ -233,7 +233,7 @@ export default function ContentStudio() {
         <StatPill label="Active Tilers"   value={stats.tilers}   loading={statsLoading} />
         <StatPill label="Bids Placed"     value={stats.bids}     loading={statsLoading} />
         <button onClick={refreshStats} title="සංඛ්‍යා දත්ත නැවුම් කරන්න"
-          style={{ padding: '6px 12px', background: '#EFEBE4', border: 'none', borderRadius: 10, fontSize: 12, color: '#6B7076', cursor: 'pointer', alignSelf: 'center' }}>
+          style={{ padding: '6px 12px', background: '#F7F3E8', border: 'none', borderRadius: 10, fontSize: 12, color: '#6B7076', cursor: 'pointer', alignSelf: 'center' }}>
           ↻ නැවුම් කරන්න
         </button>
         {sinhalaText(statsError && <span style={{ fontSize: 11, color: '#ef4444', alignSelf: 'center' }}>සංඛ්‍යා දත්ත නොමැත</span>)}
@@ -242,8 +242,8 @@ export default function ContentStudio() {
       {/* API Key Warning */}
       {sinhalaText(missingKey && (
         <div style={{ background: '#F3E7DF', border: '1px solid #E3B9A5', borderRadius: 12, padding: '14px 18px', marginBottom: 20 }}>
-          <div style={{ fontWeight: 700, color: '#2A2F35', marginBottom: 6 }}>⚠️ Anthropic API යතුර සකසා නැත</div>
-          <div style={{ fontSize: 12, color: '#14171A', lineHeight: 1.6 }}>
+          <div style={{ fontWeight: 700, color: '#0B2A4A', marginBottom: 6 }}>⚠️ Anthropic API යතුර සකසා නැත</div>
+          <div style={{ fontSize: 12, color: '#071827', lineHeight: 1.6 }}>
             මෙයට එක් කරන්න: <code style={{ background: '#fff', padding: '1px 6px', borderRadius: 4 }}>.env</code> ගොනුව:<br />
             <code style={{ background: '#fff', padding: '4px 8px', borderRadius: 6, display: 'inline-block', marginTop: 4 }}>VITE_ANTHROPIC_API_KEY=sk-ant-api03-...</code><br />
             ඉන්පසු සංවර්ධන සේවාදායකය නැවත අරඹා ප්‍රකාශ කරන්න.
@@ -253,7 +253,7 @@ export default function ContentStudio() {
 
       {/* Config Form */}
       <div style={card({ marginBottom: 20 })}>
-        <div style={{ fontSize: 15, fontWeight: 700, color: '#14171A', marginBottom: 18 }}>⚙️ අන්තර්ගත සැකසුම්</div>
+        <div style={{ fontSize: 15, fontWeight: 700, color: '#071827', marginBottom: 18 }}>⚙️ අන්තර්ගත සැකසුම්</div>
 
         {/* Campaign */}
         <div style={{ marginBottom: 18 }}>
@@ -300,14 +300,14 @@ export default function ContentStudio() {
           <div>
             <div style={lbl()}>අන්තර්ගත ප්‍රවේශය</div>
             <select value={angle} onChange={e => setAngle(e.target.value)}
-              style={{ width: '100%', padding: '10px 13px', border: '1.5px solid #E4E0D9', borderRadius: 10, fontSize: 13, fontFamily: 'inherit', background: '#fff', cursor: 'pointer' }}>
+              style={{ width: '100%', padding: '10px 13px', border: '1.5px solid #EAE4D7', borderRadius: 10, fontSize: 13, fontFamily: 'inherit', background: '#fff', cursor: 'pointer' }}>
               {sinhalaText(currentAngles.map(a => <option key={a.value} value={a.value}>{sinhalaText(a.label)}</option>))}
             </select>
           </div>
           <div>
             <div style={lbl()}>ආරම්භක දිනය</div>
             <input type="date" value={scheduleDate} onChange={e => setScheduleDate(e.target.value)}
-              style={{ width: '100%', padding: '10px 13px', border: '1.5px solid #E4E0D9', borderRadius: 10, fontSize: 13, fontFamily: 'inherit', boxSizing: 'border-box' }} />
+              style={{ width: '100%', padding: '10px 13px', border: '1.5px solid #EAE4D7', borderRadius: 10, fontSize: 13, fontFamily: 'inherit', boxSizing: 'border-box' }} />
             <div style={{ fontSize: 10, color: '#8A8F95', marginTop: 4 }}>පළ කිරීම් අතර දින 2ක පරතරයක්</div>
           </div>
         </div>
@@ -334,14 +334,14 @@ export default function ContentStudio() {
       {sinhalaText(posts.length > 0 && (
         <>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
-            <div style={{ fontSize: 15, fontWeight: 700, color: '#14171A' }}>සෑදූ පළ කිරීම් ({sinhalaText(posts.length)})</div>
+            <div style={{ fontSize: 15, fontWeight: 700, color: '#071827' }}>සෑදූ පළ කිරීම් ({sinhalaText(posts.length)})</div>
             <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
               <button onClick={handleCopyAll}
-                style={{ padding: '8px 16px', background: GOLD, color: '#14171A', border: 'none', borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>
+                style={{ padding: '8px 16px', background: GOLD, color: '#071827', border: 'none', borderRadius: 8, fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>
                 {sinhalaText(copyAllMsg || '📋 Copy All Rows')}
               </button>
               <a href={SHEET_URL} target="_blank" rel="noreferrer"
-                style={{ padding: '8px 16px', background: '#EFEBE4', color: '#3A4046', borderRadius: 8, fontSize: 12, fontWeight: 700, textDecoration: 'none', display: 'inline-block' }}>
+                style={{ padding: '8px 16px', background: '#F7F3E8', color: '#3A4046', borderRadius: 8, fontSize: 12, fontWeight: 700, textDecoration: 'none', display: 'inline-block' }}>
                 📊 පැතුරුම්පත විවෘත කරන්න ↗
               </a>
             </div>
@@ -363,7 +363,7 @@ export default function ContentStudio() {
 
           <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end', marginTop: 8 }}>
             <button onClick={handleCopyAll}
-              style={{ padding: '10px 20px', background: GOLD, color: '#14171A', border: 'none', borderRadius: 10, fontSize: 13, fontWeight: 700, cursor: 'pointer' }}>
+              style={{ padding: '10px 20px', background: GOLD, color: '#071827', border: 'none', borderRadius: 10, fontSize: 13, fontWeight: 700, cursor: 'pointer' }}>
               {sinhalaText(copyAllMsg || '📋 Copy All Rows for Sheet')}
             </button>
             <a href={SHEET_URL} target="_blank" rel="noreferrer"
@@ -378,7 +378,7 @@ export default function ContentStudio() {
       {sinhalaText(generating && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
           {sinhalaText(Array.from({ length: numPosts }).map((_, i) => (
-            <div key={i} style={{ ...card(), height: 200, background: 'linear-gradient(90deg,#EFEBE4 25%,#E4E0D9 50%,#EFEBE4 75%)', animation: 'pulse 1.5s ease infinite', backgroundSize: '200% 100%' }} />
+            <div key={i} style={{ ...card(), height: 200, background: 'linear-gradient(90deg,#F7F3E8 25%,#EAE4D7 50%,#F7F3E8 75%)', animation: 'pulse 1.5s ease infinite', backgroundSize: '200% 100%' }} />
           )))}
         </div>
       ))}

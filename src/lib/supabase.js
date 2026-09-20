@@ -22,67 +22,22 @@ export const DISTRICTS_EN = [
   'Polonnaruwa','Badulla','Monaragala','Ratnapura'
 ]
 
-export const SERVICES = [
-  'මහල් ටයිල් කිරීම',
-  'නාන කාමර ප්‍රතිසංස්කරණය',
-  'කුස්සිය ටයිල් කිරීම',
-  'පඩිපෙළ ටයිල් කිරීම',
-  'බිත්ති ටයිල් කිරීම',
-  'බාහිර ටයිල් කිරීම',
-  'දිය ආරක්ෂාකරණය',
-  'ග්‍රොට්ටිං සහ නිම කිරීම'
-]
-
-export const SERVICES_EN = [
-  'Floor Tiling', 'Wall Tiling', 'Bathroom Tiling', 'Kitchen Tiling',
-  'Staircase Tiling', 'Outdoor Tiling', 'Large Tile Installation',
-  'Waterproofing', 'Grouting & Finishing',
-  'Tile Cutting', 'Tile Routing',
-  'Bathroom Renovation', 'Full Construction',
-  'Bathroom Plumbing', 'Shower Cubicle',
-  'Hand Railing', 'Vanity Cupboard',
-  'Bathroom Lighting', 'Bathroom Wiring', 'Electrical Works',
-  'Ipanel Ceiling',
-]
-
-export const PROJECT_TYPES = [
-  'Floor Tiling',
-  'Bathroom Tiling',
-  'Bathroom Renovation',
-  'Granite Works',
-  'Tile Cutting',
-  'Routering',
-  'Waterproofing',
-  'Tile Shop Inquiry'
-]
-
-export const PROFESSIONS = [
-  { value: 'tiler',                label: 'Tiler',               si: 'ටයිල් ශිල්පී',           icon: '🪚' },
-  { value: 'contractor',           label: 'Contractor',           si: 'කොන්ත්‍රාත්කරු',           icon: '🏗️' },
-  { value: 'electrician',          label: 'Electrician',          si: 'විදුලි ශිල්පී',           icon: '⚡' },
-  { value: 'plumber',              label: 'Plumber',              si: 'ජලනල කාර්මික',               icon: '🔧' },
-  { value: 'carpenter',            label: 'Carpenter',            si: 'ලී ශිල්පී',               icon: '🪵' },
-  { value: 'painter',              label: 'Painter',              si: 'පින්තාරු ශිල්පී',         icon: '🖌️' },
-  { value: 'mason',                label: 'Mason / Bricklayer',   si: 'ගල් ශිල්පී',              icon: '🧱' },
-  { value: 'construction_company', label: 'Construction Company', si: 'ඉදිකිරීම් සමාගම',         icon: '🏢' },
-  { value: 'interior_designer',    label: 'Interior Designer',    si: 'අභ්‍යන්තර සැලසුම්කරු',   icon: '🛋️' },
-  { value: 'tile_shop',            label: 'Tile Shop',            si: 'ටයිල් සාප්පුව',           icon: '🔲' },
-  { value: 'bathroom_shop',        label: 'Bathroom Shop',        si: 'නාන කාමර සාප්පුව',        icon: '🛁' },
-  { value: 'supplier',             label: 'Supplier',             si: 'සැපයුම්කරු',              icon: '📦' },
-  { value: 'workshop',             label: 'Workshop',             si: 'වැඩ පොළ',                 icon: '✂️' },
-  { value: 'brand_dealer',         label: 'Brand Dealer',         si: 'බ්‍රෑන්ඩ් නියෝජිතයා',    icon: '✦' },
-  { value: 'tool_supplier',        label: 'Tool Supplier',        si: 'මෙවලම් සැපයුම්කරු',       icon: '🔨' },
-]
+export { PROFESSIONS } from './professions.js'
+import { PROFESSIONS } from './professions.js'
+import { SERVICES as SERVICE_CATALOG } from './services.js'
+export const SERVICES_EN = SERVICE_CATALOG.map(s => s.label)
+export const SERVICES = SERVICE_CATALOG.map(s => s.si || s.label)
+export const PROJECT_TYPES = [...SERVICES_EN, 'Other Service']
 
 export const PROFESSION_LABELS = Object.fromEntries(PROFESSIONS.map(p => [p.value, p.label]))
 
 export const PROVIDER_TYPES = PROFESSIONS
 
 export const VERIFICATION_BADGES = {
-  listed: { label: 'Listed', color: '#6B7076', bg: '#EFEBE4' },
-  th_verified: { label: 'TH Verified', color: '#C2542B', bg: '#F7EFE9' },
-  th_certified_pro: { label: 'Certified Pro', color: '#8E3C1E', bg: '#F7EFE9' },
-  th_master: { label: 'TH Master', color: '#8E3C1E', bg: '#F7EFE9' },
+  listed: { label: 'Listed', color: '#6B7076', bg: '#F7F3E8' },
+  th_verified: { label: 'WedaHUB Verified', color: '#0B2A4A', bg: '#F7F3E8' },
+  th_certified_pro: { label: 'Certified Pro', color: '#071827', bg: '#F7F3E8' },
+  th_master: { label: 'WedaHUB Master', color: '#071827', bg: '#F7F3E8' },
 }
 
 export const BUDGET_RANGES = [
@@ -115,7 +70,7 @@ export function buildWhatsAppLink(phone, name) {
   const normalized = n.startsWith('94') ? n : '94' + n.replace(/^0/, '')
   const who = name ? `*${name}*` : 'ඔබව'
   const msg = encodeURIComponent(
-    `ආයුබෝවන්! 🙏\n\nමම *වැඩHUB* (tilershub.lk) හරහා ${who} සොයාගතිමි.\n\nඔබගේ සේවාව ගැන දැනගැනීමට කැමැත්තෙමි.\n\n📌 *වැඩHUB.lk* Lead\nස්තූතියි! 🏠`
+    `ආයුබෝවන්! 🙏\n\nමම *වැඩHUB* (wedahub.lk) හරහා ${who} සොයාගතිමි.\n\nඔබගේ සේවාව ගැන දැනගැනීමට කැමැත්තෙමි.\n\n📌 *වැඩHUB.lk* Lead\nස්තූතියි! 🏠`
   )
   return `https://wa.me/${normalized}?text=${msg}`
 }
