@@ -1,3 +1,4 @@
+import PhoneSignIn from './PhoneSignIn.jsx'
 import { si as sinhalaText } from '../lib/sinhala.js'
 import { useState, useEffect } from 'react'
 import { supabase, PROJECT_TYPES, DISTRICTS_EN } from '../lib/supabase.js'
@@ -66,21 +67,6 @@ function selectStyle() {
 function ProviderGate({ previewProjects, bidCounts }) {
   const t = useT()
   const [showAuth, setShowAuth] = useState(false)
-  const [email, setEmail]       = useState('')
-  const [sent, setSent]         = useState(false)
-  const [loading, setLoading]   = useState(false)
-  const [err, setErr]           = useState('')
-
-  async function send(e) {
-    e.preventDefault()
-    if (!email.trim() || !email.includes('@')) { setErr(t('gateBadMail')); return }
-    setLoading(true); setErr('')
-    const { error } = await supabase.auth.signInWithOtp({ email: email.trim(), options: { emailRedirectTo: window.location.href } })
-    setLoading(false)
-    if (error) { setErr(error.message); return }
-    setSent(true)
-  }
-
   return (
     <div>
       {/* Blurred preview */}
@@ -121,33 +107,7 @@ function ProviderGate({ previewProjects, bidCounts }) {
                 </a>
               </div>
             </div>
-          ) : sent ? (
-            <div style={{ textAlign: 'center', padding: '8px 0' }}>
-              <div style={{ fontSize: 36, marginBottom: 10 }}>📬</div>
-              <div style={{ fontSize: 15, fontWeight: 700, color: '#14171A', marginBottom: 6 }}>{sinhalaText(t(`gateCheck`))}</div>
-              <p style={{ fontSize: 13, color: '#6B7076', lineHeight: 1.7 }}>
-                {sinhalaText(t(`gateSent`, email))}
-              </p>
-            </div>
-          ) : (
-            <form onSubmit={send}>
-              <div style={{ fontSize: 13, fontWeight: 600, color: '#3A4046', marginBottom: 10 }}>{sinhalaText(t(`gateEmail`))}</div>
-              <input type="email" value={email} onChange={e => { setEmail(e.target.value); setErr('') }} placeholder="your@email.com" autoFocus
-                style={{ width: '100%', padding: '11px 14px', border: `1.5px solid ${err ? '#E3A199' : '#E4E0D9'}`, borderRadius: 10, fontSize: 13, outline: 'none', fontFamily: 'inherit', background: err ? '#FBEDEB' : '#fff', boxSizing: 'border-box', marginBottom: 10 }} />
-              {sinhalaText(err && <p style={{ fontSize: 11, color: '#C0392B', marginBottom: 8 }}>⚠ {sinhalaText(err)}</p>)}
-              <div style={{ display: 'flex', gap: 8 }}>
-                <button type="submit" disabled={loading}
-                  style={{ flex: 1, padding: '11px', background: loading ? '#8A8F95' : '#C2542B', color: '#fff', border: 'none', borderRadius: 10, fontSize: 13, fontWeight: 700, cursor: loading ? 'not-allowed' : 'pointer' }}>
-                  {sinhalaText(loading ? '⏳ ' + t('gateSending') : '✉️ ' + t('gateSend'))}
-                </button>
-                <button type="button" onClick={() => setShowAuth(false)}
-                  style={{ padding: '11px 14px', background: '#EFEBE4', color: '#6B7076', border: 'none', borderRadius: 10, fontSize: 12, cursor: 'pointer' }}>
-                  {sinhalaText(t(`gateBack`))}
-                </button>
-              </div>
-              <p style={{ fontSize: 11, color: '#8A8F95', textAlign: 'center', marginTop: 8 }}>{sinhalaText(t(`gateNoPass`))}</p>
-            </form>
-          ))}
+          ) : (<PhoneSignIn />          ))}
         </div>
       </div>
     </div>

@@ -1,3 +1,4 @@
+import PhoneSignIn from './PhoneSignIn.jsx'
 import { si as sinhalaText } from '../lib/sinhala.js'
 import { useState, useEffect } from 'react'
 import { supabase, PROFESSIONS } from '../lib/supabase.js'
@@ -8,11 +9,10 @@ const T = {
     required: 'අවශ්‍යයි',
     phoneInvalid: 'වලංගු දුරකථන අංකයක් ඇතුළු කරන්න',
     submitError: 'දෝෂයක් ඇති විය. නැවත උත්සාහ කරන්න.',
-    // Google sign-in screen
+    // Phone sign-in screen
     gateTitle: 'සේවා සපයන්නෙකු ලෙස එකතු වන්න',
-    gateSub: 'ආරම්භ කිරීමට Google ගිණුමෙන් පිවිසෙන්න — ආරක්ෂිතයි, නොමිලේ, මුරපද අවශ්‍ය නැත.',
-    googleBtn: 'Google සමඟ ඉදිරියට →',
-    gateSteps: ['1️⃣ Google වලින් පිවිසෙන්න', '2️⃣ ඔබේ විස්තර පුරවන්න', '3️⃣ admin අනුමැතියෙන් ලැයිස්තුගත වන්න'],
+    gateSub: 'ආරම්භ කිරීමට දුරකථන අංකයෙන් පිවිසෙන්න — ආරක්ෂිතයි, නොමිලේ, මුරපද අවශ්‍ය නැත.',
+    gateSteps: ['1️⃣ දුරකථනයෙන් පිවිසෙන්න', '2️⃣ ඔබේ විස්තර පුරවන්න', '3️⃣ admin අනුමැතියෙන් ලැයිස්තුගත වන්න'],
     // Registration form
     pickTitle: 'ඔබේ වෘත්තිය / සේවාව තෝරන්න',
     pickSub: 'ඔබව හොඳින්ම විස්තර කරන්නේ කුමක්ද?',
@@ -36,11 +36,10 @@ const T = {
     required: 'Required',
     phoneInvalid: 'Enter a valid phone number',
     submitError: 'Something went wrong. Please try again.',
-    // Google sign-in screen
+    // Phone sign-in screen
     gateTitle: 'Join as a Provider',
-    gateSub: 'Sign in with your Google account to get started — safe, free, no passwords needed.',
-    googleBtn: 'Continue with Google →',
-    gateSteps: ['1️⃣ Sign in with Google', '2️⃣ Fill in your details', '3️⃣ Get listed once admin approves'],
+    gateSub: 'Sign in with your mobile number to get started — safe, free, no passwords needed.',
+    gateSteps: ['1️⃣ Verify your mobile number', '2️⃣ Fill in your details', '3️⃣ Get listed once admin approves'],
     // Registration form
     pickTitle: 'Select your profession / service',
     pickSub: 'What best describes you?',
@@ -110,12 +109,6 @@ export default function JoinForm({ initialUser = null }) {
     return () => subscription.unsubscribe()
   }, [])
 
-  async function signInGoogle() {
-    await supabase.auth.signInWithOAuth({
-      provider: 'google',
-      options: { redirectTo: `${window.location.origin}/join-wedahub` },
-    })
-  }
 
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }))
 
@@ -168,7 +161,7 @@ export default function JoinForm({ initialUser = null }) {
     )
   }
 
-  // ── Step 1: Google sign-in gate (shown until authenticated) ────────────────
+  // ── Step 1: Phone sign-in gate (shown until authenticated) ────────────────
   if (!user) {
     return (
       <div style={{ maxWidth: 480, margin: '0 auto', background: '#fff', border: '1px solid #E4E0D9', borderRadius: 20, padding: '32px 28px', textAlign: 'center' }}>
@@ -176,11 +169,7 @@ export default function JoinForm({ initialUser = null }) {
         <h2 style={{ fontFamily: "var(--th-display)", fontSize: 22, fontWeight: 700, color: '#14171A', marginBottom: 8 }}>{sinhalaText(t.gateTitle)}</h2>
         <p style={{ fontSize: 13, color: '#6B7076', lineHeight: 1.7, marginBottom: 22 }}>{sinhalaText(t.gateSub)}</p>
 
-        <button onClick={signInGoogle} disabled={!authReady}
-          style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10, padding: '13px', background: '#fff', color: '#14171A', border: '1.5px solid #E4E0D9', borderRadius: 12, fontSize: 15, fontWeight: 700, cursor: authReady ? 'pointer' : 'wait', boxShadow: '0 1px 4px rgba(0,0,0,0.05)' }}>
-          <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84A11 11 0 0 0 12 23z"/><path fill="#FBBC05" d="M5.84 14.1a6.6 6.6 0 0 1 0-4.2V7.06H2.18a11 11 0 0 0 0 9.88l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84C6.71 7.31 9.14 5.38 12 5.38z"/></svg>
-          {sinhalaText(t.googleBtn)}
-        </button>
+        {authReady && <PhoneSignIn />}
 
         <div style={{ marginTop: 22, display: 'flex', flexDirection: 'column', gap: 8, textAlign: 'left' }}>
           {sinhalaText(t.gateSteps.map(s => (
@@ -196,7 +185,7 @@ export default function JoinForm({ initialUser = null }) {
     return (
       <div style={{ maxWidth: 600, margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: 8, fontSize: 11, color: '#8A8F95' }}>
-          {sinhalaText(t.signedInAs)} <strong style={{ color: '#3A4046' }}>{sinhalaText(user.email)}</strong>
+          {sinhalaText(t.signedInAs)} <strong style={{ color: '#3A4046' }}>{sinhalaText(user.email || user.phone || '')}</strong>
         </div>
         <div style={{ textAlign: 'center', marginBottom: 24 }}>
           <div style={{ fontSize: 14, fontWeight: 700, color: '#3A4046', marginBottom: 4 }}>{sinhalaText(t.pickTitle)}</div>
