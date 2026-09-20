@@ -120,7 +120,7 @@ h1 { letter-spacing: -0.045em; }
   background: var(--terra);
   color: #fff;
   font: 300 27px/1 var(--th-body);
-  box-shadow: 0 4px 14px rgba(194, 84, 43, 0.4);
+  box-shadow: 0 4px 14px rgba(11, 42, 74, 0.4);
 }
 .th-tabbar__raised[aria-current='page'] { color: #fff; background: var(--terra-light); }
 
@@ -188,7 +188,7 @@ h1 { letter-spacing: -0.045em; }
   border-radius: 5px;
   white-space: nowrap;
 }
-.th-pill--open   { background: #F0E7DF; color: var(--terra-light); }
+.th-pill--open   { background: #EAE4D7; color: var(--terra-light); }
 .th-pill--good   { background: var(--green-bg); color: var(--th-forest); }
 .th-pill--booked { background: var(--navy); color: var(--th-saffron); }
 .th-pill--closed { background: #EEEDEB; color: var(--text-3); }
@@ -256,7 +256,7 @@ textarea.th-field { padding: 12px 13px; line-height: 1.5; resize: vertical; }
 
 /* image placeholder — diagonal tile hatch, no asset required */
 .th-slot {
-  background: repeating-linear-gradient(45deg, #E6E0D7 0 9px, #DED7CC 9px 18px);
+  background: repeating-linear-gradient(45deg, #EAE4D7 0 9px, #DED7CC 9px 18px);
   border-radius: 10px;
   display: grid;
   place-items: center;

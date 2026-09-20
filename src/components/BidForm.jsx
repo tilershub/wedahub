@@ -3,19 +3,14 @@ import { si as sinhalaText } from '../lib/sinhala.js'
 import { useState, useEffect } from 'react'
 import { supabase } from '../lib/supabase.js'
 
-const BIDDER_TYPES = [
-  { value: 'Tiler',      icon: '🪚', label: 'Tiler',       desc: 'Tiling specialist' },
-  { value: 'Contractor', icon: '🏗️', label: 'Contractor',  desc: 'Full renovation' },
-  { value: 'Workshop',   icon: '🔧', label: 'Workshop',    desc: 'Workshop / cutting' },
-  { value: 'Supplier',   icon: '📦', label: 'Supplier',    desc: 'Material supplier' },
-  { value: 'Other',      icon: '👷', label: 'Other',       desc: 'Other trade' },
-]
+import { PROFESSIONS } from '../lib/professions.js'
+const BIDDER_TYPES = PROFESSIONS.map(p => ({ value: p.label, label: p.si, icon: p.icon, desc: p.label }))
 
 function inp(extra = {}) {
   return {
-    width: '100%', padding: '12px 14px', border: '1.5px solid #E4E0D9', borderRadius: 10,
+    width: '100%', padding: '12px 14px', border: '1.5px solid #EAE4D7', borderRadius: 10,
     fontSize: 13, fontFamily: 'inherit', outline: 'none', background: '#fff',
-    boxSizing: 'border-box', color: '#14171A', transition: 'border-color 0.15s',
+    boxSizing: 'border-box', color: '#071827', transition: 'border-color 0.15s',
     ...extra,
   }
 }
@@ -31,10 +26,10 @@ function BidSuccess({ projectType, city, updated }) {
         ඔබේ මිල ගණන: <strong>{sinhalaText(projectType)}</strong> in <strong>{sinhalaText(city)}</strong> දැන් {sinhalaText(updated ? 'updated' : 'received')}. නිවාස හිමියා ඔබව තෝරාගතහොත් WhatsApp හරහා සෘජුවම සම්බන්ධ වනු ඇත.
       </p>
       <div style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap' }}>
-        <a href="/jobs" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 700, color: '#C2542B', textDecoration: 'none', background: '#F7EFE9', border: '1.5px solid #C2542B22', borderRadius: 10, padding: '11px 20px' }}>
+        <a href="/jobs" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 700, color: '#0B2A4A', textDecoration: 'none', background: '#F7F3E8', border: '1.5px solid #0B2A4A22', borderRadius: 10, padding: '11px 20px' }}>
           ← තවත් ව්‍යාපෘති බලන්න
         </a>
-        <a href="/providers?type=tiler" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 700, color: '#fff', textDecoration: 'none', background: '#C2542B', borderRadius: 10, padding: '11px 20px' }}>
+        <a href="/providers" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 700, color: '#fff', textDecoration: 'none', background: '#0B2A4A', borderRadius: 10, padding: '11px 20px' }}>
           ✅ ඔබේ පැතිකඩ සාදන්න
         </a>
       </div>
@@ -43,7 +38,7 @@ function BidSuccess({ projectType, city, updated }) {
 }
 
 export default function BidForm({ jobId, bidCount = 0, projectType = '', city = '' }) {
-  const [form, setForm] = useState({ name: '', whatsapp: '', bidder_type: 'Tiler', message: '', quote_amount: '', timeline: '' })
+  const [form, setForm] = useState({ name: '', whatsapp: '', bidder_type: 'Other Service', message: '', quote_amount: '', timeline: '' })
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState('')
   const [submitted, setSubmitted] = useState(false)
@@ -70,7 +65,7 @@ export default function BidForm({ jobId, bidCount = 0, projectType = '', city = 
         setForm({
           name: bid.bidder_name || '',
           whatsapp: bid.bidder_whatsapp || '',
-          bidder_type: (bid.bidder_type || 'tiler').replace(/^./, c => c.toUpperCase()),
+          bidder_type: (bid.bidder_type || 'Service provider').replace(/^./, c => c.toUpperCase()),
           message: bid.message || '',
           quote_amount: bid.quote_amount != null ? String(bid.quote_amount) : '',
           timeline: bid.timeline || '',
@@ -136,9 +131,9 @@ export default function BidForm({ jobId, bidCount = 0, projectType = '', city = 
   // Quoting requires an account: it is what ties a quote to a provider so it
   // can be edited later and shown under "My Quotes".
   if (!user) return (
-    <div style={{ textAlign: 'center', padding: '32px 24px', background: '#FBFAF8', border: '1.5px solid #E4E0D9', borderRadius: 14 }}>
+    <div style={{ textAlign: 'center', padding: '32px 24px', background: '#FAF8F2', border: '1.5px solid #EAE4D7', borderRadius: 14 }}>
       <div style={{ fontSize: 40, marginBottom: 12 }}>💬</div>
-      <h3 style={{ fontSize: 17, fontWeight: 800, color: '#14171A', marginBottom: 8 }}>ඔබේ මිල ගණන යැවීමට පිවිසෙන්න</h3>
+      <h3 style={{ fontSize: 17, fontWeight: 800, color: '#071827', marginBottom: 8 }}>ඔබේ මිල ගණන යැවීමට පිවිසෙන්න</h3>
       <p style={{ fontSize: 13, color: '#6B7076', lineHeight: 1.7, maxWidth: 340, margin: '0 auto 20px' }}>
         පිවිසීමෙන් ඔබේ මිල ගණන ඔබේ ගිණුමට සම්බන්ධ වේ. ඕනෑම වේලාවක එය සංස්කරණය කිරීමටත් මගේ මිල ගණන් යටතේ බැලීමටත් හැකිය.
       </p>
@@ -153,9 +148,9 @@ export default function BidForm({ jobId, bidCount = 0, projectType = '', city = 
     <form onSubmit={submit} style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
 
       {sinhalaText(existingId && (
-        <div style={{ background: '#F7EFE9', border: '1px solid #E7D9CE', borderRadius: 10, padding: '10px 14px', display: 'flex', alignItems: 'center', gap: 8 }}>
+        <div style={{ background: '#F7F3E8', border: '1px solid #EAE4D7', borderRadius: 10, padding: '10px 14px', display: 'flex', alignItems: 'center', gap: 8 }}>
           <span style={{ fontSize: 16 }}>✏️</span>
-          <span style={{ fontSize: 12, color: '#2A2F35', fontWeight: 600 }}>
+          <span style={{ fontSize: 12, color: '#0B2A4A', fontWeight: 600 }}>
             මෙම වැඩයට ඔබ දැනටමත් මිල ගණනක් දී ඇත. පවතින මිල ගණන සංස්කරණය කරමින් සිටී.
           </span>
         </div>
@@ -163,9 +158,9 @@ export default function BidForm({ jobId, bidCount = 0, projectType = '', city = 
 
       {/* Competition notice */}
       {sinhalaText(!existingId && bidCount > 0 && (
-        <div style={{ background: '#F7EFE9', border: '1px solid #E7D9CE', borderRadius: 10, padding: '10px 14px', display: 'flex', alignItems: 'center', gap: 8 }}>
+        <div style={{ background: '#F7F3E8', border: '1px solid #EAE4D7', borderRadius: 10, padding: '10px 14px', display: 'flex', alignItems: 'center', gap: 8 }}>
           <span style={{ fontSize: 16 }}>⚡</span>
-          <span style={{ fontSize: 12, color: '#2A2F35', fontWeight: 600 }}>
+          <span style={{ fontSize: 12, color: '#0B2A4A', fontWeight: 600 }}>
             {sinhalaText(bidCount)} සේවා සපයන්නා{sinhalaText(bidCount !== 1 ? 's' : '')} දැනටමත් ඉදිරිපත් කර ඇත {sinhalaText(bidCount !== 1 ? 'bids' : 'a bid')} — පැහැදිලි යෝජනාවකින් ඔබේ විශේෂත්වය පෙන්වන්න!
           </span>
         </div>
@@ -190,8 +185,8 @@ export default function BidForm({ jobId, bidCount = 0, projectType = '', city = 
           {sinhalaText(BIDDER_TYPES.map(t => (
             <button key={t.value} type="button" onClick={() => set('bidder_type', t.value)}
               style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, padding: '10px 4px', borderRadius: 12, cursor: 'pointer', border: '1.5px solid', transition: 'all 0.15s',
-                background: form.bidder_type === t.value ? '#C2542B' : '#FBFAF8',
-                borderColor: form.bidder_type === t.value ? '#C2542B' : '#E4E0D9',
+                background: form.bidder_type === t.value ? '#0B2A4A' : '#FAF8F2',
+                borderColor: form.bidder_type === t.value ? '#0B2A4A' : '#EAE4D7',
               }}
             >
               <span style={{ fontSize: 18 }}>{sinhalaText(t.icon)}</span>
@@ -240,7 +235,7 @@ export default function BidForm({ jobId, bidCount = 0, projectType = '', city = 
       ))}
 
       <button type="submit" disabled={loading}
-        style={{ padding: '15px', background: loading ? '#8A8F95' : 'linear-gradient(135deg,#C2542B,#2A2F35)', color: '#fff', border: 'none', borderRadius: 12, fontSize: 15, fontWeight: 700, cursor: loading ? 'not-allowed' : 'pointer', boxShadow: loading ? 'none' : '0 4px 14px rgba(194,84,43,0.3)', transition: 'all 0.2s' }}>
+        style={{ padding: '15px', background: loading ? '#8A8F95' : 'linear-gradient(135deg,#0B2A4A,#0B2A4A)', color: '#fff', border: 'none', borderRadius: 12, fontSize: 15, fontWeight: 700, cursor: loading ? 'not-allowed' : 'pointer', boxShadow: loading ? 'none' : '0 4px 14px rgba(11,42,74,0.3)', transition: 'all 0.2s' }}>
         {sinhalaText(loading ? (existingId ? '⏳ Updating…' : '⏳ Sending…') : (existingId ? '💾 Update My Quote' : '📨 Send My Quote'))}
       </button>
 

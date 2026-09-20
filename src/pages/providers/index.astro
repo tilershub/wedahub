@@ -1,87 +1,14 @@
 ---
-import { si as sinhalaText } from '../../lib/sinhala.js'
 export const prerender = false
 import Layout from '../../layouts/Layout.astro'
+import PageIntro from '../../components/PageIntro.astro'
 import ProviderDirectory from '../../components/ProviderDirectory.jsx'
-
-const supabase = Astro.locals.supabase
-const { data: initialProviders } = await supabase
-  .from('providers')
-  .select('*')
-  .eq('status', 'active')
-  .order('is_featured', { ascending: false })
-  .order('created_at', { ascending: false })
-
-const BLOG_TIPS = [
-  { slug: 'how-to-choose-a-tiler',             icon: '👷', color: '#C2542B', category: 'Hiring Tips',  title: 'How to Choose the Right Tiler' },
-  { slug: 'bathroom-renovation-cost-sri-lanka', icon: '💰', color: '#C2542B', category: 'Cost Guide',   title: 'Bathroom Renovation Costs 2025' },
-  { slug: 'waterproofing-bathroom-guide',       icon: '💧', color: '#2F6B4F', category: 'How-To',      title: 'Why Waterproofing Matters Most' },
-]
-
-const rawType = Astro.url.searchParams.get('type') || ''
-const type = rawType  // keep empty for "all" but default label is Tilers
-const q = Astro.url.searchParams.get('q') || ''
-const districtParam = Astro.url.searchParams.get('district') || ''
-
-const TYPE_LABELS = {
-  tiler: 'Professionals', workshop: 'Workshops', supplier: 'Suppliers',
-  contractor: 'Contractors', tile_shop: 'Tile Shops', brand_dealer: 'Brand Dealers',
-  bathroom_shop: 'Bathroom Shops', tool_supplier: 'Tool Suppliers',
-}
-const pageTitle = type ? `ශ්‍රී ලංකාවේ ${sinhalaText(TYPE_LABELS[type] || 'Providers')}` : 'Find Professionals, Contractors & Suppliers in Sri Lanka'
+import { PROFESSIONS } from '../../lib/professions.js'
+const requestedType = Astro.url.searchParams.get('type') || ''
+const type = PROFESSIONS.some(p => p.value === requestedType) ? requestedType : ''
 ---
-
-<Layout
-  title={sinhalaText(`${sinhalaText(pageTitle)} · වැඩHUB`)}
-  description="ශ්‍රී ලංකාව පුරා සත්‍යාපිත කාර්මිකයන්, වැඩපොළ, සැපයුම්කරුවන්, කොන්ත්‍රාත්කරුවන් සහ ටයිල් වෙළෙඳසැල් සොයන්න. WhatsApp හරහා සෘජුව අමතන්න."
->
-
-  <!-- Page Header -->
-  <div style="background:var(--navy);padding:40px 20px 36px;position:relative;overflow:hidden;">
-    <div style="position:absolute;inset:0;opacity:0.04;background-image:repeating-linear-gradient(0deg,transparent,transparent 39px,rgba(255,255,255,0.8) 39px,rgba(255,255,255,0.8) 40px),repeating-linear-gradient(90deg,transparent,transparent 39px,rgba(255,255,255,0.8) 39px,rgba(255,255,255,0.8) 40px);pointer-events:none;"></div>
-    <div style="max-width:1100px;margin:0 auto;position:relative;text-align:center;">
-      <span style="font-size:9px;font-weight:700;color:rgba(194,84,43,0.7);letter-spacing:3px;text-transform:uppercase;display:block;margin-bottom:12px;">සේවා සපයන්නන්ගේ නාමාවලිය</span>
-      <h1 style="font-family: var(--th-display);font-size:clamp(24px,4vw,40px);font-weight:700;color:#fff;margin-bottom:10px;line-height:1.2;">
-        {type
-          ? <span style="color:var(--terra);">{sinhalaText(TYPE_LABELS[type] || 'Providers')}</span>
-          : <><span style="color:var(--terra);">වෘත්තිකයන්</span>, කොන්ත්‍රාත්කරුවන් සහ සැපයුම්කරුවන්</>
-        }
-      </h1>
-      <p style="font-size:14px;color:rgba(255,255,255,0.5);max-width:440px;margin:0 auto;">
-        ශ්‍රී ලංකාව පුරා සත්‍යාපිත වෘත්තිකයන්, කොන්ත්‍රාත්කරුවන් සහ සැපයුම්කරුවන් බලා WhatsApp හරහා සෘජුව අමතන්න
-      </p>
-    </div>
+<Layout title="සේවා සපයන්නන් සොයන්න · වැඩHUB" description="Search service providers across Sri Lanka, from home repairs and cleaning to tutoring, transport, beauty and digital services. Compare profiles and contact directly.">
+  <div class="wh-container"><PageIntro title="ඔබේ වැඩේට හරි කෙනා." subtitle="සේවාව සහ ප්‍රදේශය තෝරා පැතිකඩ, හැකියාවන් සහ සමාලෝචන සසඳන්න."/>
+    <ProviderDirectory client:load initialType={type} initialSearch={Astro.url.searchParams.get('q') || Astro.url.searchParams.get('search') || ''} initialDistrict={Astro.url.searchParams.get('district') || ''}/>
   </div>
-
-  <!-- Blog tips strip -->
-  <div style="background:#FBFAF8;border-bottom:1px solid #E4E0D9;padding:12px 16px;">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
-      <span style="font-size:12px;font-weight:700;color:#6B7076;text-transform:uppercase;letter-spacing:1px;">📰 ප්‍රයෝජනවත් මඟපෙන්වීම්</span>
-      <a href="https://tilershub.lk/blog" style="font-size:11px;font-weight:600;color:#C2542B;text-decoration:none;">සියල්ල →</a>
-    </div>
-    <div style="display:flex;gap:8px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none;">
-      {BLOG_TIPS.map(post => (
-        <a href={`https://tilershub.lk/blog/${post.slug}`}
-          style="display:flex;align-items:center;gap:0;background:#fff;border-radius:12px;overflow:hidden;border:1px solid #E4E0D9;text-decoration:none;color:inherit;flex-shrink:0;min-width:220px;max-width:260px;box-shadow:0 1px 3px rgba(0,0,0,0.04);"
-          onmouseover="this.style.borderColor='#D6D0C6'"
-          onmouseout="this.style.borderColor='#E4E0D9'"
-        >
-          <div style={`width:54px;height:54px;background:${post.color};flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:22px;`}>{sinhalaText(post.icon)}</div>
-          <div style="flex:1;padding:8px 10px;min-width:0;">
-            <span style="font-size:8px;font-weight:700;color:#C2542B;">{sinhalaText(post.category)}</span>
-            <div style="font-size:11px;font-weight:700;color:#14171A;line-height:1.35;margin-top:2px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;">{sinhalaText(post.title)}</div>
-          </div>
-        </a>
-      ))}
-    </div>
-  </div>
-
-  <ProviderDirectory client:only="react" initialProviders={initialProviders ?? []} initialType={type} initialSearch={q} initialDistrict={districtParam} />
-
-  <!-- Ad slot — below the directory, after the listings. Keep it below: an ad
-       above the results competes with the thing people came here to do.
-       Create the unit in AdSense, paste its slot ID, uncomment, and add
-       `import AdSlot from '../../components/AdSlot.jsx'` to the frontmatter.
-       <AdSlot slot="REPLACE_ME" client:visible /> -->
-
 </Layout>

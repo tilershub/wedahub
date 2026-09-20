@@ -1,0 +1,4 @@
+---
+const { title, subtitle, eyebrow = 'වැඩHUB', action, href } = Astro.props
+---
+<header class="wh-page-intro"><div><p class="wh-eyebrow">{eyebrow}</p><h1>{title}</h1>{subtitle && <p>{subtitle}</p>}</div>{action && <a class="wh-button" href={href}>{action} <span aria-hidden="true">→</span></a>}</header>

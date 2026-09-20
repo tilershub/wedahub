@@ -85,7 +85,7 @@ export default function PhoneSignIn({ link = false, onSuccess }) {
     } catch (err) { setError(showError(err)); locked.current = false; setBusy(false) }
   }
   const input = { width: '100%', boxSizing: 'border-box', padding: 13, border: '1px solid #ccc', borderRadius: 10, fontSize: 16, margin: '8px 0 12px' }
-  const button = { width: '100%', minHeight: 46, padding: 12, border: 0, borderRadius: 10, background: 'var(--terra, #C2542B)', color: '#fff', fontSize: 14, cursor: 'pointer', opacity: busy ? 0.6 : 1 }
+  const button = { width: '100%', minHeight: 46, padding: 12, border: 0, borderRadius: 10, background: 'var(--terra, #0B2A4A)', color: '#fff', fontSize: 14, cursor: 'pointer', opacity: busy ? 0.6 : 1 }
   const canSend = !busy && !remaining && (link || !siteKey || !!captchaToken)
   return <div style={{ textAlign: 'left', whiteSpace: 'normal' }}>
     <p style={{ fontSize: 13, lineHeight: 1.6 }}>{link

@@ -13,9 +13,6 @@ const STATIC = [
   { loc: '/post-project',   priority: '0.8', changefreq: 'monthly' },
   { loc: '/join-wedahub', priority: '0.7', changefreq: 'monthly' },
   { loc: '/categories',     priority: '0.7', changefreq: 'weekly'  },
-  { loc: '/bathrooms',      priority: '0.6', changefreq: 'weekly'  },
-  { loc: '/tile',           priority: '0.6', changefreq: 'weekly'  },
-  { loc: '/tools',          priority: '0.5', changefreq: 'monthly' },
   { loc: '/about',          priority: '0.5', changefreq: 'monthly' },
   { loc: '/contact',        priority: '0.5', changefreq: 'monthly' },
   { loc: '/privacy-policy', priority: '0.3', changefreq: 'yearly'  },
@@ -33,7 +30,7 @@ export async function GET({ locals }) {
   // only serves districts and 301s anything else to /providers/<slug> — a
   // sitemap should list canonical 200s, and district URLs are added below.
   const [{ data: providerRows }, { data: projectRows }, { data: coverageRows }] = await Promise.all([
-    locals.supabase.from('providers').select('slug,updated_at').eq('status', 'active').not('slug', 'is', null),
+    locals.supabase.from('providers').select('slug,updated_at').eq('status', 'active').not('provider_type','in','(tile_shop,bathroom_shop,supplier,brand_dealer,tool_supplier)').not('slug', 'is', null),
     locals.supabase.from('projects').select('id,project_type,city,district,created_at').eq('status', 'active').order('created_at', { ascending: false }).limit(500),
     locals.supabase.from('providers').select('city,district,service_areas').eq('status', 'active'),
   ])
@@ -64,7 +61,6 @@ export async function GET({ locals }) {
     ...(projectRows || []).map(p =>
       url(jobPath(p), p.created_at ? p.created_at.split('T')[0] : today, 'daily', '0.7')
     ),
-    ...liveDistricts.map(d => url(districtPath(d), today, 'weekly', '0.8')),
     ...liveDistricts.flatMap(d =>
       LOCATION_SERVICE_SLUGS.map(s => url(serviceDistrictPath(s, d), today, 'weekly', '0.7'))
     ),

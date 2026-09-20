@@ -43,7 +43,7 @@ const CASES = [
   ['/blog', 301, 'https://tilershub.lk/blog'],
   ['/blog/how-to-choose-a-tiler', 301, 'https://tilershub.lk/blog/how-to-choose-a-tiler'],
   ['/guides', 301, 'https://tilershub.lk/guides'],
-  ['/estimator', 301, 'https://tilershub.lk/estimator'],
+  ['/estimator', 301, 'https://wedahub.lk/providers'],
   ['/join-tilershub', 301, 'https://wedahub.lk/join-wedahub'],
 ]
 

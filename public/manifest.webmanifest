@@ -1,17 +1,18 @@
 {
-  "name": "වැඩHUB",
+  "name": "වැඩHUB · People, Skills, Opportunities",
   "short_name": "වැඩHUB",
-  "description": "ශ්‍රී ලංකාවේ සේවා සපයන්නන්, කාර්මිකයන් සහ ව්‍යාපෘති සොයන්න.",
+  "description": "Sri Lanka’s platform for service providers, skilled work and everyday opportunities.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#14171A",
-  "theme_color": "#C2542B",
+  "background_color": "#F7F3E8",
+  "theme_color": "#0B2A4A",
   "orientation": "portrait-primary",
   "lang": "si-LK",
   "categories": [
     "business",
-    "shopping"
+    "lifestyle",
+    "productivity"
   ],
   "icons": [
     {

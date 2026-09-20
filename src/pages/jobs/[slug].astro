@@ -30,7 +30,7 @@ const { data: similarRaw } = job.district
 const similar = similarRaw || []
 
 const icon = JOB_TYPE_ICONS[job.project_type] || '🏠'
-const color = JOB_TYPE_COLORS[job.project_type] || '#C2542B'
+const color = JOB_TYPE_COLORS[job.project_type] || '#0B2A4A'
 const isActive = job.status === 'active' || !job.status
 const locationLabel = job.city || job.district || 'Sri Lanka'
 
@@ -39,9 +39,9 @@ const pageUrl = `${SITE}${canonicalPath}`
 const descText = (job.description || '').trim()
 const metaDescription = (descText
   ? `${sinhalaText(locationLabel)} හි ${sinhalaText(job.project_type)}: ${descText}`
-  : `${sinhalaText(locationLabel)} හි ${sinhalaText(job.project_type)} ව්‍යාපෘතිය. වැඩHUB හරහා නොමිලේ ලංසු ඉදිරිපත් කරන්න — පිවිසීමක් හෝ කොමිස් නැත.`
+  : `${sinhalaText(locationLabel)} හි ${sinhalaText(job.project_type)} ව්‍යාපෘතිය. වැඩHUB හරහා නොමිලේ ලංසු ඉදිරිපත් කරන්න.`
 ).slice(0, 155)
-const pageTitle = `${sinhalaText(locationLabel)} හි ${sinhalaText(job.project_type)} — ටයිල් ව්‍යාපෘතිය | වැඩHUB`
+const pageTitle = `${sinhalaText(locationLabel)} හි ${sinhalaText(job.project_type)} — සේවා ඉල්ලීම | වැඩHUB`
 
 const datePosted = new Date(job.created_at)
 const validThrough = new Date(datePosted.getTime() + 30 * 24 * 3600 * 1000)
@@ -55,7 +55,7 @@ const jobSchema = JSON.stringify({
   '@context': 'https://schema.org',
   '@type': 'JobPosting',
   title: `${job.project_type} — ${locationLabel}`,
-  description: descText || `${job.project_type} project in ${locationLabel}, Sri Lanka. Posted by a homeowner on වැඩHUB.`,
+  description: descText || `${job.project_type} project in ${locationLabel}, Sri Lanka. Posted by a customer on වැඩHUB.`,
   datePosted: datePosted.toISOString(),
   validThrough: validThrough.toISOString(),
   employmentType: 'CONTRACTOR',
@@ -123,11 +123,11 @@ const waShare = `https://wa.me/?text=${encodeURIComponent(`🏠 ${job.project_ty
   </div>
 
   <!-- ── Main content ── -->
-  <div style="background:#FBFAF8;padding:24px 16px 80px;">
+  <div style="background:#FAF8F2;padding:24px 16px 80px;">
     <div style="max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:16px;">
 
       <!-- Project details card -->
-      <div style="background:#fff;border:1px solid #E4E0D9;border-radius:20px;padding:24px;box-shadow:0 2px 10px rgba(0,0,0,0.05);">
+      <div style="background:#fff;border:1px solid #EAE4D7;border-radius:20px;padding:24px;box-shadow:0 2px 10px rgba(0,0,0,0.05);">
 
         <!-- Chips row -->
         <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px;">
@@ -135,22 +135,22 @@ const waShare = `https://wa.me/?text=${encodeURIComponent(`🏠 ${job.project_ty
           {job.budget_range && (
             <span style="font-size:11px;padding:5px 13px;border-radius:20px;background:#E9F1EC;color:#285C43;font-weight:700;border:1px solid #C6DDCF;">💰 {sinhalaText(job.budget_range)}</span>
           )}
-          <span style="font-size:11px;padding:5px 13px;border-radius:20px;background:#F7EFE9;color:#2A2F35;font-weight:700;border:1px solid #E7D9CE;">💬 {sinhalaText(bidCount)} ලංසුව{sinhalaText(bidCount !== 1 ? 's' : '')} ලැබී ඇත</span>
+          <span style="font-size:11px;padding:5px 13px;border-radius:20px;background:#F7F3E8;color:#0B2A4A;font-weight:700;border:1px solid #EAE4D7;">💬 {sinhalaText(bidCount)} ලංසුව{sinhalaText(bidCount !== 1 ? 's' : '')} ලැබී ඇත</span>
         </div>
 
         <!-- Description -->
         <div style="margin-bottom:20px;">
           <div style="font-size:11px;font-weight:700;color:#8A8F95;text-transform:uppercase;letter-spacing:1.2px;margin-bottom:8px;">ව්‍යාපෘති විස්තරය</div>
-          <p style="font-size:14px;color:#3A4046;line-height:1.85;margin:0;border-left:3px solid #E4E0D9;padding-left:14px;">
+          <p style="font-size:14px;color:#3A4046;line-height:1.85;margin:0;border-left:3px solid #EAE4D7;padding-left:14px;">
             {sinhalaText(descText || 'No description provided — contact the poster for full details.')}
           </p>
         </div>
 
         <!-- Info grid -->
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:10px;margin-bottom:20px;">
-          <div style="background:#FBFAF8;border-radius:12px;border:1px solid #E4E0D9;padding:12px 14px;">
+          <div style="background:#FAF8F2;border-radius:12px;border:1px solid #EAE4D7;padding:12px 14px;">
             <div style="font-size:9px;font-weight:700;color:#8A8F95;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">ස්ථානය</div>
-            <div style="font-size:13px;font-weight:600;color:#14171A;">📍 {sinhalaText(locationLabel)}</div>
+            <div style="font-size:13px;font-weight:600;color:#071827;">📍 {sinhalaText(locationLabel)}</div>
           </div>
           {job.budget_range && (
             <div style="background:#E9F1EC;border-radius:12px;border:1px solid #C6DDCF;padding:12px 14px;">
@@ -158,21 +158,21 @@ const waShare = `https://wa.me/?text=${encodeURIComponent(`🏠 ${job.project_ty
               <div style="font-size:13px;font-weight:700;color:#285C43;">{sinhalaText(job.budget_range)}</div>
             </div>
           )}
-          <div style="background:#FBFAF8;border-radius:12px;border:1px solid #E4E0D9;padding:12px 14px;">
+          <div style="background:#FAF8F2;border-radius:12px;border:1px solid #EAE4D7;padding:12px 14px;">
             <div style="font-size:9px;font-weight:700;color:#8A8F95;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">පළ කළ දිනය</div>
-            <div style="font-size:13px;font-weight:600;color:#14171A;">⏱ {sinhalaText(timeAgo(job.created_at))}</div>
+            <div style="font-size:13px;font-weight:600;color:#071827;">⏱ {sinhalaText(timeAgo(job.created_at))}</div>
           </div>
-          <div style="background:#F7EFE9;border-radius:12px;border:1px solid #E7D9CE;padding:12px 14px;">
+          <div style="background:#F7F3E8;border-radius:12px;border:1px solid #EAE4D7;padding:12px 14px;">
             <div style="font-size:9px;font-weight:700;color:#8A8F95;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;">තරගකාරීත්වය</div>
-            <div style="font-size:13px;font-weight:700;color:#2A2F35;">💬 {sinhalaText(bidCount)} ලංසුව{sinhalaText(bidCount !== 1 ? 's' : '')}</div>
+            <div style="font-size:13px;font-weight:700;color:#0B2A4A;">💬 {sinhalaText(bidCount)} ලංසුව{sinhalaText(bidCount !== 1 ? 's' : '')}</div>
           </div>
         </div>
 
         <!-- Share -->
-        <div style="border-top:1px solid #EFEBE4;padding-top:16px;">
+        <div style="border-top:1px solid #F7F3E8;padding-top:16px;">
           <div style="font-size:11px;font-weight:700;color:#8A8F95;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;">මෙම ව්‍යාපෘතිය බෙදාගන්න</div>
           <div style="display:flex;gap:8px;flex-wrap:wrap;">
-            <button id="copy-link-btn" data-url={pageUrl} style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:8px 16px;border-radius:20px;background:#FBFAF8;color:#3A4046;border:1px solid #E4E0D9;cursor:pointer;font-family:inherit;">
+            <button id="copy-link-btn" data-url={pageUrl} style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:8px 16px;border-radius:20px;background:#FAF8F2;color:#3A4046;border:1px solid #EAE4D7;cursor:pointer;font-family:inherit;">
               🔗 සබැඳිය පිටපත් කරන්න
             </button>
             <a href={waShare} target="_blank" rel="noopener noreferrer"
@@ -184,8 +184,8 @@ const waShare = `https://wa.me/?text=${encodeURIComponent(`🏠 ${job.project_ty
       </div>
 
       <!-- Bid form card -->
-      <div style="background:#fff;border:1px solid #E4E0D9;border-radius:20px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.05);">
-        <div style="background:linear-gradient(135deg,#14171A,#C2542B);padding:20px 24px;">
+      <div style="background:#fff;border:1px solid #EAE4D7;border-radius:20px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,0.05);">
+        <div style="background:linear-gradient(135deg,#071827,#0B2A4A);padding:20px 24px;">
           <h2 style="font-size:17px;font-weight:700;color:#fff;margin:0 0 4px;">ඔබේ මිල ගණන ඉදිරිපත් කරන්න</h2>
           <p style="font-size:12px;color:rgba(255,255,255,0.55);margin:0;">නොමිලේ · වැඩයකට එක් මිල ගණනක්, ඕනෑම වේලාවක සංස්කරණය කළ හැකිය · නිවාස හිමියා WhatsApp හරහා ඔබ අමතයි</p>
         </div>
@@ -198,19 +198,19 @@ const waShare = `https://wa.me/?text=${encodeURIComponent(`🏠 ${job.project_ty
       {similar.length > 0 && (
         <div>
           <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
-            <div style="font-size:13px;font-weight:700;color:#14171A;">තවත් ව්‍යාපෘති — {sinhalaText(job.district || job.city)}</div>
-            <a href="/jobs" style="font-size:12px;font-weight:600;color:#C2542B;text-decoration:none;">සියල්ල බලන්න →</a>
+            <div style="font-size:13px;font-weight:700;color:#071827;">තවත් ව්‍යාපෘති — {sinhalaText(job.district || job.city)}</div>
+            <a href="/jobs" style="font-size:12px;font-weight:600;color:#0B2A4A;text-decoration:none;">සියල්ල බලන්න →</a>
           </div>
           <div style="display:flex;flex-direction:column;gap:8px;">
             {similar.map(s => {
               const sIcon = JOB_TYPE_ICONS[s.project_type] || '🏠'
-              const sColor = JOB_TYPE_COLORS[s.project_type] || '#C2542B'
+              const sColor = JOB_TYPE_COLORS[s.project_type] || '#0B2A4A'
               return (
                 <a href={jobPath(s)}
-                  style="display:flex;align-items:center;gap:0;background:#fff;border-radius:12px;overflow:hidden;border:1px solid #E4E0D9;text-decoration:none;color:inherit;box-shadow:0 1px 4px rgba(0,0,0,0.04);">
+                  style="display:flex;align-items:center;gap:0;background:#fff;border-radius:12px;overflow:hidden;border:1px solid #EAE4D7;text-decoration:none;color:inherit;box-shadow:0 1px 4px rgba(0,0,0,0.04);">
                   <div style={`width:60px;height:60px;background:${sColor};flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:24px;`}>{sinhalaText(sIcon)}</div>
                   <div style="flex:1;padding:10px 12px;min-width:0;">
-                    <div style="font-size:13px;font-weight:700;color:#14171A;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">{sinhalaText(s.project_type)}</div>
+                    <div style="font-size:13px;font-weight:700;color:#071827;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">{sinhalaText(s.project_type)}</div>
                     <div style="font-size:11px;color:#6B7076;margin-top:2px;">📍 {sinhalaText(s.city || s.district)}</div>
                   </div>
                   <div style="padding:0 12px;font-size:18px;color:#D6D0C6;flex-shrink:0;">›</div>
@@ -222,12 +222,12 @@ const waShare = `https://wa.me/?text=${encodeURIComponent(`🏠 ${job.project_ty
       )}
 
       <!-- CTA for homeowners -->
-      <div style="background:#C2542B;border-radius:16px;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+      <div style="background:#0B2A4A;border-radius:16px;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
         <div>
           <div style="font-size:9px;font-weight:700;color:rgba(255,255,255,0.6);letter-spacing:2px;text-transform:uppercase;margin-bottom:3px;">ව්‍යාපෘතියක් තිබෙනවාද?</div>
           <div style="font-size:14px;font-weight:700;color:#fff;">ඔබේ ව්‍යාපෘතිය නොමිලේ පළ කර තරගකාරී මිල ගණන් ලබාගන්න</div>
         </div>
-        <a href="/post-project" style="display:inline-flex;align-items:center;gap:6px;background:#fff;color:#C2542B;border-radius:10px;padding:11px 20px;font-size:13px;font-weight:800;text-decoration:none;flex-shrink:0;">
+        <a href="/post-project" style="display:inline-flex;align-items:center;gap:6px;background:#fff;color:#0B2A4A;border-radius:10px;padding:11px 20px;font-size:13px;font-weight:800;text-decoration:none;flex-shrink:0;">
           📋 නොමිලේ පළ කරන්න
         </a>
       </div>

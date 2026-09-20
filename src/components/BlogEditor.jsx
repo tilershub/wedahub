@@ -44,7 +44,7 @@ const S = {
   card: {
     background: '#fff',
     borderRadius: 14,
-    border: '1px solid #E4E0D9',
+    border: '1px solid #EAE4D7',
     padding: '20px 22px',
   },
   label: {
@@ -59,13 +59,13 @@ const S = {
   input: {
     width: '100%',
     padding: '11px 14px',
-    border: '1.5px solid #E4E0D9',
+    border: '1.5px solid #EAE4D7',
     borderRadius: 10,
     fontSize: 13,
     outline: 'none',
     fontFamily: 'inherit',
     background: '#fff',
-    color: '#14171A',
+    color: '#071827',
     boxSizing: 'border-box',
     transition: 'border-color 0.15s',
   },
@@ -104,7 +104,7 @@ function Banner({ type, children }) {
   const styles = {
     success: { background: '#E9F1EC', border: '1px solid #C6DDCF', color: '#285C43' },
     error:   { background: '#FBEDEB', border: '1px solid #F2C9C3', color: '#C0392B' },
-    info:    { background: '#F7EFE9', border: '1px solid #E7D9CE', color: '#8E3C1E' },
+    info:    { background: '#F7F3E8', border: '1px solid #EAE4D7', color: '#071827' },
   }
   return (
     <div style={{ ...styles[type], borderRadius: 10, padding: '12px 16px', fontSize: 13, marginBottom: 18 }}>
@@ -305,9 +305,9 @@ export default function BlogEditor({ mode = 'create', blogId = null }) {
       <Centred>
         <div style={{ textAlign: 'center' }}>
           <div style={{ fontSize: 48, marginBottom: 12 }}>🔒</div>
-          <div style={{ fontSize: 16, fontWeight: 700, marginBottom: 8, color: '#14171A' }}>ප්‍රවේශයට අවසර නැත</div>
+          <div style={{ fontSize: 16, fontWeight: 700, marginBottom: 8, color: '#071827' }}>ප්‍රවේශයට අවසර නැත</div>
           <div style={{ fontSize: 13, color: '#6B7076', marginBottom: 20 }}>පරිපාලක අවසර අවශ්‍යයි.</div>
-          <a href="/admin" style={{ color: '#C2542B', fontWeight: 600, fontSize: 13 }}>← පරිපාලනයට යන්න</a>
+          <a href="/admin" style={{ color: '#0B2A4A', fontWeight: 600, fontSize: 13 }}>← පරිපාලනයට යන්න</a>
         </div>
       </Centred>
     )
@@ -319,13 +319,13 @@ export default function BlogEditor({ mode = 'create', blogId = null }) {
   const isCreate = mode === 'create'
 
   return (
-    <div style={{ minHeight: '100vh', background: '#EFEBE4', padding: '24px 16px 80px' }}>
+    <div style={{ minHeight: '100vh', background: '#F7F3E8', padding: '24px 16px 80px' }}>
       <div style={{ maxWidth: 860, margin: '0 auto' }}>
 
         {/* ── Header ─────────────────────────────────────────────── */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 28 }}>
           <div>
-            <h1 style={{ margin: 0, fontSize: 22, fontWeight: 800, color: '#14171A' }}>
+            <h1 style={{ margin: 0, fontSize: 22, fontWeight: 800, color: '#071827' }}>
               {sinhalaText(isCreate ? '✍️ New Blog Post' : '✏️ Edit Blog Post')}
             </h1>
             {sinhalaText(!isCreate && (
@@ -340,7 +340,7 @@ export default function BlogEditor({ mode = 'create', blogId = null }) {
                 href={`https://tilershub.lk/blog/${slug}`}
                 target="_blank"
                 rel="noopener"
-                style={{ fontSize: 12, color: '#C2542B', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 4 }}
+                style={{ fontSize: 12, color: '#0B2A4A', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 4 }}
               >
                 👁 පෙරදසුන ↗
               </a>
@@ -351,7 +351,7 @@ export default function BlogEditor({ mode = 'create', blogId = null }) {
 
         {/* ── AI Optimizer banner ─────────────────────────────────── */}
         <div style={{
-          background: 'linear-gradient(135deg, #C2542B 0%, #14171A 100%)',
+          background: 'linear-gradient(135deg, #0B2A4A 0%, #071827 100%)',
           borderRadius: 14,
           padding: '18px 22px',
           marginBottom: 24,
@@ -375,7 +375,7 @@ export default function BlogEditor({ mode = 'create', blogId = null }) {
             disabled={aiLoading}
             style={{
               padding: '10px 22px',
-              background: aiLoading ? '#3A4046' : '#C2542B',
+              background: aiLoading ? '#3A4046' : '#0B2A4A',
               color: '#fff',
               border: 'none',
               borderRadius: 10,
@@ -416,7 +416,7 @@ export default function BlogEditor({ mode = 'create', blogId = null }) {
             label="URL Slug *"
             hint="Auto-generated from title. Edit only if needed."
           >
-            <div style={{ display: 'flex', alignItems: 'center', gap: 0, border: '1.5px solid #E4E0D9', borderRadius: 10, overflow: 'hidden', background: '#fff' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 0, border: '1.5px solid #EAE4D7', borderRadius: 10, overflow: 'hidden', background: '#fff' }}>
               <span style={{ padding: '11px 10px 11px 14px', fontSize: 11, color: '#8A8F95', whiteSpace: 'nowrap', flexShrink: 0 }}>
                 /blog/
               </span>
@@ -515,7 +515,7 @@ export default function BlogEditor({ mode = 'create', blogId = null }) {
                 alignItems: 'center',
                 justifyContent: 'center',
                 cursor: imgUploading ? 'wait' : 'pointer',
-                background: '#FBFAF8',
+                background: '#FAF8F2',
                 marginBottom: 14,
                 overflow: 'hidden',
                 position: 'relative',
@@ -622,7 +622,7 @@ export default function BlogEditor({ mode = 'create', blogId = null }) {
               href="/admin"
               style={{
                 padding: '11px 22px',
-                background: '#EFEBE4',
+                background: '#F7F3E8',
                 color: '#3A4046',
                 borderRadius: 10,
                 fontSize: 14,
@@ -661,7 +661,7 @@ export default function BlogEditor({ mode = 'create', blogId = null }) {
               disabled={saving}
               style={{
                 padding: '11px 28px',
-                background: saving ? '#8A8F95' : '#C2542B',
+                background: saving ? '#8A8F95' : '#0B2A4A',
                 color: '#fff',
                 border: 'none',
                 borderRadius: 10,
