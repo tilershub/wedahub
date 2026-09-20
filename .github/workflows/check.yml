@@ -10,7 +10,7 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: node --test scripts/migration.test.mjs scripts/phone-auth.test.mjs
+      - run: node --test scripts/migration.test.mjs scripts/phone-auth.test.mjs scripts/job-workflow.test.mjs scripts/job-database.test.mjs scripts/job-api.test.mjs
       - run: npm run build
       # Boots the built Worker and asserts that an unmatched path returns 404
       # and the migration redirects return 301. `npm run build` alone cannot

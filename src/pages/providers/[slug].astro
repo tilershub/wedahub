@@ -2,6 +2,7 @@
 import { si as sinhalaText } from '../../lib/sinhala.js'
 export const prerender = false
 import Layout from '../../layouts/Layout.astro'
+import ConfirmedPortfolio from '../../components/ConfirmedPortfolio.jsx'
 import ReviewsSection from '../../components/ReviewsSection.jsx'
 import EditProfileButton from '../../components/EditProfileButton.jsx'
 
@@ -415,6 +416,7 @@ const breadcrumbSchema = JSON.stringify({
 
       <!-- Reviews -->
       <section style="background:#fff;padding:20px 0 8px;">
+        <ConfirmedPortfolio client:load providerId={item.id} />
         <ReviewsSection client:load providerId={item.id} />
       </section>
 
@@ -586,6 +588,7 @@ const breadcrumbSchema = JSON.stringify({
 
       <!-- Reviews -->
       <section style="background:#fff;padding:20px 0 8px;">
+        <ConfirmedPortfolio client:load providerId={item.id} />
         <ReviewsSection client:load providerId={item.id} />
       </section>
 
@@ -754,6 +757,7 @@ const breadcrumbSchema = JSON.stringify({
 
       <!-- Reviews -->
       <section style="background:#fff;padding:20px 0 8px;">
+        <ConfirmedPortfolio client:load providerId={item.id} />
         <ReviewsSection client:load providerId={item.id} />
       </section>
 

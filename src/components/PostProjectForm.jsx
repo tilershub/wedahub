@@ -51,7 +51,7 @@ const T = {
     whatsappHint: 'උදා: +94771234567',
     submit: '📋 මගේ ව්‍යාපෘතිය පලකරන්න',
     submitting: '⏳ ඉදිරිපත් කරමින්...',
-    footer: 'නොමිලේ සේවාව · ලොගිනයක් අවශ්‍ය නැත · සේවා සපයන්නන් ලංසු ඉදිරිපත් කරති',
+    footer: 'නොමිලේ සේවාව · පළ කිරීමට පිවිසෙන්න · සේවා සපයන්නන් ලංසු ඉදිරිපත් කරති',
   },
   en: {
     required: 'Required',
@@ -97,16 +97,11 @@ const T = {
     whatsappHint: 'E.g. +94771234567',
     submit: '📋 Post my project',
     submitting: '⏳ Submitting...',
-    footer: 'Free service · No login required · Providers send you quotes',
+    footer: 'Free service · Sign in to publish · Providers send you quotes',
   },
 }
 
-function genToken() {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
-    const r = Math.random() * 16 | 0
-    return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16)
-  })
-}
+function genToken() { return crypto.randomUUID() }
 
 function Field({ label, id, req, error, hint, children }) {
   return (
@@ -194,7 +189,7 @@ export default function PostProjectForm() {
         budget_range: form.budget_range || null,
         customer_name: form.customer_name.trim(),
         whatsapp: form.whatsapp.replace(/\s/g, ''),
-        status: 'active',
+        status: userId ? 'active' : 'pending_review',
       }
       if (userId) {
         payload.user_id = userId
@@ -225,11 +220,12 @@ export default function PostProjectForm() {
           <div style={{ fontSize: 52, marginBottom: 12 }}>🎉</div>
           <h2 style={{ fontFamily: "var(--th-display)", fontSize: 24, fontWeight: 700, color: '#14171A', marginBottom: 8 }}>{sinhalaText(t.successTitle)}</h2>
           <p style={{ fontSize: 13, color: '#6B7076', lineHeight: 1.8, maxWidth: 340, margin: '0 auto 16px' }}>
-            {sinhalaText(t.successBody)}
+            {userId ? sinhalaText(t.successBody) : 'Your project is saved privately. Sign in to publish it.'}
           </p>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: '#E9F1EC', border: '1px solid #C6DDCF', borderRadius: 10, padding: '8px 14px', marginBottom: 14 }}>
             <span style={{ fontSize: 13, color: '#285C43' }}>✓ {sinhalaText(t.whatsappNote)} <strong>{sinhalaText(form.whatsapp)}</strong></span>
           </div>
+          {!userId && <p><a href="/login">Sign in to publish this project and manage your jobs.</a></p>}
           {/* What happens next */}
           <div style={{ textAlign: 'left', background: '#F7EFE9', border: '1px solid #E7D9CE', borderRadius: 12, padding: '14px 16px', margin: '0 auto', maxWidth: 360 }}>
             <div style={{ fontSize: 12, fontWeight: 800, color: '#C2542B', marginBottom: 8 }}>{sinhalaText(t.nextTitle)}</div>

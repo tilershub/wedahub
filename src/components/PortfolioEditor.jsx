@@ -61,6 +61,7 @@ export default function PortfolioEditor({ profile, profileType, userId }) {
 
   return (
     <div>
+      <p>For photos from a WedaHUB job, <a href="/my-jobs">request customer permission in My jobs</a> before adding them to your profile.</p>
       {/* Prompt when empty */}
       {sinhalaText(total === 0 && (
         <div style={{ background:'linear-gradient(135deg,#F7EFE9,#F7EFE9)', border:'1px solid #F0E7DF', borderRadius:14, padding:'18px 20px', marginBottom:20, display:'flex', alignItems:'center', gap:14 }}>
