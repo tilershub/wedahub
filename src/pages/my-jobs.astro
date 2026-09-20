@@ -1,0 +1,10 @@
+---
+export const prerender = false
+import Layout from '../layouts/Layout.astro'
+import JobWorkspace from '../components/JobWorkspace.jsx'
+if (!Astro.locals.user) return Astro.redirect('/login')
+const moderate = Astro.url.searchParams.get('moderate') === '1'
+---
+<Layout title="My jobs & reviews · WedaHUB" description="Confirm work, manage reviews and approve portfolio photos." noindex={true}>
+  <JobWorkspace client:load moderate={moderate} />
+</Layout>

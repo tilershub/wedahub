@@ -2,23 +2,6 @@ import { si as sinhalaText } from '../lib/sinhala.js'
 import { useState, useEffect } from 'react'
 import { supabase } from '../lib/supabase.js'
 
-const JOB_TYPES = [
-  'Bathroom Renovation', 'Floor Tiling', 'Bathroom Tiling',
-  'Kitchen Tiling', 'Wall Tiling', 'Outdoor Tiling',
-  'Staircase Tiling', 'Waterproofing', 'Granite Works',
-  'Large Format Tiling', 'Mosaic Tiling', 'Pool Tiling',
-  'House Painting', 'Furniture Painting', 'Carpentry Works',
-  'Debris Removal', 'Demolition Work', 'Site Cleaning',
-  'Gypsum Ceiling',
-  'Kitchen Renovation', 'Air Conditioning', 'Roofing', 'Solar Panels',
-  'Plastering & Skimming', 'Gate & Fencing', 'CCTV & Security',
-  'Epoxy Flooring', 'Parquet / Laminate Flooring', 'Partition Walls',
-  'Water Tank Installation', 'Kitchen Cabinets', 'Concrete & Masonry',
-  'Vinyl Flooring', 'Swimming Pool Construction', 'Smart Home / Automation',
-  'Paving & Driveways', 'Pergola & Shade Structures',
-  'Other',
-]
-
 const RATING_LABELS = { 5: 'ඉතා හොඳ', 4: 'හොඳ', 3: 'සාධාරණ', 2: 'යෝග්‍ය', 1: 'දුර්වල' }
 const RATING_COLORS = { 5: '#2F6B4F', 4: '#2F6B4F', 3: '#C2542B', 2: '#ea580c', 1: '#C0392B' }
 
@@ -51,151 +34,12 @@ function Stars({ rating, size = 13 }) {
   )
 }
 
-// ─── Interactive star picker ────────────────────────────────────────────────────
-function StarPicker({ value, onChange }) {
-  const [hovered, setHovered] = useState(0)
-  const active = hovered || value
-  return (
-    <div>
-      <div style={{ display: 'flex', gap: 6, alignItems: 'center', marginBottom: 6 }}>
-        {sinhalaText([1,2,3,4,5].map(n => (
-          <span
-            key={n}
-            onMouseEnter={() => setHovered(n)}
-            onMouseLeave={() => setHovered(0)}
-            onClick={() => onChange(n)}
-            style={{ fontSize: 36, cursor: 'pointer', color: n <= active ? '#f59e0b' : '#E4E0D9', transition: 'color 0.1s, transform 0.1s', transform: hovered === n ? 'scale(1.2)' : 'scale(1)', userSelect: 'none', lineHeight: 1 }}
-          >★</span>
-        )))}
-        {sinhalaText(active > 0 && (
-          <span style={{ fontSize: 13, fontWeight: 700, color: RATING_COLORS[active], marginLeft: 6 }}>
-            {sinhalaText(RATING_LABELS[active])}
-          </span>
-        ))}
-      </div>
-    </div>
-  )
-}
-
 // ─── Review form ───────────────────────────────────────────────────────────────
-function ReviewForm({ tilerId, providerId, onSubmitted }) {
-  const [form, setForm] = useState({ reviewer_name: '', rating: 0, job_type: '', comment: '' })
-  const [loading, setLoading] = useState(false)
-  const [error, setError]     = useState('')
-
-  function set(k, v) { setForm(f => ({ ...f, [k]: v })) }
-
-  async function submit(e) {
-    e.preventDefault()
-    if (!form.rating)                           { setError(sinhalaText('ශ්‍රේණිගත කිරීම තෝරන්න')); return }
-    if (!form.reviewer_name.trim())             { setError(sinhalaText('ඔබේ නම ඇතුළු කරන්න')); return }
-    if (!form.job_type)                         { setError(sinhalaText('කාර්ය වර්ගය තෝරන්න')); return }
-    if (form.comment.trim().length < 20)        { setError(sinhalaText('සමාලෝචනය අවම වශයෙන් අකුරු 20ක් විය යුතුය')); return }
-    // One review per provider per browser
-    const guardKey = `th_reviewed_${providerId || tilerId}`
-    if (localStorage.getItem(guardKey)) { setError(sinhalaText('ඔබ දැනටමත් මෙම ශිල්පියා සමාලෝචනය කර ඇත')); return }
-    setLoading(true); setError(sinhalaText(''))
-    const payload = {
-      reviewer_name: form.reviewer_name.trim(),
-      rating:        form.rating,
-      job_type:      form.job_type,
-      comment:       form.comment.trim(),
-    }
-    if (tilerId)    payload.tiler_id    = tilerId
-    if (providerId) payload.provider_id = providerId
-    const { error: err } = await supabase.from('reviews').insert(payload)
-    setLoading(false)
-    if (err) { setError(sinhalaText(err.message || 'ඉදිරිපත් කිරීම අසාර්ථකයි — නැවත උත්සාහ කරන්න.')); return }
-    try { localStorage.setItem(guardKey, '1') } catch {}
-    onSubmitted()
-  }
-
-  const inp = {
-    width: '100%', padding: '10px 14px', border: '1.5px solid #E4E0D9',
-    borderRadius: 10, fontSize: 13, fontFamily: 'inherit', outline: 'none',
-    boxSizing: 'border-box', background: '#fff',
-  }
-  const labelStyle = {
-    display: 'block', fontSize: 11, fontWeight: 700, color: '#6B7076',
-    textTransform: 'uppercase', letterSpacing: 0.8, marginBottom: 6,
-  }
-  const charCount = form.comment.length
-  const charOk    = charCount >= 20
-
-  return (
-    <form onSubmit={submit} style={{ display: 'flex', flexDirection: 'column', gap: 16, background: '#FBFAF8', borderRadius: 14, padding: '20px 18px', border: '1.5px solid #E4E0D9' }}>
-      <div style={{ fontSize: 15, fontWeight: 700, color: '#14171A' }}>සමාලෝචනයක් ලියන්න</div>
-
-      {/* Stars */}
-      <div>
-        <label style={labelStyle}>ඔබේ ශ්‍රේණිය *</label>
-        <StarPicker value={form.rating} onChange={v => set('rating', v)} />
-      </div>
-
-      {/* Name + Job type */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-        <div>
-          <label style={labelStyle}>ඔබේ නම *</label>
-          <input
-            value={form.reviewer_name}
-            onChange={e => set('reviewer_name', e.target.value)}
-            placeholder="නිදසුන: නිමල් සිල්වා"
-            maxLength={60}
-            style={inp}
-            onFocus={e => e.target.style.borderColor = '#C2542B'}
-            onBlur={e  => e.target.style.borderColor = '#E4E0D9'}
-          />
-        </div>
-        <div>
-          <label style={labelStyle}>කාර්ය වර්ගය *</label>
-          <select
-            value={form.job_type}
-            onChange={e => set('job_type', e.target.value)}
-            style={{ ...inp, cursor: 'pointer' }}
-            onFocus={e => e.target.style.borderColor = '#C2542B'}
-            onBlur={e  => e.target.style.borderColor = '#E4E0D9'}
-          >
-            <option value="">තෝරන්න…</option>
-            {sinhalaText(JOB_TYPES.map(t => <option key={t} value={t}>{sinhalaText(t)}</option>))}
-          </select>
-        </div>
-      </div>
-
-      {/* Comment */}
-      <div>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 6 }}>
-          <label style={labelStyle}>ඔබේ සමාලෝචනය *</label>
-          <span style={{ fontSize: 10, color: charOk ? '#2F6B4F' : '#8A8F95' }}>{sinhalaText(charCount)}/500</span>
-        </div>
-        <textarea
-          value={form.comment}
-          onChange={e => set('comment', e.target.value.slice(0, 500))}
-          placeholder="කාර්යයේ ගුණාත්මකභාවය, කාලානුරූපභාවය, පිරිසිදුකම සහ මුදල් වටිනාකම ගැන ලියන්න"
-          rows={4}
-          style={{ ...inp, resize: 'vertical', lineHeight: 1.65 }}
-          onFocus={e => e.target.style.borderColor = '#C2542B'}
-          onBlur={e  => e.target.style.borderColor = '#E4E0D9'}
-        />
-        {sinhalaText(charCount > 0 && !charOk && (
-          <div style={{ fontSize: 10, color: '#8A8F95', marginTop: 4 }}>තවත් අකුරු {sinhalaText(20 - charCount)}ක් අවශ්‍යයි</div>
-        ))}
-      </div>
-
-      {sinhalaText(error && (
-        <div style={{ fontSize: 12, color: '#C0392B', background: '#FBEDEB', border: '1px solid #F2C9C3', borderRadius: 8, padding: '8px 12px' }}>
-          ⚠ {sinhalaText(error)}
-        </div>
-      ))}
-
-      <button
-        type="submit"
-        disabled={loading}
-        style={{ padding: '12px', background: loading ? '#8A8F95' : '#C2542B', color: '#fff', border: 'none', borderRadius: 10, fontSize: 13, fontWeight: 700, cursor: loading ? 'not-allowed' : 'pointer', transition: 'background 0.15s' }}
-      >
-        {sinhalaText(loading ? '⏳ ඉදිරිපත් කෙරෙමින්…' : '⭐ සමාලෝචනය ඉදිරිපත් කරන්න')}
-      </button>
-    </form>
-  )
+function ReviewForm() {
+  return <div style={{ padding: 20, background: '#FBFAF8', borderRadius: 12 }}>
+    <p>Reviews are linked to a job with this provider. Open your job to write or edit your review.</p>
+    <a href="/my-jobs" style={{ color: '#C2542B', fontWeight: 700 }}>My jobs &amp; reviews →</a>
+  </div>
 }
 
 // ─── Single review card ─────────────────────────────────────────────────────────
@@ -229,6 +73,8 @@ function ReviewCard({ r }) {
           <span style={{ fontSize: 10, color: '#8A8F95' }}>{sinhalaText(timeAgo(r.created_at))}</span>
         </div>
       </div>
+      {r.confirmed_job && <p style={{ fontSize: 12, color: '#2F6B4F' }}>✓ Review from a confirmed job</p>}
+      {r.provider_reply && <blockquote style={{ fontSize: 13, borderLeft: '3px solid #C2542B', paddingLeft: 12 }}><strong>Provider reply</strong><p>{r.provider_reply}</p></blockquote>}
       {sinhalaText(r.comment && (
         <p style={{ fontSize: 13, color: '#3A4046', lineHeight: 1.7, margin: 0, paddingTop: 8, borderTop: '1px solid #EFEBE4' }}>
           {sinhalaText(r.comment)}

@@ -92,6 +92,17 @@ export default function Notifications() {
         }
       }
 
+      try {
+        const response = await fetch('/api/jobs')
+        if (response.ok) {
+          const { jobs } = await response.json()
+          const updates = jobs.filter(j => j.data.events?.at(-1)?.role !== (j.customer_id === u.id ? 'customer' : 'provider')).slice(0, 20).map(j => ({
+            id: `job-${j.id}`, icon: '🤝', iconBg: '#E9F1EC', title: `Job update: ${j.data.title}`,
+            subtitle: j.data.status.replaceAll('_', ' '), time: j.updated_at, href: '/my-jobs', cta: 'Open job', ctaBg: '#C2542B',
+          }))
+          setItems(previous => [...updates, ...previous].sort((a, b) => new Date(b.time) - new Date(a.time)))
+        }
+      } catch { /* Existing notifications remain available when job management is offline. */ }
       setState('ready')
     }
     load()
