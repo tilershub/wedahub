@@ -23,7 +23,7 @@ Anonymous new projects remain private until sign-in. DraftLinker sends its rando
 
 ## Deployment order
 
-1. Back up the database and apply `supabase/migrations/20260920083051_job_confirmed_reviews.sql` to the WEDAHUB project `ginrgwaciblcvxvkbeyd`. Use the existing project migration process; this repository did not previously contain a full schema baseline. Do not blindly run `db push` against unrelated migration history.
+1. Back up the database and apply `supabase/migrations/20260920085146_job_confirmed_reviews.sql` to the WEDAHUB project `ginrgwaciblcvxvkbeyd`. Use the existing project migration process; this repository did not previously contain a full schema baseline. Do not blindly run `db push` against unrelated migration history.
 2. Configure the Cloudflare Worker secret `SUPABASE_SERVICE_ROLE_KEY` for that same project. It must never have a PUBLIC_ prefix or be exposed to browser code. The API returns 503 when missing.
 3. Deploy the application immediately after the migration. During the brief transition, old direct review and draft-claim writes are intentionally denied.
 4. Confirm Supabase phone authentication works with the approved Text.lk sender before onboarding users. This workflow requires `phone_confirmed_at` for participant changes. Administrators must exist in the existing `admin_users` system.

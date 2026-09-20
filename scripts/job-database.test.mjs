@@ -8,7 +8,7 @@ test('migration permissions, atomic projections, consent and concurrency in Post
   const db = new PGlite()
   try {
     await db.exec(await readFile(new URL('./fixtures/job-schema.sql', import.meta.url), 'utf8'))
-    await db.exec(await readFile(new URL('../supabase/migrations/20260920083051_job_confirmed_reviews.sql', import.meta.url), 'utf8'))
+    await db.exec(await readFile(new URL('../supabase/migrations/20260920085146_job_confirmed_reviews.sql', import.meta.url), 'utf8'))
     await db.query('insert into auth.users values ($1),($2),($3)',[C,P,X])
     await db.query("insert into projects(id,user_id,status) values($1,$2,'active')",[PROJECT,C])
     await db.query("insert into providers(id,user_id,status,claim_status) values($1,$2,'active','claimed')",[PROVIDER,P])
