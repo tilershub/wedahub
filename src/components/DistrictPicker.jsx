@@ -41,7 +41,7 @@ export default function DistrictPicker({ tone = 'light' }) {
             <div style={{ width: 36, height: 4, background: 'var(--border-dark)', borderRadius: 4, margin: '0 auto 16px' }} />
             <h2 style={{ fontSize: 17, fontWeight: 800, color: 'var(--text)', margin: '0 0 4px' }}>ඔබ සිටින්නේ කොහේද?</h2>
             <p style={{ fontSize: 13, color: 'var(--text-3)', margin: '0 0 16px' }}>
-              ඔබ අසල ටයිල් කාර්මිකයන් සහ වෙළෙඳසැල් පෙන්වන්නෙමු.
+              ඔබ අසල සේවා සපයන්නන් පෙන්වන්නෙමු.
             </p>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill,minmax(140px,1fr))', gap: 8 }}>
               {sinhalaText(DISTRICT_INFO.map(d => {
