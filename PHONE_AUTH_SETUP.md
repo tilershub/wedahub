@@ -10,21 +10,29 @@ The client provides a 60-second resend countdown; server limits must also be set
 
 ## Configure before releasing this change
 
-1. Open the existing WedaHUB Supabase project `ginrgwaciblcvxvkbeyd`. The connected
-   account used during development did not expose this project, so its schema,
-   triggers, Auth settings and production login were not inspected or changed.
-   Check that new-user triggers support a null/empty email, and that ownership
-   policies rely on auth.uid(). Run Supabase database advisors. Test a phone-only
-   signup against the real schema before release.
-2. In Text.lk, obtain an API key, SMS credit and an approved production Sender ID
+1. Open WedaHUB project `ginrgwaciblcvxvkbeyd` under TILERSHUB.
+   Live read-only check on 21 September 2026 found `external.phone = false`:
+   phone authentication is disabled. The SMS handler is deployed, but credentials,
+   hook activation and real SMS delivery have not been verified.
+2. Log in to https://app.text.lk and open Developers in the left menu. Copy the
+   displayed API Token (the API key). Do not regenerate it if other integrations use it.
+   Confirm SMS credit and an approved production Sender ID
    (request WedaHUB or use the exact approved name). TextLKDemo cannot be used
    for production OTP messages.
-3. Add Cloudflare Worker secrets TEXTLK_API_KEY, TEXTLK_SENDER_ID and
+3. Open Cloudflare > Workers & Pages > wedahub > Settings > Variables and Secrets.
+   Select Add, choose Secret and add TEXTLK_API_KEY, TEXTLK_SENDER_ID and
    SUPABASE_SEND_SMS_HOOK_SECRET using the dashboard's encrypted secret fields.
+   TEXTLK_API_KEY is the token alone, without a Bearer prefix. TEXTLK_SENDER_ID
+   is the exact approved sender, for example WEDAHUB if that is the approved spelling.
+   Select Deploy after saving the secrets. Use runtime secrets, not build variables.
    Do not place secrets in GitHub, client code, public build variables or chat.
-4. Enable the Phone provider in Supabase Auth and configure the Send SMS HTTP
+4. In Supabase Authentication > Auth Hooks, create/enable a Send SMS HTTPS hook.
+   Configure the Send SMS HTTP
    hook URL as `https://wedahub.lk/api/auth/send-sms`. Generate the hook signing
    secret in Supabase and save the matching full value in the Worker secret.
+   After the Worker is configured, enable Phone under Authentication > Sign In /
+   Providers. Text.lk is connected through the hook, not the Textlocal provider.
+   Never fill a different provider with fake credentials.
    The handler accepts `v1,whsec_...`, `whsec_...` or the base64 signing key.
    It verifies Standard Webhooks v1 signatures and a five-minute timestamp
    tolerance before sending to Text.lk. It does not store or log OTPs.
@@ -69,6 +77,7 @@ and the repository's Worker checks. Unit tests mock delivery; they do not prove
 Text.lk credentials, delivery or the live database configuration.
 
 References:
+- https://text.lk/docs/textlk-api-key/
 - https://text.lk/docs/send-sms/
 - https://text.lk/docs/ (production Sender ID requirements)
 - https://supabase.com/docs/guides/auth/phone-login

@@ -1,24 +1,20 @@
-/* ═══ DESIGN TOKENS ═══
-   Terracotta on cream. Two background tones, one action colour; everything
-   else is ink and warm grey. The --navy-* names are historical — they carry
-   ink values now, and are kept so the 24 components reading them don't need
-   touching. */
+/* WedaHUB: navy, off-white, sand gold and deep ink. */
 :root {
   /* Ink — headings, dark UI, hero/footer. Colour is for actions, not chrome. */
-  --navy: #071827;        /* ink */
+  --navy: #0B2A4A;        /* ink */
   --navy-light: #0B2A4A;  /* ink-soft — gradient partner */
   --navy-dark: #071827;   /* ink — hero / footer */
   --navy-50: #F7F3E8;     /* cream */
   --navy-100: #EAE4D7;
 
   /* Star ratings only — the one place gold still means something */
-  --gold: #F59E0B;
-  --gold-light: #FCD34D;
-  --gold-dark: #D97706;
+  --gold: #D6BE84;
+  --gold-light: #E4D3AA;
+  --gold-dark: #8C6C26;
   --gold-50: #FFFBEB;
   --gold-100: #FEF3C7;
 
-  /* Action — terracotta. White text on --terra is 4.7:1 ✓ */
+  /* Legacy action token names retain the navy brand palette. */
   --terra: #0B2A4A;
   --terra-light: #071827; /* deep — hover */
   --terra-lift: #D6BE84;  /* lift — on dark backgrounds */
@@ -28,7 +24,7 @@
      both below: Archivo has no Sinhala coverage and would fall back mid-word. */
   --th-display: 'Archivo', 'Noto Sans Sinhala', system-ui, sans-serif;
   --th-body: 'Instrument Sans', 'Noto Sans Sinhala', system-ui, sans-serif;
-  --th-saffron: #F7C948;
+  --th-saffron: #D6BE84;
   --th-forest: #2F6B4F;
   --th-cream-2: #EAE4D7;
   --th-tabbar-h: 68px;
@@ -74,7 +70,7 @@
   --cream-dark: #EAE4D7;
   --sage: #2F6B4F;
   --clay: #a0826d;
-  --gold-legacy: #F7C948;
+  --gold-legacy: #D6BE84;
   --white: #FFFFFF;
   --text-dark: #071827;
   --text-mid: #3A4046;
