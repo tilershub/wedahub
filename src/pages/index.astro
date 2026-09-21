@@ -3,7 +3,7 @@ export const prerender = false
 import Layout from '../layouts/Layout.astro'
 import ServiceHome from '../components/ServiceHome.jsx'
 const user = Astro.locals.user
-const { data: provider } = user ? await Astro.locals.supabase.from('providers').select('id,name').eq('user_id', user.id).maybeSingle() : { data: null }
+const provider = (await Astro.locals.accountRole()) === 'provider'
 Astro.response.headers.set('Cache-Control', 'private, no-store')
 ---
 <Layout title="වැඩHUB · People • Skills • Opportunities" description="Find service providers across Sri Lanka. Home repairs, cleaning, tutoring, digital services, transport, events and more. Post a job or offer your skills.">

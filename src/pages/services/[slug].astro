@@ -3,7 +3,8 @@ import Layout from '../../layouts/Layout.astro'
 import PageIntro from '../../components/PageIntro.astro'
 import ProviderDirectory from '../../components/ProviderDirectory.jsx'
 import { SERVICES } from '../../lib/services.js'
+const provider = await Astro.locals.accountRole() === 'provider'
 const service = SERVICES.find(s => s.slug === Astro.params.slug)
 if (!service) return Astro.rewrite('/404')
 ---
-<Layout title={`${service.si || service.label} · වැඩHUB`} description={`Find ${service.label.toLowerCase()} providers across Sri Lanka. Compare profiles and job reviews.`}><div class="wh-container"><PageIntro title={service.si || service.label} subtitle="පැතිකඩ සහ සමාලෝචන සසඳා සෘජුව සම්බන්ධ වන්න." action="වැඩයක් පළ කරන්න" href={`/post-project?type=${encodeURIComponent(service.label)}`}/><ProviderDirectory client:load initialSearch={service.terms[0]} /></div></Layout>
+<Layout title={`${service.si || service.label} · වැඩHUB`} description={`Find ${service.label.toLowerCase()} providers across Sri Lanka. Compare profiles and job reviews.`}><div class="wh-container"><PageIntro title={service.si || service.label} subtitle="පැතිකඩ සහ සමාලෝචන සසඳා සෘජුව සම්බන්ධ වන්න." action={provider ? undefined : 'වැඩක් පළ කරන්න'} href={`/post-project?type=${encodeURIComponent(service.label)}`}/><ProviderDirectory client:load initialSearch={service.terms[0]} /></div></Layout>

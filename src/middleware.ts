@@ -1,5 +1,6 @@
 import { migrationRedirect } from './lib/migration.js'
 import { defineMiddleware } from 'astro:middleware'
+import { accountRole } from './lib/account-role.js'
 import { createSupabaseServerClient } from './lib/supabase.server'
 
 export const onRequest = defineMiddleware(async (context, next) => {
@@ -11,5 +12,9 @@ export const onRequest = defineMiddleware(async (context, next) => {
   const { data: { user } } = await supabase.auth.getUser()
   context.locals.supabase = supabase
   context.locals.user = user
-  return next()
+  context.locals.accountRole = () => rolePromise ||= accountRole(supabase, user)
+  let rolePromise
+  const response = await next()
+  if (user) response.headers.set('Cache-Control', 'private, no-store')
+  return response
 })

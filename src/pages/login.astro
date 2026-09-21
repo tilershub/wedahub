@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro'
 import AuthButton from '../components/AuthButton.jsx'
+const provider = await Astro.locals.accountRole() === 'provider'
 ---
 
 <Layout
@@ -13,11 +14,11 @@ import AuthButton from '../components/AuthButton.jsx'
 
       <div style="margin-bottom:28px;">
         <div style="font-family: var(--th-display);font-size:26px;font-weight:700;color:var(--text);margin-bottom:8px;">
-          <span class="si-text"><span style="color:var(--terra);">වැඩHUB</span> සාදරයෙන් පිළිගනිමු</span>
+          <span class="si-text"><span style="color:var(--terra);">වැඩHUB</span> වෙත සාදරයෙන් පිළිගනිමු</span>
           <span class="en-text">සාදරයෙන් පිළිගනිමු <span style="color:var(--terra);">වැඩHUB</span></span>
         </div>
         <p style="font-size:14px;color:var(--text-3);line-height:1.7;">
-          <span class="si-text">ඔබේ ව්‍යාපෘති සොයා ගැනීමට සහ පැතිකඩ කළමනාකරණය සඳහා ලොගින් වන්න.</span>
+          <span class="si-text">ඔබේ වැඩ සහ සේවා පැතිකඩ කළමනාකරණය කිරීමට පිවිසෙන්න.</span>
           <span class="en-text">ඔබේ ව්‍යාපෘති සහ පැතිකඩ කළමනාකරණයට පිවිසෙන්න.</span>
         </p>
       </div>
@@ -35,7 +36,7 @@ import AuthButton from '../components/AuthButton.jsx'
       </p>
 
       <div style="margin-top:28px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
-        <a href="/post-project" class="btn btn-terra">📋 <span class="si-text">ව්‍යාපෘතිය පලකරන්න</span><span class="en-text">ව්‍යාපෘතියක් පළ කරන්න</span></a>
+        <a href={provider ? '/jobs' : '/post-project'} class="btn btn-terra">{provider ? 'වැඩ සොයන්න' : 'වැඩක් පළ කරන්න'}</a>
         <a href="/providers" class="btn btn-outline">👷 <span class="si-text">සේවා සොයන්න</span><span class="en-text">සේවා සපයන්නන් සොයන්න</span></a>
       </div>
     </div>

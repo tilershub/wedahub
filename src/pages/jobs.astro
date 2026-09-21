@@ -3,4 +3,4 @@ import Layout from '../layouts/Layout.astro'
 import PageIntro from '../components/PageIntro.astro'
 import JobsBoard from '../components/JobsBoard.jsx'
 ---
-<Layout title="වැඩ සහ අවස්ථා සොයන්න · වැඩHUB" description="Find service requests across Sri Lanka: repairs, cleaning, tutoring, transport, digital work and more."><div class="wh-container"><PageIntro title="ඔබේ ඊළඟ වැඩය." subtitle="ඔබේ හැකියාවට සහ ප්‍රදේශයට ගැළපෙන අවස්ථා සොයන්න." action="වැඩයක් පළ කරන්න" href="/post-project"/><JobsBoard client:load initialQuery={Astro.url.searchParams.get('q') || ''}/></div></Layout>
+<Layout title="වැඩ සහ අවස්ථා සොයන්න · වැඩHUB" description="ශ්‍රී ලංකාව පුරා පළ කර ඇති සේවා ඉල්ලීම් සහ වැඩ අවස්ථා සොයන්න."><div class="wh-container"><PageIntro title="ඔබේ ඊළඟ වැඩය." subtitle="ඔබේ හැකියාවට සහ ප්‍රදේශයට ගැළපෙන අවස්ථා සොයන්න."/><JobsBoard client:load initialQuery={Astro.url.searchParams.get('q') || ''}/></div></Layout>

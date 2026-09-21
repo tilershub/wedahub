@@ -12,7 +12,7 @@ const T = {
     // Phone sign-in screen
     gateTitle: 'සේවා සපයන්නෙකු ලෙස එකතු වන්න',
     gateSub: 'ආරම්භ කිරීමට දුරකථන අංකයෙන් පිවිසෙන්න — ආරක්ෂිතයි, නොමිලේ, මුරපද අවශ්‍ය නැත.',
-    gateSteps: ['1️⃣ දුරකථනයෙන් පිවිසෙන්න', '2️⃣ ඔබේ විස්තර පුරවන්න', '3️⃣ admin අනුමැතියෙන් ලැයිස්තුගත වන්න'],
+    gateSteps: ['1️⃣ දුරකථනයෙන් පිවිසෙන්න', '2️⃣ ඔබේ විස්තර පුරවන්න', '3️⃣ පරීක්ෂාවෙන් පසු ලැයිස්තුගත වන්න'],
     // Registration form
     pickTitle: 'ඔබේ වෘත්තිය / සේවාව තෝරන්න',
     pickSub: 'ඔබව හොඳින්ම විස්තර කරන්නේ කුමක්ද?',
@@ -28,8 +28,8 @@ const T = {
     submitting: '⏳ ඉදිරිපත් කරමින්...',
     // Pending screen
     pendingTitle: 'අයදුම්පත ලැබුණි! 🎉',
-    pendingBody: 'ඔබේ ලියාපදිංචිය admin විසින් සමාලෝචනය කරයි. අනුමත වූ පසු ඔබ වැඩHUB හි ලැයිස්තුගත වේ — ඔබේ ගිණුමෙන් තත්ත්වය බලන්න.',
-    goDashboard: 'මගේ Dashboard →',
+    pendingBody: 'ඔබේ ලියාපදිංචිය අපගේ කණ්ඩායම පරීක්ෂා කරයි. අනුමත වූ පසු ඔබ වැඩHUB හි ලැයිස්තුගත වේ — ඔබේ ගිණුමෙන් තත්ත්වය බලන්න.',
+    goDashboard: 'මගේ ගිණුම →',
     signedInAs: 'පිවිසී ඇත:',
   },
   en: {
@@ -157,7 +157,7 @@ export default function JoinForm({ initialUser = null }) {
         <div style={{ fontSize: 56, marginBottom: 16 }}>🎉</div>
         <h2 style={{ fontFamily: "var(--th-display)", fontSize: 24, fontWeight: 700, color: '#071827', marginBottom: 12 }}>{sinhalaText(t.pendingTitle)}</h2>
         <p style={{ fontSize: 14, color: '#6B7076', lineHeight: 1.8, maxWidth: 400, margin: '0 auto 24px' }}>{sinhalaText(t.pendingBody)}</p>
-        <a href="/provider" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: '#0B2A4A', color: '#fff', borderRadius: 12, padding: '12px 24px', fontSize: 14, fontWeight: 700, textDecoration: 'none' }}>
+        <a href="/account" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: '#0B2A4A', color: '#fff', borderRadius: 12, padding: '12px 24px', fontSize: 14, fontWeight: 700, textDecoration: 'none' }}>
           {sinhalaText(t.goDashboard)}
         </a>
       </div>
@@ -232,10 +232,10 @@ export default function JoinForm({ initialUser = null }) {
           placeholder={sinhalaText(t.namePh)} style={inputStyle(!!errors.name)} />
       </Field>
 
-      <Field label="ඔබ සපයන සේවාව / Your service" id="service" req error={errors.service}>
+      <Field label="ඔබ සපයන සේවාව" id="service" req error={errors.service}>
         <input id="service" value={form.service} maxLength={160} onChange={e => set('service', e.target.value)} placeholder="උදා: ගණිත පන්ති, නිවාස පිරිසිදු කිරීම…" style={inputStyle(!!errors.service)} />
       </Field>
-      <Field label="දිස්ත්‍රික්කය / District" id="district" req error={errors.district}>
+      <Field label="දිස්ත්‍රික්කය" id="district" req error={errors.district}>
         <select id="district" value={form.district} onChange={e => set('district', e.target.value)} style={inputStyle(!!errors.district)}><option value="">තෝරන්න…</option>{DISTRICTS_EN.map(d => <option key={d} value={d}>{sinhalaText(d)}</option>)}</select>
       </Field>
       <Field label={t.city} id="city" req error={errors.city}>

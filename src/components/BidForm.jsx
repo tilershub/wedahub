@@ -23,14 +23,14 @@ function BidSuccess({ projectType, city, updated }) {
         {sinhalaText(updated ? 'Quote Updated!' : 'Quote Sent!')}
       </h3>
       <p style={{ fontSize: 14, color: '#3A4046', lineHeight: 1.75, maxWidth: 380, margin: '0 auto 24px' }}>
-        ඔබේ මිල ගණන: <strong>{sinhalaText(projectType)}</strong> in <strong>{sinhalaText(city)}</strong> දැන් {sinhalaText(updated ? 'updated' : 'received')}. නිවාස හිමියා ඔබව තෝරාගතහොත් WhatsApp හරහා සෘජුවම සම්බන්ධ වනු ඇත.
+        <strong>{sinhalaText(city)}</strong> ප්‍රදේශයේ <strong>{sinhalaText(projectType)}</strong> වැඩය සඳහා ඔබේ මිල ගණන {updated ? 'යාවත්කාලීන කර ඇත' : 'ලැබී ඇත'}. පාරිභෝගිකයා ඔබව තෝරාගතහොත් WhatsApp හරහා සෘජුව සම්බන්ධ වනු ඇත.
       </p>
       <div style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap' }}>
         <a href="/jobs" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 700, color: '#0B2A4A', textDecoration: 'none', background: '#F7F3E8', border: '1.5px solid #0B2A4A22', borderRadius: 10, padding: '11px 20px' }}>
-          ← තවත් ව්‍යාපෘති බලන්න
+          ← තවත් වැඩ බලන්න
         </a>
-        <a href="/providers" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 700, color: '#fff', textDecoration: 'none', background: '#0B2A4A', borderRadius: 10, padding: '11px 20px' }}>
-          ✅ ඔබේ පැතිකඩ සාදන්න
+        <a href="/account?tab=profile" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 13, fontWeight: 700, color: '#fff', textDecoration: 'none', background: '#0B2A4A', borderRadius: 10, padding: '11px 20px' }}>
+          ✅ මගේ පැතිකඩ බලන්න
         </a>
       </div>
     </div>
@@ -92,10 +92,10 @@ export default function BidForm({ jobId, bidCount = 0, projectType = '', city = 
 
   async function submit(e) {
     e.preventDefault()
-    if (!user) { setError(sinhalaText('Please sign in to send a quote')); return }
-    if (!form.name.trim()) { setError(sinhalaText('Please enter your name')); return }
-    if (!form.whatsapp.trim()) { setError(sinhalaText('Please enter your WhatsApp number')); return }
-    if (form.message.trim().length < 20) { setError(sinhalaText('Please write at least 20 characters describing your offer')); return }
+    if (!user) { setError('මිල ගණනක් යැවීමට පිවිසෙන්න.'); return }
+    if (!form.name.trim()) { setError('ඔබේ නම ඇතුළත් කරන්න.'); return }
+    if (!form.whatsapp.trim()) { setError('ඔබේ WhatsApp අංකය ඇතුළත් කරන්න.'); return }
+    if (form.message.trim().length < 20) { setError('ඔබේ යෝජනාව අවම වශයෙන් අකුරු 20කින් විස්තර කරන්න.'); return }
     setLoading(true)
     setError(sinhalaText(''))
     const payload = {
@@ -114,9 +114,9 @@ export default function BidForm({ jobId, bidCount = 0, projectType = '', city = 
     setLoading(false)
     if (err) {
       // The partial unique index is the backstop if two tabs race.
-      setError(sinhalaText(/duplicate key|unique/i.test(err.message || '')
-        ? 'You already have a quote on this job — reload the page to edit it.'
-        : (err.message || 'Failed to submit. Please try again.')))
+      setError(/duplicate key|unique/i.test(err.message || '')
+        ? 'මෙම වැඩයට ඔබ දැනටමත් මිල ගණනක් යවා ඇත. එය වෙනස් කිරීමට පිටුව නැවත පූරණය කරන්න.'
+        : 'මිල ගණන යැවීමට නොහැකි විය. නැවත උත්සාහ කරන්න.')
       return
     }
     setSubmitted(true)
@@ -161,7 +161,7 @@ export default function BidForm({ jobId, bidCount = 0, projectType = '', city = 
         <div style={{ background: '#F7F3E8', border: '1px solid #EAE4D7', borderRadius: 10, padding: '10px 14px', display: 'flex', alignItems: 'center', gap: 8 }}>
           <span style={{ fontSize: 16 }}>⚡</span>
           <span style={{ fontSize: 12, color: '#0B2A4A', fontWeight: 600 }}>
-            {sinhalaText(bidCount)} සේවා සපයන්නා{sinhalaText(bidCount !== 1 ? 's' : '')} දැනටමත් ඉදිරිපත් කර ඇත {sinhalaText(bidCount !== 1 ? 'bids' : 'a bid')} — පැහැදිලි යෝජනාවකින් ඔබේ විශේෂත්වය පෙන්වන්න!
+            සේවා සපයන්නන්ගෙන් මිල ගණන් {sinhalaText(bidCount)}ක් දැනටමත් ලැබී ඇත — පැහැදිලි යෝජනාවකින් ඔබේ විශේෂත්වය පෙන්වන්න.
           </span>
         </div>
       ))}
@@ -203,7 +203,7 @@ export default function BidForm({ jobId, bidCount = 0, projectType = '', city = 
           <label style={labelStyle}>ඔබේ මිල ගණන <span style={{ color: '#8A8F95', fontWeight: 400, textTransform: 'none' }}>(අත්‍යවශ්‍ය නොවේ)</span></label>
           <div style={{ position: 'relative' }}>
             <span style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', fontSize: 12, fontWeight: 600, color: '#6B7076' }}>රු.</span>
-            <input type="number" value={form.quote_amount} onChange={e => set('quote_amount', e.target.value)} placeholder="e.g. 85000" style={inp({ paddingLeft: 38 })} />
+            <input type="number" value={form.quote_amount} onChange={e => set('quote_amount', e.target.value)} placeholder="උදා: 85000" style={inp({ paddingLeft: 38 })} />
           </div>
         </div>
         <div>
@@ -236,14 +236,14 @@ export default function BidForm({ jobId, bidCount = 0, projectType = '', city = 
 
       <button type="submit" disabled={loading}
         style={{ padding: '15px', background: loading ? '#8A8F95' : 'linear-gradient(135deg,#0B2A4A,#0B2A4A)', color: '#fff', border: 'none', borderRadius: 12, fontSize: 15, fontWeight: 700, cursor: loading ? 'not-allowed' : 'pointer', boxShadow: loading ? 'none' : '0 4px 14px rgba(11,42,74,0.3)', transition: 'all 0.2s' }}>
-        {sinhalaText(loading ? (existingId ? '⏳ Updating…' : '⏳ Sending…') : (existingId ? '💾 Update My Quote' : '📨 Send My Quote'))}
+        {loading ? (existingId ? '⏳ යාවත්කාලීන කරමින්…' : '⏳ යවමින්…') : (existingId ? '💾 මගේ මිල ගණන යාවත්කාලීන කරන්න' : '📨 මගේ මිල ගණන යවන්න')}
       </button>
 
       {/* Trust strip */}
       <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
-        {sinhalaText(['✏️ Editable any time', '💬 Homeowner contacts you via WhatsApp', '🚫 No commission'].map(t => (
-          <span key={t} style={{ fontSize: 11, color: '#6B7076', fontWeight: 500 }}>{sinhalaText(t)}</span>
-        )))}
+        {['✏️ ඕනෑම වේලාවක වෙනස් කළ හැකිය', '💬 පාරිභෝගිකයා WhatsApp හරහා අමතයි', '🚫 කොමිස් නැත'].map(t => (
+          <span key={t} style={{ fontSize: 11, color: '#6B7076', fontWeight: 500 }}>{t}</span>
+        ))}
       </div>
     </form>
   )

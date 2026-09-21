@@ -2,6 +2,7 @@ import { si as sinhalaText } from '../lib/sinhala.js'
 import { useState, useEffect } from 'react'
 import { supabase, getUser } from '../lib/supabase.js'
 import { jobPath } from '../lib/jobs.js'
+import { accountRole } from '../lib/account-role.js'
 
 function timeAgo(ts) {
   const diff = Math.floor((Date.now() - new Date(ts)) / 1000)
@@ -34,7 +35,7 @@ export default function Notifications() {
         supabase.from('providers').select('id,name').eq('user_id', u.id).maybeSingle(),
       ])
 
-      if (t || p) {
+      if (t || p || await accountRole(supabase, u) === 'provider') {
         // Provider: show recent active projects as job alerts
         setRole('provider')
         const { data: projects } = await supabase
@@ -48,11 +49,11 @@ export default function Notifications() {
           id: proj.id,
           icon: TYPE_ICONS[proj.project_type] || '🏗️',
           iconBg: '#F7F3E8',
-          title: `New project: ${proj.project_type}`,
+          title: `අලුත් වැඩක්: ${proj.project_type}`,
           subtitle: `${proj.city}${proj.district && proj.district !== proj.city ? `, ${proj.district}` : ''}${proj.budget_range ? ` · ${proj.budget_range}` : ''}`,
           time: proj.created_at,
           href: jobPath(proj),
-          cta: 'Bid →',
+          cta: 'මිල දෙන්න →',
           ctaBg: '#0B2A4A',
         })))
       } else {
@@ -81,11 +82,11 @@ export default function Notifications() {
               id: b.id,
               icon: '💬',
               iconBg: '#E9F1EC',
-              title: `New bid on your ${proj.project_type || 'project'}`,
+              title: `ඔබේ ${proj.project_type || 'වැඩය'} සඳහා අලුත් මිල ගණනක්`,
               subtitle: `${b.bidder_name}${b.bidder_type ? ` (${b.bidder_type})` : ''}${quote}`,
               time: b.created_at,
-              href: '/dashboard',
-              cta: 'View',
+              href: '/account',
+              cta: 'බලන්න',
               ctaBg: '#0B2A4A',
             }
           }))
@@ -97,8 +98,8 @@ export default function Notifications() {
         if (response.ok) {
           const { jobs } = await response.json()
           const updates = jobs.filter(j => j.data.events?.at(-1)?.role !== (j.customer_id === u.id ? 'customer' : 'provider')).slice(0, 20).map(j => ({
-            id: `job-${j.id}`, icon: '🤝', iconBg: '#E9F1EC', title: `Job update: ${j.data.title}`,
-            subtitle: j.data.status.replaceAll('_', ' '), time: j.updated_at, href: '/my-jobs', cta: 'Open job', ctaBg: '#0B2A4A',
+            id: `job-${j.id}`, icon: '🤝', iconBg: '#E9F1EC', title: `වැඩයේ යාවත්කාලීනයක්: ${j.data.title}`,
+            subtitle: j.data.status.replaceAll('_', ' '), time: j.updated_at, href: '/my-jobs', cta: 'වැඩය බලන්න', ctaBg: '#0B2A4A',
           }))
           setItems(previous => [...updates, ...previous].sort((a, b) => new Date(b.time) - new Date(a.time)))
         }
@@ -147,11 +148,11 @@ export default function Notifications() {
   // ── Notifications list ────────────────────────────────────────
 
   const emptyMsg = role === 'provider'
-    ? 'No active projects right now — check back soon.'
-    : "You haven't posted any projects yet."
+    ? 'දැනට විවෘත වැඩ නැත. අලුත් අවස්ථා සඳහා පසුව නැවත බලන්න.'
+    : 'ඔබ තවම වැඩයක් පළ කර නැත.'
   const emptyCta = role === 'provider'
-    ? { label:'Browse all jobs', href:'/jobs' }
-    : { label:'Post a project', href:'/post-project' }
+    ? { label:'සියලු වැඩ බලන්න', href:'/jobs' }
+    : { label:'වැඩක් පළ කරන්න', href:'/post-project' }
 
   return (
     <div style={{ maxWidth:560, margin:'0 auto', padding:'24px 16px 80px' }}>
@@ -161,7 +162,7 @@ export default function Notifications() {
         <div>
           <h1 style={{ fontFamily:"var(--th-display)", fontSize:22, fontWeight:700, color:'#071827', margin:'0 0 2px' }}>දැනුම්දීම්</h1>
           <p style={{ fontSize:12, color:'#8A8F95', margin:0 }}>
-            {sinhalaText(role === 'provider' ? 'Open projects you can bid on' : 'Bids on your projects')}
+            {role === 'provider' ? 'ඔබට මිල ගණන් ඉදිරිපත් කළ හැකි වැඩ' : 'ඔබේ වැඩවලට ලැබුණු මිල ගණන්'}
           </p>
         </div>
         {sinhalaText(items.length > 0 && (

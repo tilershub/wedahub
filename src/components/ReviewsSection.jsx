@@ -37,8 +37,8 @@ function Stars({ rating, size = 13 }) {
 // ─── Review form ───────────────────────────────────────────────────────────────
 function ReviewForm() {
   return <div style={{ padding: 20, background: '#FAF8F2', borderRadius: 12 }}>
-    <p>Reviews are linked to a job with this provider. Open your job to write or edit your review.</p>
-    <a href="/my-jobs" style={{ color: '#0B2A4A', fontWeight: 700 }}>My jobs &amp; reviews →</a>
+    <p>සමාලෝචන මෙම සේවා සපයන්නා සමඟ තහවුරු කළ වැඩයකට සම්බන්ධ වේ. සමාලෝචනය ලිවීමට හෝ වෙනස් කිරීමට අදාළ වැඩය විවෘත කරන්න.</p>
+    <a href="/my-jobs" style={{ color: '#0B2A4A', fontWeight: 700 }}>මගේ වැඩ සහ සමාලෝචන →</a>
   </div>
 }
 
@@ -73,8 +73,8 @@ function ReviewCard({ r }) {
           <span style={{ fontSize: 10, color: '#8A8F95' }}>{sinhalaText(timeAgo(r.created_at))}</span>
         </div>
       </div>
-      {r.confirmed_job && <p style={{ fontSize: 12, color: '#2F6B4F' }}>✓ Review from a confirmed job</p>}
-      {r.provider_reply && <blockquote style={{ fontSize: 13, borderLeft: '3px solid #0B2A4A', paddingLeft: 12 }}><strong>Provider reply</strong><p>{r.provider_reply}</p></blockquote>}
+      {r.confirmed_job && <p style={{ fontSize: 12, color: '#2F6B4F' }}>✓ තහවුරු කළ වැඩයක සමාලෝචනයකි</p>}
+      {r.provider_reply && <blockquote style={{ fontSize: 13, borderLeft: '3px solid #0B2A4A', paddingLeft: 12 }}><strong>සේවා සපයන්නාගේ පිළිතුර</strong><p>{r.provider_reply}</p></blockquote>}
       {sinhalaText(r.comment && (
         <p style={{ fontSize: 13, color: '#3A4046', lineHeight: 1.7, margin: 0, paddingTop: 8, borderTop: '1px solid #F7F3E8' }}>
           {sinhalaText(r.comment)}
