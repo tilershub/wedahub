@@ -109,7 +109,7 @@ const waShare = `https://wa.me/?text=${encodeURIComponent(`🏠 ${job.project_ty
               : <span style="font-size:9px;font-weight:700;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,0.2);color:rgba(255,255,255,0.7);letter-spacing:1px;">● අවසන්</span>
             }
             <span style="font-size:9px;font-weight:700;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.75);border:1px solid rgba(255,255,255,0.2);">
-              💬 {sinhalaText(bidCount)} ලංසුව{sinhalaText(bidCount !== 1 ? 's' : '')}
+              💬 මිල ගණන් {sinhalaText(bidCount)}ක්
             </span>
             <span style="font-size:9px;font-weight:700;padding:3px 10px;border-radius:20px;background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.75);border:1px solid rgba(255,255,255,0.2);">
               ⏱ {sinhalaText(timeAgo(job.created_at))}
@@ -220,17 +220,6 @@ const waShare = `https://wa.me/?text=${encodeURIComponent(`🏠 ${job.project_ty
           </div>
         </div>
       )}
-
-      <!-- CTA for homeowners -->
-      <div style="background:#0B2A4A;border-radius:16px;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
-        <div>
-          <div style="font-size:9px;font-weight:700;color:rgba(255,255,255,0.6);letter-spacing:2px;text-transform:uppercase;margin-bottom:3px;">ව්‍යාපෘතියක් තිබෙනවාද?</div>
-          <div style="font-size:14px;font-weight:700;color:#fff;">ඔබේ ව්‍යාපෘතිය නොමිලේ පළ කර තරගකාරී මිල ගණන් ලබාගන්න</div>
-        </div>
-        <a href="/post-project" style="display:inline-flex;align-items:center;gap:6px;background:#fff;color:#0B2A4A;border-radius:10px;padding:11px 20px;font-size:13px;font-weight:800;text-decoration:none;flex-shrink:0;">
-          📋 නොමිලේ පළ කරන්න
-        </a>
-      </div>
 
     </div>
   </div>

@@ -2,5 +2,6 @@
 import Layout from '../layouts/Layout.astro'
 import PageIntro from '../components/PageIntro.astro'
 import PostProjectForm from '../components/PostProjectForm.jsx'
+if (await Astro.locals.accountRole() === 'provider') return Astro.redirect('/jobs')
 ---
-<Layout title="වැඩයක් පළ කරන්න · වැඩHUB" description="Post any service request in Sri Lanka and connect with providers."><div class="wh-container" style="max-width:720px"><PageIntro title="වැඩයක් පළ කරන්න" subtitle="ඔබට අවශ්‍ය සේවාව, ප්‍රදේශය සහ කාලය කියන්න."/><section class="wh-panel"><PostProjectForm client:load /></section></div></Layout>
+<Layout title="වැඩක් පළ කරන්න · වැඩHUB" description="Post any service request in Sri Lanka and connect with providers."><div class="wh-container" style="max-width:720px"><PageIntro title="වැඩක් පළ කරන්න" subtitle="ඔබට අවශ්‍ය සේවාව, ප්‍රදේශය සහ කාලය කියන්න."/><section class="wh-panel"><PostProjectForm client:load /></section></div></Layout>

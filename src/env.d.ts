@@ -5,5 +5,6 @@ declare namespace App {
   interface Locals {
     supabase: SupabaseClient
     user: User | null
+    accountRole: () => Promise<'client' | 'provider'>
   }
 }

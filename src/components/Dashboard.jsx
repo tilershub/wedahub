@@ -36,7 +36,7 @@ const MOBILE_STYLES = `
   }
 `
 
-export default function Dashboard({ initialUser, initialProjects, initialProvider, initialBids }) {
+export default function Dashboard({ initialUser, initialProjects, initialProvider, initialBids, initialRole }) {
   const [user, setUser]               = useState(initialUser ?? null)
   const [loading, setLoading]         = useState(!initialUser)
   const [loadError, setLoadError]     = useState(null)
@@ -108,7 +108,7 @@ export default function Dashboard({ initialUser, initialProjects, initialProvide
     </div>
   )
 
-  const isProvider = !!claimedProfile ||
+  const isProvider = initialRole === 'provider' || !!claimedProfile ||
     (submission && ['pending_review','approved','listed'].includes(submission?.status))
 
   const showClaimedBanner =
@@ -230,7 +230,7 @@ function ProviderDashboard({ user, claimedProfile, submission, showClaimedBanner
     setDataLoading(false)
   }
 
-  const T = { explore:'🔍 Explore', quotes:'💬 My Quotes', saved:'🔖 Saved', profile:'👤 Profile', reviews:'⭐ Reviews', provider:'Provider', signOut:'Sign Out', viewListing:'🔗 View Listing' }
+  const T = { explore:'🔍 වැඩ සොයන්න', quotes:'💬 මගේ මිල ගණන්', saved:'🔖 සුරැකි වැඩ', profile:'👤 පැතිකඩ', reviews:'⭐ සමාලෝචන', provider:'සේවා සපයන්නා', signOut:'ඉවත් වන්න', viewListing:'🔗 පොදු පැතිකඩ' }
 
   const TABS = [
     { key:'explore',  label: T.explore  },
@@ -332,7 +332,7 @@ function ExploreTab({ projects, user, lang }) {
   const [savedIds, setSavedIds] = useState(new Set())
   const [saving, setSaving] = useState(null)
 
-  const T = { empty:'No projects found', allTypes:'All services', allDist:'All districts', contact:'📞 Contact', save:'🔖 Save', saved:'🔖 Saved' }
+  const T = { empty:'ගැළපෙන වැඩ හමු නොවීය', allTypes:'සියලු සේවා', allDist:'සියලු දිස්ත්‍රික්ක', contact:'📞 සම්බන්ධ වන්න', save:'🔖 සුරකින්න', saved:'🔖 සුරැකිණි' }
 
   useEffect(() => {
     if (!user?.id) return
@@ -430,7 +430,7 @@ function ExploreTab({ projects, user, lang }) {
 
 // ── My Quotes Tab ─────────────────────────────────────────────────────────────
 function MyQuotesTab({ submittedBids, lang }) {
-  const T = { title:'Quotes You Submitted', empty:'No quotes yet', emptyDesc:'Browse the Explore tab and submit quotes to active projects.' }
+  const T = { title:'ඔබ ඉදිරිපත් කළ මිල ගණන්', empty:'තවම මිල ගණන් නැත', emptyDesc:'“වැඩ සොයන්න” තුළින් විවෘත වැඩකට මිල ගණනක් ඉදිරිපත් කරන්න.' }
 
   if (submittedBids.length === 0) return (
     <div style={{ textAlign:'center', padding:'48px 20px', background:'#fff', borderRadius:16, border:'1px solid var(--border)' }}>
@@ -445,7 +445,7 @@ function MyQuotesTab({ submittedBids, lang }) {
       <div style={{ fontSize:12, fontWeight:700, color:'var(--text-3)', textTransform:'uppercase', letterSpacing:1, marginBottom:4 }}>{sinhalaText(T.title)} ({sinhalaText(submittedBids.length)})</div>
       {sinhalaText(submittedBids.map(bid => {
         const isNew = bid.status === 'new'
-        const statusLabel = bid.status === 'accepted' ? '✓ Accepted' : bid.status === 'rejected' ? '✗ Rejected' : 'New'
+        const statusLabel = bid.status === 'accepted' ? '✓ පිළිගත්තා' : bid.status === 'rejected' ? '✗ ප්‍රතික්ෂේප විය' : 'අලුත්'
         return (
           <div key={bid.id} style={{ padding:'16px 18px', background:'#fff', borderRadius:14, border:`1.5px solid ${isNew ? '#EAE4D7' : 'var(--border)'}`, borderLeft:`4px solid ${isNew ? '#f59e0b' : '#EAE4D7'}`, boxShadow:'var(--shadow-sm)' }}>
             <div style={{ fontSize:10, fontWeight:700, color:'var(--text-4)', textTransform:'uppercase', letterSpacing:1, marginBottom:6 }}>
@@ -477,7 +477,7 @@ function MyQuotesTab({ submittedBids, lang }) {
 
 // ── Saved Projects Tab ────────────────────────────────────────────────────────
 function SavedTab({ savedProjects, user, setSavedProjects, lang }) {
-  const T = { empty:'No saved projects', emptyDesc:'Tap 🔖 on any project in the Explore tab to save it here.', remove:'Remove', contact:'📞 Contact' }
+  const T = { empty:'සුරැකි වැඩ නැත', emptyDesc:'“වැඩ සොයන්න” තුළ ඇති වැඩයක් සුරැකීමට 🔖 තට්ටු කරන්න.', remove:'ඉවත් කරන්න', contact:'📞 සම්බන්ධ වන්න' }
 
   async function removeSaved(projectId) {
     await supabase.from('saved_projects').delete().eq('provider_id', user.id).eq('project_id', projectId)
@@ -531,7 +531,7 @@ function ProfileTab({ user, claimedProfile, submission, profileHref, lang }) {
   const [showEditor, setShowEditor]     = useState(false)
   const [showPortfolio, setShowPortfolio] = useState(false)
 
-  const T = { viewProfile:'🔗 View Listing', editProfile:'✏️ Edit Profile', managePhotos:'📸 Photos', noProfile:'Not Listed', noProfileDesc:'Get listed on වැඩHUB to receive project enquiries.', join:'✅ Apply as Provider' }
+  const T = { viewProfile:'🔗 පොදු පැතිකඩ', editProfile:'✏️ පැතිකඩ වෙනස් කරන්න', managePhotos:'📸 ඡායාරූප', noProfile:'තවම ලැයිස්තුගත වී නැත', noProfileDesc:'සේවා ඉල්ලීම් ලබාගැනීමට වැඩHUB හි ඔබේ සේවාව ලැයිස්තුගත කරන්න.', join:'✅ සේවා සපයන්නෙකු ලෙස අයදුම් කරන්න' }
 
   return (
     <div style={{ display:'flex', flexDirection:'column', gap:16 }}>
@@ -569,7 +569,7 @@ function ProfileTab({ user, claimedProfile, submission, profileHref, lang }) {
 
 // ── Reviews Tab ───────────────────────────────────────────────────────────────
 function ReviewsTab({ reviews, profileHref, lang }) {
-  const T = { empty:'No reviews yet', emptyDesc:'Share your profile link to receive reviews from customers.', shareProfile:'🔗 Share Profile' }
+  const T = { empty:'තවම සමාලෝචන නැත', emptyDesc:'පාරිභෝගිකයන්ට සමාලෝචනයක් එක් කිරීමට ඔබේ පැතිකඩ සබැඳිය බෙදාගන්න.', shareProfile:'🔗 පැතිකඩ බෙදාගන්න' }
 
   if (reviews.length === 0) return (
     <div style={{ textAlign:'center', padding:'48px 20px', background:'#fff', borderRadius:16, border:'1px solid var(--border)' }}>
@@ -687,8 +687,8 @@ function ConsumerDashboard({ user, projects, bids, submission, dataLoading, show
   const [consumerTab, setConsumerTab] = useState('projects')
 
   const CONSUMER_TABS = [
-    { id:'projects', label:'📋 My Projects' },
-    { id:'saved',    label:'❤️ Saved Providers' },
+    { id:'projects', label:'📋 මගේ වැඩ' },
+    { id:'saved',    label:'❤️ සුරැකි සේවා සපයන්නන්' },
   ]
 
   return (
@@ -831,7 +831,7 @@ function BidsPanel({ projectBids }) {
         <span style={{ display:'inline-flex', alignItems:'center', justifyContent:'center', background: newCount > 0 ? '#f59e0b' : '#EAE4D7', color: newCount > 0 ? '#fff' : '#6B7076', borderRadius:20, padding:'2px 8px', fontSize:11, fontWeight:700 }}>
           {sinhalaText(projectBids.length)}
         </span>
-        {sinhalaText(projectBids.length)} ලංසුව{sinhalaText(projectBids.length !== 1 ? 's' : '')} ලැබී ඇත
+        මිල ගණන් {projectBids.length}ක් ලැබී ඇත
         {sinhalaText(newCount > 0 && <span style={{ fontSize:11, color:'#f59e0b', fontWeight:700 }}>· {sinhalaText(newCount)} අලුත්</span>)}
         <span style={{ fontSize:14, color:'#8A8F95' }}>{sinhalaText(open ? '▲' : '▼')}</span>
       </button>
@@ -849,10 +849,10 @@ function BidsPanel({ projectBids }) {
 
 function ProjectsTab({ projects, bids, isProvider }) {
   const STATUS_COLOR = {
-    pending_review: { bg:'#F3E7DF', color:'#0B2A4A', label:'Under Review' },
-    active:         { bg:'#E9F1EC', color:'#22513B', label:'Active'        },
-    matched:        { bg:'#F7F3E8', color:'#7A3218', label:'Matched'       },
-    completed:      { bg:'#F4F1EC', color:'#3A4046', label:'Completed'     },
+    pending_review: { bg:'#F3E7DF', color:'#0B2A4A', label:'පරීක්ෂාව වෙමින්' },
+    active:         { bg:'#E9F1EC', color:'#22513B', label:'විවෘතයි'        },
+    matched:        { bg:'#F7F3E8', color:'#7A3218', label:'ගැළපීමක් ලැබී ඇත' },
+    completed:      { bg:'#F4F1EC', color:'#3A4046', label:'අවසන් කළා'     },
   }
 
   if (projects.length === 0) return (
@@ -860,9 +860,7 @@ function ProjectsTab({ projects, bids, isProvider }) {
       <div style={{ fontSize:40, marginBottom:12 }}>📋</div>
       <div style={{ fontSize:15, fontWeight:700, color:'var(--text)', marginBottom:8 }}>තවම ව්‍යාපෘති නැත</div>
       <p style={{ fontSize:13, color:'var(--text-3)', marginBottom:20, lineHeight:1.7 }}>
-        {sinhalaText(isProvider
-          ? "You haven't posted any projects. Post a job to receive quotes."
-          : 'Post a job — providers will submit quotes and you choose who to work with.')}
+        වැඩයක් පළ කළ පසු සේවා සපයන්නන් මිල ගණන් ඉදිරිපත් කරති. ඔබට ගැළපෙන කෙනා තෝරාගන්න.
       </p>
       <a href="/post-project" style={{ display:'inline-flex', alignItems:'center', gap:6, padding:'11px 22px', background:'var(--terra)', color:'#fff', borderRadius:10, fontSize:13, fontWeight:700, textDecoration:'none' }}>
         📋 ව්‍යාපෘතියක් පළ කරන්න
@@ -899,10 +897,10 @@ function ProjectsTab({ projects, bids, isProvider }) {
 
 function ListingTab({ submission }) {
   const STATUS = {
-    pending_review: { bg:'#F3E7DF', color:'#0B2A4A', label:'Under Review', desc:"Your application is being reviewed. We'll contact you via WhatsApp within 1-2 business days." },
-    approved:       { bg:'#E9F1EC', color:'#22513B', label:'Approved',      desc:'Your application has been approved. Your listing is being set up.'                            },
-    listed:         { bg:'#F7F3E8', color:'#7A3218', label:'Listed',        desc:"You're live on වැඩHUB! Customers can find and contact you."                               },
-    rejected:       { bg:'#FBEDEB', color:'#8E2A1F', label:'Not Approved',  desc:'Your application was not approved. Contact us for details.'                                  },
+    pending_review: { bg:'#F3E7DF', color:'#0B2A4A', label:'පරීක්ෂාව වෙමින්', desc:'ඔබේ අයදුම්පත පරීක්ෂා කරමින් පවතී. වැඩ කරන දින 1–2ක් ඇතුළත WhatsApp හරහා සම්බන්ධ වන්නෙමු.' },
+    approved:       { bg:'#E9F1EC', color:'#22513B', label:'අනුමතයි', desc:'ඔබේ අයදුම්පත අනුමත කර ඇත. පැතිකඩ සකස් කරමින් පවතී.' },
+    listed:         { bg:'#F7F3E8', color:'#7A3218', label:'ලැයිස්තුගතයි', desc:'ඔබේ පැතිකඩ වැඩHUB හි පළ කර ඇත. පාරිභෝගිකයන්ට එය සොයා සම්බන්ධ විය හැකිය.' },
+    rejected:       { bg:'#FBEDEB', color:'#8E2A1F', label:'අනුමත නොවීය', desc:'ඔබේ අයදුම්පත අනුමත නොවීය. වැඩි විස්තර සඳහා අප අමතන්න.' },
   }
 
   if (!submission) return (

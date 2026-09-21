@@ -14,21 +14,21 @@ const T = {
     submitError: 'දෝෂයක් ඇති විය. නැවත උත්සාහ කරන්න.',
     emailInvalid: 'වලංගු ඊමේල් ලිපිනයක් ඇතුළු කරන්න',
     checkEmail: 'ඔබේ ඊමේල් බලන්න',
-    sentBody: 'ට sign-in link එකක් යැවූවෙමු. ඔබේ dashboard බැලීමට සහ ව්‍යාපෘතිය කළමනාකරණයට ඒ link click කරන්න.',
-    sendLink: 'Link යවන්න →',
-    noPassword: 'මුරපදයක් නොමැත — ආරක්ෂිත magic link භාවිතා කරමු.',
-    successTitle: 'ව්‍යාපෘතිය පල කෙරිණි!',
-    successBody: 'ඔබේ ව්‍යාපෘතිය live වී ඇත. ලියාපදිංචි සේවා සපයන්නන්ට දැන් එය දැකිය හැකිය.',
+    sentBody: 'වෙත පිවිසුම් සබැඳියක් යැවූවෙමු. ඔබේ ගිණුම බැලීමට සහ වැඩය කළමනාකරණයට එම සබැඳිය විවෘත කරන්න.',
+    sendLink: 'සබැඳිය යවන්න →',
+    noPassword: 'මුරපදයක් අවශ්‍ය නැත — ආරක්ෂිත පිවිසුම් සබැඳියක් භාවිත කරමු.',
+    successTitle: 'වැඩය පළ කෙරිණි!',
+    successBody: 'ඔබේ වැඩය දැන් පළ වී ඇත. ලියාපදිංචි සේවා සපයන්නන්ට එය දැකිය හැකිය.',
     whatsappNote: 'WhatsApp හරහා ඔබව දැනුවත් කරන්නෙමු —',
     nextTitle: 'ඊළඟට සිදුවන්නේ:',
-    nextSteps: ['1️⃣ සත්‍යාපිත ශිල්පීන් ඔබේ ව්‍යාපෘතිය දකිති', '2️⃣ ඔවුන් WhatsApp හරහා ලංසු එවති', '3️⃣ සසඳා හොඳම තැනැත්තා තෝරන්න'],
+    nextSteps: ['1️⃣ ගැළපෙන සේවා සපයන්නන් ඔබේ වැඩය දකිති', '2️⃣ ඔවුන් මිල ගණන් ඉදිරිපත් කරති', '3️⃣ සසඳා ගැළපෙන කෙනා තෝරන්න'],
     shareWhatsApp: '💬 WhatsApp හි බෙදාගන්න',
-    shareText: 'මම වැඩHUB හි වැඩයක් පලකළා — නොමිලේ ලංසු ලබාගන්න: https://wedahub.lk',
-    viewDashboard: 'Dashboard බලන්න →',
-    postAnother: 'තවත් ව්‍යාපෘතියක් පලකරන්න',
+    shareText: 'මම වැඩHUB හි වැඩයක් පළ කළා — නොමිලේ මිල ගණන් ලබාගන්න: https://wedahub.lk',
+    viewDashboard: 'මගේ ගිණුම බලන්න →',
+    postAnother: 'තවත් වැඩක් පළ කරන්න',
     oneMoreStep: 'තවත් පියවරක්',
     createAccount: 'ව්‍යාපෘතිය කළමනාකරණයට නොමිලේ ගිණුමක් සාදන්න',
-    benefits: ['📊 Dashboard හිදී ලංසු නිරීක්ෂණය කරන්න', '💬 සේවා සපයන්නන් ප්‍රතිචාර දැක්වූ විට දැනුවත් වන්න', '✏️ ව්‍යාපෘතිය ඕනෑ වෙලාවක සංස්කරණය හෝ වසා දමන්න'],
+    benefits: ['📊 මගේ ගිණුමෙන් මිල ගණන් බලන්න', '💬 සේවා සපයන්නන් ප්‍රතිචාර දැක්වූ විට දැනගන්න', '✏️ වැඩය ඕනෑම වේලාවක සංස්කරණය හෝ වසා දමන්න'],
     emailLabel: 'නොමිලේ ගිණුමක් සාදීමට ඊමේල් ඇතුළු කරන්න',
     viewProviders: 'සේවා සපයන්නන් බලන්න →',
     projectName: 'ව්‍යාපෘති නාමය',
@@ -49,7 +49,7 @@ const T = {
     namePh: 'උදා: නුවන් පෙරේරා',
     whatsapp: 'WhatsApp අංකය',
     whatsappHint: 'උදා: +94771234567',
-    submit: '📋 මගේ ව්‍යාපෘතිය පලකරන්න',
+    submit: '📋 මගේ වැඩය පළ කරන්න',
     submitting: '⏳ ඉදිරිපත් කරමින්...',
     footer: 'නොමිලේ සේවාව · පළ කිරීමට පිවිසෙන්න · සේවා සපයන්නන් ලංසු ඉදිරිපත් කරති',
   },
@@ -220,12 +220,12 @@ export default function PostProjectForm() {
           <div style={{ fontSize: 52, marginBottom: 12 }}>🎉</div>
           <h2 style={{ fontFamily: "var(--th-display)", fontSize: 24, fontWeight: 700, color: '#071827', marginBottom: 8 }}>{sinhalaText(t.successTitle)}</h2>
           <p style={{ fontSize: 13, color: '#6B7076', lineHeight: 1.8, maxWidth: 340, margin: '0 auto 16px' }}>
-            {userId ? sinhalaText(t.successBody) : 'Your project is saved privately. Sign in to publish it.'}
+            {userId ? sinhalaText(t.successBody) : 'ඔබේ වැඩය පුද්ගලිකව සුරැකී ඇත. එය පළ කිරීමට පිවිසෙන්න.'}
           </p>
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: '#E9F1EC', border: '1px solid #C6DDCF', borderRadius: 10, padding: '8px 14px', marginBottom: 14 }}>
             <span style={{ fontSize: 13, color: '#285C43' }}>✓ {sinhalaText(t.whatsappNote)} <strong>{sinhalaText(form.whatsapp)}</strong></span>
           </div>
-          {!userId && <p><a href="/login">Sign in to publish this project and manage your jobs.</a></p>}
+          {!userId && <p><a href="/login">මෙම වැඩය පළ කර කළමනාකරණය කිරීමට පිවිසෙන්න.</a></p>}
           {/* What happens next */}
           <div style={{ textAlign: 'left', background: '#F7F3E8', border: '1px solid #EAE4D7', borderRadius: 12, padding: '14px 16px', margin: '0 auto', maxWidth: 360 }}>
             <div style={{ fontSize: 12, fontWeight: 800, color: '#0B2A4A', marginBottom: 8 }}>{sinhalaText(t.nextTitle)}</div>
@@ -243,7 +243,7 @@ export default function PostProjectForm() {
           /* Signed-in user: simple success with manage link */
           <div style={{ background: '#fff', border: '1px solid #EAE4D7', borderTop: '1px solid #F7F3E8', borderRadius: '0 0 20px 20px', padding: '20px 24px' }}>
             <div style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap' }}>
-              <a href="/dashboard" style={{ padding: '11px 22px', background: '#0B2A4A', color: '#fff', borderRadius: 12, fontSize: 14, fontWeight: 600, textDecoration: 'none' }}>{sinhalaText(t.viewDashboard)}</a>
+              <a href="/account" style={{ padding: '11px 22px', background: '#0B2A4A', color: '#fff', borderRadius: 12, fontSize: 14, fontWeight: 600, textDecoration: 'none' }}>{sinhalaText(t.viewDashboard)}</a>
               <button onClick={resetForm}
                 style={{ padding: '11px 22px', background: '#F7F3E8', color: '#3A4046', borderRadius: 12, fontSize: 14, fontWeight: 600, border: 'none', cursor: 'pointer' }}>
                 {sinhalaText(t.postAnother)}

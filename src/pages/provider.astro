@@ -27,6 +27,7 @@ const { data: bids } = projectIds.length > 0
 >
   <div style="max-width:1200px;margin:20px auto;padding:0 20px"><a href="/my-jobs" style="color:var(--navy);font-weight:700">මගේ වැඩ සහ සමාලෝචන →</a></div>
   <Dashboard
+    initialRole={await Astro.locals.accountRole()}
     initialUser={user}
     initialProjects={projects ?? []}
     initialProvider={provider}

@@ -12,17 +12,7 @@ const user = Astro.locals.user
 // The tab bar is role-dependent, so the role is resolved here rather than in
 // the browser: deciding it client-side would mean the first paint shows the
 // wrong nav and then swaps. Same rule Dashboard.jsx uses.
-let role = 'client'
-if (user) {
-  const db = Astro.locals.supabase
-  const [{ data: provider }, { data: submission }] = await Promise.all([
-    db.from('providers').select('id').eq('user_id', user.id).maybeSingle(),
-    db.from('provider_submissions').select('status').eq('user_id', user.id).maybeSingle(),
-  ])
-  if (provider || ['pending_review', 'approved', 'listed'].includes(submission?.status)) {
-    role = 'provider'
-  }
-}
+const role = await Astro.locals.accountRole()
 
 const {
   title = "වැඩHUB · Sri Lanka's Services Marketplace",
@@ -194,17 +184,16 @@ const orgSchema = JSON.stringify({
 
   <!-- Mobile drawer overlay -->
   <div class="mobile-drawer-overlay" id="drawer-overlay"></div>
-  <div class="mobile-drawer" id="mobile-drawer" role="dialog" aria-label="Navigation menu" aria-modal="true" inert>
+  <div class="mobile-drawer" id="mobile-drawer" role="dialog" aria-label="ප්‍රධාන මෙනුව" aria-modal="true" inert>
     <div class="drawer-header">
       <span style="font-family: var(--th-display);font-size:16px;font-weight:700;color:#fff;">වැඩ<span style="color:#0B2A4A;">HUB</span></span>
       <button id="close-drawer" style="background:transparent;border:none;color:rgba(255,255,255,0.5);font-size:22px;cursor:pointer;padding:4px;">✕</button>
     </div>
-    <nav aria-label="More options">
-      <a href="/providers" class="drawer-link">සේවා සොයන්න</a>
-      <a href="/jobs" class="drawer-link">වැඩ සොයන්න</a>
-      <a href="/post-project" class="drawer-link">වැඩයක් පළ කරන්න</a>
+    <nav aria-label="තවත් විකල්ප">
+      {role === 'provider' ? <a href="/jobs" class="drawer-link">වැඩ සොයන්න</a> : <a href="/providers" class="drawer-link">සේවා සොයන්න</a>}
+      {role !== 'provider' && <a href="/post-project" class="drawer-link">වැඩක් පළ කරන්න</a>}
       <a href="/my-jobs" class="drawer-link">මගේ වැඩ සහ සමාලෝචන</a>
-      <a href="/join-wedahub" class="drawer-link">සේවා සපයන්නෙකු වන්න</a>
+      {role !== 'provider' && <a href="/join-wedahub" class="drawer-link">සේවා සපයන්නෙකු වන්න</a>}
       <a href="/notifications" class="drawer-link">දැනුම්දීම්</a>
       <div class="drawer-divider"></div>
       <a href="/about" class="drawer-link">වැඩHUB ගැන</a>
@@ -216,13 +205,13 @@ const orgSchema = JSON.stringify({
   <!-- Links anonymous drafts/claims to account after sign-in -->
   <DraftLinker client:load />
 
-  <a class="wh-skip" href="#main-content">Skip to content</a>
+  <a class="wh-skip" href="#main-content">ප්‍රධාන අන්තර්ගතයට යන්න</a>
   <main class="page-wrap" id="main-content">
     <slot />
   </main>
 
   <!-- ═══ FOOTER ═══ -->
-  <footer class="wh-footer"><span>වැඩHUB · People • Skills • Opportunities</span><nav aria-label="Legal and support"><a href="/contact">උදව්</a><a href="/privacy-policy">පෞද්ගලිකත්වය</a><a href="/terms">කොන්දේසි</a></nav><small>Operated by LUXEhome (Pvt) Ltd.</small></footer>
+  <footer class="wh-footer"><span>වැඩHUB · People • Skills • Opportunities</span><nav aria-label="නීතිමය තොරතුරු සහ සහාය"><a href="/contact">උදව්</a><a href="/privacy-policy">පෞද්ගලිකත්වය</a><a href="/terms">කොන්දේසි</a></nav><small>LUXEhome (Pvt) Ltd. විසින් මෙහෙයවනු ලැබේ.</small></footer>
 
   <script>
     // The menu button lives in the AppShell island, so it asks for the drawer

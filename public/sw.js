@@ -1,4 +1,4 @@
-const CACHE = 'wedahub-navy-v4'
+const CACHE = 'wedahub-navy-v5'
 
 // Static assets to pre-cache on install
 const PRECACHE = [

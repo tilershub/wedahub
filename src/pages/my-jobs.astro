@@ -5,6 +5,6 @@ import JobWorkspace from '../components/JobWorkspace.jsx'
 if (!Astro.locals.user) return Astro.redirect('/login')
 const moderate = Astro.url.searchParams.get('moderate') === '1'
 ---
-<Layout title="My jobs & reviews · WedaHUB" description="Confirm work, manage reviews and approve portfolio photos." noindex={true}>
-  <JobWorkspace client:load moderate={moderate} />
+<Layout title="මගේ වැඩ සහ සමාලෝචන · වැඩHUB" description="වැඩ ආරම්භය සහ අවසන් කිරීම තහවුරු කර සමාලෝචන සහ ඡායාරූප අවසර කළමනාකරණය කරන්න." noindex={true}>
+  <JobWorkspace client:load moderate={moderate} provider={await Astro.locals.accountRole() === 'provider'} />
 </Layout>
