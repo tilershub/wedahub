@@ -1,4 +1,7 @@
 name = "wedahub"
+# Preserve runtime variables managed in the Cloudflare dashboard on every deploy.
+# API tokens and hook signing keys should still be stored as encrypted Secrets.
+keep_vars = true
 compatibility_date = "2024-09-23"
 compatibility_flags = ["nodejs_compat"]
 
