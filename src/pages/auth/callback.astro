@@ -24,8 +24,8 @@ if (['/join-wedahub', '/join-tilershub'].includes(joinReturn ?? '')) {
   return Astro.redirect('/join-wedahub')
 }
 
-const ADMIN_EMAILS = ['tilershub@gmail.com']
-if (ADMIN_EMAILS.includes(user.email ?? '')) {
+const { data: isAdmin, error: adminError } = await supabase.rpc('is_admin')
+if (!adminError && isAdmin === true) {
   return Astro.redirect('/admin')
 }
 
