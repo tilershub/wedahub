@@ -1253,29 +1253,35 @@ const TABS = [
 ]
 
 const GOLD = '#E8B341'
-const ADMIN_EMAILS = ['tilershub@gmail.com']
 
-export default function AdminDashboard({ initialUser }) {
+export default function AdminDashboard({ initialUser, initialIsAdmin = false }) {
   const [loading,   setLoading]   = useState(!initialUser)
   const [user,      setUser]      = useState(initialUser ?? null)
-  const [isAdmin,   setIsAdmin]   = useState(initialUser ? ADMIN_EMAILS.includes(initialUser.email) : null)
+  const [isAdmin,   setIsAdmin]   = useState(initialUser ? initialIsAdmin : null)
   const [tab,       setTab]       = useState('overview')
   const [isMobile,  setIsMobile]  = useState(() => typeof window !== 'undefined' && window.innerWidth < 768)
 
   useEffect(() => {
-    if (initialUser) return // server already verified auth
-    supabase.auth.getUser().then(({ data: { user: u } }) => {
+    let active = true
+    let revision = 0
+    async function checkUser(u) {
+      const current = ++revision
       setUser(u)
-      setIsAdmin(u ? ADMIN_EMAILS.includes(u.email) : false)
+      setIsAdmin(false)
+      if (!u) { setLoading(false); return }
+      setLoading(true)
+      const { data, error } = await supabase.rpc('is_admin')
+      if (!active || current !== revision) return
+      setIsAdmin(!error && data === true)
       setLoading(false)
-    })
+    }
+    if (!initialUser) supabase.auth.getUser().then(({ data }) => { if (active) checkUser(data.user) })
 
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_, session) => {
-      const u = session?.user ?? null
-      setUser(u)
-      if (u !== null) setIsAdmin(ADMIN_EMAILS.includes(u.email))
+      // Run RPC outside the auth callback to avoid holding the auth lock.
+      setTimeout(() => { if (active) checkUser(session?.user ?? null) }, 0)
     })
-    return () => subscription.unsubscribe()
+    return () => { active = false; subscription.unsubscribe() }
   }, [])
 
   useEffect(() => {

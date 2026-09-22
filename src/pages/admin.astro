@@ -3,7 +3,8 @@ export const prerender = false
 import AdminDashboard from '../components/AdminDashboard.jsx'
 
 const user = Astro.locals.user
-if (!user || user.email !== 'tilershub@gmail.com') {
+const { data: isAdmin, error } = user ? await Astro.locals.supabase.rpc('is_admin') : { data: false, error: null }
+if (!user || error || isAdmin !== true) {
   return Astro.redirect('/login')
 }
 ---
@@ -22,6 +23,6 @@ if (!user || user.email !== 'tilershub@gmail.com') {
   </style>
 </head>
 <body>
-  <AdminDashboard initialUser={user} client:only="react" />
+  <AdminDashboard initialUser={user} initialIsAdmin={true} client:only="react" />
 </body>
 </html>
