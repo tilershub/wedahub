@@ -1,0 +1,27 @@
+{
+  "expo": {
+    "name": "වැඩHUB",
+    "slug": "wedahub",
+    "scheme": "wedahub",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "lk.wedahub.app"
+    },
+    "android": {
+      "package": "lk.wedahub.app",
+      "adaptiveIcon": {
+        "backgroundColor": "#0B2A4A",
+        "foregroundImage": "./assets/icon.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "plugins": [
+      "expo-router",
+      "expo-localization"
+    ]
+  }
+}
