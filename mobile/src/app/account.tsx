@@ -25,7 +25,8 @@ export default function Account() {
   }, []);
   const showError = (value: unknown) => {
     const e = value as { message?: string; status?: number; code?: string };
-    setError(e.code === 'invalid_phone' ? t('invalidPhone') : e.code === 'invalid_code' || e.code === 'otp_expired' ? t('invalidCode')
+    const key = e.code || e.message;
+    setError(key === 'invalid_phone' ? t('invalidPhone') : key === 'invalid_code' || key === 'otp_expired' ? t('invalidCode')
       : e.status === 429 || e.code === 'over_sms_send_rate_limit' ? t('resendWait') : t('authError'));
   };
   const send = async () => {

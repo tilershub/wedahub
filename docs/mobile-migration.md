@@ -1,6 +1,6 @@
 # වැඩHUB mobile migration — audit and staged delivery
 
-Audit date: 2026-09-26. Source: `tilershub/wedahub` at `85cdcb8` and the three checked-in SQL migrations. This is a **repository audit**, not a certified production database audit. The connected Supabase account lists `trade90` and `luxehome`; the web app points to `ginrgwaciblcvxvkbeyd`, which is absent from that connection. Do not run migrations against either listed project as a substitute.
+Audit updated: 2026-09-27. TILERSHUB access is now verified for the actual WEDAHUB project `ginrgwaciblcvxvkbeyd`. The live audit inspected all 30 public tables, policies, function bodies/grants, triggers, four storage buckets, migration history, public Auth settings and security advisors. The three repository migrations are deployed. Focused security hardening was tested and applied as `20260927021613_pre_mobile_security`; see [the live audit and migration PR](https://github.com/tilershub/wedahub/pull/122). Full historical schema reproduction, private credentials, Auth hook/CAPTCHA settings and device acceptance tests remain release gates.
 
 ## Existing platform
 
@@ -10,7 +10,7 @@ Audit date: 2026-09-26. Source: `tilershub/wedahub` at `85cdcb8` and the three c
 | Auth | Supabase SSR cookie session; SMS OTP with Text.lk Send SMS hook and optional browser Turnstile; legacy email/Google login; phone linking | Reuse **same auth users/project**, but mobile needs its own session storage and a supported CAPTCHA path if enabled. A new phone OTP must never duplicate an existing email account. |
 | Accounts | Customer identified by auth user; provider submissions become `providers` via admin approval; `persons` exists; `providers.user_id` currently treated as one profile per user in UI and approval | Multi-role and multiple organizations need an additive model after live-schema inspection. |
 | Discovery | `search_service_providers(text, profession, district, page)` RPC, `providers`, `services`, `service_areas`; `projects` board and bids | Reuse RPC with explicit public fields. Current filters and category list are mostly flat and sometimes hard-coded in JS. |
-| Jobs | `projects`, `bids`; separate `job_engagements` JSONB state with server-validated transition module and `save_job_engagement` RPC | Preserve transition rules and version check. `/api/jobs` currently assumes SSR cookies and same-origin POST, so a native app cannot use it unchanged. No native writes until bearer-token authorization and parity tests exist. |
+| Jobs | `projects`, `bids`; separate `job_engagements` JSONB state with server-validated transition module and `save_job_engagement` RPC | Preserve transition rules and version check. This branch adds `/api/mobile/jobs`, verifying the explicit token against Supabase and reusing the existing handlers. Cookie-only and invalid-token calls fail; web `/api/jobs` retains its same-origin check. Deploy and run two-account tests before exposing native writes. |
 | Reviews | Legacy reviews plus engagement-linked confirmed reviews, private evidence, moderation, provider reply/appeal, consented job portfolio | Reuse projection and moderation. Category-specific criteria, customer reviews, and explicit public evidence labels are missing. |
 | Verification | `verification_status` single provider field, submission approval and `is_admin()` | Not the required evidence model. Credentials, issuer registry, verification events and private document policies require additive schema work. |
 | Storage | Browser uploads to `avatars`, `provider-photos`, `provider-assets`, `blog-images`; public URL helpers | Public portfolio images can remain public. Bucket inventory, object policies and private ID/credential storage are unverified; create no sensitive uploads yet. |
@@ -20,11 +20,11 @@ Audit date: 2026-09-26. Source: `tilershub/wedahub` at `85cdcb8` and the three c
 
 ## Security and delivery gates
 
-1. Obtain access to the **actual** project `ginrgwaciblcvxvkbeyd` and inventory `pg_tables`, columns/FKs, all policies, grants, triggers/functions, Auth settings/hooks, buckets/object policies and advisors. Check applied migration history against the repository. These three migrations are not a full schema baseline.
+1. **Access and catalog audit complete.** All public tables have RLS, and the repository migrations match live history. Generate a full historical schema baseline before applying broad product-model changes; the repository's three original migrations are not a complete schema. Public Auth settings show phone enabled and email/Google/Apple disabled. Hook/CAPTCHA configuration still requires verification.
 2. Verify `is_admin()` and its email allowlist/hard-coded user ID against current users; keep all admin authorization server-side. Inspect every public `security definer` function and `providers`/`projects` grants. `search_service_providers` has a safe explicit return shape, whereas several web pages use `select('*')`; check for public phone or sensitive fields before mobile release.
 3. Inspect Storage policies before ID or qualification uploads. Never store identity documents in the current public photo buckets; add a private bucket, owner/admin policies, short-lived signed reads and retention rules only after live verification.
 4. Confirm the SMS hook secrets/config are healthy after the prior missing-secrets incident. Confirm CAPTCHA requirements for native OTP and account linking. Do not send production SMS during automated tests.
-5. `/api/jobs` relies on a cookie-authenticated `locals.user` and same-origin POST. Add a separate authenticated bearer path or shared request context that calls `auth.getUser(token)` and verifies the expected project/actor; keep its transition tests. Never expose service-role credentials in Expo.
+5. `/api/mobile/jobs` now calls `auth.getUser(token)` against the same Supabase project and passes the verified actor to the existing handlers. Tests cover cookie rejection, malformed/foreign/expired-token rejection through Auth, actor spoofing and transition parity. It is implemented in this PR and not yet deployed. Never expose service-role credentials in Expo.
 6. Existing `save_job_engagement` accepts `next_data` only to `service_role`. Keep it server-only. Add native job operations only after endpoint authentication, redaction, CSRF and two-account regression testing.
 7. Check old `reviews` policies and rating triggers in production. The checked-in restrictive policies are necessary but do not prove deployment. Do not represent legacy ratings as verified job ratings.
 
@@ -52,7 +52,7 @@ Mobile lives in `mobile/`, TypeScript + Expo Router. Public discovery uses the e
 
 ## Decisions needed after the live audit
 
-- Access to the Supabase project that the web code uses; connected projects presently do not match. This blocks certification and any production schema changes.
+- Supabase project access is resolved. Generated mobile types now come from the actual live schema.
 - Confirm whether native phone sign-in may use the same OTP flow without browser Turnstile, or choose an approved mobile CAPTCHA flow based on actual Auth settings. Existing email users must link their phone from the original account.
 - Confirm the final app bundle identifiers, store accounts and signing owner before release builds. These do not block local development.
 
