@@ -23,3 +23,7 @@ EXPO_OFFLINE=1 npx expo export --platform ios
 ```
 
 See [`../docs/mobile-migration.md`](../docs/mobile-migration.md) for the audit, blockers, and next phases. No private ID/credential documents should be uploaded through existing public photo buckets.
+
+### Skills checkpoint
+
+The existing WEDAHUB project now has the additive skills catalogue. After phone sign-in, open **My service profiles**, select an existing linked profile, and tap skills to add/remove them. Labels and searches support Sinhala, Tamil and English. Skills are self-reported and displayed separately from verification. See `../docs/skills-checkpoint.md` for migration, access rules, recovery and remaining credential work.

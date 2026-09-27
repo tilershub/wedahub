@@ -1,3 +1,4 @@
+import { Link } from 'expo-router';
 import type { User } from '@supabase/supabase-js';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput } from 'react-native';
@@ -55,6 +56,7 @@ export default function Account() {
       <Text style={styles.heading}>{t('account')}</Text>
       {!configured ? <Text style={styles.notice}>{t('setup')}</Text> : user ? <>
         <Text style={styles.body}>{t('signedIn')}: {user.phone || user.email}</Text>
+        <Link href="/my-profiles" asChild><Pressable style={styles.button} accessibilityRole="button"><Text style={styles.buttonText}>{t('myProfiles')}</Text></Pressable></Link>
         <Pressable style={styles.button} accessibilityRole="button" onPress={() => void supabase.auth.signOut()}><Text style={styles.buttonText}>{t('signOut')}</Text></Pressable>
       </> : <>
         <Text style={styles.body}>{t('signInRequired')}</Text>

@@ -5,6 +5,15 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 export type Language = 'si' | 'ta' | 'en';
 const messages = {
   en: {
+    myProfiles: 'My service profiles', chooseProfile: 'Choose a profile',
+    noOwnedProfiles: 'No service profile is linked to this account yet. Existing website applications will appear here after approval.',
+    profileActive: 'Active', profilePending: 'Awaiting approval', profileInactive: 'Inactive',
+    skills: 'Skills', skillsHelp: 'Tap a skill to add or remove it. Each change is saved immediately. No certificate is required to describe your skills.',
+    searchSkills: 'Search skills', selfReportedSkills: 'Skills stated by the provider',
+    noSkillsFound: 'No matching skills. Try another search.', retiredSkill: 'Retired — tap to remove',
+    saving: 'Saving…', saved: 'Saved', saveFailed: 'Could not save. Please try again.',
+    profileLoadFailed: 'Could not load your profiles.', tryAgain: 'Try again', skillsUnavailable: 'Skills could not be loaded.',
+
     tagline: 'PEOPLE • SKILLS • OPPORTUNITIES', find: 'Find skilled people', search: 'Name or service',
     searchHint: 'Tiler, plumber, teacher…', allIsland: 'Across Sri Lanka', searchButton: 'Search',
     loading: 'Finding providers…', empty: 'No matching providers yet. Try another search.',
@@ -22,6 +31,15 @@ const messages = {
     profileMissing: 'This profile is unavailable.', back: 'Back',
   },
   si: {
+    myProfiles: 'මගේ සේවා පැතිකඩ', chooseProfile: 'පැතිකඩක් තෝරන්න',
+    noOwnedProfiles: 'මෙම ගිණුමට තවමත් සේවා පැතිකඩක් සම්බන්ධ වී නැහැ. වෙබ් අඩවියේ අයදුම්පත අනුමත වූ පසු මෙහි දිස්වේ.',
+    profileActive: 'සක්‍රියයි', profilePending: 'අනුමැතිය බලාපොරොත්තුවෙන්', profileInactive: 'අක්‍රියයි',
+    skills: 'කුසලතා', skillsHelp: 'කුසලතාවක් එක් කිරීමට හෝ ඉවත් කිරීමට එය තට්ටු කරන්න. වෙනස්කම් වහාම සුරැකේ. ඔබේ කුසලතා සඳහන් කිරීමට සහතිකයක් අවශ්‍ය නැහැ.',
+    searchSkills: 'කුසලතා සොයන්න', selfReportedSkills: 'සේවා සපයන්නා සඳහන් කළ කුසලතා',
+    noSkillsFound: 'ගැළපෙන කුසලතාවක් නැහැ. වෙනත් සෙවුමක් උත්සාහ කරන්න.', retiredSkill: 'භාවිතයෙන් ඉවත් කර ඇත — ඉවත් කිරීමට තට්ටු කරන්න',
+    saving: 'සුරකිමින්…', saved: 'සුරකින ලදී', saveFailed: 'සුරැකිය නොහැක. නැවත උත්සාහ කරන්න.',
+    profileLoadFailed: 'ඔබේ පැතිකඩ පූරණය කළ නොහැක.', tryAgain: 'නැවත උත්සාහ කරන්න', skillsUnavailable: 'කුසලතා පූරණය කළ නොහැක.',
+
     tagline: 'PEOPLE • SKILLS • OPPORTUNITIES', find: 'දක්ෂ සේවා සපයන්නන් සොයන්න', search: 'නම හෝ සේවාව',
     searchHint: 'ටයිල්, ජලනළ, ගුරු…', allIsland: 'ශ්‍රී ලංකාව පුරා', searchButton: 'සොයන්න',
     loading: 'සේවා සපයන්නන් සොයමින්…', empty: 'ගැළපෙන පැතිකඩක් නැහැ. වෙනත් සෙවුමක් උත්සාහ කරන්න.',
@@ -39,6 +57,15 @@ const messages = {
     profileMissing: 'මෙම පැතිකඩ ලබා ගත නොහැක.', back: 'ආපසු',
   },
   ta: {
+    myProfiles: 'எனது சேவைச் சுயவிவரங்கள்', chooseProfile: 'ஒரு சுயவிவரத்தைத் தேர்ந்தெடுக்கவும்',
+    noOwnedProfiles: 'இந்தக் கணக்குடன் இன்னும் சேவைச் சுயவிவரம் இணைக்கப்படவில்லை. இணையதள விண்ணப்பம் அங்கீகரிக்கப்பட்டதும் இங்கே தோன்றும்.',
+    profileActive: 'செயலில்', profilePending: 'அங்கீகாரத்திற்காகக் காத்திருக்கிறது', profileInactive: 'செயலற்றது',
+    skills: 'திறன்கள்', skillsHelp: 'ஒரு திறனைச் சேர்க்க அல்லது அகற்ற அதைத் தட்டவும். மாற்றங்கள் உடனடியாகச் சேமிக்கப்படும். உங்கள் திறன்களைக் குறிப்பிட சான்றிதழ் தேவையில்லை.',
+    searchSkills: 'திறன்களைத் தேடுங்கள்', selfReportedSkills: 'சேவை வழங்குநர் தெரிவித்த திறன்கள்',
+    noSkillsFound: 'பொருத்தமான திறன்கள் இல்லை. வேறு தேடலை முயற்சிக்கவும்.', retiredSkill: 'பட்டியலிலிருந்து நீக்கப்பட்டது — அகற்றத் தட்டவும்',
+    saving: 'சேமிக்கிறது…', saved: 'சேமிக்கப்பட்டது', saveFailed: 'சேமிக்க முடியவில்லை. மீண்டும் முயற்சிக்கவும்.',
+    profileLoadFailed: 'உங்கள் சுயவிவரங்களை ஏற்ற முடியவில்லை.', tryAgain: 'மீண்டும் முயற்சிக்கவும்', skillsUnavailable: 'திறன்களை ஏற்ற முடியவில்லை.',
+
     tagline: 'PEOPLE • SKILLS • OPPORTUNITIES', find: 'திறமையான சேவை வழங்குநர்களைக் கண்டறியுங்கள்', search: 'பெயர் அல்லது சேவை',
     searchHint: 'டைலர், பிளம்பர், ஆசிரியர்…', allIsland: 'இலங்கை முழுவதும்', searchButton: 'தேடுங்கள்',
     loading: 'சேவை வழங்குநர்களைத் தேடுகிறோம்…', empty: 'பொருத்தமானவர்கள் இல்லை. வேறு தேடலை முயற்சிக்கவும்.',

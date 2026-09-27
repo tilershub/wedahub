@@ -896,6 +896,39 @@ export type Database = {
           },
         ]
       }
+      provider_skills: {
+        Row: {
+          created_at: string
+          provider_id: string
+          skill_id: string
+        }
+        Insert: {
+          created_at?: string
+          provider_id: string
+          skill_id: string
+        }
+        Update: {
+          created_at?: string
+          provider_id?: string
+          skill_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "provider_skills_provider_id_fkey"
+            columns: ["provider_id"]
+            isOneToOne: false
+            referencedRelation: "providers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "provider_skills_skill_id_fkey"
+            columns: ["skill_id"]
+            isOneToOne: false
+            referencedRelation: "skills"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       provider_submissions: {
         Row: {
           city: string
@@ -1207,6 +1240,44 @@ export type Database = {
             columns: ["provider_id"]
             isOneToOne: false
             referencedRelation: "providers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      skills: {
+        Row: {
+          active: boolean
+          id: string
+          name_en: string
+          name_si: string
+          name_ta: string
+          parent_id: string | null
+          selectable: boolean
+        }
+        Insert: {
+          active?: boolean
+          id: string
+          name_en: string
+          name_si: string
+          name_ta: string
+          parent_id?: string | null
+          selectable?: boolean
+        }
+        Update: {
+          active?: boolean
+          id?: string
+          name_en?: string
+          name_si?: string
+          name_ta?: string
+          parent_id?: string | null
+          selectable?: boolean
+        }
+        Relationships: [
+          {
+            foreignKeyName: "skills_parent_id_fkey"
+            columns: ["parent_id"]
+            isOneToOne: false
+            referencedRelation: "skills"
             referencedColumns: ["id"]
           },
         ]
@@ -1589,4 +1660,3 @@ export const Constants = {
     },
   },
 } as const
-
