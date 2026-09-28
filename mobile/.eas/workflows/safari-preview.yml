@@ -1,0 +1,26 @@
+name: Safari preview
+
+on:
+  push:
+    branches: ['codex/mobile-foundation']
+    paths: ['mobile/**']
+  workflow_dispatch: {}
+
+jobs:
+  deploy_preview:
+    name: Build and deploy Safari preview
+    type: deploy
+    environment: preview
+    # These values are public client configuration, never a service-role key.
+    env:
+      EXPO_PUBLIC_SUPABASE_URL: "https://ginrgwaciblcvxvkbeyd.supabase.co"
+      EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY: "sb_publishable_JehLNt2j16rfxMLSZnPuXw_U51VMBqC"
+    params:
+      alias: safari-preview
+      prod: false
+    hooks:
+      after_install_node_modules:
+        - name: TypeScript check
+          run: npx tsc --noEmit
+        - name: Lint
+          run: npm run lint
