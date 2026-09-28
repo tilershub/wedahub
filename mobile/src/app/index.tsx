@@ -1,6 +1,5 @@
-import { Link } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList, Keyboard, Pressable, SafeAreaView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { ActivityIndicator, FlatList, Keyboard, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { ProviderCard } from '../components/ProviderCard';
 import { useLanguage, type Language } from '../i18n';
 import { configured } from '../lib/supabase';
@@ -31,15 +30,13 @@ export default function Home() {
     return () => { active = false; };
   }, [term, page, reload]);
   const search = () => { Keyboard.dismiss(); setLoading(true); setError(false); setPage(0); setTerm(query); setReload(n => n + 1); };
-  return <SafeAreaView style={styles.screen}>
+  return <View style={styles.screen}>
     <FlatList data={providers} keyExtractor={p => p.id} renderItem={({ item }) => <ProviderCard provider={item} />}
-      contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled"
+      contentContainerStyle={styles.content} contentInsetAdjustmentBehavior="automatic" keyboardShouldPersistTaps="handled"
       ListHeaderComponent={<>
         <View style={styles.hero}>
-          <Text style={styles.wordmark}>වැඩ<Text style={{ color: theme.gold }}>HUB</Text></Text>
           <Text style={styles.tagline}>{t('tagline')}</Text>
           <Text style={styles.heading}>{t('find')}</Text>
-          <Link href="/account" asChild><Pressable style={styles.account} accessibilityRole="button"><Text style={styles.accountText}>{t('account')} →</Text></Pressable></Link>
         </View>
         <View style={styles.langRow} accessibilityLabel={t('selectLanguage')}>
           {languages.map(item => <Pressable key={item.value} onPress={() => setLanguage(item.value)} accessibilityRole="button"
@@ -61,14 +58,13 @@ export default function Home() {
       ListFooterComponent={loading ? <ActivityIndicator color={theme.goldText} style={styles.spinner} /> : null}
       onEndReached={() => { if (configured && more && !loading && !error) { setLoading(true); setPage(p => p + 1); } }} onEndReachedThreshold={0.4}
     />
-  </SafeAreaView>;
+  </View>;
 }
 const styles = StyleSheet.create({
   screen: { flex: 1, backgroundColor: theme.paper }, content: { padding: 18, paddingBottom: 40 },
-  hero: { marginHorizontal: -18, marginTop: -18, paddingHorizontal: 24, paddingTop: 56, paddingBottom: 32, backgroundColor: theme.ink },
-  wordmark: { color: theme.white, fontSize: 38, fontWeight: '800' }, tagline: { color: theme.gold, fontSize: 11, letterSpacing: 1.2, marginTop: 5 },
-  heading: { color: theme.white, fontSize: 23, fontWeight: '700', marginTop: 34 },
-  account: { alignSelf: 'flex-start', minHeight: 48, justifyContent: 'center', marginTop: 12 }, accountText: { color: theme.gold, fontSize: 16, fontWeight: '700' },
+  hero: { marginHorizontal: -18, marginTop: -18, paddingHorizontal: 24, paddingTop: 24, paddingBottom: 30, backgroundColor: theme.ink },
+  tagline: { color: theme.gold, fontSize: 11, letterSpacing: 1.2 },
+  heading: { color: theme.white, fontSize: 23, fontWeight: '700', marginTop: 18 },
   langRow: { flexDirection: 'row', gap: 8, marginVertical: 20 }, langButton: { flex: 1, alignItems: 'center', justifyContent: 'center', minHeight: 48, borderRadius: 10, borderWidth: 1, borderColor: theme.line },
   activeLang: { backgroundColor: theme.ink, borderColor: theme.ink }, langText: { color: theme.ink, fontSize: 14 }, activeLangText: { color: theme.white },
   label: { color: theme.ink, fontWeight: '700', fontSize: 16, marginBottom: 8 }, searchRow: { flexDirection: 'row', gap: 8 },
