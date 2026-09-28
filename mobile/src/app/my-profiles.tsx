@@ -71,7 +71,7 @@ export default function MyProfiles() {
   if (!signedIn) return <View style={styles.screen}><Text style={styles.body}>{t('signInRequired')}</Text><Link href="/account" style={styles.button}>{t('signIn')}</Link></View>;
   if (!profile) return <FlatList contentContainerStyle={styles.screen} data={profiles} keyExtractor={p => p.id}
     ListHeaderComponent={<><Text style={styles.heading}>{t('myProfiles')}</Text><Text style={styles.body}>{t('chooseProfile')}</Text></>}
-    ListEmptyComponent={<Text style={styles.body}>{t('noOwnedProfiles')}</Text>}
+    ListEmptyComponent={<><Text style={styles.body}>{t('noOwnedProfiles')}</Text><Link href="/register-provider" style={styles.button}>{t('registerProvider')}</Link></>}
     renderItem={({ item }) => <Pressable style={styles.button} accessibilityRole="button" onPress={() => { setSelectedId(item.id); setQuery(''); setSaved(false); setSaveFailed(false); }}>
       <Text style={styles.title}>{item.name}</Text><Text style={styles.body}>{item.city} · {t(item.status === 'active' ? 'profileActive' : item.status === 'pending_review' ? 'profilePending' : 'profileInactive')}</Text>
     </Pressable>} />;

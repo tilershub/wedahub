@@ -64,3 +64,24 @@ This branch does not claim the app is release-ready; it establishes a safe, revi
 - Homeowners can post projects and see interested providers through existing RLS. Providers can browse jobs, see matches to listed services first, apply with an active claimed profile and track applications through existing RLS. The forms reuse existing `projects` and `bids` fields.
 - Confirmed engagements use the existing server transition engine for invitations, start, completion, disputes and reviews. The mobile UI requires `EXPO_PUBLIC_WEB_API_URL` pointing at a deployed `/api/mobile/jobs`. The current Safari preview has no API origin because that web endpoint remains in the unmerged branch. Those actions are therefore unavailable in that preview.
 - Remaining release work: profile and business onboarding, richer provider editing, credentials/issuer registry with private storage, expanded search and price models, job media, PIN/QR start, expanded outcomes and category review criteria, provider reviews of customers, push delivery, moderation extensions, two-account native tests and store release preparation. These are separate additive checkpoints, preserving production web users and data.
+
+### Registration and Safari API checkpoint — 2026-09-28
+
+- Native registration now reuses `provider_submissions` and the existing administrator approval workflow. The first service profile can represent an individual or a business using the same profession IDs as the website. The UI supports Sinhala, Tamil and English, phone normalization, pending status and duplicate-application checks. Existing owners are directed to their linked profile: the current admin function only creates one primary provider per user, so additional organization memberships are still future schema work.
+- Rechecked live submission RLS: inserts require the signed-in owner and `pending_review`; only owners/admins can read submissions. No live test applications or SMS messages were created.
+- Added explicit Safari preview origin handling and OPTIONS preflight to `/api/mobile/jobs`. Tokens remain mandatory for actual requests, and cookie credentials are not enabled. Authorization and CORS regression tests pass. The route is absent from `main`; this remains a deployment gate, not a completed live feature.
+- Full repository tests, Astro build, mobile TypeScript/lint and Expo web export pass. Physical-device and authenticated end-to-end checks remain open.
+
+## Completion map
+
+| Requirement | Current state | Remaining work |
+| --- | --- | --- |
+| Navigation and two interfaces | Live bottom tabs and homeowner/provider modes | Device accessibility checks |
+| Authentication and languages | Phone OTP, sessions, three-language keys | Recovery/linking, native CAPTCHA and language review |
+| Provider/business onboarding | Native first-profile registration implemented | Additional profiles and organization membership |
+| Profiles, skills, portfolio, prices | Discovery, linked skill editing, public portfolio/experience/daily rates | Full profile editing, uploads, availability and broader pricing models |
+| Credentials and trust | Existing generic legacy status only | Evidence types, issuers, private documents and admin verification |
+| Jobs and interest | Posting, feed, applications and project lists | Media, dates/scope, richer location/skill matching |
+| Engagement and reviews | Existing server engine; mobile UI implemented | Deploy mobile API, end-to-end tests, PIN/QR, expanded outcomes, category criteria, customer reviews |
+| Notifications and moderation | Existing web admin retained | Native inbox/push delivery, issuer/credential moderation |
+| Production release | Static preview deployed | Android/iOS device QA, signing and store release |

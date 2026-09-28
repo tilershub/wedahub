@@ -24,6 +24,7 @@ function AppStack() {
     <Stack.Screen name="(tabs)" options={{ headerTitle: () => <BrandTitle /> }} />
     <Stack.Screen name="provider/[slug]" options={{ title: t('profile') }} />
     <Stack.Screen name="my-profiles" options={{ title: t('myProfiles') }} />
+    <Stack.Screen name="register-provider" options={{ title: t('registerProvider') }} />
   </Stack>;
 }
 

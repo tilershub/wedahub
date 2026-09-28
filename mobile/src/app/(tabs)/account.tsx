@@ -59,6 +59,7 @@ export default function Account() {
       <Text style={styles.label}>{t('useAs')}</Text>
       <Pressable style={[styles.button, mode === 'customer' && styles.selected]} onPress={() => setMode('customer')} accessibilityRole="button" accessibilityState={{ selected: mode === 'customer' }}><Text style={styles.buttonText}>{t('homeowner')}</Text></Pressable>
       <Pressable style={[styles.button, mode === 'provider' && styles.selected]} onPress={() => setMode('provider')} accessibilityRole="button" accessibilityState={{ selected: mode === 'provider' }}><Text style={styles.buttonText}>{t('providerMode')}</Text></Pressable>
+      {mode === 'provider' && <Link href="/register-provider" asChild><Pressable style={styles.secondary} accessibilityRole="button"><Text style={styles.secondaryText}>{t('registerProvider')}</Text></Pressable></Link>}
       {!configured ? <Text style={styles.notice}>{t('setup')}</Text> : user ? <>
         <Text style={styles.body}>{t('signedIn')}: {user.phone || user.email}</Text>
         <Link href="/my-profiles" asChild><Pressable style={styles.button} accessibilityRole="button"><Text style={styles.buttonText}>{t('myProfiles')}</Text></Pressable></Link>

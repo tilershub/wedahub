@@ -45,3 +45,28 @@ test('GET also requires explicit valid bearer authorization',async()=>{
   const ctx=request(undefined)
   assert.equal((await api.GET(ctx)).status,401)
 })
+
+test('Safari preflight allows the app origin without accepting cookies or arbitrary origins',async()=>{
+  const origin='https://wedahub--safari-preview.expo.app'
+  const preflight=value=>({request:new Request('https://wedahub.lk/api/mobile/jobs',{method:'OPTIONS',headers:{origin:value,'access-control-request-method':'POST','access-control-request-headers':'authorization, content-type'}})})
+  const allowed=await api.OPTIONS(preflight(origin))
+  assert.equal(allowed.status,204)
+  assert.equal(allowed.headers.get('access-control-allow-origin'),origin)
+  assert.equal(allowed.headers.get('access-control-allow-credentials'),null)
+  assert.equal((await api.OPTIONS(preflight('https://untrusted.example'))).status,403)
+})
+
+test('browser CORS responses retain bearer authorization and reject foreign origins before a write',async()=>{
+  const state=setup(),ctx=request('Bearer provider-token')
+  ctx.request.headers.set('origin','https://wedahub--safari-preview.expo.app')
+  const response=await api.POST(ctx)
+  assert.equal(response.status,200)
+  assert.equal(response.headers.get('access-control-allow-origin'),'https://wedahub--safari-preview.expo.app')
+  const invalid=request(undefined)
+  invalid.request.headers.set('origin','https://wedahub--safari-preview.expo.app')
+  assert.equal((await api.POST(invalid)).status,401)
+  const foreign=request('Bearer provider-token')
+  foreign.request.headers.set('origin','https://untrusted.example')
+  assert.equal((await api.POST(foreign)).status,403)
+  assert.equal(state.saved(),1)
+})
