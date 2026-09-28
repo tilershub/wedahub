@@ -57,3 +57,10 @@ Mobile lives in `mobile/`, TypeScript + Expo Router. Public discovery uses the e
 - Confirm the final app bundle identifiers, store accounts and signing owner before release builds. These do not block local development.
 
 This branch does not claim the app is release-ready; it establishes a safe, reviewable native base and keeps the existing site unchanged.
+
+### Mobile checkpoint — 2026-09-28
+
+- Home, Jobs, Projects and Account now use a persistent bottom bar. One account can switch between homeowner and provider views; the stored view preference grants no database rights.
+- Homeowners can post projects and see interested providers through existing RLS. Providers can browse jobs, see matches to listed services first, apply with an active claimed profile and track applications through existing RLS. The forms reuse existing `projects` and `bids` fields.
+- Confirmed engagements use the existing server transition engine for invitations, start, completion, disputes and reviews. The mobile UI requires `EXPO_PUBLIC_WEB_API_URL` pointing at a deployed `/api/mobile/jobs`. The current Safari preview has no API origin because that web endpoint remains in the unmerged branch. Those actions are therefore unavailable in that preview.
+- Remaining release work: profile and business onboarding, richer provider editing, credentials/issuer registry with private storage, expanded search and price models, job media, PIN/QR start, expanded outcomes and category review criteria, provider reviews of customers, push delivery, moderation extensions, two-account native tests and store release preparation. These are separate additive checkpoints, preserving production web users and data.

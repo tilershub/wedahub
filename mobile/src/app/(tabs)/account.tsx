@@ -2,13 +2,15 @@ import { Link } from 'expo-router';
 import type { User } from '@supabase/supabase-js';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, Text, TextInput } from 'react-native';
-import { useLanguage } from '../i18n';
-import { normalizeMobile } from '../lib/phone';
-import { configured, supabase } from '../lib/supabase';
-import { theme } from '../theme';
+import { useLanguage } from '../../i18n';
+import { normalizeMobile } from '../../lib/phone';
+import { configured, supabase } from '../../lib/supabase';
+import { useMode } from '../../mode';
+import { theme } from '../../theme';
 
 export default function Account() {
   const { t } = useLanguage();
+  const { mode, setMode } = useMode();
   const [user, setUser] = useState<User | null>(null);
   const [checking, setChecking] = useState(configured);
   const [phone, setPhone] = useState('');
@@ -54,6 +56,9 @@ export default function Account() {
   return <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
     <ScrollView contentContainerStyle={styles.screen} keyboardShouldPersistTaps="handled">
       <Text style={styles.heading}>{t('account')}</Text>
+      <Text style={styles.label}>{t('useAs')}</Text>
+      <Pressable style={[styles.button, mode === 'customer' && styles.selected]} onPress={() => setMode('customer')} accessibilityRole="button" accessibilityState={{ selected: mode === 'customer' }}><Text style={styles.buttonText}>{t('homeowner')}</Text></Pressable>
+      <Pressable style={[styles.button, mode === 'provider' && styles.selected]} onPress={() => setMode('provider')} accessibilityRole="button" accessibilityState={{ selected: mode === 'provider' }}><Text style={styles.buttonText}>{t('providerMode')}</Text></Pressable>
       {!configured ? <Text style={styles.notice}>{t('setup')}</Text> : user ? <>
         <Text style={styles.body}>{t('signedIn')}: {user.phone || user.email}</Text>
         <Link href="/my-profiles" asChild><Pressable style={styles.button} accessibilityRole="button"><Text style={styles.buttonText}>{t('myProfiles')}</Text></Pressable></Link>
@@ -84,6 +89,7 @@ const styles = StyleSheet.create({
   label: { fontSize: 16, color: theme.ink, fontWeight: '700', marginTop: 18, marginBottom: 8 },
   body: { fontSize: 16, lineHeight: 24, color: theme.muted, marginBottom: 12 }, input: { borderWidth: 1, borderColor: theme.line, backgroundColor: theme.white, borderRadius: 10, padding: 14, minHeight: 54, fontSize: 18 },
   button: { backgroundColor: theme.ink, borderRadius: 10, minHeight: 54, padding: 12, justifyContent: 'center', alignItems: 'center', marginTop: 14 },
+  selected: { backgroundColor: theme.goldText },
   buttonText: { color: theme.white, fontSize: 16, fontWeight: '700' }, secondary: { minHeight: 48, justifyContent: 'center', alignItems: 'center' },
   secondaryText: { color: theme.goldText, fontSize: 15 }, help: { marginTop: 28, color: theme.muted, lineHeight: 23, fontSize: 14 },
   error: { color: theme.error, fontSize: 15, marginTop: 12 }, notice: { color: theme.error, fontSize: 16 },

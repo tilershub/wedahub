@@ -1,14 +1,15 @@
-import { Link, Stack } from 'expo-router';
+import { Stack } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
-import { Pressable, StyleSheet, Text } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 import { LanguageProvider, useLanguage } from '../i18n';
+import { ModeProvider } from '../mode';
 import { theme } from '../theme';
 
 export default function Layout() {
-  return <LanguageProvider>
+  return <LanguageProvider><ModeProvider>
     <StatusBar style="light" />
     <AppStack />
-  </LanguageProvider>;
+  </ModeProvider></LanguageProvider>;
 }
 
 function BrandTitle() {
@@ -20,11 +21,8 @@ function AppStack() {
   return <Stack screenOptions={{ headerStyle: { backgroundColor: theme.ink }, headerTintColor: theme.white,
     headerTitleStyle: { fontWeight: '700' }, headerShadowVisible: false,
     contentStyle: { backgroundColor: theme.paper } }}>
-    <Stack.Screen name="index" options={{ headerTitle: () => <BrandTitle />,
-      headerRight: () => <Link href="/account" asChild><Pressable style={styles.account} accessibilityRole="button"
-        accessibilityLabel={t('account')}><Text numberOfLines={1} style={styles.accountText}>{t('account')}</Text></Pressable></Link> }} />
+    <Stack.Screen name="(tabs)" options={{ headerTitle: () => <BrandTitle /> }} />
     <Stack.Screen name="provider/[slug]" options={{ title: t('profile') }} />
-    <Stack.Screen name="account" options={{ title: t('account') }} />
     <Stack.Screen name="my-profiles" options={{ title: t('myProfiles') }} />
   </Stack>;
 }
@@ -32,6 +30,4 @@ function AppStack() {
 const styles = StyleSheet.create({
   brand: { color: theme.white, fontSize: 23, fontWeight: '800' },
   gold: { color: theme.gold },
-  account: { minHeight: 44, justifyContent: 'center', paddingHorizontal: 8, maxWidth: 140 },
-  accountText: { color: theme.gold, fontSize: 14, fontWeight: '700' },
 });

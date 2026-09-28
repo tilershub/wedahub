@@ -1,16 +1,19 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'expo-router';
 import { ActivityIndicator, FlatList, Keyboard, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
-import { ProviderCard } from '../components/ProviderCard';
-import { useLanguage, type Language } from '../i18n';
-import { configured } from '../lib/supabase';
-import { searchProviders, type Provider } from '../lib/providers';
-import { theme } from '../theme';
+import { ProviderCard } from '../../components/ProviderCard';
+import { useLanguage, type Language } from '../../i18n';
+import { configured } from '../../lib/supabase';
+import { searchProviders, type Provider } from '../../lib/providers';
+import { useMode } from '../../mode';
+import { theme } from '../../theme';
 
 const languages: { value: Language; label: string }[] = [
   { value: 'si', label: 'සිංහල' }, { value: 'ta', label: 'தமிழ்' }, { value: 'en', label: 'English' },
 ];
 export default function Home() {
   const { language, setLanguage, t } = useLanguage();
+  const { mode } = useMode();
   const [query, setQuery] = useState('');
   const [term, setTerm] = useState('');
   const [providers, setProviders] = useState<Provider[]>([]);
@@ -36,7 +39,11 @@ export default function Home() {
       ListHeaderComponent={<>
         <View style={styles.hero}>
           <Text style={styles.tagline}>{t('tagline')}</Text>
-          <Text style={styles.heading}>{t('find')}</Text>
+          <Text style={styles.heading}>{mode === 'provider' ? t('providerWelcome') : t('find')}</Text>
+        </View>
+        <View style={styles.quickActions}>
+          <Link href="/jobs" asChild><Pressable style={styles.quickCard} accessibilityRole="button"><Text style={styles.quickTitle}>{mode === 'provider' ? t('browseJobs') : t('postJob')}</Text><Text style={styles.quickBody}>{mode === 'provider' ? t('browseJobsHelp') : t('postJobHelp')}</Text></Pressable></Link>
+          <Link href={mode === 'provider' ? '/my-profiles' : '/projects'} asChild><Pressable style={styles.quickCard} accessibilityRole="button"><Text style={styles.quickTitle}>{mode === 'provider' ? t('myProfiles') : t('myProjects')}</Text><Text style={styles.quickBody}>{mode === 'provider' ? t('profileQuickHelp') : t('projectsQuickHelp')}</Text></Pressable></Link>
         </View>
         <View style={styles.langRow} accessibilityLabel={t('selectLanguage')}>
           {languages.map(item => <Pressable key={item.value} onPress={() => setLanguage(item.value)} accessibilityRole="button"
@@ -65,6 +72,9 @@ const styles = StyleSheet.create({
   hero: { marginHorizontal: -18, marginTop: -18, paddingHorizontal: 24, paddingTop: 24, paddingBottom: 30, backgroundColor: theme.ink },
   tagline: { color: theme.gold, fontSize: 11, letterSpacing: 1.2 },
   heading: { color: theme.white, fontSize: 23, fontWeight: '700', marginTop: 18 },
+  quickActions: { flexDirection: 'row', gap: 10, marginTop: 18 },
+  quickCard: { flex: 1, minHeight: 110, backgroundColor: theme.white, borderWidth: 1, borderColor: theme.line, borderRadius: 12, padding: 14 },
+  quickTitle: { color: theme.ink, fontSize: 17, fontWeight: '700' }, quickBody: { color: theme.muted, fontSize: 13, lineHeight: 19, marginTop: 5 },
   langRow: { flexDirection: 'row', gap: 8, marginVertical: 20 }, langButton: { flex: 1, alignItems: 'center', justifyContent: 'center', minHeight: 48, borderRadius: 10, borderWidth: 1, borderColor: theme.line },
   activeLang: { backgroundColor: theme.ink, borderColor: theme.ink }, langText: { color: theme.ink, fontSize: 14 }, activeLangText: { color: theme.white },
   label: { color: theme.ink, fontWeight: '700', fontSize: 16, marginBottom: 8 }, searchRow: { flexDirection: 'row', gap: 8 },
