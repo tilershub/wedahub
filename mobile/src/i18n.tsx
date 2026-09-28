@@ -5,6 +5,12 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 export type Language = 'si' | 'ta' | 'en';
 const messages = {
   en: {
+    homeownerShort: 'Homeowner', providerShort: 'Provider', homeownerWorkspace: 'FOR YOUR HOME & EVERYDAY NEEDS', providerWorkspace: 'YOUR WORKSPACE',
+    homeownerHeadline: 'What do you need help with?', providerHeadline: 'Your skills. Your next opportunity.',
+    homeownerHomeHelp: 'Choose a service or post a job to find the right person.', providerHomeHelp: 'Find jobs, follow your applications and manage your service profile.',
+    buildingServices: 'Building & renovation', homeServices: 'Home & repairs', learningServices: 'Learning & coaching', transportServices: 'Transport & vehicles', eventServices: 'Food & events', moreServices: 'More services',
+    browseServices: 'Explore services', browseAllProviders: 'Browse all providers', manageWork: 'Manage your work', myWork: 'My work',
+    registrationHomeHelp: 'New here? Apply to list your services.', needToHire: 'Need to hire someone? Switch to homeowner',
     registerProvider: 'Register a service profile', registrationSignIn: 'Sign in with your phone to register yourself or your business.',
     registrationIntro: 'Choose your service, then add a few details. Formal qualifications are not required to register.',
     registrationValidation: 'Add your name, service, town, district and a short description of at least 5 characters.',
@@ -65,6 +71,12 @@ const messages = {
     profileMissing: 'This profile is unavailable.', back: 'Back',
   },
   si: {
+    homeownerShort: 'පාරිභෝගිකයා', providerShort: 'සේවා සපයන්නා', homeownerWorkspace: 'ඔබේ නිවසට සහ දෛනික අවශ්‍යතාවලට', providerWorkspace: 'ඔබේ වැඩ අවකාශය',
+    homeownerHeadline: 'ඔබට අවශ්‍ය සේවාව කුමක්ද?', providerHeadline: 'ඔබේ කුසලතා. ඔබේ ඊළඟ අවස්ථාව.',
+    homeownerHomeHelp: 'සුදුසු පුද්ගලයෙකු සොයා ගැනීමට සේවාවක් තෝරන්න හෝ වැඩක් පළ කරන්න.', providerHomeHelp: 'වැඩ සොයන්න, අයදුම්පත් බලන්න, සේවා පැතිකඩ කළමනාකරණය කරන්න.',
+    buildingServices: 'ඉදිකිරීම් සහ අලුත්වැඩියාව', homeServices: 'නිවෙස් සේවා', learningServices: 'අධ්‍යාපනය සහ පුහුණුව', transportServices: 'ප්‍රවාහන සහ වාහන', eventServices: 'ආහාර සහ උත්සව', moreServices: 'තවත් සේවා',
+    browseServices: 'සේවා තෝරන්න', browseAllProviders: 'සියලු සේවා සපයන්නන් බලන්න', manageWork: 'ඔබේ වැඩ කළමනාකරණය', myWork: 'මගේ වැඩ',
+    registrationHomeHelp: 'අලුතින්ද? ඔබේ සේවා ලියාපදිංචි කරන්න.', needToHire: 'සේවාවක් අවශ්‍යද? පාරිභෝගික අතුරුමුහුණතට මාරු වන්න',
     registerProvider: 'සේවා පැතිකඩක් ලියාපදිංචි කරන්න', registrationSignIn: 'ඔබ හෝ ඔබේ ව්‍යාපාරය ලියාපදිංචි කිරීමට දුරකථනයෙන් පිවිසෙන්න.',
     registrationIntro: 'සේවාව තෝරා කෙටි විස්තර කිහිපයක් එක් කරන්න. ලියාපදිංචියට විධිමත් සුදුසුකම් අත්‍යවශ්‍ය නැහැ.',
     registrationValidation: 'නම, සේවාව, නගරය, දිස්ත්‍රික්කය සහ අවම අකුරු 5ක සේවා විස්තරයක් එක් කරන්න.',
@@ -125,6 +137,12 @@ const messages = {
     profileMissing: 'මෙම පැතිකඩ ලබා ගත නොහැක.', back: 'ආපසු',
   },
   ta: {
+    homeownerShort: 'வாடிக்கையாளர்', providerShort: 'சேவை வழங்குநர்', homeownerWorkspace: 'வீடு மற்றும் அன்றாடத் தேவைகளுக்கு', providerWorkspace: 'உங்கள் பணியிடம்',
+    homeownerHeadline: 'உங்களுக்கு என்ன உதவி தேவை?', providerHeadline: 'உங்கள் திறன்கள். அடுத்த வாய்ப்பு.',
+    homeownerHomeHelp: 'சரியான நபரைக் கண்டறிய சேவையைத் தேர்ந்தெடுக்கவும் அல்லது வேலையைப் பதிவிடவும்.', providerHomeHelp: 'வேலைகளைத் தேடி, விண்ணப்பங்களையும் சேவைச் சுயவிவரத்தையும் நிர்வகிக்கவும்.',
+    buildingServices: 'கட்டுமானம் மற்றும் புதுப்பித்தல்', homeServices: 'வீடு மற்றும் பழுதுபார்ப்பு', learningServices: 'கல்வி மற்றும் பயிற்சி', transportServices: 'போக்குவரத்து மற்றும் வாகனங்கள்', eventServices: 'உணவு மற்றும் நிகழ்ச்சிகள்', moreServices: 'மேலும் சேவைகள்',
+    browseServices: 'சேவைகளைத் தேர்ந்தெடுக்கவும்', browseAllProviders: 'அனைத்து வழங்குநர்களையும் பார்க்க', manageWork: 'உங்கள் வேலையை நிர்வகிக்கவும்', myWork: 'எனது வேலை',
+    registrationHomeHelp: 'புதியவரா? உங்கள் சேவைகளைப் பதிவு செய்யுங்கள்.', needToHire: 'சேவை தேவையா? வாடிக்கையாளர் பக்கத்திற்கு மாறவும்',
     registerProvider: 'சேவைச் சுயவிவரத்தைப் பதிவு செய்', registrationSignIn: 'உங்களை அல்லது உங்கள் நிறுவனத்தைப் பதிவு செய்ய கைபேசி மூலம் உள்நுழையவும்.',
     registrationIntro: 'சேவையைத் தேர்ந்தெடுத்து சில விவரங்களைச் சேர்க்கவும். பதிவு செய்ய முறையான தகுதிகள் கட்டாயமில்லை.',
     registrationValidation: 'பெயர், சேவை, நகரம், மாவட்டம் மற்றும் குறைந்தது 5 எழுத்துகளில் சேவை விவரத்தைச் சேர்க்கவும்.',

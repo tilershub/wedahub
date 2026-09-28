@@ -74,6 +74,8 @@ This branch does not claim the app is release-ready; it establishes a safe, revi
 
 ## Completion map
 
+Home organization update: homeowner and provider now have separate home compositions with a visible, remembered role switch. Homeowner discovery starts with six groups covering the existing service catalogue; a service choice opens a profession-filtered provider list. The home screen itself no longer loads or renders provider cards. Provider home focuses on jobs, applications, profiles and registration. Discovery retains bottom navigation as a hidden tab route. TypeScript, lint and web export pass; the Expo preview workflow must finish before live visual verification.
+
 | Requirement | Current state | Remaining work |
 | --- | --- | --- |
 | Navigation and two interfaces | Live bottom tabs and homeowner/provider modes | Device accessibility checks |

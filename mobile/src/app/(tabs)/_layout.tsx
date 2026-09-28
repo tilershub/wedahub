@@ -12,7 +12,8 @@ export default function TabLayout() {
     tabBarLabelStyle: { fontSize: 12, fontWeight: '700', paddingBottom: 5 }, tabBarItemStyle: { minHeight: 54 } }}>
     <Tabs.Screen name="index" options={{ title: t('home'), tabBarIcon: ({ color }) => <Text style={{ color, fontSize: 22 }}>⌂</Text> }} />
     <Tabs.Screen name="jobs" options={{ title: mode === 'provider' ? t('opportunities') : t('jobs'), tabBarIcon: ({ color }) => <Text style={{ color, fontSize: 20 }}>▤</Text> }} />
-    <Tabs.Screen name="projects" options={{ title: t('projects'), tabBarIcon: ({ color }) => <Text style={{ color, fontSize: 20 }}>▣</Text> }} />
+    <Tabs.Screen name="projects" options={{ title: t(mode === 'provider' ? 'myWork' : 'projects'), tabBarIcon: ({ color }) => <Text style={{ color, fontSize: 20 }}>▣</Text> }} />
     <Tabs.Screen name="account" options={{ title: t('account'), tabBarIcon: ({ color }) => <Text style={{ color, fontSize: 20 }}>◉</Text> }} />
+    <Tabs.Screen name="discover" options={{ href: null, title: t('find') }} />
   </Tabs>;
 }

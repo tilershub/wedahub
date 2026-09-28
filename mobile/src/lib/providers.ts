@@ -9,9 +9,9 @@ export type ProviderDetail = Provider & Pick<Database['public']['Tables']['provi
 
 // Existing SECURITY INVOKER RPC returns explicit public columns and applies
 // active-provider filtering. Never fetch provider `*` into a public mobile UI.
-export async function searchProviders(query: string, district = '', page = 0): Promise<Provider[]> {
+export async function searchProviders(query: string, district = '', page = 0, profession = ''): Promise<Provider[]> {
   const { data, error } = await supabase.rpc('search_service_providers', {
-    search_text: query.trim(), profession: '', district_filter: district, page_number: page,
+    search_text: query.trim(), profession, district_filter: district, page_number: page,
   });
   if (error) throw error;
   return data || [];
