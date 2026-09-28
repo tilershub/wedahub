@@ -22,6 +22,10 @@
     "plugins": [
       "expo-router",
       "expo-localization"
-    ]
+    ],
+    "web": {
+      "bundler": "metro",
+      "output": "single"
+    }
   }
 }

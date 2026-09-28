@@ -27,3 +27,20 @@ See [`../docs/mobile-migration.md`](../docs/mobile-migration.md) for the audit, 
 ### Skills checkpoint
 
 The existing WEDAHUB project now has the additive skills catalogue. After phone sign-in, open **My service profiles**, select an existing linked profile, and tap skills to add/remove them. Labels and searches support Sinhala, Tamil and English. Skills are self-reported and displayed separately from verification. See `../docs/skills-checkpoint.md` for migration, access rules, recovery and remaining credential work.
+
+## Safari preview (Expo Hosting)
+
+This Expo Router app also exports as a single-page web application. The web preview lets reviewers use the current discovery, profile, language, sign-in and skills screens from Safari. It is a review surface, not an installed iOS app; native device permissions, push delivery and app-store behavior require device builds.
+
+```sh
+cd mobile
+npm ci
+# Set EXPO_PUBLIC_SUPABASE_URL and the project's PUBLISHABLE key in .env.local.
+npm run export:web
+npx eas-cli@latest whoami
+npx eas-cli@latest deploy
+```
+
+The final command needs a signed-in Expo account and may prompt to link a new EAS project and choose a preview subdomain. Use the resulting `https://...expo.app/` **preview** URL, without `--prod`. Expo's Free plan supports this. `EXPO_PUBLIC_*` fields are embedded into the web bundle; never use a secret or service-role key. This export is configured with `web.output: single` so the app's client routes use one entry page. Deploy it separately from the existing Astro website.
+
+An Expo account is not logged in within the current development workspace. The web export, typecheck, lint and Expo checks pass locally; interactive Safari testing has not yet happened. A public Safari URL requires account authorization before the deploy step. Do not share an Expo password or raw access token in issues or PRs.
