@@ -5,6 +5,8 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 export type Language = 'si' | 'ta' | 'en';
 const messages = {
   en: {
+    about: 'About', experience: 'Experience', years: 'years', serviceAreas: 'Service areas',
+    pricing: 'Pricing', dailyRate: 'Daily rate', visitFee: 'Visit fee', portfolio: 'Portfolio',
     browseJobs: 'Find jobs', browseJobsHelp: 'See work near your skills', postJobHelp: 'Tell providers what you need',
     profileQuickHelp: 'Update your skills', projectsQuickHelp: 'Track replies and work',
     engagementPending: 'Confirmed job actions will appear when the mobile jobs API is enabled for this environment.',
@@ -55,6 +57,8 @@ const messages = {
     profileMissing: 'This profile is unavailable.', back: 'Back',
   },
   si: {
+    about: 'මා ගැන', experience: 'පළපුරුද්ද', years: 'වසර', serviceAreas: 'සේවා ප්‍රදේශ',
+    pricing: 'මිල', dailyRate: 'දෛනික ගාස්තුව', visitFee: 'පැමිණීමේ ගාස්තුව', portfolio: 'කළ වැඩ',
     browseJobs: 'වැඩ සොයන්න', browseJobsHelp: 'ඔබේ කුසලතාවට ගැළපෙන වැඩ', postJobHelp: 'අවශ්‍ය වැඩ විස්තර කරන්න',
     profileQuickHelp: 'ඔබේ කුසලතා වෙනස් කරන්න', projectsQuickHelp: 'ප්‍රතිචාර සහ වැඩ බලන්න',
     engagementPending: 'මෙම පරිසරයට ජංගම වැඩ API සක්‍රිය වූ පසු තහවුරු කළ වැඩ මෙහි පෙන්වයි.',
@@ -105,6 +109,8 @@ const messages = {
     profileMissing: 'මෙම පැතිකඩ ලබා ගත නොහැක.', back: 'ආපසු',
   },
   ta: {
+    about: 'பற்றி', experience: 'அனுபவம்', years: 'ஆண்டுகள்', serviceAreas: 'சேவைப் பகுதிகள்',
+    pricing: 'கட்டணம்', dailyRate: 'தினக் கட்டணம்', visitFee: 'வருகைக் கட்டணம்', portfolio: 'செய்த வேலைகள்',
     browseJobs: 'வேலை தேடுங்கள்', browseJobsHelp: 'உங்கள் திறனுக்கான வேலைகள்', postJobHelp: 'தேவையை விவரிக்கவும்',
     profileQuickHelp: 'உங்கள் திறன்களைப் புதுப்பிக்கவும்', projectsQuickHelp: 'பதில்களையும் வேலைகளையும் பாருங்கள்',
     engagementPending: 'இந்தச் சூழலில் மொபைல் வேலை API இயக்கப்பட்டதும் உறுதிப்படுத்தப்பட்ட வேலைகள் தோன்றும்.',
