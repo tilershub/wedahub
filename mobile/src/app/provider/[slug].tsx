@@ -57,7 +57,7 @@ export default function ProviderProfile() {
         {!skillsFailed && <Text style={styles.evidence}>{t('selfReportedSkills')}</Text>}
       </>}
       <Text style={styles.title}>{t('reputation')}</Text>
-      <ProviderEvidence provider={provider} detailed />
+      <ProviderEvidence provider={provider} detailed details={provider.badges} />
     </View>
   </ScrollView>;
 }

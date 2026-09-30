@@ -28,7 +28,7 @@ export async function skillCatalogue(): Promise<Skill[]> {
 }
 export async function ownedProfiles(userId: string) {
   const { data, error } = await supabase.from('providers')
-    .select('id,name,city,provider_type,status,provider_skills(skill_id)')
+    .select('id,name,slug,city,provider_type,status,service_areas,provider_skills(skill_id)')
     .eq('user_id', userId).is('merged_into', null).order('name');
   if (error) throw error;
   return data;

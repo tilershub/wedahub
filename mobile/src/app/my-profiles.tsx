@@ -4,6 +4,7 @@ import { ActivityIndicator, FlatList, Pressable, StyleSheet, Text, TextInput, Vi
 import { useLanguage } from '../i18n';
 import { configured, supabase } from '../lib/supabase';
 import { ownedProfiles, setProviderSkill, skillCatalogue, skillName, skillPath, type OwnedProfile, type Skill } from '../lib/skills';
+import { ServiceAreaEditor } from '../components/ServiceAreaEditor';
 import { theme } from '../theme';
 
 export default function MyProfiles() {
@@ -81,7 +82,10 @@ export default function MyProfiles() {
   return <FlatList contentContainerStyle={styles.screen} data={visible} keyExtractor={s => s.id} keyboardShouldPersistTaps="handled"
     ListHeaderComponent={<>
       <Pressable style={styles.button} disabled={saving} onPress={() => setSelectedId(null)} accessibilityRole="button"><Text>{t('chooseProfile')}</Text></Pressable>
-      <Text style={styles.heading}>{profile.name}</Text><Text style={styles.title}>{t('skills')}</Text>
+      <Text style={styles.heading}>{profile.name}</Text>
+      {profile.status === 'active' && !!profile.slug && <Link href={{ pathname: '/provider/[slug]', params: { slug: profile.slug } }} style={styles.button}>{t('viewPublicProfile')}</Link>}
+      <ServiceAreaEditor key={profile.id} providerId={profile.id} initialAreas={profile.service_areas || []} />
+      <Text style={styles.title}>{t('skills')}</Text>
       <Text style={styles.body}>{t('skillsHelp')}</Text>
       <TextInput style={styles.input} value={query} onChangeText={setQuery} placeholder={t('searchSkills')} accessibilityLabel={t('searchSkills')} />
       <Text accessibilityLiveRegion="polite" style={[styles.body, saveFailed && styles.error]}>{saving ? t('saving') : saveFailed ? t('saveFailed') : saved ? t('saved') : t('selfReportedSkills')}</Text>

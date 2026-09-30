@@ -5,6 +5,15 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 export type Language = 'si' | 'ta' | 'en';
 const messages = {
   en: {
+    coverageNotSet: "Service areas not specified",
+    editCoverage: "Edit where I work",
+    coverageHelp: "Choose where you are willing to travel for work. Your home town does not limit your service area. Select All Sri Lanka if you work islandwide.",
+    saveCoverage: "Save service areas",
+    viewPublicProfile: "View my public profile & reputation",
+    completedJobsHelp: "This counts completed වැඩHUB engagements confirmed by both parties. It does not count portfolio photos or jobs outside the platform.",
+    verifiedDate: "Verified on",
+    expiryDate: "Valid until",
+
     completedJobs: "completed වැඩHUB jobs",
     confirmedReviews: "confirmed-job reviews",
     badgeIdentity: "Identity verified",
@@ -93,6 +102,15 @@ const messages = {
     profileMissing: 'This profile is unavailable.', back: 'Back',
   },
   si: {
+    coverageNotSet: "සේවා ප්‍රදේශ සඳහන් කර නැත",
+    editCoverage: "මම වැඩ කරන ප්‍රදේශ වෙනස් කරන්න",
+    coverageHelp: "වැඩ සඳහා යාමට කැමති ප්‍රදේශ තෝරන්න. පදිංචි නගරයෙන් ඔබේ සේවා ප්‍රදේශ සීමා නොවේ. දිවයින පුරා වැඩ කරන්නේ නම් මුළු ශ්‍රී ලංකාව තෝරන්න.",
+    saveCoverage: "සේවා ප්‍රදේශ සුරකින්න",
+    viewPublicProfile: "මගේ පොදු පැතිකඩ සහ ඇගයීම් බලන්න",
+    completedJobsHelp: "මෙය දෙපාර්ශ්වයම තහවුරු කළ සම්පූර්ණ වැඩHUB වැඩ ගණනයි. ඡායාරූප හෝ වේදිකාවෙන් පිටත කළ වැඩ මෙයට ඇතුළත් නොවේ.",
+    verifiedDate: "තහවුරු කළ දිනය",
+    expiryDate: "වලංගු අවසන් දිනය",
+
     completedJobs: "සම්පූර්ණ කළ වැඩHUB වැඩ",
     confirmedReviews: "තහවුරු කළ වැඩ සමාලෝචන",
     badgeIdentity: "අනන්‍යතාව තහවුරු කර ඇත",
@@ -181,6 +199,15 @@ const messages = {
     profileMissing: 'මෙම පැතිකඩ ලබා ගත නොහැක.', back: 'ආපසු',
   },
   ta: {
+    coverageNotSet: "சேவைப் பகுதிகள் குறிப்பிடப்படவில்லை",
+    editCoverage: "நான் வேலை செய்யும் இடங்களை மாற்று",
+    coverageHelp: "வேலைக்காகப் பயணிக்க விரும்பும் பகுதிகளைத் தேர்ந்தெடுக்கவும். உங்கள் சொந்த ஊர் சேவைப் பகுதியைக் கட்டுப்படுத்தாது. நாடு முழுவதும் வேலை செய்தால் இலங்கை முழுவதும் என்பதைத் தேர்ந்தெடுக்கவும்.",
+    saveCoverage: "சேவைப் பகுதிகளைச் சேமி",
+    viewPublicProfile: "எனது பொதுச் சுயவிவரம் மற்றும் மதிப்பீடுகள்",
+    completedJobsHelp: "இது இரு தரப்பினரும் உறுதிப்படுத்திய நிறைவு செய்த වැඩHUB வேலைகளின் எண்ணிக்கை. படங்கள் அல்லது தளத்திற்கு வெளியே செய்த வேலைகள் இதில் அடங்காது.",
+    verifiedDate: "சரிபார்த்த தேதி",
+    expiryDate: "செல்லுபடியாகும் கடைசி தேதி",
+
     completedJobs: "நிறைவு செய்த වැඩHUB வேலைகள்",
     confirmedReviews: "உறுதிப்படுத்திய வேலை மதிப்புரைகள்",
     badgeIdentity: "அடையாளம் சரிபார்க்கப்பட்டது",

@@ -14,6 +14,13 @@ export type Database = {
   }
   public: {
     Tables: {
+      provider_badges: {
+        Row: { id: string; provider_id: string; kind: string; subject: string; verified_at: string; expires_at: string | null; revoked_at: string | null }
+        Insert: { id?: string; provider_id: string; kind: string; subject: string; verified_at?: string; expires_at?: string | null; revoked_at?: string | null }
+        Update: { kind?: string; subject?: string; verified_at?: string; expires_at?: string | null; revoked_at?: string | null }
+        Relationships: []
+      }
+
       admin_users: {
         Row: {
           email: string
