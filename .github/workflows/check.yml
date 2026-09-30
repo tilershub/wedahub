@@ -1,8 +1,11 @@
 name: Build and migration checks
 on: [pull_request, workflow_dispatch]
+permissions:
+  contents: read
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -10,10 +13,26 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - run: node --test scripts/migration.test.mjs scripts/phone-auth.test.mjs scripts/job-workflow.test.mjs scripts/job-database.test.mjs scripts/job-api.test.mjs scripts/service-catalog.test.mjs
+      - run: node --test scripts/*.test.mjs
       - run: npm run build
-      # Boots the built Worker and asserts that an unmatched path returns 404
-      # and the migration redirects return 301. `npm run build` alone cannot
-      # catch either: both depend on the Cloudflare bindings, which only exist
-      # at runtime.
+      # Check runtime bindings as well as compilation.
       - run: npm run check:worker
+  mobile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: mobile
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: mobile/package-lock.json
+      - run: npm ci
+      - run: npx tsc --noEmit
+      - run: npm run lint
+      - run: npm run export:web
+      - run: npx expo export --platform android --output-dir dist-android
+      - run: npx expo export --platform ios --output-dir dist-ios
