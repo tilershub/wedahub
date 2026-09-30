@@ -31,6 +31,6 @@ const styles = StyleSheet.create({
   container: { gap: 8, marginBottom: 12 }, rating: { color: theme.ink, fontSize: 15, fontWeight: '700' },
   badges: { flexDirection: 'row', flexWrap: 'wrap', gap: 7 },
   count: { color: theme.ink, backgroundColor: theme.paper, padding: 8, borderRadius: 8, fontSize: 13 },
-  badge: { color: theme.goldText, borderWidth: 1, borderColor: theme.line, padding: 8, borderRadius: 8, fontSize: 13 },
+  badge: { color: theme.ink, backgroundColor: theme.paper, borderWidth: 1, borderColor: theme.line, padding: 8, borderRadius: 8, fontSize: 13 },
   help: { color: theme.muted, fontSize: 12, lineHeight: 18 },
 });

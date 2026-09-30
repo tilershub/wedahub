@@ -75,7 +75,7 @@ export default function Account() {
           <Pressable onPress={() => { setSentTo(''); setCode(''); setError(''); }} style={styles.secondary} accessibilityRole="button"><Text style={styles.secondaryText}>{t('change')}</Text></Pressable>
         </> : <>
           <TextInput style={styles.input} accessibilityLabel={t('phone')} keyboardType="phone-pad" textContentType="telephoneNumber"
-            value={phone} onChangeText={setPhone} placeholder={t('phoneHint')} placeholderTextColor="#777" />
+            value={phone} onChangeText={setPhone} placeholder={t('phoneHint')} placeholderTextColor={theme.placeholder} />
           <Pressable style={styles.button} onPress={send} disabled={busy} accessibilityRole="button"><Text style={styles.buttonText}>{t('send')}</Text></Pressable>
         </>}
         {busy && <ActivityIndicator color={theme.goldText} style={{ marginTop: 15 }} />}

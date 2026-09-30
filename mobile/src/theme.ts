@@ -1,4 +1,8 @@
+// Matches src/styles/brand-mobile.css, the wedahub.lk brand palette.
+// Use goldText for text on light surfaces; gold is the accent on navy.
 export const theme = {
-  ink: '#0B0B0B', gold: '#D4A15E', goldText: '#8A6224', paper: '#F7F7F7',
-  muted: '#4A4A4A', white: '#FFFFFF', line: '#DDD9D2', error: '#A52323',
+  ink: '#0B2A4A', navyDark: '#071827', navyLight: '#173E63',
+  gold: '#D6BE84', goldLight: '#E4D3AA', goldText: '#8C6C26',
+  paper: '#F7F3E8', muted: '#536273', white: '#FFFFFF', line: '#EAE4D7',
+  selected: '#EAE4D7', placeholder: '#617081', error: '#A52323', success: '#216C48',
 } as const;

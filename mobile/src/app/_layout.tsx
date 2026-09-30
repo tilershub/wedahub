@@ -7,7 +7,7 @@ import { theme } from '../theme';
 
 export default function Layout() {
   return <LanguageProvider><ModeProvider>
-    <StatusBar style="light" />
+    <StatusBar style="dark" />
     <AppStack />
   </ModeProvider></LanguageProvider>;
 }
@@ -18,7 +18,7 @@ function BrandTitle() {
 
 function AppStack() {
   const { t } = useLanguage();
-  return <Stack screenOptions={{ headerStyle: { backgroundColor: theme.ink }, headerTintColor: theme.white,
+  return <Stack screenOptions={{ headerStyle: { backgroundColor: theme.paper }, headerTintColor: theme.ink,
     headerTitleStyle: { fontWeight: '700' }, headerShadowVisible: false,
     contentStyle: { backgroundColor: theme.paper } }}>
     <Stack.Screen name="(tabs)" options={{ headerTitle: () => <BrandTitle /> }} />
@@ -29,6 +29,6 @@ function AppStack() {
 }
 
 const styles = StyleSheet.create({
-  brand: { color: theme.white, fontSize: 23, fontWeight: '800' },
-  gold: { color: theme.gold },
+  brand: { color: theme.ink, fontSize: 23, fontWeight: '800' },
+  gold: { color: theme.goldText },
 });

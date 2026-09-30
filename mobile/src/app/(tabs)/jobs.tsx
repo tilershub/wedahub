@@ -131,5 +131,5 @@ const styles = StyleSheet.create({
   chip: { minHeight: 48, borderWidth: 1, borderColor: theme.line, borderRadius: 9, padding: 10, justifyContent: 'center' },
   chipActive: { backgroundColor: theme.ink, borderColor: theme.ink }, chipText: { color: theme.ink }, chipActiveText: { color: theme.white, fontWeight: '700' },
   match: { color: theme.goldText, fontWeight: '700', marginBottom: 7 },
-  error: { color: theme.error, marginVertical: 12, fontSize: 15 }, success: { color: '#216C48', marginBottom: 12, fontSize: 15 },
+  error: { color: theme.error, marginVertical: 12, fontSize: 15 }, success: { color: theme.success, marginBottom: 12, fontSize: 15 },
 });
