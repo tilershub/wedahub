@@ -4,6 +4,7 @@ import { ActivityIndicator, Image, ScrollView, StyleSheet, Text, View } from 're
 import { useLanguage } from '../../i18n';
 import { providerBySlug, type ProviderDetail } from '../../lib/providers';
 import { publicProviderSkills, skillName, type Skill } from '../../lib/skills';
+import { ProviderEvidence } from '../../components/ProviderEvidence';
 import { theme } from '../../theme';
 
 export default function ProviderProfile() {
@@ -55,9 +56,8 @@ export default function ProviderProfile() {
         <Text style={styles.body}>{skillsFailed ? t('skillsUnavailable') : skills.map(s => skillName(s, language)).join(' · ')}</Text>
         {!skillsFailed && <Text style={styles.evidence}>{t('selfReportedSkills')}</Text>}
       </>}
-      <Text style={styles.title}>{t('reviews')}</Text>
-      <Text style={styles.body}>{provider.review_count ? `★ ${Number(provider.avg_rating || 0).toFixed(1)} · ${provider.review_count} ${t('reviews')}` : t('noReviews')}</Text>
-      <Text style={styles.evidence}>{t('verificationUnknown')}</Text>
+      <Text style={styles.title}>{t('reputation')}</Text>
+      <ProviderEvidence provider={provider} detailed />
     </View>
   </ScrollView>;
 }

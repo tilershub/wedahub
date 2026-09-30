@@ -3,6 +3,7 @@ import { useLocalSearchParams } from 'expo-router';
 import { ActivityIndicator, FlatList, Keyboard, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import { ProviderCard } from '../../components/ProviderCard';
 import { useLanguage } from '../../i18n';
+import { areas } from '../../data/areas';
 import { professions } from '../../data/professions';
 import { configured } from '../../lib/supabase';
 import { searchProviders, type Provider } from '../../lib/providers';
@@ -17,6 +18,9 @@ export default function Discover() {
 function DiscoveryResults({ initialQuery, profession }: { initialQuery: string; profession: string }) {
   const { language, t } = useLanguage();
   const category = professions.find(item => item.value === profession);
+  const [area, setArea] = useState('');
+  const [areaOpen, setAreaOpen] = useState(false);
+  const [town, setTown] = useState('');
   const [query, setQuery] = useState(initialQuery);
   const [term, setTerm] = useState(initialQuery);
   const [providers, setProviders] = useState<Provider[]>([]);
@@ -28,14 +32,15 @@ function DiscoveryResults({ initialQuery, profession }: { initialQuery: string; 
   useEffect(() => {
     if (!configured) return;
     let active = true;
-    searchProviders(term, '', page, profession).then(rows => {
+    searchProviders(term, area, page, profession).then(rows => {
       if (!active) return;
       setProviders(current => page ? [...current, ...rows.slice(0, 20)] : rows.slice(0, 20));
       setMore(rows.length > 20);
     }).catch(() => { if (active) setError(true); }).finally(() => { if (active) setLoading(false); });
     return () => { active = false; };
-  }, [term, page, reload, profession]);
-  const search = () => { Keyboard.dismiss(); setLoading(true); setError(false); setPage(0); setTerm(query); setReload(n => n + 1); };
+  }, [term, page, reload, profession, area]);
+  const changeArea = (next: string) => { Keyboard.dismiss(); setArea(next.trim()); setAreaOpen(false); setProviders([]); setPage(0); setLoading(true); setError(false); setMore(true); setReload(n => n + 1); };
+  const search = () => { Keyboard.dismiss(); setLoading(true); setError(false); setProviders([]); setPage(0); setTerm(query.trim()); setReload(n => n + 1); };
   return <View style={styles.screen}>
     <FlatList data={providers} keyExtractor={p => p.id} renderItem={({ item }) => <ProviderCard provider={item} />}
       contentContainerStyle={styles.content} contentInsetAdjustmentBehavior="automatic" keyboardShouldPersistTaps="handled"
@@ -47,7 +52,20 @@ function DiscoveryResults({ initialQuery, profession }: { initialQuery: string; 
             placeholder={t('searchHint')} placeholderTextColor="#777" returnKeyType="search" autoCapitalize="none" accessibilityLabel={t('search')} />
           <Pressable onPress={search} style={styles.searchButton} accessibilityRole="button"><Text style={styles.searchText}>{t('searchButton')}</Text></Pressable>
         </View>
-        <Text style={styles.scope}>{t('allIsland')}</Text>
+        <Pressable style={styles.areaButton} onPress={() => setAreaOpen(!areaOpen)} accessibilityRole="button" accessibilityState={{ expanded: areaOpen }}>
+          <Text style={styles.label}>{t('workArea')}: {areas.find(item => item.value === area)?.[language] || area || t('allSriLanka')}</Text>
+          <Text style={styles.areaLink}>{t('changeArea')} ▾</Text>
+        </Pressable>
+        {areaOpen && <View style={styles.areaPanel}>
+          <Text style={styles.scope}>{t('areaHelp')}</Text>
+          <View style={styles.areaChoices}>
+            <Pressable style={styles.areaChoice} onPress={() => changeArea('')} accessibilityRole="button" accessibilityState={{ selected: !area }}><Text>{t('allSriLanka')}</Text></Pressable>
+            {areas.map(item => <Pressable key={item.value} style={[styles.areaChoice, area === item.value && styles.selectedArea]} onPress={() => changeArea(item.value)} accessibilityRole="button" accessibilityState={{ selected: area === item.value }}><Text>{item[language]}</Text></Pressable>)}
+          </View>
+          <TextInput style={styles.input} value={town} onChangeText={setTown} placeholder={t('areaTown')} accessibilityLabel={t('areaTown')} onSubmitEditing={() => changeArea(town)} />
+          <Pressable style={styles.areaChoice} onPress={() => changeArea(town)} accessibilityRole="button"><Text>{t('applyArea')}</Text></Pressable>
+        </View>}
+        <Text style={styles.scope}>{t('sortEvidence')}</Text>
         {!configured && <Text style={styles.notice}>{t('setup')}</Text>}
         {error && <Pressable onPress={() => { setLoading(true); setError(false); setPage(0); setTerm(query.trim()); setReload(n => n + 1); }} accessibilityRole="button"><Text style={styles.notice}>{t('retry')}</Text></Pressable>}
       </>}
@@ -58,6 +76,11 @@ function DiscoveryResults({ initialQuery, profession }: { initialQuery: string; 
   </View>;
 }
 const styles = StyleSheet.create({
+  areaButton: { marginTop: 16, padding: 14, borderRadius: 12, backgroundColor: theme.white, borderWidth: 1, borderColor: theme.line, minHeight: 54 },
+  areaLink: { color: theme.goldText, fontWeight: '700' }, areaPanel: { paddingVertical: 12, gap: 12 },
+  areaChoices: { flexDirection: 'row', flexWrap: 'wrap', gap: 8 },
+  areaChoice: { minHeight: 48, padding: 12, borderWidth: 1, borderColor: theme.line, borderRadius: 10, backgroundColor: theme.white, justifyContent: 'center' },
+  selectedArea: { borderColor: theme.goldText, borderWidth: 2 },
   screen: { flex: 1, backgroundColor: theme.paper }, content: { padding: 18, paddingBottom: 40 },
   hero: { marginHorizontal: -18, marginTop: -18, paddingHorizontal: 24, paddingTop: 24, paddingBottom: 30, backgroundColor: theme.ink },
   tagline: { color: theme.gold, fontSize: 11, letterSpacing: 1.2 },

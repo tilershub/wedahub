@@ -1501,6 +1501,10 @@ export type Database = {
         Args: { expected_version: number; job_id: string; next_data: Json }
         Returns: undefined
       }
+      discover_service_providers: {
+        Args: { search_text?: string; profession?: string; area_filter?: string; page_number?: number; provider_slug?: string }
+        Returns: { id: string; name: string; slug: string; provider_type: string; city: string; district: string; services: string[]; profile_image: string; avg_rating: number; review_count: number; verification_status: string; service_areas: string[]; completed_jobs: number; badge_kinds: string[]; confirmed_review_count: number }[]
+      }
       search_service_providers: {
         Args: {
           district_filter?: string

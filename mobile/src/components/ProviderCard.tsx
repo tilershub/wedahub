@@ -2,6 +2,7 @@ import { Link } from 'expo-router';
 import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useLanguage } from '../i18n';
 import type { Provider } from '../lib/providers';
+import { ProviderEvidence } from './ProviderEvidence';
 import { theme } from '../theme';
 
 export function ProviderCard({ provider }: { provider: Provider }) {
@@ -14,12 +15,14 @@ export function ProviderCard({ provider }: { provider: Provider }) {
         <View style={styles.info}>
           <Text style={styles.name}>{provider.name}</Text>
           <Text style={styles.detail}>{provider.provider_type.replace(/_/g, ' ')}</Text>
-          <Text style={styles.detail}>{[provider.city, provider.district].filter(Boolean).join(' · ')}</Text>
+          <Text style={styles.detail}>{t('basedIn')}: {[provider.city, provider.district].filter(Boolean).join(' · ')}</Text>
         </View>
       </View>
       <Text style={styles.services} numberOfLines={2}>{(provider.services || []).slice(0, 3).join(' · ')}</Text>
+      {!!provider.service_areas?.length && <Text style={styles.detail} numberOfLines={2}>{t('worksIn')}: {provider.service_areas.join(' · ')}</Text>}
+      <ProviderEvidence provider={provider} />
       <View style={styles.footer}>
-        <Text style={styles.rating}>{provider.review_count ? `★ ${Number(provider.avg_rating || 0).toFixed(1)} (${provider.review_count} ${t('reviews')})` : t('noReviews')}</Text>
+
         <Text style={styles.link}>{t('view')} →</Text>
       </View>
     </Pressable>
