@@ -40,7 +40,7 @@ export const GET: APIRoute = async ({ locals, url }) => {
 }
 export const POST: APIRoute = async ({ locals, request }) => {
   try {
-    if (request.headers.get('origin') !== new URL(request.url).origin) throw new JobError('Request origin not allowed.', 403)
+    if (locals.apiAuth !== 'bearer' && request.headers.get('origin') !== new URL(request.url).origin) throw new JobError('Request origin not allowed.', 403)
     const { db, user, admin } = await context(locals)
     if (Number(request.headers.get('content-length')) > 20000) throw new JobError('Request too large.', 413)
     const raw = await request.text()

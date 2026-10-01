@@ -1,0 +1,37 @@
+{
+  "expo": {
+    "name": "වැඩHUB",
+    "slug": "wedahub",
+    "scheme": "wedahub",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "lk.wedahub.app"
+    },
+    "android": {
+      "package": "lk.wedahub.app",
+      "adaptiveIcon": {
+        "backgroundColor": "#0B2A4A",
+        "foregroundImage": "./assets/icon.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "plugins": [
+      "expo-router",
+      "expo-localization"
+    ],
+    "web": {
+      "bundler": "metro",
+      "output": "single"
+    },
+    "owner": "tilershub",
+    "extra": {
+      "eas": {
+        "projectId": "018b748b-7935-4612-ae13-5db1bbeaa59e"
+      }
+    }
+  }
+}

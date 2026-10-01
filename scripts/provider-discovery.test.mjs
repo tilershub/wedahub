@@ -1,0 +1,40 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { readFileSync } from 'node:fs';
+import { PGlite } from '@electric-sql/pglite';
+const sql = readFileSync('supabase/migrations/20260930054019_provider_discovery_evidence.sql','utf8');
+test('discovery uses public evidence, server ranking, service areas and protected badges', async () => {
+ const db = new PGlite();
+ try {
+ await db.exec(`create role anon; create role authenticated; create role service_role;
+ create function public.is_admin() returns boolean language sql as $$select current_setting('test.admin',true)='yes'$$;
+ create table providers(id uuid primary key,name text,slug text,provider_type text,city text,district text,services text[],profile_image text,verification_status text,service_areas text[],status text,merged_into uuid,description text);
+ create table reviews(provider_id uuid,rating integer,status text,confirmed_job boolean,engagement_id uuid);
+ create table job_engagements(id uuid primary key,provider_id uuid references providers(id),data jsonb);
+ grant select on providers,reviews to anon,authenticated;
+ insert into providers(id,name,slug,provider_type,city,district,service_areas,status,verification_status) select ('00000000-0000-4000-8000-'||lpad(n::text,12,'0'))::uuid,'Provider '||n,'p'||n,'tiler','Ratnapura','Ratnapura',array['Jaffna'],'active','listed' from generate_series(1,25)n;
+ insert into reviews select id,case when slug='p25' then 5 else 4 end,'published',false,null from providers;
+ insert into reviews select id,1,'hidden',false,null from providers where slug='p25';`);
+ await db.exec(sql);
+ await db.exec(`insert into job_engagements select gen_random_uuid(),id,'{"status":"completed","completed_at":"2026-09-01","started":{"customer":"yes","provider":"yes"}}' from providers where slug='p24';
+ insert into provider_badges(provider_id,kind,subject) select id,'identity','Identity checked' from providers where slug='p23';
+ insert into provider_badges(provider_id,kind,subject,verified_at,expires_at) select id,'skill','Expired assessment','2020-01-01','2021-01-01' from providers where slug='p22';
+ update providers set service_areas=array['Islandwide'] where slug='p21';
+ set role anon;`);
+ const q=async args=>(await db.query(`select * from discover_service_providers(${args})`)).rows;
+ const rows=await q("'' ,'tiler','',0");
+ assert.deepEqual(rows.slice(0,3).map(x=>x.slug),['p25','p24','p23']);
+ assert.equal(rows[1].completed_jobs,1); assert.deepEqual(rows[2].badge_kinds,['identity']);
+ assert.equal(Number(rows[0].avg_rating),5); assert.equal(rows[0].confirmed_review_count,0);
+ assert.equal((await q("'','tiler','Jaffna',0")).length,21);
+ assert.deepEqual((await q("'','tiler','Colombo',0")).map(x=>x.slug),['p21']);
+ assert.equal((await q("'','tiler','',1")).length,5);
+ assert.deepEqual((await q("'','tiler','',0,'p22'"))[0].badge_kinds,[]);
+ await assert.rejects(db.exec("insert into provider_badges(provider_id,kind,subject) select id,'skill','fake' from providers limit 1"));
+ await assert.rejects(db.exec('update provider_job_counts set completed_jobs=999'));
+ await db.exec('reset role; set role authenticated');
+ await assert.rejects(db.exec("insert into provider_badges(provider_id,kind,subject) select id,'skill','fake' from providers limit 1"));
+ await db.exec(`reset role; update job_engagements set data=data||'{"status":"disputed"}'; set role anon;`);
+ assert.equal((await q("'','tiler','',0,'p24'"))[0].completed_jobs,0);
+ } finally { await db.close(); }
+});
