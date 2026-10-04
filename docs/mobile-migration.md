@@ -151,3 +151,58 @@ trusted issuer management, remaining review/outcome features, messaging/push,
 account recovery/deletion UX, signed builds, real-device accessibility/offline tests,
 and full two-account authorization/engagement acceptance tests. Keep production
 store submission disabled until these are resolved. Existing web/data are unchanged.
+
+## Private credentials checkpoint — 2026-10-04
+
+Applied `private_provider_credentials` to the existing WEDAHUB project after isolated
+Postgres tests. Adds private `provider_credentials`, administrator-only review events,
+public recognized-issuer metadata, and a private `credential-documents` bucket capped
+at 10 MB per file (PDF/JPEG/PNG). No existing data or storage buckets were changed;
+the separately created `wedahub-social-posts` bucket remains untouched.
+
+Provider flow: My profiles → Credentials → save optional details as self-reported →
+attach private document → request verification. Field, level, certificate number,
+issue/expiry dates and registry issuer are supported. Submitted evidence and ownership
+cannot be changed by the provider. Rejected submissions remain as evidence; correction
+currently requires a new submission. Formal qualifications remain optional.
+
+Administrator flow: `/admin/credentials`, linked from existing admin. Define recognized
+issuers and allowed credential types, examine private evidence using a 60-second
+attachment link, record manual/issuer-contact verification and rationale, approve or
+reject/revoke. Administrators cannot review their own credential or rewrite evidence.
+Optimistic `updated_at` checks reject stale review forms. Official API verification is
+explicitly disabled until a real integration exists. No institutions are automatically
+seeded or trusted. Issuer activation is administrative, not certificate authentication.
+
+Only an approved title/type/date becomes a public `provider_badges` record. A separate
+unique credential FK avoids user-selected submission IDs colliding with existing badge
+IDs. Revocation removes the current public badge; expiry is honored by existing discovery
+queries. Certificate numbers, files, review rationale and raw credential rows stay private.
+Review transitions are appended to the audit table. The private trigger's execution is
+revoked from client roles. Existing broad storage policies cannot override restrictive
+private-document guards; owners cannot replace/delete submitted evidence.
+
+Live post-migration verification confirmed RLS on all three new tables, private bucket,
+10 MB/type restrictions, no anonymous credential SELECT, no callable client review
+trigger and zero production credential rows. Advisors reported no findings for these
+new objects. Existing helper-function/Auth warnings remain; see
+https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable
+and https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection.
+
+Validation: isolated ownership/storage/approval/revocation/audit tests and admin download
+authorization tests pass. Mobile typecheck/lint and all three platform exports pass;
+Astro builds successfully. Local Worker smoke test cannot start due to
+`uv_interface_addresses` in this environment; GitHub CI must verify the Worker runtime.
+
+Before broad credential rollout: real-device picker/upload tests and two-account live
+acceptance tests, user-facing retention/deletion policy, upload-abuse quotas and orphan
+cleanup, malware scanning/reviewer handling policy, audit trail for issuer registry
+changes, and reviewed Sinhala/Tamil copy. Disabling an issuer prevents new approval,
+but does not automatically revoke already-reviewed credentials. Admin queue is bounded
+to latest 100 pending/approved records; pagination remains necessary as volume grows.
+Temporary picker copies are deleted after upload; interrupted app processes may leave
+OS-managed cache files. Never upload real identity documents for automated QA.
+
+Rollback: revert mobile/admin UI first; retain the additive tables and private bucket
+so evidence is not lost. Do not drop populated credential/audit tables or delete bucket
+objects as a routine rollback. The new nullable badge FK leaves all legacy badges intact.

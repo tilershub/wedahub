@@ -24,6 +24,7 @@ function AppStack() {
     contentStyle: { backgroundColor: theme.paper } }}>
     <Stack.Screen name="(tabs)" options={{ headerTitle: () => <BrandTitle />, headerRight: () => <Link href="/notifications" asChild><Pressable accessibilityRole="button" accessibilityLabel={t('notifications')} style={styles.inbox}><Text style={styles.inboxText}>{t('notifications')}</Text></Pressable></Link> }} />
     <Stack.Screen name="provider/[slug]" options={{ title: t('profile') }} />
+    <Stack.Screen name="credentials" options={{ title: t('credentials') }} />
     <Stack.Screen name="notifications" options={{ title: t('notifications') }} />
     <Stack.Screen name="my-profiles" options={{ title: t('myProfiles') }} />
     <Stack.Screen name="register-provider" options={{ title: t('registerProvider') }} />
