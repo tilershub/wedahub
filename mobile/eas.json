@@ -1,0 +1,15 @@
+{
+  "cli": { "appVersionSource": "remote" },
+  "build": {
+    "base": {
+      "env": {
+        "EXPO_PUBLIC_SUPABASE_URL": "https://ginrgwaciblcvxvkbeyd.supabase.co",
+        "EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY": "sb_publishable_JehLNt2j16rfxMLSZnPuXw_U51VMBqC",
+        "EXPO_PUBLIC_WEB_API_URL": "https://wedahub.lk"
+      }
+    },
+    "preview": { "extends": "base", "distribution": "internal", "environment": "preview" },
+    "simulator": { "extends": "preview", "ios": { "simulator": true } },
+    "production": { "extends": "base", "environment": "production", "autoIncrement": true }
+  }
+}

@@ -23,6 +23,7 @@ if (!user || error || isAdmin !== true) {
   </style>
 </head>
 <body>
+  <nav style="padding:12px 24px"><a href="/admin/credentials">Credential review &amp; trusted issuers</a></nav>
   <AdminDashboard initialUser={user} initialIsAdmin={true} client:only="react" />
 </body>
 </html>

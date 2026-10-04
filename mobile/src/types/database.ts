@@ -1,3 +1,4 @@
+import type { Credential, CredentialInput, Issuer } from '../lib/credentials';
 export type Json =
   | string
   | number
@@ -14,6 +15,19 @@ export type Database = {
   }
   public: {
     Tables: {
+      provider_credentials: {
+        Row: Credential
+        Insert: CredentialInput
+        Update: Partial<Credential>
+        Relationships: []
+      }
+      trusted_issuers: {
+        Row: Issuer
+        Insert: Pick<Issuer,'name'|'credential_types'> & Partial<Issuer>
+        Update: Partial<Issuer>
+        Relationships: []
+      }
+
       provider_badges: {
         Row: { id: string; provider_id: string; kind: string; subject: string; verified_at: string; expires_at: string | null; revoked_at: string | null }
         Insert: { id?: string; provider_id: string; kind: string; subject: string; verified_at?: string; expires_at?: string | null; revoked_at?: string | null }
@@ -1491,6 +1505,8 @@ export type Database = {
       }
     }
     Functions: {
+      reserve_credential_upload: { Args: { credential: string; mime: string }; Returns: string }
+
       approve_service_provider: {
         Args: { submission_id: string }
         Returns: string

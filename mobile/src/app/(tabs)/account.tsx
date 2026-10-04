@@ -62,6 +62,7 @@ export default function Account() {
       {mode === 'provider' && <Link href="/register-provider" asChild><Pressable style={styles.secondary} accessibilityRole="button"><Text style={styles.secondaryText}>{t('registerProvider')}</Text></Pressable></Link>}
       {!configured ? <Text style={styles.notice}>{t('setup')}</Text> : user ? <>
         <Text style={styles.body}>{t('signedIn')}: {user.phone || user.email}</Text>
+        <Link href="/notifications" asChild><Pressable style={styles.button} accessibilityRole="button"><Text style={styles.buttonText}>{t('notifications')}</Text></Pressable></Link>
         <Link href="/my-profiles" asChild><Pressable style={styles.button} accessibilityRole="button"><Text style={styles.buttonText}>{t('myProfiles')}</Text></Pressable></Link>
         <Pressable style={styles.button} accessibilityRole="button" onPress={() => void supabase.auth.signOut()}><Text style={styles.buttonText}>{t('signOut')}</Text></Pressable>
       </> : <>

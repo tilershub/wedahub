@@ -113,3 +113,131 @@ Active providers can open their public profile directly from their editing scree
 ### Website colour alignment — 30 September 2026
 
 Mobile now shares the website's navy (#0B2A4A), champagne gold (#D6BE84), cream (#F7F3E8), muted slate (#536273) and warm border (#EAE4D7) palette from `src/styles/brand-mobile.css`. The app bar uses cream with a navy wordmark, primary actions use navy, and the selected bottom tab uses navy with a gold icon and cream label. Dark gold (#8C6C26) is used for readable accent text on light surfaces. The theme centralizes selected, placeholder and semantic status colours. Both account modes use the same brand palette.
+
+## Production checkpoint — 2026-10-04
+
+PR #121 is merged into main (`0b30d295`). Its CI passed the complete 78-test
+suite, Astro build/worker checks, mobile typecheck/lint, and web/Android/iOS
+JavaScript exports. These are not signed native builds or device certification.
+
+This checkpoint adds:
+- A localized in-app recent activity inbox reachable from the app bar and Account.
+  It reuses owner-filtered projects/bids and the bearer-only engagements API.
+  Read markers contain only record IDs/version, scoped to the signed-in account,
+  and stay on this device. No private activity payload is cached to disk.
+- Navigation state/drafts remount on account identity changes. Inbox loads discard
+  stale results after navigation away or a newer refresh.
+- Tests reject unrelated-account activity, deduplicate bids, discard invalid dates,
+  and verify version-specific unread markers and ordering.
+- The live `GET /api/mobile/jobs` returns 401 without a token. Preview-origin
+  preflight returns 204 with exact-origin CORS and no cookie credentials. Preview
+  configuration now enables this endpoint. Signed-in two-party lifecycle testing
+  is still required; no production engagement was created during these checks.
+- Engagement requests omit cookies, reject redirects where supported by fetch,
+  and abort after 20 seconds; mutations are never automatically retried.
+- EAS internal preview, iOS simulator and production build profiles use the existing
+  project and publishable configuration. No signing credentials are committed.
+
+Scope limits: this is a recent activity inbox, not a durable notification event log.
+It shows up to 100 derived items from the existing bounded queries and the latest
+25 engagements. Application dates use their creation timestamp because the existing
+query does not expose a reliable change timestamp. Read status is not synchronized
+between devices. Push delivery, tokens, preferences, outbox/retries/receipts, matching
+notifications and messages remain to implement. Only the latest engagement event
+is represented, and a user's own latest event is omitted.
+
+Release remains blocked by private credential upload/verification workflows,
+trusted issuer management, remaining review/outcome features, messaging/push,
+account recovery/deletion UX, signed builds, real-device accessibility/offline tests,
+and full two-account authorization/engagement acceptance tests. Keep production
+store submission disabled until these are resolved. Existing web/data are unchanged.
+
+## Private credentials checkpoint — 2026-10-04
+
+Applied `private_provider_credentials` to the existing WEDAHUB project after isolated
+Postgres tests. Adds private `provider_credentials`, administrator-only review events,
+public recognized-issuer metadata, and a private `credential-documents` bucket capped
+at 10 MB per file (PDF/JPEG/PNG). No existing data or storage buckets were changed;
+the separately created `wedahub-social-posts` bucket remains untouched.
+
+Provider flow: My profiles → Credentials → save optional details as self-reported →
+attach private document → request verification. Field, level, certificate number,
+issue/expiry dates and registry issuer are supported. Submitted evidence and ownership
+cannot be changed by the provider. Rejected submissions remain as evidence; correction
+currently requires a new submission. Formal qualifications remain optional.
+
+Administrator flow: `/admin/credentials`, linked from existing admin. Define recognized
+issuers and allowed credential types, examine private evidence using a 60-second
+attachment link, record manual/issuer-contact verification and rationale, approve or
+reject/revoke. Administrators cannot review their own credential or rewrite evidence.
+Optimistic `updated_at` checks reject stale review forms. Official API verification is
+explicitly disabled until a real integration exists. No institutions are automatically
+seeded or trusted. Issuer activation is administrative, not certificate authentication.
+
+Only an approved title/type/date becomes a public `provider_badges` record. A separate
+unique credential FK avoids user-selected submission IDs colliding with existing badge
+IDs. Revocation removes the current public badge; expiry is honored by existing discovery
+queries. Certificate numbers, files, review rationale and raw credential rows stay private.
+Review transitions are appended to the audit table. The private trigger's execution is
+revoked from client roles. Existing broad storage policies cannot override restrictive
+private-document guards; owners cannot replace/delete submitted evidence.
+
+Live post-migration verification confirmed RLS on all three new tables, private bucket,
+10 MB/type restrictions, no anonymous credential SELECT, no callable client review
+trigger and zero production credential rows. Advisors reported no findings for these
+new objects. Existing helper-function/Auth warnings remain; see
+https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable
+and https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection.
+
+Validation: isolated ownership/storage/approval/revocation/audit tests and admin download
+authorization tests pass. Mobile typecheck/lint and all three platform exports pass;
+Astro builds successfully. Local Worker smoke test cannot start due to
+`uv_interface_addresses` in this environment; GitHub CI must verify the Worker runtime.
+
+Before broad credential rollout: real-device picker/upload tests and two-account live
+acceptance tests, user-facing retention/deletion policy, upload-abuse quotas and orphan
+cleanup, malware scanning/reviewer handling policy, audit trail for issuer registry
+changes, and reviewed Sinhala/Tamil copy. Disabling an issuer prevents new approval,
+but does not automatically revoke already-reviewed credentials. Admin queue is bounded
+to latest 100 pending/approved records; pagination remains necessary as volume grows.
+Temporary picker copies are deleted after upload; interrupted app processes may leave
+OS-managed cache files. Never upload real identity documents for automated QA.
+
+Rollback: revert mobile/admin UI first; retain the additive tables and private bucket
+so evidence is not lost. Do not drop populated credential/audit tables or delete bucket
+objects as a routine rollback. The new nullable badge FK leaves all legacy badges intact.
+
+## Credential abuse controls and issuer audit — 2026-10-04
+
+Applied additive `credential_upload_limits_and_audit` after both baseline and hardened
+Postgres suites passed. Limits: 10 new credential records per rolling 24 hours, 50 per
+account, and three upload reservations per credential, with the existing 10 MB/file
+cap. Server-side advisory/row locks serialize quota checks. Reservations expire after
+30 minutes; storage RLS rejects arbitrary/unreserved paths. Failed uploads consume an
+attempt, limiting repeated storage abuse; users see the limits before uploading.
+
+Only the owner of a draft credential on a currently owned provider profile may reserve.
+Clients cannot insert reservation rows directly. Two deliberately narrow authenticated
+SECURITY DEFINER RPCs perform server-authorized operations: `reserve_credential_upload`
+checks actor/ownership/status/type/quota; `credential_cleanup_candidates` explicitly
+requires an authenticated admin. PUBLIC/anon EXECUTE is revoked on both. These can
+appear in the authenticated-function advisor by design; do not revoke the intentional
+permission without replacing the callers. All internal trigger functions remain private
+and not callable by clients.
+
+Existing web admin now has an abandoned-upload cleanup action. It obtains at most 200
+server-selected paths from expired reservations older than 24 hours and removes only
+unattached files through the Storage API, with a server-only service credential. It
+never deletes submitted/referenced evidence, accepts no browser-supplied object paths,
+and remains protected by admin authorization and same-origin POST. It is an on-demand
+admin action, not a scheduled cleanup job. Objects outside the reservation system,
+including files orphaned by provider deletion, require a separately reviewed retention
+workflow; they are not indiscriminately deleted.
+
+Issuer creation, modification and deletion now append immutable admin-only before/after
+audit events. Client roles cannot write/delete these events. Tests cover unreserved
+uploads, forged reservations, per-document and daily caps, non-admin cleanup denial,
+cleanup preserving attached evidence, and issuer audit immutability. Full CI for the
+preceding credential checkpoint passed both web/Worker and mobile exports. Remaining
+launch work includes real-device uploads, retention/deletion handling, scanning and
+reviewer procedures, push infrastructure and the wider marketplace release checklist.

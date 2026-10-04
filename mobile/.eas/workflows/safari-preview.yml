@@ -2,7 +2,7 @@ name: Safari preview
 
 on:
   push:
-    branches: ['codex/mobile-foundation']
+    branches: ['main', 'codex/mobile-production-inbox']
     paths: ['mobile/**']
   workflow_dispatch: {}
 
@@ -13,6 +13,7 @@ jobs:
     environment: preview
     # These values are public client configuration, never a service-role key.
     env:
+      EXPO_PUBLIC_WEB_API_URL: "https://wedahub.lk"
       EXPO_PUBLIC_SUPABASE_URL: "https://ginrgwaciblcvxvkbeyd.supabase.co"
       EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY: "sb_publishable_JehLNt2j16rfxMLSZnPuXw_U51VMBqC"
     params:
