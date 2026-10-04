@@ -16,10 +16,6 @@ export default function RegisterProvider() {
   const [search, setSearch] = useState('');
   const [name, setName] = useState('');
   const [profession, setProfession] = useState('');
-  const [city, setCity] = useState('');
-  const [district, setDistrict] = useState('');
-  const [phone, setPhone] = useState('');
-  const [service, setService] = useState('');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const [submitted, setSubmitted] = useState(false);
@@ -31,7 +27,7 @@ export default function RegisterProvider() {
     if (!configured) { setLoading(false); return; }
     registrationState().then(next => {
       if (!active) return;
-      setState(next); setPhone(previous => previous || next.user?.phone || '');
+      setState(next);
     }).catch(() => { if (active) setFailed(true); }).finally(() => { if (active) setLoading(false); });
     return () => { active = false; };
   // Retry intentionally restarts the focused load without discarding form values.
@@ -41,11 +37,11 @@ export default function RegisterProvider() {
     if (lock.current) return;
     lock.current = true; setBusy(true); setError('');
     try {
-      await registerProvider({ name, profession, city, district, phone, service });
+      await registerProvider({ name, profession });
       setSubmitted(true);
     } catch (value) {
       const code = value instanceof Error ? value.message : '';
-      setError(t(code === 'invalid_phone' ? 'invalidPhone' : code === 'invalid_registration' ? 'registrationValidation'
+      setError(t(code === 'invalid_phone' ? 'invalidPhone' : code === 'invalid_registration' ? 'simpleRegistrationValidation'
         : code === 'registration_exists' ? 'registrationExists' : code === 'sign_in_required' ? 'signInRequired' : 'saveFailed'));
     } finally { lock.current = false; setBusy(false); }
   };
@@ -60,7 +56,7 @@ export default function RegisterProvider() {
         : state.hasProfile ? <><Text style={styles.body}>{t('registrationExists')}</Text><Link href="/my-profiles" style={styles.link}>{t('myProfiles')}</Link></>
         : submitted || pending ? <View style={styles.card}><Text style={styles.title}>{t('registrationReceived')}</Text><Text style={styles.body}>{t('registrationPending')}</Text><Link href="/account" style={styles.link}>{t('account')}</Link></View>
         : <>
-          <Text style={styles.body}>{t('registrationIntro')}</Text>
+          <Text style={styles.body}>{t('simpleRegistration')}</Text>
           {step === 1 ? <>
             <Text style={styles.title}>{t('selectProfession')}</Text>
             <TextInput style={styles.input} value={search} onChangeText={setSearch} placeholder={t('search')} accessibilityLabel={t('search')} />
@@ -70,11 +66,8 @@ export default function RegisterProvider() {
           </> : <>
             <Pressable style={styles.choice} onPress={() => setStep(1)} accessibilityRole="button"><Text style={styles.title}>{category?.[language]}</Text><Text style={styles.body}>{t('changeProfession')}</Text></Pressable>
             <Field label={t('profileName')} value={name} setValue={setName} maxLength={100} />
-            <Field label={t('city')} value={city} setValue={setCity} maxLength={100} />
-            <Field label={t('district')} value={district} setValue={setDistrict} maxLength={100} />
-            <Field label={t('contactWhatsApp')} value={phone} setValue={setPhone} maxLength={20} phone />
+            <Text style={styles.body}>{t('phone')}: {state.user.phone}</Text>
             <Text style={styles.body}>{t('publicContactHelp')}</Text>
-            <Field label={t('servicesOffered')} value={service} setValue={setService} maxLength={1000} multiline />
             {!!error && <Text accessibilityRole="alert" style={styles.error}>{error}</Text>}
             <Pressable style={[styles.button, busy && styles.disabled]} disabled={busy} onPress={() => void submit()} accessibilityRole="button"><Text style={styles.buttonText}>{busy ? t('saving') : t('submitRegistration')}</Text></Pressable>
           </>}

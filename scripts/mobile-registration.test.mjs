@@ -8,7 +8,7 @@ const compiled = await build({ entryPoints: ['mobile/src/lib/registration.ts'], 
   } }] })
 const { registerProvider } = await import(`data:text/javascript;base64,${Buffer.from(compiled.outputFiles[0].text).toString('base64')}`)
 const fields = { name: 'Test Provider', profession: 'plumber', city: 'Colombo', district: 'Colombo', phone: '0771234567', service: 'Water pipe repair' }
-function setup({ user = { id: 'authenticated-user', phone_confirmed_at: '2026-09-28' }, submissions = [], profiles = [] } = {}) {
+function setup({ user = { id: 'authenticated-user', phone_confirmed_at: '2026-09-28', phone: '+94771234567' }, submissions = [], profiles = [] } = {}) {
   const inserted = []
   globalThis.registrationDb = { auth: { getUser: async () => ({ data: { user } }) }, from(table) {
     const q = { select() { return q }, eq() { return q }, is() { return q }, order() { return q },
@@ -42,10 +42,16 @@ test('registration does not create another application for an existing or pendin
     assert.equal(inserted.length, 0)
   }
 })
-test('registration rejects invalid profession, phone and oversized description', async () => {
+test('registration rejects invalid profession and oversized description', async () => {
   const inserted = setup()
-  for (const change of [{ profession: 'admin' }, { phone: 'abc' }, { service: 'x'.repeat(1001) }]) {
+  for (const change of [{ profession: 'admin' }, { service: 'x'.repeat(1001) }]) {
     await assert.rejects(registerProvider({ ...fields, ...change }))
   }
   assert.equal(inserted.length, 0)
 })
+
+test('minimal registration uses verified phone and leaves optional details empty',async()=>{
+ const inserted=setup(); await registerProvider({name:'A provider',profession:'plumber',phone:'0779999999'});
+ assert.equal(inserted[0].payload.whatsapp,'+94771234567');
+ assert.equal(inserted[0].payload.city,null); assert.equal(inserted[0].payload.description,null);
+});
