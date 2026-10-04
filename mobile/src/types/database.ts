@@ -1505,6 +1505,8 @@ export type Database = {
       }
     }
     Functions: {
+      reserve_credential_upload: { Args: { credential: string; mime: string }; Returns: string }
+
       approve_service_provider: {
         Args: { submission_id: string }
         Returns: string

@@ -206,3 +206,38 @@ OS-managed cache files. Never upload real identity documents for automated QA.
 Rollback: revert mobile/admin UI first; retain the additive tables and private bucket
 so evidence is not lost. Do not drop populated credential/audit tables or delete bucket
 objects as a routine rollback. The new nullable badge FK leaves all legacy badges intact.
+
+## Credential abuse controls and issuer audit — 2026-10-04
+
+Applied additive `credential_upload_limits_and_audit` after both baseline and hardened
+Postgres suites passed. Limits: 10 new credential records per rolling 24 hours, 50 per
+account, and three upload reservations per credential, with the existing 10 MB/file
+cap. Server-side advisory/row locks serialize quota checks. Reservations expire after
+30 minutes; storage RLS rejects arbitrary/unreserved paths. Failed uploads consume an
+attempt, limiting repeated storage abuse; users see the limits before uploading.
+
+Only the owner of a draft credential on a currently owned provider profile may reserve.
+Clients cannot insert reservation rows directly. Two deliberately narrow authenticated
+SECURITY DEFINER RPCs perform server-authorized operations: `reserve_credential_upload`
+checks actor/ownership/status/type/quota; `credential_cleanup_candidates` explicitly
+requires an authenticated admin. PUBLIC/anon EXECUTE is revoked on both. These can
+appear in the authenticated-function advisor by design; do not revoke the intentional
+permission without replacing the callers. All internal trigger functions remain private
+and not callable by clients.
+
+Existing web admin now has an abandoned-upload cleanup action. It obtains at most 200
+server-selected paths from expired reservations older than 24 hours and removes only
+unattached files through the Storage API, with a server-only service credential. It
+never deletes submitted/referenced evidence, accepts no browser-supplied object paths,
+and remains protected by admin authorization and same-origin POST. It is an on-demand
+admin action, not a scheduled cleanup job. Objects outside the reservation system,
+including files orphaned by provider deletion, require a separately reviewed retention
+workflow; they are not indiscriminately deleted.
+
+Issuer creation, modification and deletion now append immutable admin-only before/after
+audit events. Client roles cannot write/delete these events. Tests cover unreserved
+uploads, forged reservations, per-document and daily caps, non-admin cleanup denial,
+cleanup preserving attached evidence, and issuer audit immutability. Full CI for the
+preceding credential checkpoint passed both web/Worker and mobile exports. Remaining
+launch work includes real-device uploads, retention/deletion handling, scanning and
+reviewer procedures, push infrastructure and the wider marketplace release checklist.

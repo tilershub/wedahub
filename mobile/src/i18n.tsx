@@ -5,6 +5,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 export type Language = 'si' | 'ta' | 'en';
 const messages = {
   en: {
+    credentialLimits: "Up to 10 new submissions per day, 50 per account, and 3 upload attempts per submission. Each file can be up to 10 MB. Contact support if you reach a limit.",
     credentials: "Credentials & verification",
     credentialPrivacy: "Documents and certificate numbers are private to you and the review team. Only approved badge labels become public. No qualification is required to offer your skills.",
     credentialError: "Could not save or load. Check your connection and dates, then retry. Use PDF, JPG or PNG up to 10 MB.",
@@ -143,6 +144,7 @@ const messages = {
     profileMissing: 'This profile is unavailable.', back: 'Back',
   },
   si: {
+    credentialLimits: "දිනකට නව ඉදිරිපත් කිරීම් 10ක්, ගිණුමකට 50ක් සහ එක් ඉදිරිපත් කිරීමකට උඩුගත උත්සාහ 3ක් දක්වා. ගොනුවක් 10 MB දක්වා විය හැක. සීමාවකට ළඟා වුවහොත් සහාය අමතන්න.",
     credentials: "සුදුසුකම් සහ තහවුරු කිරීම",
     credentialPrivacy: "ලේඛන සහ සහතික අංක ඔබට සහ සමාලෝචන කණ්ඩායමට පමණක් පෙනේ. අනුමත ලාංඡන පමණක් ප්‍රසිද්ධ වේ. ඔබේ කුසලතා පිරිනැමීමට විධිමත් සුදුසුකමක් අනිවාර්ය නැත.",
     credentialError: "සුරැකීමට හෝ පූරණය කිරීමට නොහැකි විය. සම්බන්ධතාව සහ දින පරීක්ෂා කර නැවත උත්සාහ කරන්න. 10 MB දක්වා PDF, JPG හෝ PNG භාවිත කරන්න.",
@@ -281,6 +283,7 @@ const messages = {
     profileMissing: 'මෙම පැතිකඩ ලබා ගත නොහැක.', back: 'ආපසු',
   },
   ta: {
+    credentialLimits: "ஒரு நாளுக்கு 10 புதிய சமர்ப்பிப்புகள், ஒரு கணக்குக்கு 50, ஒரு சமர்ப்பிப்புக்கு 3 பதிவேற்ற முயற்சிகள் வரை. ஒவ்வொரு கோப்பும் 10 MB வரை இருக்கலாம். வரம்பை அடைந்தால் ஆதரவைத் தொடர்புகொள்ளவும்.",
     credentials: "தகுதிகள் மற்றும் சரிபார்ப்பு",
     credentialPrivacy: "ஆவணங்களும் சான்றிதழ் எண்களும் உங்களுக்கும் மதிப்பாய்வுக் குழுவிற்கும் மட்டுமே தெரியும். அங்கீகரிக்கப்பட்ட அடையாளங்கள் மட்டுமே பொதுவில் காட்டப்படும். திறன்களை வழங்க முறையான தகுதி கட்டாயமில்லை.",
     credentialError: "சேமிக்க அல்லது ஏற்ற முடியவில்லை. இணைப்பையும் தேதிகளையும் சரிபார்த்து மீண்டும் முயலவும். 10 MB வரை PDF, JPG அல்லது PNG பயன்படுத்தவும்.",

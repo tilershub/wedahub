@@ -35,7 +35,7 @@ export default function Credentials() {
  };
  const input=(label:Parameters<typeof t>[0],value:string,onChangeText:(s:string)=>void,maxLength=160)=><View><Text style={styles.label}>{t(label)}</Text><TextInput style={styles.input} accessibilityLabel={t(label)} value={value} onChangeText={onChangeText} maxLength={maxLength} editable={!busy}/></View>;
  return <ScrollView contentContainerStyle={styles.screen} keyboardShouldPersistTaps="handled">
-  <Text style={styles.heading}>{t('credentials')}</Text><Text style={styles.body}>{t('credentialPrivacy')}</Text>
+  <Text style={styles.heading}>{t('credentials')}</Text><Text style={styles.body}>{t('credentialPrivacy')}</Text><Text style={styles.body}>{t('credentialLimits')}</Text>
   {loading&&<ActivityIndicator color={theme.goldText}/>}
   {error&&<Text style={styles.error} accessibilityRole="alert">{t('credentialError')}</Text>}
   <Pressable style={styles.secondary} disabled={busy||loading} onPress={()=>void refresh()}><Text>{t('retry')}</Text></Pressable>

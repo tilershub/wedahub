@@ -34,8 +34,8 @@ export async function uploadCredential(credential: Credential) {
   if(!['application/pdf','image/jpeg','image/png'].includes(mime) || (asset.size || localFile?.size || 0)>10*1024*1024) throw new Error('invalid_document');
   const bytes=Platform.OS==='web' ? await asset.file!.arrayBuffer() : await localFile!.arrayBuffer();
   if(bytes.byteLength===0 || bytes.byteLength>10*1024*1024) throw new Error('invalid_document');
-  const ext=mime==='application/pdf'?'pdf':mime==='image/jpeg'?'jpg':'png';
-  const path=`${credential.user_id}/${credential.id}/${Date.now()}.${ext}`;
+  const {data:path,error:reservationError}=await supabase.rpc('reserve_credential_upload',{credential:credential.id,mime});
+  if(reservationError || !path) throw reservationError || new Error('upload_limit');
   const {error:uploadError}=await supabase.storage.from('credential-documents').upload(path,bytes,{contentType:mime,upsert:false});
   if(uploadError) throw uploadError;
   const {data,error}=await supabase.from('provider_credentials').update({document_path:path}).eq('id',credential.id).eq('status','self_reported').select('id');
