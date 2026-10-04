@@ -1,8 +1,9 @@
 import { supabase } from './supabase';
 
 export type Engagement = {
-  id: string; version: number; project_id: string; provider_id: string; customer_id: string;
+  id: string; updated_at: string; version: number; project_id: string; provider_id: string; customer_id: string;
   provider_user_id: string; data: { status: string; title?: string; provider_name?: string; provider_slug?: string;
+    events?: { action: string; role: string; at: string }[];
     started?: { customer?: string; provider?: string }; completion_requested_by?: string;
     review?: { rating: number; comment: string; status: string; reply?: string } };
 };
@@ -14,13 +15,18 @@ async function request(body?: object) {
   if (!apiBase) throw new Error('api_unconfigured');
   const { data: { session } } = await supabase.auth.getSession();
   if (!session?.access_token) throw new Error('sign_in_required');
-  const response = await fetch(`${apiBase}/api/mobile/jobs`, {
-    method: body ? 'POST' : 'GET',
-    headers: { Authorization: `Bearer ${session.access_token}`, ...(body ? { 'Content-Type': 'application/json' } : {}) },
-    ...(body ? { body: JSON.stringify(body) } : {}),
-  });
-  if (!response.ok) throw new Error(`api_${response.status}`);
-  return response.json();
+  // Never carry bearer credentials to a redirect target or attach browser cookies.
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 20_000);
+  try {
+    const response = await fetch(`${apiBase}/api/mobile/jobs`, {
+      method: body ? 'POST' : 'GET', credentials: 'omit', redirect: 'error', signal: controller.signal,
+      headers: { Authorization: `Bearer ${session.access_token}`, ...(body ? { 'Content-Type': 'application/json' } : {}) },
+      ...(body ? { body: JSON.stringify(body) } : {}),
+    });
+    if (!response.ok) throw new Error(`api_${response.status}`);
+    return await response.json();
+  } finally { clearTimeout(timeout); }
 }
 
 export async function myEngagements(): Promise<Engagement[]> {

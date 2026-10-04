@@ -113,3 +113,41 @@ Active providers can open their public profile directly from their editing scree
 ### Website colour alignment — 30 September 2026
 
 Mobile now shares the website's navy (#0B2A4A), champagne gold (#D6BE84), cream (#F7F3E8), muted slate (#536273) and warm border (#EAE4D7) palette from `src/styles/brand-mobile.css`. The app bar uses cream with a navy wordmark, primary actions use navy, and the selected bottom tab uses navy with a gold icon and cream label. Dark gold (#8C6C26) is used for readable accent text on light surfaces. The theme centralizes selected, placeholder and semantic status colours. Both account modes use the same brand palette.
+
+## Production checkpoint — 2026-10-04
+
+PR #121 is merged into main (`0b30d295`). Its CI passed the complete 78-test
+suite, Astro build/worker checks, mobile typecheck/lint, and web/Android/iOS
+JavaScript exports. These are not signed native builds or device certification.
+
+This checkpoint adds:
+- A localized in-app recent activity inbox reachable from the app bar and Account.
+  It reuses owner-filtered projects/bids and the bearer-only engagements API.
+  Read markers contain only record IDs/version, scoped to the signed-in account,
+  and stay on this device. No private activity payload is cached to disk.
+- Navigation state/drafts remount on account identity changes. Inbox loads discard
+  stale results after navigation away or a newer refresh.
+- Tests reject unrelated-account activity, deduplicate bids, discard invalid dates,
+  and verify version-specific unread markers and ordering.
+- The live `GET /api/mobile/jobs` returns 401 without a token. Preview-origin
+  preflight returns 204 with exact-origin CORS and no cookie credentials. Preview
+  configuration now enables this endpoint. Signed-in two-party lifecycle testing
+  is still required; no production engagement was created during these checks.
+- Engagement requests omit cookies, reject redirects where supported by fetch,
+  and abort after 20 seconds; mutations are never automatically retried.
+- EAS internal preview, iOS simulator and production build profiles use the existing
+  project and publishable configuration. No signing credentials are committed.
+
+Scope limits: this is a recent activity inbox, not a durable notification event log.
+It shows up to 100 derived items from the existing bounded queries and the latest
+25 engagements. Application dates use their creation timestamp because the existing
+query does not expose a reliable change timestamp. Read status is not synchronized
+between devices. Push delivery, tokens, preferences, outbox/retries/receipts, matching
+notifications and messages remain to implement. Only the latest engagement event
+is represented, and a user's own latest event is omitted.
+
+Release remains blocked by private credential upload/verification workflows,
+trusted issuer management, remaining review/outcome features, messaging/push,
+account recovery/deletion UX, signed builds, real-device accessibility/offline tests,
+and full two-account authorization/engagement acceptance tests. Keep production
+store submission disabled until these are resolved. Existing web/data are unchanged.

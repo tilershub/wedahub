@@ -5,6 +5,17 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 export type Language = 'si' | 'ta' | 'en';
 const messages = {
   en: {
+    notifications: "Notifications",
+    inboxHelp: "Recent application and job updates. Read status is saved on this device. Pull down to refresh.",
+    inboxEmpty: "No recent updates yet.",
+    refreshInbox: "Refresh",
+    markAllRead: "Mark all as read",
+    unread: "Unread",
+    applicationReceived: "Provider interested in your job",
+    applicationUpdate: "Your application",
+    engagementUpdate: "Job update",
+    viewWork: "View my work",
+
     coverageNotSet: "Service areas not specified",
     editCoverage: "Edit where I work",
     coverageHelp: "Choose where you are willing to travel for work. Your home town does not limit your service area. Select All Sri Lanka if you work islandwide.",
@@ -102,6 +113,17 @@ const messages = {
     profileMissing: 'This profile is unavailable.', back: 'Back',
   },
   si: {
+    notifications: "දැනුම්දීම්",
+    inboxHelp: "මෑත අයදුම්පත් සහ වැඩ යාවත්කාලීන. කියවූ තත්ත්වය මෙම උපාංගයේ සුරැකේ. නැවුම් කිරීමට පහළට අදින්න.",
+    inboxEmpty: "තවම නව යාවත්කාලීන නැත.",
+    refreshInbox: "නැවුම් කරන්න",
+    markAllRead: "සියල්ල කියවූ ලෙස සලකුණු කරන්න",
+    unread: "නොකියවූ",
+    applicationReceived: "ඔබේ වැඩට සේවා සපයන්නෙකු කැමැත්ත පළ කර ඇත",
+    applicationUpdate: "ඔබේ අයදුම්පත",
+    engagementUpdate: "වැඩ යාවත්කාලීනය",
+    viewWork: "මගේ වැඩ බලන්න",
+
     coverageNotSet: "සේවා ප්‍රදේශ සඳහන් කර නැත",
     editCoverage: "මම වැඩ කරන ප්‍රදේශ වෙනස් කරන්න",
     coverageHelp: "වැඩ සඳහා යාමට කැමති ප්‍රදේශ තෝරන්න. පදිංචි නගරයෙන් ඔබේ සේවා ප්‍රදේශ සීමා නොවේ. දිවයින පුරා වැඩ කරන්නේ නම් මුළු ශ්‍රී ලංකාව තෝරන්න.",
@@ -199,6 +221,17 @@ const messages = {
     profileMissing: 'මෙම පැතිකඩ ලබා ගත නොහැක.', back: 'ආපසු',
   },
   ta: {
+    notifications: "அறிவிப்புகள்",
+    inboxHelp: "சமீபத்திய விண்ணப்ப மற்றும் வேலை புதுப்பிப்புகள். படித்த நிலை இந்தச் சாதனத்தில் சேமிக்கப்படும். புதுப்பிக்க கீழே இழுக்கவும்.",
+    inboxEmpty: "சமீபத்திய புதுப்பிப்புகள் இல்லை.",
+    refreshInbox: "புதுப்பிக்கவும்",
+    markAllRead: "அனைத்தையும் படித்ததாகக் குறிக்கவும்",
+    unread: "படிக்காதது",
+    applicationReceived: "உங்கள் வேலையில் வழங்குநர் ஆர்வம் காட்டியுள்ளார்",
+    applicationUpdate: "உங்கள் விண்ணப்பம்",
+    engagementUpdate: "வேலை புதுப்பிப்பு",
+    viewWork: "எனது வேலையைப் பார்க்கவும்",
+
     coverageNotSet: "சேவைப் பகுதிகள் குறிப்பிடப்படவில்லை",
     editCoverage: "நான் வேலை செய்யும் இடங்களை மாற்று",
     coverageHelp: "வேலைக்காகப் பயணிக்க விரும்பும் பகுதிகளைத் தேர்ந்தெடுக்கவும். உங்கள் சொந்த ஊர் சேவைப் பகுதியைக் கட்டுப்படுத்தாது. நாடு முழுவதும் வேலை செய்தால் இலங்கை முழுவதும் என்பதைத் தேர்ந்தெடுக்கவும்.",
