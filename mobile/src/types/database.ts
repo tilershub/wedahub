@@ -1,3 +1,4 @@
+import type { Offering, OfferingInput } from '../lib/profile-editing';
 import type { Credential, CredentialInput, Issuer } from '../lib/credentials';
 export type Json =
   | string
@@ -15,6 +16,13 @@ export type Database = {
   }
   public: {
     Tables: {
+      provider_service_offerings: {
+        Row: Offering
+        Insert: OfferingInput
+        Update: Partial<OfferingInput>
+        Relationships: []
+      }
+
       provider_credentials: {
         Row: Credential
         Insert: CredentialInput
@@ -952,7 +960,7 @@ export type Database = {
       }
       provider_submissions: {
         Row: {
-          city: string
+          city: string | null
           cover_image: string | null
           created_at: string | null
           description: string | null
@@ -970,7 +978,7 @@ export type Database = {
           whatsapp: string
         }
         Insert: {
-          city: string
+          city: string | null
           cover_image?: string | null
           created_at?: string | null
           description?: string | null
@@ -988,7 +996,7 @@ export type Database = {
           whatsapp: string
         }
         Update: {
-          city?: string
+          city?: string | null
           cover_image?: string | null
           created_at?: string | null
           description?: string | null

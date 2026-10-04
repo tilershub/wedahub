@@ -15,21 +15,20 @@ export async function registrationState() {
   return { user, submissions: submissions.data, hasProfile: profiles.data.length > 0 };
 }
 
-export type RegistrationFields = { name: string; profession: string; city: string; district: string; phone: string; service: string };
+export type RegistrationFields = { name: string; profession: string; city?: string; district?: string; service?: string };
 export async function registerProvider(fields: RegistrationFields) {
   const category = professions.find(item => item.value === fields.profession);
-  if (!category || !fields.name.trim() || fields.name.trim().length > 100 || !fields.city.trim() || fields.city.length > 100
-    || !fields.district.trim() || fields.district.length > 100 || fields.service.trim().length < 5 || fields.service.length > 1000) throw new Error('invalid_registration');
-  const phone = normalizeMobile(fields.phone);
+  if (!category || fields.name.trim().length < 2 || fields.name.trim().length > 100
+    || (fields.city?.length || 0) > 100 || (fields.district?.length || 0) > 100 || (fields.service?.length || 0) > 1000) throw new Error('invalid_registration');
   const current = await registrationState();
-  if (!current.user?.phone_confirmed_at) throw new Error('sign_in_required');
-  // The existing admin approval function supports one primary profile per account.
-  // Do not silently offer a second registration that it would discard on approval.
+  if (!current.user?.phone_confirmed_at || !current.user.phone) throw new Error('sign_in_required');
+  const phone = normalizeMobile(current.user.phone);
+  // Keep the existing moderated first-profile registration workflow.
   if (current.hasProfile || current.submissions.some(item => item.status === 'pending_review')) throw new Error('registration_exists');
   const { error } = await supabase.from('provider_submissions').insert({
     user_id: current.user.id, name: fields.name.trim(), provider_type: category.value,
-    city: fields.city.trim(), district: fields.district.trim(), whatsapp: phone,
-    services: [category.en, fields.service.trim()], description: fields.service.trim(), status: 'pending_review',
+    city: fields.city?.trim() || null, district: fields.district?.trim() || null, whatsapp: phone,
+    services: [category.en], description: fields.service?.trim() || null, status: 'pending_review',
   });
   if (error) throw error;
 }

@@ -2,7 +2,7 @@ name: Safari preview
 
 on:
   push:
-    branches: ['main', 'codex/mobile-production-inbox']
+    branches: ['main', 'codex/provider-profile-editor']
     paths: ['mobile/**']
   workflow_dispatch: {}
 
