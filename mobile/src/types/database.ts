@@ -1,5 +1,5 @@
 import type { Offering, OfferingInput } from '../lib/profile-editing';
-import type { Credential, CredentialInput, Issuer } from '../lib/credentials';
+import type { Credential, CredentialInput, Issuer, PublicQualification } from '../lib/credentials';
 export type Json =
   | string
   | number
@@ -16,6 +16,7 @@ export type Database = {
   }
   public: {
     Tables: {
+      provider_qualification_summaries: { Row: PublicQualification; Insert: never; Update: never; Relationships: [] };
       provider_service_offerings: {
         Row: Offering
         Insert: OfferingInput
@@ -25,7 +26,7 @@ export type Database = {
 
       provider_credentials: {
         Row: Credential
-        Insert: CredentialInput
+        Insert: CredentialInput & { public_listing?: boolean }
         Update: Partial<Credential>
         Relationships: []
       }

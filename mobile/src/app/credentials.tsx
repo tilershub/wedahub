@@ -31,22 +31,22 @@ export default function Credentials() {
  useFocusEffect(useCallback(()=>{void refresh();return()=>{generation.current++;};},[refresh]));
  const run=async(action:()=>Promise<void>)=>{
   if(locked.current)return;locked.current=true;setBusy(true);setError(false);
-  try{await action();await refresh();}catch{setError(true);}finally{locked.current=false;setBusy(false);}
+  try{await action();await refresh();}catch{await refresh();setError(true);}finally{locked.current=false;setBusy(false);}
  };
  const input=(label:Parameters<typeof t>[0],value:string,onChangeText:(s:string)=>void,maxLength=160)=><View><Text style={styles.label}>{t(label)}</Text><TextInput style={styles.input} accessibilityLabel={t(label)} value={value} onChangeText={onChangeText} maxLength={maxLength} editable={!busy}/></View>;
  return <ScrollView contentContainerStyle={styles.screen} keyboardShouldPersistTaps="handled">
-  <Text style={styles.heading}>{t('credentials')}</Text><Text style={styles.body}>{t('credentialPrivacy')}</Text><Text style={styles.body}>{t('credentialLimits')}</Text>
+  <Text style={styles.heading}>{t('credentials')}</Text><Text style={styles.body}>{t('credentialPrivacy')}</Text><Text style={styles.body}>{t('certificateUploadHelp')}</Text><Text style={styles.body}>{t('credentialLimits')}</Text>
   {loading&&<ActivityIndicator color={theme.goldText}/>}
   {error&&<Text style={styles.error} accessibilityRole="alert">{t('credentialError')}</Text>}
   <Pressable style={styles.secondary} disabled={busy||loading} onPress={()=>void refresh()}><Text>{t('retry')}</Text></Pressable>
   {rows.map(row=><View key={row.id} style={styles.card}>
    <Text style={styles.title}>{row.qualification_name}</Text><Text style={styles.body}>{row.issuing_organization}</Text>
-   <Text style={styles.label}>{t(statuses[credentialStatus(row)])}</Text>
+   <Text style={styles.label}>{t(!row.document_path?'privateCredentialDraft':statuses[credentialStatus(row)])}</Text>
    {!!row.review_note&&<Text style={styles.body}>{row.review_note}</Text>}
    {!!row.expiry_date&&<Text style={styles.body}>{t('expiryDate')}: {row.expiry_date}</Text>}
    {row.status==='self_reported'&&<>
     <Pressable style={styles.button} disabled={busy} onPress={()=>void run(()=>uploadCredential(row))}><Text style={styles.buttonText}>{row.document_path?t('replaceDocument'):t('uploadDocument')}</Text></Pressable>
-    {!!row.document_path&&<Pressable style={styles.button} disabled={busy} onPress={()=>void run(()=>submitCredential(row.id))}><Text style={styles.buttonText}>{t('requestVerification')}</Text></Pressable>}
+    {!!row.document_path&&<Pressable style={styles.button} disabled={busy} onPress={()=>void run(()=>submitCredential(row.id))}><Text style={styles.buttonText}>{t('submitCertificate')}</Text></Pressable>}
    </>}
   </View>)}
   {!!owner&&!loading&&<View style={styles.card}>
@@ -62,9 +62,10 @@ export default function Credentials() {
    {details&&<>{input('credentialField',field,setField)}{input('credentialLevel',level,setLevel,100)}{input('certificateNumber',number,setNumber)}{input('issueDateInput',issued,setIssued,10)}{input('expiryDateInput',expires,setExpires,10)}</>}
    <Pressable style={styles.button} disabled={busy||name.trim().length<2||organization.trim().length<2} onPress={()=>void run(async()=>{
     if((issued&&!/^\d{4}-\d{2}-\d{2}$/.test(issued))||(expires&&!/^\d{4}-\d{2}-\d{2}$/.test(expires)))throw new Error('date');
-    await addCredential({provider_id:providerId,user_id:owner,credential_type:kind,qualification_name:name.trim(),issuing_organization:organization.trim(),issuer_id:issuer,field:field.trim()||null,level:level.trim()||null,certificate_number:number.trim()||null,issue_date:issued||null,expiry_date:expires||null});
+    const added=await addCredential({provider_id:providerId,user_id:owner,credential_type:kind,qualification_name:name.trim(),issuing_organization:organization.trim(),issuer_id:issuer,field:field.trim()||null,level:level.trim()||null,certificate_number:number.trim()||null,issue_date:issued||null,expiry_date:expires||null});
+    if(!added)return;
     setName('');setNumber('');setIssued('');setExpires('');setField('');setLevel('');
-   })}><Text style={styles.buttonText}>{t('saveSelfReported')}</Text></Pressable>
+   })}><Text style={styles.buttonText}>{t('saveCertificate')}</Text></Pressable>
   </View>}
  </ScrollView>;
 }

@@ -4,6 +4,7 @@ import { StatusBar } from 'expo-status-bar';
 import { Pressable, StyleSheet, Text } from 'react-native';
 import { LanguageProvider, useLanguage } from '../i18n';
 import { ModeProvider } from '../mode';
+import { AppIcon } from '../components/AppIcon';
 import { theme } from '../theme';
 
 export default function Layout() {
@@ -22,7 +23,7 @@ function AppStack() {
   return <Stack screenOptions={{ headerStyle: { backgroundColor: theme.paper }, headerTintColor: theme.ink,
     headerTitleStyle: { fontWeight: '700' }, headerShadowVisible: false,
     contentStyle: { backgroundColor: theme.paper } }}>
-    <Stack.Screen name="(tabs)" options={{ headerTitle: () => <BrandTitle />, headerRight: () => <Link href="/notifications" asChild><Pressable accessibilityRole="button" accessibilityLabel={t('notifications')} style={styles.inbox}><Text style={styles.inboxText}>{t('notifications')}</Text></Pressable></Link> }} />
+    <Stack.Screen name="(tabs)" options={{ headerTitle: () => <BrandTitle />, headerRight: () => <Link href="/notifications" asChild><Pressable accessibilityRole="button" accessibilityLabel={t('notifications')} style={styles.inbox}><AppIcon name="bell"/></Pressable></Link> }} />
     <Stack.Screen name="provider/[slug]" options={{ title: t('profile') }} />
     <Stack.Screen name="credentials" options={{ title: t('credentials') }} />
     <Stack.Screen name="notifications" options={{ title: t('notifications') }} />

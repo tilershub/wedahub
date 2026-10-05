@@ -2,7 +2,7 @@ name: Safari preview
 
 on:
   push:
-    branches: ['main', 'codex/provider-profile-editor']
+    branches: ['main', 'codex/provider-growth-flow']
     paths: ['mobile/**']
   workflow_dispatch: {}
 

@@ -8,6 +8,11 @@ const DRAFT_KEY = 'tilershub_draft_token'
 
 const T = {
   si: {
+    photos: "වැඩ ඡායාරූප",
+    photoHelp: "JPG/PNG ඡායාරූප 1–5ක් එක් කරන්න. එකක් 5 MB දක්වා. මේවා ප්‍රසිද්ධයි: මුහුණු, ලේඛන සහ නිශ්චිත ලිපින ඇතුළත් නොකරන්න.",
+    removePhoto: "ඉවත් කරන්න",
+    photoError: "උඩුගත කළ නොහැක. පිවිසී 5 MB ට අඩු JPG හෝ PNG භාවිත කරන්න.",
+
     required: 'අවශ්‍යයි',
     descMin: 'ව්‍යාපෘතිය අවම අකුරු 10කින් විස්තර කරන්න',
     phoneInvalid: 'වලංගු දුරකථන අංකයක් ඇතුළු කරන්න (උදා: +94771234567)',
@@ -54,6 +59,11 @@ const T = {
     footer: 'නොමිලේ සේවාව · පළ කිරීමට පිවිසෙන්න · සේවා සපයන්නන් ලංසු ඉදිරිපත් කරති',
   },
   en: {
+    photos: "Job photos",
+    photoHelp: "Add 1–5 JPG/PNG photos, up to 5 MB each. These are public: avoid faces, documents and exact addresses.",
+    removePhoto: "Remove",
+    photoError: "Could not upload. Sign in and use a JPG or PNG under 5 MB.",
+
     required: 'Required',
     descMin: 'Please describe your project in at least 10 characters',
     phoneInvalid: 'Enter a valid phone number (e.g. +94771234567)',
@@ -133,6 +143,8 @@ export default function PostProjectForm() {
     project_type: '', city: '', district: '', description: '',
     budget_range: '', customer_name: '', whatsapp: ''
   })
+  const [images,setImages]=useState([])
+  const [uploading,setUploading]=useState(false)
   const [errors, setErrors] = useState({})
   const [submitting, setSubmitting] = useState(false)
   const [success, setSuccess] = useState(false)
@@ -162,6 +174,20 @@ export default function PostProjectForm() {
 
   const set = (k, v) => setForm(f => ({ ...f, [k]: v }))
 
+  async function uploadPhotos(event) {
+    const files=Array.from(event.target.files||[]);event.target.value='';
+    if(uploading||!files.length)return;
+    if(!userId||images.length+files.length>5||files.some(file=>!['image/jpeg','image/png'].includes(file.type)||file.size>5*1024*1024||!file.size)){setErrors({images:t.photoError});return;}
+    setUploading(true);setErrors({});
+    try{
+      for(const file of files){
+        const path=`${userId}/${crypto.randomUUID()}.${file.type==='image/png'?'png':'jpg'}`;
+        const {error}=await supabase.storage.from('job-images').upload(path,file,{contentType:file.type,upsert:false});if(error)throw error;
+        setImages(current=>[...current,supabase.storage.from('job-images').getPublicUrl(path).data.publicUrl]);
+      }
+    }catch{setErrors({images:t.photoError});}finally{setUploading(false);}
+  }
+
   function validate() {
     const e = {}
     if (!form.project_type.trim()) e.project_type = t.required
@@ -171,6 +197,7 @@ export default function PostProjectForm() {
     if (!form.customer_name.trim()) e.customer_name = t.required
     if (!form.whatsapp.trim()) e.whatsapp = t.required
     if (!/^\+?[0-9]{9,15}$/.test(form.whatsapp.replace(/\s/g, ''))) e.whatsapp = t.phoneInvalid
+    if(images.length<1||images.length>5)e.images=t.photoHelp
     return e
   }
 
@@ -182,6 +209,7 @@ export default function PostProjectForm() {
     setErrors({})
     try {
       const payload = {
+        images,
         project_type: form.project_type,
         city: form.city.trim(),
         district: form.district || null,
@@ -209,6 +237,7 @@ export default function PostProjectForm() {
 
   function resetForm() {
     setSuccess(false)
+    setImages([])
     setForm({ project_type: '', city: '', district: '', description: '', budget_range: '', customer_name: '', whatsapp: '' })
   }
 
@@ -318,6 +347,11 @@ export default function PostProjectForm() {
           rows={4} style={{ ...inp(!!errors.description), resize: 'vertical', minHeight: 100 }} />
       </Field>
 
+      <Field label={t.photos} id="job-photos" req error={errors.images} hint={t.photoHelp}>
+        <input id="job-photos" type="file" accept="image/jpeg,image/png" multiple disabled={uploading||submitting||!userId||images.length>=5} onChange={uploadPhotos}/>
+        <div style={{display:'flex',overflowX:'auto',gap:10}}>{images.map((url,index)=><div key={url}><img src={url} alt={`${t.photos} ${index+1}`} width="110" height="90" style={{objectFit:'cover'}}/><button type="button" disabled={uploading||submitting} onClick={()=>setImages(current=>current.filter((_,i)=>i!==index))}>{t.removePhoto}</button></div>)}</div>
+        {!userId&&<a href="/login">{lang==='si'?'පිවිසෙන්න':'Sign in to add photos'}</a>}
+      </Field>
       <Field label={t.budget} id="budget_range" hint={t.budgetHint}>
         <input
           id="budget_range"
@@ -342,7 +376,7 @@ export default function PostProjectForm() {
         </Field>
       </div>
 
-      <button type="submit" disabled={submitting}
+      <button type="submit" disabled={submitting||uploading||!userId}
         style={{ width: '100%', padding: '13px', background: submitting ? '#8A8F95' : '#0B2A4A', color: '#fff', border: 'none', borderRadius: 12, fontSize: 15, fontWeight: 700, cursor: submitting ? 'not-allowed' : 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, transition: 'background 0.2s' }}>
         {sinhalaText(submitting ? t.submitting : t.submit)}
       </button>

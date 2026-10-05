@@ -84,6 +84,7 @@ export default function MyProfiles() {
       <Pressable style={styles.button} disabled={saving} onPress={() => setSelectedId(null)} accessibilityRole="button"><Text>{t('chooseProfile')}</Text></Pressable>
       <Text style={styles.heading}>{profile.name}</Text>
       {profile.status === 'active' && !!profile.slug && <Link href={{ pathname: '/provider/[slug]', params: { slug: profile.slug } }} style={styles.button}>{t('viewPublicProfile')}</Link>}
+      {profile.status==='active' && !!profile.slug && <Link href={{pathname:'/provider/[slug]',params:{slug:profile.slug,edit:'1'}}} style={styles.button}>{t('editProfile')}</Link>}
       <Link href={{ pathname: '/credentials', params: { providerId: profile.id } }} style={styles.button}>{t('credentials')}</Link>
       <ServiceAreaEditor key={profile.id} providerId={profile.id} initialAreas={profile.service_areas || []} />
       <Text style={styles.title}>{t('skills')}</Text>

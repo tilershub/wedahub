@@ -1,5 +1,5 @@
-import { useLocalSearchParams } from 'expo-router';
-import { useEffect, useState } from 'react';
+import { useFocusEffect, useLocalSearchParams } from 'expo-router';
+import { useCallback, useState } from 'react';
 import { ActivityIndicator, Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { useLanguage } from '../../i18n';
 import { providerBySlug, providerReviews, type PublicReview, type ProviderDetail } from '../../lib/providers';
@@ -7,13 +7,18 @@ import { publicProviderSkills, skillName, type Skill } from '../../lib/skills';
 import { ProviderEvidence } from '../../components/ProviderEvidence';
 import { ProfileEditor } from '../../components/ProfileEditor';
 import { editableProfile, serviceOfferings, priceLabels, type EditableProfile, type Offering } from '../../lib/profile-editing';
+import { PhotoCarousel } from '../../components/PhotoCarousel';
+import { AppIcon } from '../../components/AppIcon';
+import { publicQualifications } from '../../lib/credentials';
+import { professions } from '../../data/professions';
 import { theme } from '../../theme';
 
 export default function ProviderProfile() {
-  const { slug } = useLocalSearchParams<{ slug: string }>();
+  const { slug,edit } = useLocalSearchParams<{ slug: string; edit?:string }>();
   const { t, language } = useLanguage();
+  const [qualifications,setQualifications]=useState<Awaited<ReturnType<typeof publicQualifications>>>([]);
   const [owner, setOwner] = useState<EditableProfile | null>(null);
-  const [editing, setEditing] = useState(false);
+  const [editing, setEditing] = useState(edit==='1');
   const [revision, setRevision] = useState(0);
   const [offerings, setOfferings] = useState<Offering[]>([]);
   const [reviews, setReviews] = useState<PublicReview[]>([]);
@@ -26,7 +31,7 @@ export default function ProviderProfile() {
   const [provider, setProvider] = useState<ProviderDetail | null>(null);
   const [loadedSlug, setLoadedSlug] = useState<string | null>(null);
   const loading = typeof slug === 'string' && loadedSlug !== slug;
-  useEffect(() => {
+  useFocusEffect(useCallback(() => {
     let active = true;
     if (typeof slug !== 'string') return;
     providerBySlug(slug).then(async row => {
@@ -34,31 +39,34 @@ export default function ProviderProfile() {
       setProvider(row); setSkills([]); setSkillsFailed(false);
       setOwner(null); setOfferings([]); setReviews([]); setDetailsFailed(false); setReviewPage(0);
       if (row) {
-        const results = await Promise.allSettled([editableProfile(row.id), serviceOfferings(row.id), providerReviews(row.id)]);
+        const results = await Promise.allSettled([editableProfile(row.id), serviceOfferings(row.id), providerReviews(row.id),publicQualifications(row.id)]);
         if (!active) return;
         if (results[0].status === "fulfilled") setOwner(results[0].value);
         if (results[1].status === "fulfilled") setOfferings(results[1].value);
         if (results[2].status === "fulfilled") { setReviews(results[2].value); setMoreReviews(results[2].value.length === 20); }
+        if(results[3].status==="fulfilled")setQualifications(results[3].value);
         setDetailsFailed(results.slice(1).some(result => result.status === "rejected"));
         try { const next = await publicProviderSkills(row.id); if (active) setSkills(next); }
         catch { if (active) setSkillsFailed(true); }
       }
     }).catch(() => { if (active) setProvider(null); }).finally(() => { if (active) setLoadedSlug(slug); });
     return () => { active = false; };
-  }, [slug, revision]);
+  // The revision counter deliberately reloads the profile after saving.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [slug, revision]));
   if (loading) return <ActivityIndicator style={styles.loading} color={theme.goldText} />;
   if (!provider) return <Text style={styles.missing}>{t('profileMissing')}</Text>;
   if (editing && owner) return <ScrollView contentContainerStyle={{padding:18,paddingBottom:40}}><ProfileEditor initial={owner} offerings={offerings} onOfferingsChange={async()=>setOfferings(await serviceOfferings(provider.id))} onDone={()=>{setEditing(false);setRevision(value=>value+1);}}/></ScrollView>;
   return <ScrollView contentContainerStyle={styles.content}>
-    {!!provider.cover_image && <Image source={{uri:provider.cover_image}} style={{width:"100%",height:180}} accessibilityLabel={t("coverPhoto")}/> }
+    <View style={styles.cover}>{provider.cover_image && <Image source={{uri:provider.cover_image}} style={StyleSheet.absoluteFill} accessibilityLabel={t('coverPhoto')}/>}</View>
     <View style={styles.banner}>
       {provider.profile_image ? <Image source={{ uri: provider.profile_image }} style={styles.avatar} />
         : <View style={[styles.avatar, styles.blank]}><Text style={styles.initial}>{provider.name.slice(0, 1)}</Text></View>}
       <Text style={styles.name}>{provider.name}</Text>
-      <Text style={styles.kind}>{provider.provider_type.replace(/_/g, ' ')}</Text>
+      <Text style={styles.kind}>{professions.find(p=>p.value===provider.provider_type)?.[language] || provider.provider_type.replace(/_/g, ' ')}</Text>
     </View>
-    {owner && <Pressable accessibilityRole="button" style={styles.card} onPress={()=>setEditing(true)}><Text style={styles.title}>{t('editProfile')}</Text></Pressable>}
-    {!!provider.gallery?.length && <View style={styles.card}><Text style={styles.title}>{t('portfolio')}</Text><ScrollView horizontal showsHorizontalScrollIndicator={false}>{provider.gallery.map((url,index)=><Image key={`${url}-${index}`} source={{uri:url}} style={styles.galleryImage} accessibilityLabel={`${t('portfolio')} ${index+1}`}/>)}</ScrollView></View>}
+    {owner && <Pressable accessibilityRole="button" style={styles.card} onPress={()=>setEditing(true)}><AppIcon name="edit"/><Text style={styles.title}>{t('editProfile')}</Text></Pressable>}
+    {!!provider.gallery?.length && <View style={styles.card}><Text style={styles.title}>{t('portfolio')}</Text><PhotoCarousel images={provider.gallery} label={t('portfolio')}/></View>}
     <View style={styles.card}>
       <Text style={styles.title}>{t('reputation')}</Text><ProviderEvidence provider={provider} detailed details={provider.badges}/>
       <Text style={styles.title}>{t('customerReviews')}</Text>
@@ -79,6 +87,9 @@ export default function ProviderProfile() {
       <Text style={styles.body}>{item.amount!==null?`LKR ${item.amount.toLocaleString()}${item.maximum_amount!==null?` – ${item.maximum_amount.toLocaleString()}`:''} · `:''}{t(priceLabels[item.pricing_model])}{item.unit_label?` · ${item.unit_label}`:''}{item.duration_minutes?` · ${item.duration_minutes} ${t('minutes')}`:''}</Text>
     </View>)}</View>}
     <View style={styles.card}>
+      <Text style={styles.title}>{t('skillsAndCertificates')}</Text>
+      {!qualifications.length&&<Text style={styles.body}>{t('noCertificates')}</Text>}
+      {qualifications.map(item=><View key={item.credential_id} style={{paddingVertical:10}}><AppIcon name="certificate"/><Text style={styles.title}>{item.qualification_name}</Text><Text style={styles.body}>{[item.field,item.level,item.issuing_organization].filter(Boolean).join(' · ')}</Text><Text style={styles.evidence}>{t(item.expiry_date&&item.expiry_date<new Date().toISOString().slice(0,10)?'credentialExpired':item.status==='verified'?'credentialVerified':'certificateUnverified')}</Text></View>)}
       <Text style={styles.title}>{t('location')}</Text>
       <Text style={styles.body}>{[provider.city, provider.district].filter(Boolean).join(' · ') || '—'}</Text>
       <Text style={styles.title}>{t('services')}</Text>
@@ -100,10 +111,10 @@ export default function ProviderProfile() {
   </ScrollView>;
 }
 const styles = StyleSheet.create({
-  loading: { flex: 1 }, missing: { padding: 24, color: theme.muted }, content: { paddingBottom: 30 },
-  banner: { backgroundColor: theme.ink, padding: 24, alignItems: 'center' }, avatar: { height: 100, width: 100, borderRadius: 20 },
+  loading: { flex: 1 }, missing: { padding: 24, color: theme.muted }, content: { paddingBottom: 30,width:'100%',maxWidth:760,alignSelf:'center' },
+  cover: {height:170,backgroundColor:theme.ink}, banner: { backgroundColor: theme.white, paddingHorizontal:24,paddingBottom:20, alignItems: 'center' }, avatar: { height: 96, width: 96, borderRadius: 24,marginTop:-48,borderWidth:4,borderColor:theme.white },
   blank: { backgroundColor: theme.gold, justifyContent: 'center', alignItems: 'center' }, initial: { fontSize: 40, color: theme.ink },
-  name: { fontSize: 25, fontWeight: '800', color: theme.white, marginTop: 15 }, kind: { fontSize: 16, color: theme.gold, marginTop: 5 },
+  name: { fontSize: 25, fontWeight: '800', color: theme.ink, marginTop: 12 }, kind: { fontSize: 16, color: theme.muted, marginTop: 5 },
   card: { margin: 18, padding: 22, borderRadius: 15, backgroundColor: theme.white, borderWidth: 1, borderColor: theme.line },
   title: { fontSize: 16, fontWeight: '700', color: theme.ink, marginTop: 14, marginBottom: 5 },
   body: { fontSize: 16, lineHeight: 24, color: theme.muted }, evidence: { color: theme.muted, marginTop: 22, fontSize: 13 },

@@ -48,7 +48,7 @@ function DiscoveryResults({ initialQuery, profession }: { initialQuery: string; 
         <Text style={styles.heading}>{category ? category[language] : t('find')}</Text>
         <Text style={styles.label}>{t('search')}</Text>
         <View style={styles.searchRow}>
-          <TextInput style={styles.input} value={query} onChangeText={setQuery} onSubmitEditing={search}
+          <TextInput style={styles.input} value={query} maxLength={200} onChangeText={setQuery} onSubmitEditing={search}
             placeholder={t('searchHint')} placeholderTextColor={theme.placeholder} returnKeyType="search" autoCapitalize="none" accessibilityLabel={t('search')} />
           <Pressable onPress={search} style={styles.searchButton} accessibilityRole="button"><Text style={styles.searchText}>{t('searchButton')}</Text></Pressable>
         </View>
