@@ -1,5 +1,13 @@
 # Provider growth flow — 5 October 2026
 
+## Deployment checkpoint
+
+- PR #125 merged as `33e4155877b1275afaa1daf89d63e6081863ed29` after both GitHub CI jobs passed (tests, Astro build/runtime checks, mobile typecheck/lint and web/Android/iOS exports).
+- Cloudflare deployment run `37358995577` succeeded. The live `/post-project` page was inspected and shows the required 1–5 photo upload and signed-out publishing restriction.
+- Both safeguards and photo-requirement migrations are applied. The live `new_job_photos_guard` trigger is enabled. Existing jobs are grandfathered.
+- Expo workflow `01a10d64-4781-7e69-bd08-9151bbf3a7c7` was queued with an estimated 111-minute free-tier wait. The new mobile preview has not yet been visually accepted; do not present the old preview as this release.
+- No production accounts, certificates or jobs were created/deleted for testing. Authenticated native acceptance below remains outstanding.
+
 ## Scope and evidence
 
 Keep one app with Homeowner/Provider switching. Registration remains free, minimal and moderated. No qualification is needed to list a skill; unverified certificates never earn badges. No paywall or first-three-month expiry was introduced.
