@@ -4,7 +4,7 @@ import { Platform } from 'react-native';
 import { supabase } from './supabase';
 export type CredentialType = 'identity' | 'credential' | 'licence' | 'business' | 'industry_registration';
 export type Credential = {
- id: string; provider_id: string; user_id: string; credential_type: CredentialType; qualification_name: string;
+ public_listing: boolean; id: string; provider_id: string; user_id: string; credential_type: CredentialType; qualification_name: string;
  field: string | null; level: string | null; issuing_organization: string; issuer_id: string | null;
  certificate_number: string | null; issue_date: string | null; expiry_date: string | null; document_path: string | null;
  status: 'self_reported' | 'pending' | 'verified' | 'rejected'; verification_method: string | null;
@@ -21,11 +21,16 @@ export async function trustedIssuers() {
  if(error) throw error; return data;
 }
 export async function addCredential(input: CredentialInput) {
- const { error }=await supabase.from('provider_credentials').insert(input);
- if(error) throw error;
-}
-export async function uploadCredential(credential: Credential) {
  const result=await DocumentPicker.getDocumentAsync({type:['application/pdf','image/jpeg','image/png'],multiple:false,copyToCacheDirectory:true,base64:false});
+ if(result.canceled)return false;
+ const {data,error}=await supabase.from('provider_credentials').insert({...input,public_listing:['credential','licence','industry_registration'].includes(input.credential_type)}).select('*').single();
+ if(error||!data)throw error||new Error('not_saved');
+ await uploadCredential(data,result);
+ await submitCredential(data.id);
+ return true;
+}
+export async function uploadCredential(credential: Credential, selected?:DocumentPicker.DocumentPickerSuccessResult) {
+ const result=selected||await DocumentPicker.getDocumentAsync({type:['application/pdf','image/jpeg','image/png'],multiple:false,copyToCacheDirectory:true,base64:false});
  if(result.canceled) return;
  const asset=result.assets[0];
  const localFile=Platform.OS==='web' ? null : new File(asset.uri);
@@ -52,3 +57,9 @@ export async function submitCredential(id: string) {
 export function credentialStatus(row: Credential) {
  return row.status==='verified' && row.expiry_date && row.expiry_date < new Date(Date.now()+5.5*60*60*1000).toISOString().slice(0,10) ? 'expired' : row.status;
 }
+
+export async function publicQualifications(providerId:string){
+ const {data,error}=await supabase.from('provider_qualification_summaries').select('credential_id,qualification_name,field,level,issuing_organization,status,expiry_date').eq('provider_id',providerId).order('qualification_name');
+ if(error)throw error;return data;
+}
+export type PublicQualification={credential_id:string;provider_id:string;qualification_name:string;field:string|null;level:string|null;issuing_organization:string;status:'pending'|'verified';expiry_date:string|null};

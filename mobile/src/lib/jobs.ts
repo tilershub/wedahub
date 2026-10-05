@@ -2,11 +2,11 @@ import type { Database } from '../types/database';
 import { supabase } from './supabase';
 
 export type Job = Pick<Database['public']['Tables']['projects']['Row'],
-  'id' | 'project_type' | 'city' | 'district' | 'description' | 'budget_range' | 'status' | 'created_at' | 'user_id'>;
+  'id' | 'project_type' | 'city' | 'district' | 'description' | 'budget_range' | 'status' | 'created_at' | 'user_id' | 'images'>;
 export type Bid = Pick<Database['public']['Tables']['bids']['Row'],
   'id' | 'job_id' | 'bidder_name' | 'message' | 'status' | 'quote_amount' | 'created_at' | 'user_id' | 'provider_slug'>;
 
-const projectColumns = 'id,project_type,city,district,description,budget_range,status,created_at,user_id';
+const projectColumns = 'id,project_type,city,district,description,budget_range,status,created_at,user_id,images';
 const bidColumns = 'id,job_id,bidder_name,message,status,quote_amount,created_at,user_id,provider_slug';
 
 export async function availableJobs(): Promise<Job[]> {
@@ -40,10 +40,13 @@ export async function bidsForProjects(projectIds: string[]): Promise<Bid[]> {
 
 export async function createProject(fields: {
   userId: string; customerName: string; phone: string; service: string;
-  city: string; description: string; budget?: string;
+  city: string; description: string; budget?: string; images: string[];
 }) {
+  if(fields.images.length<1||fields.images.length>5)throw new Error('photos_required');
+  const {data:{user},error:authError}=await supabase.auth.getUser();
+  if(authError||!user)throw new Error('sign_in_required');
   const { error } = await supabase.from('projects').insert({
-    user_id: fields.userId, customer_name: fields.customerName.trim(), whatsapp: fields.phone,
+    user_id: user.id, images:fields.images, customer_name: fields.customerName.trim(), whatsapp: fields.phone,
     project_type: fields.service.trim(), city: fields.city.trim(), description: fields.description.trim(),
     budget_range: fields.budget?.trim() || null, status: 'active',
   });

@@ -4,6 +4,7 @@ import { Image, Pressable, Text, TextInput, View } from 'react-native';
 import { useLanguage } from '../i18n';
 import { pickProfileImage, saveProfile, type EditableProfile, type Offering } from '../lib/profile-editing';
 import { editorStyles as s } from './profile-editor-styles';
+import { AppIcon } from './AppIcon';
 import { ServiceAreaEditor } from './ServiceAreaEditor';
 import { OfferingEditor } from './OfferingEditor';
 export function ProfileEditor({initial,offerings,onOfferingsChange,onDone}:{initial:EditableProfile;offerings:Offering[];onOfferingsChange:()=>Promise<void>;onDone:()=>void}){
@@ -34,8 +35,10 @@ export function ProfileEditor({initial,offerings,onOfferingsChange,onDone}:{init
    {(profile.gallery||[]).map((url,index)=><View key={`${url}-${index}`}><Image source={{uri:url}} style={s.photo}/><Pressable accessibilityRole="button" style={s.secondary} disabled={busy} onPress={()=>void run(()=>save({gallery:profile.gallery!.filter((_,i)=>i!==index)}))}><Text>{t('removeFromProfile')}</Text></Pressable></View>)}
    <Pressable accessibilityRole="button" style={s.button} disabled={busy||(profile.gallery?.length||0)>=24} onPress={()=>void run(()=>photo('portfolio'))}><Text style={s.buttonText}>{t('addPortfolioPhoto')}</Text></Pressable>
   </View>
+  <Text style={s.title}>{t('services')}</Text>
   <OfferingEditor providerId={profile.id} rows={offerings} onChange={onOfferingsChange}/>
   <ServiceAreaEditor providerId={profile.id} initialAreas={profile.service_areas||[]}/>
+  <Text style={s.title}>{t('skillsAndCertificates')}</Text><AppIcon name="certificate"/>
   <Link href="/my-profiles" style={s.secondary}>{t('editSkills')}</Link>
   <Link href={{pathname:'/credentials',params:{providerId:profile.id}}} style={s.secondary}>{t('credentials')}</Link>
  </View>;

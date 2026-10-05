@@ -1,11 +1,14 @@
 import type { User } from '@supabase/supabase-js';
 import { useFocusEffect } from 'expo-router';
-import { useCallback, useState } from 'react';
-import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { useCallback, useRef, useState } from 'react';
+import { ActivityIndicator, Image, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useLanguage } from '../../i18n';
 import { availableJobs, createProject, expressInterest, type Job } from '../../lib/jobs';
 import { configured, supabase } from '../../lib/supabase';
 import { useMode } from '../../mode';
+import { uploadJobPhoto } from '../../lib/job-photos';
+import { PhotoCarousel } from '../../components/PhotoCarousel';
+import { AppIcon } from '../../components/AppIcon';
 import { theme } from '../../theme';
 
 type Profile = { id: string; name: string; slug: string; services: string[] | null; city: string | null; status: string; claim_status: string };
@@ -13,6 +16,8 @@ type Profile = { id: string; name: string; slug: string; services: string[] | nu
 export default function Jobs() {
   const { t } = useLanguage();
   const { mode } = useMode();
+  const [images,setImages]=useState<string[]>([]);
+  const submitLock=useRef(false);
   const [user, setUser] = useState<User | null>(null);
   const [jobs, setJobs] = useState<Job[]>([]);
   const [profiles, setProfiles] = useState<Profile[]>([]);
@@ -49,14 +54,16 @@ export default function Jobs() {
     (profile.services || []).some(serviceName => serviceName.length > 2 && value.toLocaleLowerCase().includes(serviceName.toLocaleLowerCase())));
   const ordered = mode === 'provider' ? [...jobs].sort((a, b) => Number(relevant(b)) - Number(relevant(a))) : jobs;
   const submitProject = async () => {
+    if(submitLock.current)return;
     if (!user) { setError(t('signInRequired')); return; }
+    if(images.length<1||images.length>5){setError(t('jobPhotosHelp'));return;}
     if (!service.trim() || !city.trim() || description.trim().length < 20 || !customerName.trim()) { setError(t('jobValidation')); return; }
-    setBusy(true); setError('');
+    submitLock.current=true;setBusy(true); setError('');
     try {
-      await createProject({ userId: user.id, customerName, phone: user.phone || '', service, city, description, budget });
-      setFormOpen(false); setService(''); setCity(''); setDescription(''); setBudget(''); setNotice(t('jobPosted'));
+      await createProject({ userId: user.id, customerName, phone: user.phone || '', service, city, description, budget, images });
+      setFormOpen(false); setImages([]); setService(''); setCity(''); setDescription(''); setBudget(''); setNotice(t('jobPosted'));
       await refresh();
-    } catch { setError(t('saveFailed')); } finally { setBusy(false); }
+    } catch { setError(t('saveFailed')); } finally { submitLock.current=false;setBusy(false); }
   };
   const apply = async (job: Job) => {
     if (!user || !profile || profile.status !== 'active' || profile.claim_status !== 'claimed') { setError(t('activeProfileRequired')); return; }
@@ -80,8 +87,11 @@ export default function Jobs() {
         <Field label={t('city')} value={city} onChangeText={setCity} />
         <Field label={t('yourName')} value={customerName} onChangeText={setCustomerName} />
         <Field label={t('description')} value={description} onChangeText={setDescription} multiline />
+        <Text style={styles.label}>{t('jobPhotos')}</Text><Text style={styles.subtitle}>{t('jobPhotosHelp')}</Text>
+        <ScrollView horizontal>{images.map((uri,index)=><View key={uri} style={{marginRight:8}}><Image source={{uri}} style={{width:110,height:90,borderRadius:9}}/><Pressable accessibilityRole="button" accessibilityLabel={`${t('removePhoto')} ${index+1}`} style={styles.secondary} disabled={busy} onPress={()=>setImages(rows=>rows.filter((_,i)=>i!==index))}><AppIcon name="close"/></Pressable></View>)}</ScrollView>
+        <Pressable accessibilityRole="button" accessibilityLabel={t('addJobPhoto')} style={styles.secondary} disabled={busy||!user||images.length>=5} onPress={async()=>{if(submitLock.current)return;submitLock.current=true;setBusy(true);setError('');try{const uri=await uploadJobPhoto();if(uri)setImages(rows=>[...rows,uri]);}catch{setError(t('photoUploadFailed'));}finally{submitLock.current=false;setBusy(false);}}}><AppIcon name="camera"/><Text>{t('addJobPhoto')}</Text></Pressable>
         <Field label={t('budgetOptional')} value={budget} onChangeText={setBudget} />
-        <Pressable style={styles.primary} disabled={busy || !user} onPress={() => void submitProject()} accessibilityRole="button"><Text style={styles.primaryText}>{busy ? t('saving') : t('publishJob')}</Text></Pressable>
+        <Pressable style={styles.primary} disabled={busy || !user || images.length<1} onPress={() => void submitProject()} accessibilityRole="button"><Text style={styles.primaryText}>{busy ? t('saving') : t('publishJob')}</Text></Pressable>
       </View>}
     </>}
     {mode === 'provider' && <View style={styles.form}>
@@ -96,6 +106,7 @@ export default function Jobs() {
     {ordered.map(job => <View key={job.id} style={styles.card}>
       {mode === 'provider' && relevant(job) && <Text style={styles.match}>{t('matchingSkill')}</Text>}
       <Text style={styles.jobTitle}>{job.project_type}</Text>
+      {!!job.images?.length&&<PhotoCarousel images={job.images} label={t('jobPhotos')}/>}
       <Text style={styles.meta}>{job.city}{job.district ? ` • ${job.district}` : ''}{job.budget_range ? ` • ${job.budget_range}` : ''}</Text>
       {!!job.description && <Text style={styles.body}>{job.description}</Text>}
       {mode === 'provider' && user && profile && job.user_id !== user.id && <>
