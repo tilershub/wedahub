@@ -1,5 +1,5 @@
 import type { User } from '@supabase/supabase-js';
-import { useFocusEffect } from 'expo-router';
+import { Link, useFocusEffect } from 'expo-router';
 import { useCallback, useRef, useState } from 'react';
 import { ActivityIndicator, Image, Pressable, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
 import { useLanguage } from '../../i18n';
@@ -82,7 +82,7 @@ export default function Jobs() {
     {mode === 'customer' && <>
       <Pressable style={styles.primary} onPress={() => setFormOpen(value => !value)} accessibilityRole="button"><Text style={styles.primaryText}>{t('postJob')}</Text></Pressable>
       {formOpen && <View style={styles.form}>
-        {!user && <Text style={styles.error}>{t('signInRequired')}</Text>}
+        {!user && <><Text style={styles.error}>{t('signInRequired')}</Text><Link href="/account" asChild><Pressable style={styles.primary}><Text style={styles.primaryText}>{t('signIn')}</Text></Pressable></Link></>}
         <Field label={t('service')} value={service} onChangeText={setService} />
         <Field label={t('city')} value={city} onChangeText={setCity} />
         <Field label={t('yourName')} value={customerName} onChangeText={setCustomerName} />
@@ -94,10 +94,13 @@ export default function Jobs() {
         <Pressable style={styles.primary} disabled={busy || !user || images.length<1} onPress={() => void submitProject()} accessibilityRole="button"><Text style={styles.primaryText}>{busy ? t('saving') : t('publishJob')}</Text></Pressable>
       </View>}
     </>}
-    {mode === 'provider' && <View style={styles.form}>
+    {mode === 'provider' && !loading && <View style={styles.form}>
+      {!user ? <><Text style={styles.subtitle}>{t('signInRequired')}</Text><Link href="/account" asChild><Pressable style={styles.primary}><Text style={styles.primaryText}>{t('signIn')}</Text></Pressable></Link></> : <>
       <Text style={styles.label}>{t('chooseProfile')}</Text>
       {profiles.length ? profiles.map(p => <Pressable key={p.id} onPress={() => setSelected(p.id)} style={[styles.chip, p.id === selected && styles.chipActive]} accessibilityRole="button" accessibilityState={{ selected: p.id === selected }}><Text style={p.id === selected ? styles.chipActiveText : styles.chipText}>{p.name}</Text></Pressable>) : <Text style={styles.subtitle}>{t('noOwnedProfiles')}</Text>}
+      {!profiles.length && <Link href="/register-provider" asChild><Pressable style={styles.primary}><Text style={styles.primaryText}>{t('registerProvider')}</Text></Pressable></Link>}
       {profile && <Text style={styles.subtitle}>{t('matchingHint')}</Text>}
+      </>}
     </View>}
     {!!notice && <Text accessibilityRole="alert" style={styles.success}>{notice}</Text>}
     {!!error && <Pressable onPress={() => void refresh()}><Text accessibilityRole="alert" style={styles.error}>{error} {t('tryAgain')}</Text></Pressable>}
